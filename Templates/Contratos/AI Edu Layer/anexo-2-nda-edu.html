@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexo 2 – Acuerdo de Confidencialidad (NDA) - Workshop: Think AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 25mm 30mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: white;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 25mm 30mm;
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #7C3AED;
+            margin-bottom: 30px;
+        }
+
+        .document-header img {
+            height: 30px;
+        }
+
+        .document-header .doc-title {
+            font-size: 10px;
+            color: #6b7280;
+            text-align: right;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contract-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contract-subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 6px;
+        }
+
+        h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .sub-clause {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .sub-clause p {
+            margin-bottom: 6px;
+        }
+
+        .bold {
+            font-weight: 600;
+        }
+
+        .placeholder {
+            background-color: #f3f0ff;
+            color: #7C3AED;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+            font-family: 'Inter', monospace;
+            font-size: 10px;
+        }
+
+        .bullet-list {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 4px;
+            list-style-type: disc;
+        }
+
+        .signature-block {
+            margin-top: 50px;
+            page-break-inside: avoid;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        .signature-party {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 10px;
+        }
+
+        .signature-party p {
+            text-align: left;
+            margin-bottom: 3px;
+            font-size: 10px;
+        }
+
+        .signature-party .party-name {
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .signature-line {
+            margin-top: 50px;
+            border-bottom: 1px solid #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .document-footer { margin-top:40px;
+
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .document-footer img { display:block; margin:0 auto;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .document-footer .page-number {
+            font-size: 9px;
+            color: #9ca3af;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                max-width: none;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+
+            .signature-block {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-header">
+        <div style="font-family:'Inter',sans-serif; font-size:14px; font-weight:800; color:#7C3AED; letter-spacing:1px; text-transform:lowercase;">irrelevant club sas</div>
+        <div class="doc-title">Anexo 2 – Acuerdo de Confidencialidad (NDA)</div>
+    </div>
+
+    <div class="contract-title">Anexo 2 – Acuerdo de Confidencialidad (NDA)</div>
+    <div class="contract-subtitle">Contrato de Prestación de Servicios de Capacitación en Inteligencia Artificial</div>
+
+    <p>El presente Acuerdo de Confidencialidad (en adelante, el "NDA") se celebra entre <strong>IRRELEVANT CLUB S.A.S.</strong> y <strong><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></strong> (conjuntamente, las "PARTES"), y hace parte integral del Contrato de Prestación de Servicios de Capacitación en Inteligencia Artificial (en adelante, el "Contrato").</p>
+
+    <!-- SECCIÓN 1 -->
+    <h2>1. Objeto</h2>
+
+    <p>El presente NDA tiene por objeto regular las condiciones bajo las cuales LAS PARTES tendrán acceso, conocimiento, uso y tratamiento de la Información Confidencial de la otra Parte, con ocasión de la ejecución del Contrato, garantizando su protección, uso limitado y no divulgación.</p>
+
+    <!-- SECCIÓN 2 -->
+    <h2>2. Definición de Información Confidencial</h2>
+
+    <p>Para efectos del presente NDA, se entenderá como Información Confidencial toda información de cualquiera de LAS PARTES que sea revelada a la otra, ya sea de forma oral, escrita, digital, visual o por cualquier otro medio, incluyendo, sin limitarse a:</p>
+
+    <h3>2.1 Información Confidencial del CLIENTE</h3>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Procesos internos, flujos operativos, metodologías, políticas y procedimientos del CLIENTE.</p>
+        <p><strong>b)</strong> Datos e información interna utilizada para la personalización del contenido del Workshop.</p>
+        <p><strong>c)</strong> Información de los participantes del Workshop, incluyendo nombres, cargos, datos de contacto y cualquier dato personal.</p>
+        <p><strong>d)</strong> Información comercial, estratégica y operativa del CLIENTE revelada durante la sesión previa de contexto.</p>
+        <p><strong>e)</strong> Casos de uso, escenarios y ejemplos propios de la operación del CLIENTE utilizados durante los ejercicios prácticos.</p>
+        <p><strong>f)</strong> Cualquier otra información que, por su naturaleza, deba razonablemente considerarse confidencial.</p>
+    </div>
+
+    <h3>2.2 Información Confidencial de IRRELEVANT</h3>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> El contenido, estructura, metodología y materiales del Workshop: Think AI, incluyendo presentaciones, guías, ejercicios, frameworks y técnicas de prompting.</p>
+        <p><strong>b)</strong> Las herramientas, modelos, prompts, flujos y frameworks propietarios de IRRELEVANT.</p>
+        <p><strong>c)</strong> La información comercial, estratégica y de precios de IRRELEVANT.</p>
+        <p><strong>d)</strong> Cualquier otra información que, por su naturaleza, deba razonablemente considerarse confidencial.</p>
+    </div>
+
+    <p>La Información Confidencial mantendrá tal carácter independientemente de que se encuentre marcada o no como "confidencial".</p>
+
+    <!-- SECCIÓN 3 -->
+    <h2>3. Obligaciones de Confidencialidad</h2>
+
+    <p>Cada una de LAS PARTES se obliga a:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Utilizar la Información Confidencial de la otra Parte exclusivamente para los fines del Contrato.</p>
+        <p><strong>b)</strong> No divulgar, revelar, transferir o poner a disposición de terceros la Información Confidencial sin autorización previa y expresa de la Parte titular.</p>
+        <p><strong>c)</strong> Proteger la Información Confidencial con un grado de diligencia razonable, al menos equivalente al utilizado para proteger su propia información confidencial.</p>
+        <p><strong>d)</strong> Limitar el acceso a la Información Confidencial únicamente a empleados, contratistas o participantes que requieran conocerla para los fines del Contrato, quienes estarán sujetos a obligaciones de confidencialidad equivalentes.</p>
+    </div>
+
+    <p>Adicionalmente, el CLIENTE se obliga a:</p>
+
+    <div class="sub-clause">
+        <p><strong>e)</strong> No reproducir, distribuir, publicar ni compartir los materiales, presentaciones, guías o cualquier contenido del Workshop sin autorización previa y escrita de IRRELEVANT.</p>
+        <p><strong>f)</strong> No grabar el Workshop (audio, video o cualquier otro formato) sin autorización previa y escrita de IRRELEVANT, conforme a lo establecido en la Cláusula 9 del Contrato.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECCIÓN 4 -->
+    <h2>4. Exclusiones de Confidencialidad</h2>
+
+    <p>Las obligaciones previstas en el presente NDA no aplicarán respecto de información que:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Sea de dominio público sin incumplimiento del presente NDA.</p>
+        <p><strong>b)</strong> Haya sido conocida legítimamente por la Parte receptora con anterioridad a su revelación por parte de la Parte divulgante.</p>
+        <p><strong>c)</strong> Sea obtenida de un tercero que no esté sujeto a obligación de confidencialidad.</p>
+        <p><strong>d)</strong> Deba ser revelada por mandato legal, judicial o administrativo, caso en el cual la Parte obligada deberá notificar previamente a la otra Parte, salvo prohibición legal.</p>
+    </div>
+
+    <!-- SECCIÓN 5 -->
+    <h2>5. Propiedad de la Información</h2>
+
+    <p>Toda la Información Confidencial será y seguirá siendo de propiedad exclusiva de la Parte que la haya revelado.</p>
+
+    <p>El presente NDA no otorga licencia, cesión ni derecho alguno sobre la Información Confidencial, más allá de lo estrictamente necesario para la ejecución del Contrato.</p>
+
+    <p>En particular, LAS PARTES reconocen que los materiales del Workshop, las metodologías, presentaciones, guías y contenido didáctico son y seguirán siendo propiedad exclusiva de IRRELEVANT.</p>
+
+    <!-- SECCIÓN 6 -->
+    <h2>6. Información y Tecnología de IRRELEVANT</h2>
+
+    <p>LAS PARTES reconocen que:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Las metodologías, herramientas, modelos, la arquitectura, la lógica de los ejercicios, los prompts, flujos, frameworks, presentaciones y materiales de IRRELEVANT constituyen propiedad intelectual de IRRELEVANT y son, además, Información Confidencial protegida por el presente NDA.</p>
+        <p><strong>b)</strong> IRRELEVANT conserva en todo momento la propiedad intelectual sobre sus desarrollos, herramientas, contenidos y know-how, sin perjuicio de las obligaciones de confidencialidad aquí establecidas.</p>
+    </div>
+
+    <!-- SECCIÓN 7 -->
+    <h2>7. Protección de Datos Personales</h2>
+
+    <p>Cuando la Información Confidencial incluya datos personales, IRRELEVANT actuará como Encargado del Tratamiento, conforme a lo dispuesto en el Contrato y la legislación colombiana vigente, obligándose a:</p>
+
+    <ul class="bullet-list">
+        <li>Tratar los datos únicamente conforme a las instrucciones del CLIENTE.</li>
+        <li>No utilizar los datos para fines distintos a los del Contrato.</li>
+        <li>Implementar medidas de seguridad razonables para su protección.</li>
+        <li>No conservar datos personales de los participantes una vez finalizado el Contrato, salvo obligación legal.</li>
+    </ul>
+
+    <!-- SECCIÓN 8 -->
+    <h2>8. Vigencia de la Confidencialidad</h2>
+
+    <p>Las obligaciones de confidencialidad establecidas en el presente NDA:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Entrarán en vigor desde el momento de la primera revelación de Información Confidencial.</p>
+        <p><strong>b)</strong> Permanecerán vigentes durante la ejecución del Contrato y por un período de cinco (5) años contados a partir de su terminación, cualquiera que sea la causa.</p>
+    </div>
+
+    <!-- SECCIÓN 9 -->
+    <h2>9. Incumplimiento</h2>
+
+    <p>El incumplimiento de las obligaciones de confidencialidad dará lugar a:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Responsabilidad contractual conforme al Contrato.</p>
+        <p><strong>b)</strong> La posibilidad de exigir indemnización por los perjuicios causados.</p>
+        <p><strong>c)</strong> La adopción de medidas judiciales o cautelares para proteger la Información Confidencial.</p>
+    </div>
+
+    <p>En particular, la grabación, reproducción o distribución no autorizada de los materiales o contenido del Workshop por parte del CLIENTE constituirá un incumplimiento grave del presente NDA y del Contrato.</p>
+
+    <!-- SECCIÓN 10 -->
+    <h2>10. Ley Aplicable</h2>
+
+    <p>El presente NDA se regirá e interpretará de conformidad con las leyes de la República de Colombia, y cualquier controversia se someterá a la jurisdicción establecida en el Contrato.</p>
+
+    <!-- SECCIÓN 11 -->
+    <h2>11. Firma Digital y Aceptación</h2>
+
+    <p>El presente Anexo 2 – Acuerdo de Confidencialidad (NDA) será suscrito mediante firma electrónica o digital, con plena validez jurídica conforme a la legislación colombiana vigente.</p>
+
+    <p>En constancia de aceptación, LAS PARTES firman electrónicamente el presente NDA en la fecha que conste en el mecanismo de firma utilizado.</p>
+
+    <!-- FIRMAS -->
+    <div class="signature-block">
+        <div class="signature-grid">
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name">IRRELEVANT CLUB S.A.S.</p>
+                <p>NIT: 901.935.642-1</p>
+                <p>Representante Legal: Juan Pablo Gómez Mejía</p>
+                <p>C.C. 1006972309</p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name"><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></p>
+                <p>NIT: <span class="placeholder">{{CLIENTE_NIT}}</span></p>
+                <p>Representante Legal: <span class="placeholder">{{CLIENTE_REPRESENTANTE}}</span></p>
+                <p>C.C. <span class="placeholder">{{CLIENTE_CEDULA}}</span></p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <img src="https://storage.googleapis.com/cluvi/Audios_Cata/profile_irrelevant.jpeg" alt="Irrelevant">
+        <div class="page-number">Anexo 2 – Acuerdo de Confidencialidad (NDA) — IRRELEVANT CLUB S.A.S.</div>
+    </div>
+
+</body>
+</html>

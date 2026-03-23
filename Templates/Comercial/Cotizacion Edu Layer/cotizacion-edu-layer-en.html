@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Quote &mdash; Think AI Workshop &mdash; Edu Layer | {{EMPRESA}} | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== COVER ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px; object-fit: contain;
+    opacity: 0.95;
+    
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page h4:first-child { margin-top: 0; }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== EXEC SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card-grid.single-col {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul { margin-left: 14px; }
+
+  /* ===================== COST BLOCK ===================== */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== SIGNATURE BLOCK ===================== */
+  .signature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 20px;
+  }
+
+  .signature-side {
+    text-align: center;
+  }
+
+  .signature-side .sig-line {
+    width: 100%;
+    height: 1px;
+    background: var(--gris-claro);
+    margin-bottom: 10px;
+    margin-top: 60px;
+  }
+
+  .signature-side .sig-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 2px;
+  }
+
+  .signature-side .sig-role {
+    font-size: 9px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px; left: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 80px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .back-cover-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-cover-content .back-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .cover-title { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- COVER                                                          -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Service Quote</div>
+      <div class="cover-title">Workshop: Think AI<br>Edu Layer</div>
+      <div class="cover-subtitle">{{EMPRESA}}</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>{{FECHA}} | CONFIDENTIAL</span>
+        <span>Prepared by Irrelevant</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 01 - SUMMARY                                              -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Summary</span>
+    </div>
+    <span class="page-header-num">PAGE 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>What is Think AI</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>A <strong>3-hour workshop</strong> where your team goes from not understanding AI to thinking and solving problems with it. This is not a motivational talk or a theoretical lecture &mdash; it&rsquo;s a hands-on session where every participant finishes using AI tools applied to their actual work.</p>
+    </div>
+
+    <h4>Why this workshop</h4>
+    <div class="gradient-line"></div>
+
+    <p>Most teams know AI exists, but they don&rsquo;t know how to use it day to day. The problem isn&rsquo;t the technology &mdash; it&rsquo;s the way they think. This workshop changes that.</p>
+
+    <div class="highlight-box">
+      <p>Your team doesn&rsquo;t need to become AI experts. They need to learn to <strong>think with AI</strong> to solve the problems they already face every day.</p>
+    </div>
+
+    <div class="metric-row" style="margin-top: 30px;">
+      <div class="metric-card">
+        <div class="metric-value">3h</div>
+        <div class="metric-label">Workshop duration</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Practical &amp; hands-on</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">Day 1</div>
+        <div class="metric-label">Immediate results</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 02 - WORKSHOP CONTENT                                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      <span class="page-header-title">Workshop Content</span>
+    </div>
+    <span class="page-header-num">PAGE 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Workshop Curriculum</h4>
+    <div class="gradient-line"></div>
+
+    <p>The workshop is structured in two progressive blocks: first the team understands what&rsquo;s behind AI and how it changes the way you approach problems, then moves to hands-on practice with real tools.</p>
+
+    <div class="card-grid single-col" style="margin-top:16px;">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Block 1 &mdash; 45 minutes</span>
+          <h5>Think Different</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Content</div>
+          <ul>
+            <li><strong>What AI really is</strong> &mdash; No technical jargon. How it works, what it can and can&rsquo;t do.</li>
+            <li><strong>How it changes the way you see problems</strong> &mdash; From &ldquo;we need more people&rdquo; to &ldquo;can a system do this?&rdquo;</li>
+            <li><strong>Opportunity map</strong> &mdash; Where AI creates real value in a company like {{EMPRESA}}.</li>
+            <li><strong>Real cases</strong> &mdash; Concrete examples of companies in the region already operating differently.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Outcome</div>
+          <p>The team understands what AI is and starts seeing their daily problems through a new lens.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Block 2 &mdash; 2 hours 15 minutes</span>
+          <h5>Do Different</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Core tool: Claude Suite (Anthropic)</div>
+          <ul>
+            <li><strong>Claude</strong> &mdash; Intelligent conversation to analyze, summarize, draft, and solve complex problems.</li>
+            <li><strong>Claude Code</strong> &mdash; Advanced task execution: automate processes, connect tools, generate reports.</li>
+            <li><strong>Claude Cowork</strong> &mdash; Real-time AI collaboration within the team&rsquo;s workflow.</li>
+          </ul>
+          <div class="label" style="margin-top:12px;">Skills developed</div>
+          <ul>
+            <li><strong>Effective prompting</strong> &mdash; How to communicate with AI for useful results. Structures, techniques, and common mistakes.</li>
+            <li><strong>Analysis with AI</strong> &mdash; Turn data, documents, and scattered information into clear decisions in minutes.</li>
+            <li><strong>Content and document generation</strong> &mdash; Proposals, reports, communications, meeting notes &mdash; all in seconds.</li>
+            <li><strong>Exercises with real {{EMPRESA}} cases</strong> &mdash; Each person solves a real problem from their day-to-day using AI.</li>
+            <li><strong>Workflow integration</strong> &mdash; How to incorporate AI into daily routines so it becomes habit, not experiment.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Outcome</div>
+          <p>Each participant leaves with real tools they can use starting the next day, with solved exercises and the confidence to do it on their own.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Important:</strong> Content is adapted to each company&rsquo;s specifics and the tools they already use. Before the workshop, we hold a brief context session to customize exercises and examples to the team&rsquo;s industry and operation. The foundation is prompting + the Claude suite, complemented with {{EMPRESA}}&rsquo;s specific platforms.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 03 - INVESTMENT                                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Investment</span>
+    </div>
+    <span class="page-header-num">PAGE 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Total Investment</h4>
+    <div class="gradient-line"></div>
+
+    <div class="cost-block">
+      <div class="cost-label">Think AI Workshop &mdash; Edu Layer</div>
+      <div class="cost-value">$2,500 USD</div>
+      <div class="cost-desc">Full workshop &mdash; 3 hours</div>
+    </div>
+
+    <h4>Payment Terms</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Upfront to schedule</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">On completion</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 days</div>
+        <div class="metric-label">Quote validity</div>
+      </div>
+    </div>
+
+    <h4>What&rsquo;s Included</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Full 3-hour workshop (in-person or virtual)</li>
+      <li>Digital materials for all participants</li>
+      <li>Access to post-workshop resources</li>
+      <li>Pre-workshop context session to customize content</li>
+    </ul>
+
+    <h4>Modality</h4>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box">
+      <p><strong>In-person or virtual.</strong> The workshop can be held at your company&rsquo;s offices or remotely via Zoom. Both modalities include the same deliverables and dynamics.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 04 - TERMS                                                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="page-header-title">Terms</span>
+    </div>
+    <span class="page-header-num">PAGE 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Duration</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>The workshop is <strong>3 hours</strong> long, divided into 2 blocks with a short break in between. Date and time are coordinated once the upfront payment is confirmed.</p>
+    </div>
+
+    <h4>Participants</h4>
+    <div class="gradient-line"></div>
+
+    <p>Maximum number of participants: <strong>To be defined</strong> based on the company&rsquo;s needs. A group of 8 to 25 people is recommended to maximize interaction and hands-on learning.</p>
+
+    <h4>Requirements</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Room with projector and internet connection (in-person) or Zoom access (virtual)</li>
+      <li>Each participant must have a laptop</li>
+      <li>Access to an updated web browser (Chrome, Firefox, or Edge)</li>
+      <li>15 minutes of availability before the session for a brief context alignment with the team lead</li>
+    </ul>
+
+    <h4>Acceptance</h4>
+    <div class="gradient-line"></div>
+
+    <p>By signing this document, both parties agree to the terms and conditions described in this quote.</p>
+
+    <div class="signature-block">
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">{{CONTACTO}}</div>
+        <div class="sig-role">{{CARGO}} &mdash; {{EMPRESA}}</div>
+      </div>
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">{{COMERCIAL_NOMBRE}}</div>
+        <div class="sig-role">{{COMERCIAL_CARGO}} &mdash; Irrelevant</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top:32px;">Sales contact</h4>
+    <div class="gradient-line"></div>
+    <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:8px; padding:18px 22px;">
+      <p style="margin-bottom:4px;"><strong>{{COMERCIAL_NOMBRE}}</strong> &mdash; {{COMERCIAL_CARGO}}</p>
+      <p style="margin-bottom:2px;">&#9993; {{COMERCIAL_EMAIL}}</p>
+      <p style="margin-bottom:2px;">&#128172; {{COMERCIAL_TELEFONO}}</p>
+      <p>&#127760; stayirrelevant.com</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BACK COVER                                                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+      <p class="back-sub">{{EMPRESA}} &mdash; Think AI Workshop &mdash; Edu Layer &mdash; {{FECHA}}</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

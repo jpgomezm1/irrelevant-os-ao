@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexo 3 – Alcance / Propuesta Técnica (Fase 0)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 25mm 30mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: white;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 25mm 30mm;
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #7C3AED;
+            margin-bottom: 30px;
+        }
+
+        .document-header img {
+            height: 30px;
+        }
+
+        .document-header .doc-title {
+            font-size: 10px;
+            color: #6b7280;
+            text-align: right;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contract-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contract-subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 6px;
+        }
+
+        h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .sub-clause {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .sub-clause p {
+            margin-bottom: 6px;
+        }
+
+        .bold {
+            font-weight: 600;
+        }
+
+        .placeholder {
+            background-color: #f3f0ff;
+            color: #7C3AED;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+            font-family: 'Inter', monospace;
+            font-size: 10px;
+        }
+
+        .placeholder-block {
+            background-color: #f3f0ff;
+            border: 1px dashed #7C3AED;
+            border-radius: 4px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            color: #7C3AED;
+            font-weight: 500;
+            font-size: 10px;
+        }
+
+        .bullet-list {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 4px;
+            list-style-type: disc;
+        }
+
+        .numbered-list {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .numbered-list li {
+            margin-bottom: 6px;
+            list-style-type: decimal;
+        }
+
+        .hito-box {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-left: 3px solid #7C3AED;
+            padding: 15px 18px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+            page-break-inside: avoid;
+        }
+
+        .hito-box .hito-title {
+            font-weight: 700;
+            font-size: 12px;
+            color: #7C3AED;
+            margin-bottom: 8px;
+        }
+
+        .hito-box p {
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+
+        .hito-box .label {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .milestone-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10px;
+        }
+
+        .milestone-table th,
+        .milestone-table td {
+            border: 1px solid #e5e7eb;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .milestone-table th {
+            background-color: #f9f7ff;
+            color: #7C3AED;
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .signature-block {
+            margin-top: 50px;
+            page-break-inside: avoid;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        .signature-party {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 10px;
+        }
+
+        .signature-party p {
+            text-align: left;
+            margin-bottom: 3px;
+            font-size: 10px;
+        }
+
+        .signature-party .party-name {
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .signature-line {
+            margin-top: 50px;
+            border-bottom: 1px solid #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .document-footer { margin-top:40px;
+            
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .document-footer img { display:block; margin:0 auto;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .document-footer .page-number {
+            font-size: 9px;
+            color: #9ca3af;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                max-width: none;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+
+            .signature-block {
+                page-break-inside: avoid;
+            }
+
+            .hito-box {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-header">
+        <div style="font-family:'Inter',sans-serif; font-size:14px; font-weight:800; color:#7C3AED; letter-spacing:1px; text-transform:lowercase;">irrelevant club sas</div>
+        <div class="doc-title">Anexo 3 – Alcance / Propuesta Técnica (Fase 0)</div>
+    </div>
+
+    <div class="contract-title">Anexo 3 – Alcance / Propuesta Técnica (Fase 0)</div>
+    <div class="contract-subtitle">Contrato de Prestación de Servicios Tecnológicos y Licenciamiento de Software</div>
+
+    <!-- SECCIÓN 1 -->
+    <h2>1. Objeto del Anexo y Alcance General</h2>
+
+    <p>El presente Anexo 3 – Alcance / Propuesta Técnica (Fase 0) tiene por objeto describir de manera funcional y técnica, a nivel de alto nivel, el Software y los Servicios que serán prestados por IRRELEVANT CLUB S.A.S. al CLIENTE, así como delimitar de forma expresa el alcance, los entregables, las responsabilidades, las exclusiones y las condiciones operativas aplicables a la Fase 0 del proyecto.</p>
+
+    <p>Este Anexo se incorpora como parte integral del Contrato de Prestación de Servicios Tecnológicos y Licenciamiento de Software celebrado entre LAS PARTES, y tiene como finalidad otorgar claridad contractual sobre:</p>
+
+    <ul class="bullet-list">
+        <li>Qué hace el Software objeto del Contrato.</li>
+        <li>Cómo opera el Software desde una perspectiva funcional y técnica.</li>
+        <li>Cuáles son las funcionalidades incluidas y excluidas en la Fase 0.</li>
+        <li>Cuáles son los entregables asociados a cada hito de facturación.</li>
+        <li>Cuál es el rol de la inteligencia artificial dentro del sistema y sus límites.</li>
+        <li>Cuál es el modelo de arquitectura, operación e integración con terceros.</li>
+    </ul>
+
+    <p>LAS PARTES reconocen expresamente que este Anexo no tiene como finalidad describir código fuente, algoritmos específicos, configuraciones internas detalladas ni documentación técnica de bajo nivel, sino establecer un marco claro, verificable y exigible sobre el alcance real del Software y los Servicios contratados.</p>
+
+    <p>El alcance descrito en este Anexo corresponde exclusivamente a la Fase 0, entendida como la fase inicial de implementación, configuración y puesta en operación del Software conforme a las funcionalidades y condiciones aquí definidas. Cualquier funcionalidad, desarrollo, integración, ajuste o ampliación no expresamente incluida en este Anexo se considerará fuera del alcance, y requerirá un acuerdo adicional por escrito entre LAS PARTES, incluyendo la definición de nuevos plazos, entregables y condiciones económicas, de ser aplicable.</p>
+
+    <p>En caso de contradicción entre lo dispuesto en el presente Anexo y el texto principal del Contrato, prevalecerá lo establecido en el Contrato, salvo que este Anexo disponga expresamente lo contrario para efectos del alcance técnico y operativo de la Fase 0.</p>
+
+    <div class="page-break"></div>
+
+    <!-- SECCIÓN 2 -->
+    <h2>2. Descripción Funcional del Software</h2>
+
+    <h3>2.1 Finalidad del Software</h3>
+
+    <p>El Software objeto del presente Contrato consiste en una solución tecnológica de automatización e inteligencia artificial, diseñada para apoyar y optimizar procesos operativos y de atención del CLIENTE, mediante la interacción automatizada con usuarios finales, la captura y estructuración de información, y el soporte a equipos humanos en la gestión de dichos procesos.</p>
+
+    <p>La finalidad principal del Software es:</p>
+
+    <div class="placeholder-block">{{DESCRIPCION_SOFTWARE}}</div>
+
+    <ul class="bullet-list">
+        <li>Automatizar consultas frecuentes y flujos repetitivos previamente definidos.</li>
+        <li>Facilitar la atención inicial de usuarios a través de canales digitales.</li>
+        <li>Capturar y estructurar información relevante para los procesos del CLIENTE.</li>
+        <li>Escalar de manera controlada las interacciones que requieran intervención humana.</li>
+    </ul>
+
+    <p>El Software no reemplaza la operación humana del CLIENTE, ni actúa de manera autónoma en decisiones críticas, legales, comerciales o estratégicas, sino que funciona como una herramienta de apoyo operativo, configurada conforme a los parámetros, información y reglas definidas conjuntamente por LAS PARTES.</p>
+
+    <h3>2.2 Funcionalidades Principales Incluidas en la Fase 0</h3>
+
+    <p>Durante la Fase 0, el Software contará con las siguientes funcionalidades principales, las cuales constituyen el alcance funcional cerrado de esta etapa:</p>
+
+    <div class="placeholder-block">{{FUNCIONALIDADES_FASE0}}</div>
+
+    <div class="sub-clause">
+        <p><strong>a) Atención automatizada de consultas.</strong> Capacidad de responder de manera automatizada consultas frecuentes relacionadas con la operación del CLIENTE, utilizando información previamente validada y aprobada por este.</p>
+
+        <p><strong>b) Ejecución de flujos conversacionales predefinidos.</strong> Implementación de flujos estructurados que guían la interacción con el usuario, siguiendo reglas y estados previamente configurados, evitando respuestas improvisadas o fuera de contexto.</p>
+
+        <p><strong>c) Captura y estructuración de información.</strong> Registro automático de datos suministrados por los usuarios durante la interacción, los cuales podrán ser utilizados por el CLIENTE para fines operativos internos.</p>
+
+        <p><strong>d) Escalamiento controlado a atención humana.</strong> Identificación de escenarios en los cuales la interacción debe ser transferida a un asesor humano del CLIENTE, incluyendo la entrega del contexto completo de la conversación.</p>
+
+        <p><strong>e) Disponibilidad continua del canal automatizado.</strong> Operación del Software de forma continua, sujeta a las limitaciones propias de la infraestructura tecnológica y de los servicios de terceros involucrados.</p>
+    </div>
+
+    <h3>2.3 Flujos Operativos Clave</h3>
+
+    <p>De manera general, el funcionamiento del Software durante la Fase 0 se desarrolla bajo los siguientes flujos operativos:</p>
+
+    <ol class="numbered-list">
+        <li>El usuario inicia una interacción a través del canal habilitado.</li>
+        <li>El Software interpreta la solicitud dentro de los dominios y reglas configuradas.</li>
+        <li>El Software responde o ejecuta el flujo correspondiente utilizando la información disponible.</li>
+        <li>En caso de ambigüedad, incertidumbre o solicitud fuera del alcance automatizado, el Software escala la interacción a un agente humano designado por el CLIENTE.</li>
+        <li>La información y el contexto de la interacción quedan registrados para consulta posterior del CLIENTE.</li>
+    </ol>
+
+    <p>Estos flujos podrán ser ajustados durante la Fase 0 únicamente dentro del alcance funcional definido, sin que ello implique desarrollos adicionales no pactados.</p>
+
+    <h3>2.4 Funcionalidades Excluidas y Fuera de Alcance</h3>
+
+    <p>LAS PARTES acuerdan expresamente que, durante la Fase 0, el Software NO incluye, entre otras, las siguientes funcionalidades:</p>
+
+    <div class="placeholder-block">{{FUNCIONALIDADES_EXCLUIDAS}}</div>
+
+    <ul class="bullet-list">
+        <li>Procesamiento de pagos o transacciones financieras dentro del sistema.</li>
+        <li>Toma de decisiones autónomas con efectos legales, contractuales o financieros.</li>
+        <li>Gestión automática de reclamaciones formales o procesos disciplinarios.</li>
+        <li>Integraciones no expresamente definidas en el presente Anexo.</li>
+        <li>Análisis predictivos avanzados o modelos de optimización no acordados.</li>
+        <li>Personalizaciones ilimitadas o desarrollos a la medida fuera del alcance pactado.</li>
+    </ul>
+
+    <p>Cualquier funcionalidad no descrita de manera expresa en el presente Anexo se entenderá como excluida del alcance, y su eventual incorporación deberá ser acordada mediante un documento adicional suscrito por LAS PARTES.</p>
+
+    <div class="page-break"></div>
+
+    <!-- SECCIÓN 3 -->
+    <h2>3. Descripción Técnica de Alto Nivel y Arquitectura del Sistema</h2>
+
+    <h3>3.1 Tipo de Arquitectura</h3>
+
+    <p>El Software objeto del presente Contrato opera bajo un modelo de arquitectura en la nube (Cloud / Software as a Service – SaaS), gestionado y operado por IRRELEVANT, y puesto a disposición del CLIENTE bajo un esquema de licenciamiento conforme a lo establecido en el Contrato.</p>
+
+    <p>El sistema no se instala en infraestructura on-premise del CLIENTE, salvo acuerdo expreso y por escrito entre LAS PARTES, y su operación depende de servicios de infraestructura y plataformas tecnológicas administradas por terceros especializados.</p>
+
+    <h3>3.2 Componentes Principales del Sistema</h3>
+
+    <p>Desde una perspectiva técnica de alto nivel, el Software se compone de los siguientes elementos:</p>
+
+    <div class="sub-clause">
+        <p><strong>a) Capa de aplicación y lógica de negocio.</strong> Incluye los flujos operativos, reglas de interacción, configuraciones funcionales y mecanismos de automatización definidos para la operación del Software.</p>
+
+        <p><strong>b) Componentes de inteligencia artificial.</strong> Modelos de IA utilizados para la comprensión de lenguaje natural, generación de respuestas y soporte a los flujos automatizados, operando siempre dentro de los límites funcionales definidos en este Anexo.</p>
+
+        <p><strong>c) Infraestructura en la nube.</strong> Servicios de cómputo, almacenamiento, bases de datos y monitoreo necesarios para la operación continua del Software.</p>
+
+        <p><strong>d) Canales de interacción e integraciones.</strong> Interfaces que permiten la interacción con usuarios finales y la conexión con sistemas de terceros, cuando aplique y siempre dentro del alcance definido.</p>
+    </div>
+
+    <p>La selección específica de proveedores tecnológicos podrá variar a lo largo del tiempo, siempre que se mantenga el cumplimiento de los estándares de funcionamiento, seguridad y continuidad razonables para este tipo de servicios.</p>
+
+    <h3>3.3 Operación y Responsabilidades sobre la Infraestructura</h3>
+
+    <p>Durante la vigencia del Contrato y la Fase 0:</p>
+
+    <p><strong>IRRELEVANT será responsable de:</strong></p>
+
+    <ul class="bullet-list">
+        <li>La operación técnica del Software.</li>
+        <li>La administración de la infraestructura en la nube utilizada.</li>
+        <li>El mantenimiento razonable de los componentes del sistema.</li>
+        <li>La aplicación de buenas prácticas de la industria en materia de disponibilidad y seguridad.</li>
+    </ul>
+
+    <p><strong>El CLIENTE será responsable de:</strong></p>
+
+    <ul class="bullet-list">
+        <li>El uso adecuado del Software conforme a este Anexo.</li>
+        <li>La correcta gestión de sus usuarios internos.</li>
+        <li>La provisión de información veraz y actualizada necesaria para la operación del sistema.</li>
+    </ul>
+
+    <p>LAS PARTES reconocen que la disponibilidad y el desempeño del Software dependen en parte de proveedores de infraestructura y servicios de terceros, por lo cual IRRELEVANT no garantiza una disponibilidad ininterrumpida, sino una operación diligente y razonable conforme a los estándares del sector.</p>
+
+    <h3>3.4 Control del Sistema y Gobernanza</h3>
+
+    <p>El CLIENTE no tendrá control directo sobre la infraestructura subyacente ni sobre los componentes internos del Software, más allá del uso funcional autorizado mediante la Licencia otorgada.</p>
+
+    <p>IRRELEVANT conservará en todo momento:</p>
+
+    <ul class="bullet-list">
+        <li>La titularidad sobre la arquitectura técnica.</li>
+        <li>El control operativo del entorno de ejecución.</li>
+        <li>La facultad de realizar ajustes técnicos necesarios para garantizar la estabilidad y seguridad del sistema.</li>
+    </ul>
+
+    <p>Lo anterior no implica dependencia tecnológica irreversible, toda vez que, conforme a lo establecido en el Contrato, podrán acordarse mecanismos de transición, exportación de información y cierre ordenado en caso de terminación de la relación contractual.</p>
+
+    <div class="page-break"></div>
+
+    <!-- SECCIÓN 4 -->
+    <h2>4. Alcance y Rol de los Modelos de Inteligencia Artificial</h2>
+
+    <h3>4.1 Rol de la Inteligencia Artificial dentro del Software</h3>
+
+    <p>El Software incorpora modelos de inteligencia artificial como un componente de apoyo para la ejecución de determinadas funcionalidades, principalmente orientadas a:</p>
+
+    <ul class="bullet-list">
+        <li>Interpretación de lenguaje natural en las interacciones con usuarios.</li>
+        <li>Generación de respuestas automatizadas dentro de los flujos definidos.</li>
+    </ul>
+
+    <p>Los modelos de IA operarán exclusivamente dentro de los límites funcionales y de información definidos en el presente Anexo, y no tomarán decisiones autónomas con efectos legales, financieros o contractuales para el CLIENTE o sus usuarios.</p>
+
+    <h3>4.2 Limitaciones de la Inteligencia Artificial</h3>
+
+    <p>LAS PARTES reconocen expresamente que:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Los modelos de IA pueden generar respuestas imprecisas, incompletas o no ajustadas a la intención del usuario, dado que su funcionamiento depende de la calidad de la información proporcionada y del contexto de la interacción.</p>
+
+        <p><strong>b)</strong> IRRELEVANT realizará esfuerzos razonables para minimizar estos riesgos mediante la configuración adecuada de los modelos, la definición de reglas de operación y la implementación de mecanismos de escalamiento humano.</p>
+
+        <p><strong>c)</strong> IRRELEVANT no garantiza la infalibilidad de los modelos de IA ni asume responsabilidad por decisiones que el CLIENTE o sus usuarios tomen con base en las respuestas generadas por el Software, salvo que dichas respuestas se deriven de un error atribuible a la configuración realizada por IRRELEVANT.</p>
+    </div>
+
+    <!-- SECCIÓN 5 -->
+    <h2>5. Hitos, Entregables y Criterios de Aceptación</h2>
+
+    <p>La ejecución de la Fase 0 se estructura en los siguientes hitos, cada uno con entregables específicos y criterios de aceptación verificables:</p>
+
+    <div class="hito-box">
+        <div class="hito-title">Hito 1 – <span class="placeholder">{{HITO_1_DESC}}</span> (<span class="placeholder">{{HITO_1_SEMANA}}</span>)</div>
+        <p><span class="label">Valor:</span> <span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></p>
+        <p><span class="label">Entregables:</span></p>
+        <div class="placeholder-block">{{HITO_1_ENTREGABLES}}</div>
+    </div>
+
+    <div class="hito-box">
+        <div class="hito-title">Hito 2 – <span class="placeholder">{{HITO_2_DESC}}</span> (<span class="placeholder">{{HITO_2_SEMANA}}</span>)</div>
+        <p><span class="label">Valor:</span> <span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></p>
+        <p><span class="label">Entregables:</span></p>
+        <div class="placeholder-block">{{HITO_2_ENTREGABLES}}</div>
+    </div>
+
+    <div class="hito-box">
+        <div class="hito-title">Hito 3 – <span class="placeholder">{{HITO_3_DESC}}</span> (<span class="placeholder">{{HITO_3_SEMANA}}</span>)</div>
+        <p><span class="label">Valor:</span> <span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></p>
+        <p><span class="label">Entregables:</span></p>
+        <div class="placeholder-block">{{HITO_3_ENTREGABLES}}</div>
+    </div>
+
+    <table class="milestone-table">
+        <thead>
+            <tr>
+                <th>Hito</th>
+                <th>Semana</th>
+                <th>Descripción</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Anticipo</strong></td>
+                <td>Semana 0</td>
+                <td>Firma del Contrato e inicio del proyecto</td>
+                <td><span class="placeholder">{{ANTICIPO_VALOR}}</span></td>
+            </tr>
+            <tr>
+                <td><strong>Hito 1</strong></td>
+                <td><span class="placeholder">{{HITO_1_SEMANA}}</span></td>
+                <td><span class="placeholder">{{HITO_1_DESC}}</span></td>
+                <td><span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></td>
+            </tr>
+            <tr>
+                <td><strong>Hito 2</strong></td>
+                <td><span class="placeholder">{{HITO_2_SEMANA}}</span></td>
+                <td><span class="placeholder">{{HITO_2_DESC}}</span></td>
+                <td><span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></td>
+            </tr>
+            <tr>
+                <td><strong>Hito 3</strong></td>
+                <td><span class="placeholder">{{HITO_3_SEMANA}}</span></td>
+                <td><span class="placeholder">{{HITO_3_DESC}}</span></td>
+                <td><span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>El CLIENTE contará con un plazo de cinco (5) días hábiles para revisar cada entregable y manifestar observaciones por escrito. Vencido dicho plazo sin pronunciamiento, el entregable se entenderá aceptado a satisfacción.</p>
+
+    <div class="page-break"></div>
+
+    <!-- SECCIÓN 6 -->
+    <h2>6. Responsabilidades del CLIENTE en la Fase 0</h2>
+
+    <p>Para la correcta ejecución de la Fase 0, el CLIENTE se compromete a:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Designar un interlocutor o equipo responsable con capacidad de decisión para la coordinación operativa del proyecto.</p>
+
+        <p><strong>b)</strong> Suministrar de manera oportuna la información, documentos, accesos, credenciales y demás insumos necesarios para la implementación.</p>
+
+        <p><strong>c)</strong> Participar activamente en las sesiones de levantamiento de información, validación de flujos y pruebas de aceptación.</p>
+
+        <p><strong>d)</strong> Revisar y aprobar los entregables dentro de los plazos establecidos.</p>
+
+        <p><strong>e)</strong> Notificar oportunamente a IRRELEVANT cualquier cambio en sus procesos, políticas o requerimientos que pueda impactar el alcance definido.</p>
+    </div>
+
+    <p>El incumplimiento del CLIENTE en el suministro oportuno de información o en la participación activa podrá generar retrasos en el cronograma de implementación, sin que ello constituya incumplimiento por parte de IRRELEVANT.</p>
+
+    <!-- SECCIÓN 7 -->
+    <h2>7. Modificaciones al Alcance</h2>
+
+    <p>Cualquier modificación, ampliación o ajuste al alcance definido en el presente Anexo deberá ser acordada previamente por escrito entre LAS PARTES, mediante un documento adicional que establezca:</p>
+
+    <ul class="bullet-list">
+        <li>La descripción detallada de la modificación solicitada.</li>
+        <li>El impacto en plazos, entregables y cronograma.</li>
+        <li>El ajuste económico correspondiente, si aplica.</li>
+        <li>La aceptación expresa de ambas PARTES.</li>
+    </ul>
+
+    <p>IRRELEVANT no estará obligado a ejecutar funcionalidades, desarrollos o integraciones que no se encuentren expresamente incluidos en el presente Anexo, aun cuando dichas solicitudes sean formuladas durante la ejecución de la Fase 0.</p>
+
+    <!-- SECCIÓN 8 -->
+    <h2>8. Firma Digital y Aceptación</h2>
+
+    <p>El presente Anexo 3 – Alcance / Propuesta Técnica (Fase 0) será suscrito mediante firma electrónica o digital, con plena validez jurídica conforme a la legislación colombiana vigente.</p>
+
+    <p>En constancia de aceptación, LAS PARTES firman electrónicamente el presente Anexo en la fecha que conste en el mecanismo de firma utilizado.</p>
+
+    <!-- FIRMAS -->
+    <div class="signature-block">
+        <div class="signature-grid">
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name">IRRELEVANT CLUB S.A.S.</p>
+                <p>NIT: 901.935.642-1</p>
+                <p>Representante Legal: Juan Pablo Gómez Mejía</p>
+                <p>C.C. 1006972309</p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name"><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></p>
+                <p>NIT: <span class="placeholder">{{CLIENTE_NIT}}</span></p>
+                <p>Representante Legal: <span class="placeholder">{{CLIENTE_REPRESENTANTE}}</span></p>
+                <p>C.C. <span class="placeholder">{{CLIENTE_CEDULA}}</span></p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <img src="https://storage.googleapis.com/cluvi/Audios_Cata/profile_irrelevant.jpeg" alt="Irrelevant">
+        <div class="page-number">Anexo 3 – Alcance / Propuesta Técnica (Fase 0) — IRRELEVANT CLUB S.A.S.</div>
+    </div>
+
+</body>
+</html>

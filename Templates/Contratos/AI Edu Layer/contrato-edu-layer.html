@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrato de Prestación de Servicios de Capacitación en Inteligencia Artificial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 25mm 30mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: white;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 25mm 30mm;
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #7C3AED;
+            margin-bottom: 30px;
+        }
+
+        .document-header img {
+            height: 30px;
+        }
+
+        .document-header .doc-title {
+            font-size: 10px;
+            color: #6b7280;
+            text-align: right;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contract-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contract-subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 6px;
+        }
+
+        h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .clause-content {
+            margin-left: 0;
+            margin-bottom: 10px;
+        }
+
+        .sub-clause {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .sub-clause p {
+            margin-bottom: 6px;
+        }
+
+        .indent {
+            margin-left: 20px;
+        }
+
+        .bold {
+            font-weight: 600;
+        }
+
+        .placeholder {
+            background-color: #f3f0ff;
+            color: #7C3AED;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+            font-family: 'Inter', monospace;
+            font-size: 10px;
+        }
+
+        .signature-block {
+            margin-top: 50px;
+            page-break-inside: avoid;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        .signature-party {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 10px;
+        }
+
+        .signature-party p {
+            text-align: left;
+            margin-bottom: 3px;
+            font-size: 10px;
+        }
+
+        .signature-party .party-name {
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .signature-line {
+            margin-top: 50px;
+            border-bottom: 1px solid #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .document-footer { margin-top:40px;
+
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .document-footer img { display:block; margin:0 auto;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .document-footer .page-number {
+            font-size: 9px;
+            color: #9ca3af;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .bullet-list {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 4px;
+            list-style-type: disc;
+        }
+
+        .deliverables-list {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .deliverables-list li {
+            margin-bottom: 6px;
+            list-style-type: decimal;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                max-width: none;
+            }
+
+            .document-header {
+                position: running(header);
+            }
+
+            .document-footer { margin-top:40px;
+                position: running(footer);
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+
+            .signature-block {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-header">
+        <div style="font-family:'Inter',sans-serif; font-size:14px; font-weight:800; color:#7C3AED; letter-spacing:1px; text-transform:lowercase;">irrelevant club sas</div>
+        <div class="doc-title">Contrato de Prestación de Servicios<br>de Capacitación en IA</div>
+    </div>
+
+    <div class="contract-title">Contrato de Prestación de Servicios<br>de Capacitación en Inteligencia Artificial</div>
+    <div class="contract-subtitle">IRRELEVANT CLUB S.A.S. — Documento Confidencial</div>
+
+    <!-- CLÁUSULA 1 -->
+    <h2>1. Identificación de las Partes</h2>
+
+    <p>Entre los suscritos a saber:</p>
+
+    <p><strong>IRRELEVANT CLUB S.A.S.</strong>, sociedad por acciones simplificada legalmente constituida conforme a las leyes de la República de Colombia, identificada con NIT 901.935.642-1, con domicilio principal en la ciudad de Medellín, Antioquia, representada legalmente por <strong>Juan Pablo Gómez Mejía</strong>, mayor de edad, identificado con cédula de ciudadanía No. 1006972309, quien actúa en su calidad de representante legal, en adelante <strong>"IRRELEVANT"</strong> o <strong>"EL PRESTADOR"</strong>;</p>
+
+    <p>y</p>
+
+    <p><strong><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></strong>, <span class="placeholder">{{CLIENTE_TIPO_SOCIEDAD}}</span> legalmente constituida conforme a las leyes de la República de Colombia, identificada con NIT <span class="placeholder">{{CLIENTE_NIT}}</span>, con domicilio principal en la ciudad de <span class="placeholder">{{CLIENTE_DOMICILIO}}</span>, en la dirección <span class="placeholder">{{CLIENTE_DIRECCION}}</span>, representada legalmente por <strong><span class="placeholder">{{CLIENTE_REPRESENTANTE}}</span></strong>, mayor de edad, identificado(a) con cédula de ciudadanía No. <span class="placeholder">{{CLIENTE_CEDULA}}</span>, quien actúa en su calidad de representante legal, en adelante <strong>"EL CLIENTE"</strong>;</p>
+
+    <p>IRRELEVANT y EL CLIENTE, conjuntamente denominadas <strong>"LAS PARTES"</strong>, acuerdan celebrar el presente Contrato de Prestación de Servicios de Capacitación en Inteligencia Artificial, el cual se regirá por las cláusulas que se establecen a continuación.</p>
+
+    <!-- CLÁUSULA 2 -->
+    <h2>2. Definiciones</h2>
+
+    <p>Para efectos del presente Contrato, los términos que se indican a continuación tendrán el significado que aquí se les asigna, independientemente de que se utilicen en singular o plural:</p>
+
+    <div class="sub-clause">
+        <p><strong>Contrato:</strong> El presente Contrato de Prestación de Servicios de Capacitación en Inteligencia Artificial, junto con sus Anexos, los cuales hacen parte integral del mismo.</p>
+
+        <p><strong>Servicios:</strong> Conjunto de actividades de capacitación y formación prestadas por IRRELEVANT al CLIENTE, orientadas a la enseñanza de herramientas de inteligencia artificial, técnicas de prompting y aplicación práctica de IA en el contexto operativo del CLIENTE, conforme al alcance definido en este Contrato y sus Anexos.</p>
+
+        <p><strong>Workshop:</strong> Sesión de capacitación presencial o virtual de tres (3) horas de duración, denominada "Think AI", que comprende un bloque conceptual y un bloque práctico, conforme a la metodología de IRRELEVANT.</p>
+
+        <p><strong>Entregables:</strong> Resultados verificables derivados de la ejecución de los Servicios, cuya descripción y alcance se encuentran definidos en la Cláusula 4 del presente Contrato.</p>
+
+        <p><strong>Información Confidencial:</strong> Toda información técnica, operativa, legal, comercial, estratégica o de cualquier otra naturaleza perteneciente al CLIENTE, a la cual IRRELEVANT tenga acceso con ocasión de la ejecución del Contrato, incluyendo, sin limitarse a, procesos internos, datos utilizados para la personalización del contenido, información de participantes y know-how. Incluye, asimismo, las metodologías, materiales, presentaciones y contenido del Workshop, los cuales son propiedad exclusiva de IRRELEVANT.</p>
+
+        <p><strong>Anexos:</strong> Documentos que desarrollan aspectos específicos del Contrato, incluyendo el Anexo 1 – Acuerdo de Pago y el Anexo 2 – Acuerdo de Confidencialidad (NDA), los cuales hacen parte integral del presente Contrato.</p>
+    </div>
+
+    <!-- CLÁUSULA 3 -->
+    <h2>3. Objeto del Contrato</h2>
+
+    <p>Por medio del presente Contrato, IRRELEVANT se obliga a prestar al CLIENTE un servicio único de capacitación en inteligencia artificial, denominado <strong>"Workshop: Think AI"</strong>, consistente en una sesión de formación de tres (3) horas de duración bajo la modalidad <span class="placeholder">{{MODALIDAD}}</span>, que incluye formación conceptual y práctica en el uso de herramientas de inteligencia artificial, conforme a los términos y condiciones establecidos en este Contrato y sus Anexos.</p>
+
+    <p>Los Servicios tendrán como finalidad capacitar al equipo del CLIENTE en el uso efectivo de herramientas de inteligencia artificial, particularmente la suite de Claude (Claude, Claude Code y Claude Cowork), técnicas de prompting y aplicación práctica de IA a casos reales del CLIENTE, sin que en ningún caso se entienda que IRRELEVANT presta servicios de implementación tecnológica, consultoría estratégica, legal o financiera.</p>
+
+    <p>LAS PARTES reconocen que el presente Contrato tiene por objeto la prestación de un servicio único de capacitación y no constituye un contrato de licenciamiento, suscripción recurrente, implementación de herramientas ni acceso continuo a plataformas o software de IRRELEVANT.</p>
+
+    <p>El CLIENTE, por su parte, se obliga a pagar el precio pactado y a cumplir con las obligaciones derivadas del presente Contrato.</p>
+
+    <!-- CLÁUSULA 4 -->
+    <h2>4. Alcance del Servicio y Entregables</h2>
+
+    <p>El alcance de los Servicios comprende las siguientes actividades y entregables:</p>
+
+    <ol class="deliverables-list">
+        <li><strong>Workshop presencial o virtual de tres (3) horas:</strong> Sesión de capacitación dividida en un bloque conceptual de cuarenta y cinco (45) minutos y un bloque práctico de dos (2) horas y quince (15) minutos, enfocado en el uso de herramientas de inteligencia artificial y técnicas de prompting aplicadas al contexto del CLIENTE.</li>
+        <li><strong>Sesión previa de contexto:</strong> Reunión preparatoria con el CLIENTE para conocer su sector, operación, herramientas actuales y casos de uso relevantes, con el fin de personalizar el contenido del Workshop.</li>
+        <li><strong>Material digital del Workshop:</strong> Entrega de presentaciones, guías de referencia y recursos complementarios utilizados durante la capacitación.</li>
+        <li><strong>Ejercicios prácticos resueltos con casos reales del CLIENTE:</strong> Desarrollo de ejercicios hands-on durante el bloque práctico, utilizando casos y escenarios propios de la operación del CLIENTE.</li>
+        <li><strong>Acceso a recursos complementarios post-workshop:</strong> Entrega de materiales adicionales de consulta y profundización para los participantes, posterior a la realización del Workshop.</li>
+    </ol>
+
+    <p>LAS PARTES acuerdan que el presente Contrato regula exclusivamente los Servicios y Entregables expresamente descritos en la presente cláusula. Cualquier actividad, sesión adicional, implementación de herramientas o modificación que no se encuentre contemplada de manera expresa se considerará fuera del alcance y deberá ser previamente acordada por escrito entre LAS PARTES, incluyendo su correspondiente ajuste en precio y plazos, de ser aplicable.</p>
+
+    <p>IRRELEVANT no estará obligado a ejecutar actividades adicionales que no se encuentren expresamente incluidas en el alcance pactado, aun cuando dichas actividades resulten necesarias para fines distintos a los previstos en el presente Contrato.</p>
+
+    <div class="page-break"></div>
+
+    <!-- CLÁUSULA 5 -->
+    <h2>5. Duración y Fecha del Workshop</h2>
+
+    <p>La fecha de realización del Workshop será coordinada entre LAS PARTES una vez IRRELEVANT haya recibido efectivamente el anticipo inicial establecido en el Anexo 1 – Acuerdo de Pago. La fecha acordada será: <span class="placeholder">{{FECHA_WORKSHOP}}</span>.</p>
+
+    <p>La sesión previa de contexto se realizará en una fecha que LAS PARTES coordinen de mutuo acuerdo, con anterioridad a la fecha del Workshop, con el propósito de personalizar el contenido al sector y operación del CLIENTE.</p>
+
+    <p>El contenido del Workshop será adaptable al contexto, herramientas y necesidades específicas del CLIENTE, conforme a la información recopilada durante la sesión previa de contexto.</p>
+
+    <p>El número máximo de participantes será de <span class="placeholder">{{NUM_PARTICIPANTES}}</span> personas.</p>
+
+    <!-- CLÁUSULA 6 -->
+    <h2>6. Precio y Forma de Pago</h2>
+
+    <p>El valor del presente Contrato, así como la estructura, condiciones y plazos de pago, se regirán por lo establecido en el Anexo 1 – Acuerdo de Pago, el cual hace parte integral del presente Contrato y se entiende aceptado por LAS PARTES con la firma del mismo.</p>
+
+    <p>LAS PARTES acuerdan expresamente que el valor total de los Servicios corresponde a un servicio de capacitación única, gravado con el Impuesto sobre las Ventas (IVA), de conformidad con la normatividad tributaria vigente.</p>
+
+    <p>IRRELEVANT emitirá la factura correspondiente conforme al cronograma de pagos definido en el Anexo 1.</p>
+
+    <!-- CLÁUSULA 7 -->
+    <h2>7. Obligaciones de las Partes</h2>
+
+    <h3>7.1 Obligaciones de IRRELEVANT</h3>
+
+    <p>IRRELEVANT se obliga a:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Impartir el Workshop conforme al alcance, condiciones y Entregables definidos en el presente Contrato y sus Anexos.</p>
+
+        <p><strong>b)</strong> Personalizar el contenido del Workshop al sector y operación del CLIENTE, conforme a la información recopilada en la sesión previa de contexto.</p>
+
+        <p><strong>c)</strong> Entregar el material digital y los recursos complementarios definidos en la Cláusula 4.</p>
+
+        <p><strong>d)</strong> Facilitar los ejercicios prácticos durante el bloque práctico del Workshop, utilizando casos reales del CLIENTE cuando sea posible.</p>
+
+        <p><strong>e)</strong> Mantener la confidencialidad de la Información Confidencial del CLIENTE, conforme a lo establecido en el presente Contrato y el Anexo 2 – Acuerdo de Confidencialidad (NDA).</p>
+
+        <p><strong>f)</strong> Informar al CLIENTE con antelación razonable cualquier cambio relevante que pueda afectar la prestación de los Servicios.</p>
+    </div>
+
+    <h3>7.2 Obligaciones del CLIENTE</h3>
+
+    <p>EL CLIENTE se obliga a:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Pagar oportunamente los valores pactados conforme a lo establecido en el Anexo 1 – Acuerdo de Pago.</p>
+
+        <p><strong>b)</strong> Proveer el espacio físico adecuado para la realización del Workshop, incluyendo proyector, pantalla y conectividad a internet (si la modalidad es presencial), o garantizar el acceso a una plataforma de videoconferencia funcional, como Zoom o equivalente (si la modalidad es virtual).</p>
+
+        <p><strong>c)</strong> Garantizar que cada participante cuente con un computador portátil con acceso a internet durante el Workshop.</p>
+
+        <p><strong>d)</strong> Designar un coordinador responsable de la logística y comunicación con IRRELEVANT.</p>
+
+        <p><strong>e)</strong> Participar en la sesión previa de contexto para suministrar la información necesaria para la personalización del contenido.</p>
+
+        <p><strong>f)</strong> Garantizar la disponibilidad de los participantes durante las tres (3) horas completas del Workshop, sin interrupciones.</p>
+
+        <p><strong>g)</strong> Cumplir con las demás obligaciones derivadas del presente Contrato y sus Anexos.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CLÁUSULA 8 -->
+    <h2>8. Propiedad Intelectual</h2>
+
+    <p>LAS PARTES reconocen y aceptan lo siguiente en materia de propiedad intelectual:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> IRRELEVANT conservará la titularidad plena sobre todos los materiales del Workshop, incluyendo, sin limitarse a, presentaciones, guías, metodologías, ejercicios, frameworks, técnicas de prompting, flujos y demás componentes de su propiedad intelectual, aun cuando estos hayan sido utilizados, compartidos o entregados durante la ejecución del presente Contrato.</p>
+
+        <p><strong>b)</strong> El CLIENTE recibirá una <strong>licencia de uso interno, no exclusiva, intransferible y revocable</strong> sobre los materiales digitales entregados como parte del Workshop, exclusivamente para uso interno del CLIENTE y sus participantes. El CLIENTE <strong>no podrá</strong> reproducir, distribuir, sublicenciar, comercializar, publicar ni poner a disposición de terceros dichos materiales, total o parcialmente, sin la autorización previa y escrita de IRRELEVANT.</p>
+
+        <p><strong>c)</strong> Ninguna disposición del presente Contrato se interpretará como cesión, transferencia o reconocimiento de derechos de propiedad intelectual de IRRELEVANT a favor del CLIENTE, más allá de la licencia de uso interno expresamente definida.</p>
+
+        <p><strong>d)</strong> IRRELEVANT podrá utilizar el conocimiento general, las técnicas y la experiencia adquirida durante la ejecución del Contrato para prestar servicios a otros clientes, siempre que no utilice Información Confidencial del CLIENTE.</p>
+    </div>
+
+    <!-- CLÁUSULA 9 -->
+    <h2>9. Prohibición de Grabación</h2>
+
+    <p>El CLIENTE y sus participantes <strong>no podrán grabar</strong> el Workshop, total o parcialmente, en ningún formato de audio, video o cualquier otro medio de registro, sin la autorización previa y expresa por escrito de IRRELEVANT.</p>
+
+    <p>En caso de que IRRELEVANT autorice excepcionalmente la grabación del Workshop, dicha grabación será exclusivamente para <strong>uso interno del CLIENTE</strong> y no podrá ser reproducida, distribuida, publicada, compartida ni puesta a disposición de terceros bajo ninguna circunstancia.</p>
+
+    <p>El incumplimiento de la presente cláusula constituirá una violación de los derechos de propiedad intelectual de IRRELEVANT y de las obligaciones de confidencialidad del presente Contrato, y dará lugar a las acciones legales correspondientes, incluyendo la posibilidad de exigir indemnización por los perjuicios causados.</p>
+
+    <!-- CLÁUSULA 10 -->
+    <h2>10. Política de Cancelación</h2>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Si el CLIENTE cancela el Workshop con una antelación <strong>superior a cuarenta y ocho (48) horas</strong> respecto de la fecha programada, el anticipo será reembolsable, descontando un veinte por ciento (20%) del valor del anticipo a título de gastos administrativos por la preparación y personalización del contenido.</p>
+
+        <p><strong>b)</strong> Si el CLIENTE cancela el Workshop con una antelación <strong>igual o inferior a cuarenta y ocho (48) horas</strong> respecto de la fecha programada, el anticipo correspondiente al cincuenta por ciento (50%) del valor total <strong>no será reembolsable</strong>, en razón de los recursos ya comprometidos por IRRELEVANT para la preparación y ejecución del Workshop.</p>
+
+        <p><strong>c)</strong> La cancelación deberá ser notificada por escrito a IRRELEVANT a través de los canales de comunicación acordados entre LAS PARTES.</p>
+
+        <p><strong>d)</strong> En caso de que el CLIENTE solicite el aplazamiento del Workshop (sin cancelación), LAS PARTES coordinarán una nueva fecha de mutuo acuerdo, sujeta a la disponibilidad de IRRELEVANT, sin que el aplazamiento genere costos adicionales, salvo que se reprograme en más de dos (2) ocasiones.</p>
+    </div>
+
+    <!-- CLÁUSULA 11 -->
+    <h2>11. Confidencialidad y Protección de Datos</h2>
+
+    <p>Las obligaciones de confidencialidad, protección de datos personales y tratamiento de la Información Confidencial se regirán por lo dispuesto en el Anexo 2 – Acuerdo de Confidencialidad (NDA), el cual hace parte integral del presente Contrato.</p>
+
+    <p>IRRELEVANT actuará como Encargado del Tratamiento de los datos personales a los que tenga acceso con ocasión de la ejecución del Contrato, y se obliga a dar cumplimiento a las disposiciones de la Ley 1581 de 2012 y demás normatividad aplicable en materia de protección de datos personales.</p>
+
+    <!-- CLÁUSULA 12 -->
+    <h2>12. Limitación de Responsabilidad</h2>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> La responsabilidad total y acumulada de IRRELEVANT por cualquier concepto derivado del presente Contrato no excederá el valor total efectivamente pagado por el CLIENTE a IRRELEVANT en virtud del presente Contrato.</p>
+
+        <p><strong>b)</strong> IRRELEVANT no será responsable por daños indirectos, incidentales, especiales, consecuenciales, lucro cesante, pérdida de datos, pérdida de oportunidades de negocio o daños punitivos, cualquiera que sea la causa o teoría de responsabilidad invocada.</p>
+
+        <p><strong>c)</strong> IRRELEVANT no garantiza resultados específicos derivados de la capacitación, toda vez que la aplicación práctica de los conocimientos adquiridos en el Workshop depende exclusivamente del CLIENTE y sus participantes.</p>
+
+        <p><strong>d)</strong> Las limitaciones de responsabilidad establecidas en la presente cláusula no aplicarán en caso de dolo o culpa grave de IRRELEVANT, ni respecto de las obligaciones de confidencialidad establecidas en el Anexo 2.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CLÁUSULA 13 -->
+    <h2>13. Terminación del Contrato</h2>
+
+    <p>El presente Contrato podrá darse por terminado en los siguientes eventos:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Por mutuo acuerdo entre LAS PARTES, formalizado por escrito.</p>
+
+        <p><strong>b)</strong> Por incumplimiento grave de cualquiera de las obligaciones contractuales por parte de una de LAS PARTES, previa notificación escrita y otorgando un plazo de diez (10) días hábiles para la subsanación del incumplimiento.</p>
+
+        <p><strong>c)</strong> Por cancelación del Workshop conforme a la Cláusula 10 del presente Contrato, en cuyo caso aplicarán las condiciones allí establecidas respecto del reembolso del anticipo.</p>
+
+        <p><strong>d)</strong> Por imposibilidad sobrevenida en la ejecución de los Servicios, derivada de circunstancias de fuerza mayor o caso fortuito.</p>
+    </div>
+
+    <!-- CLÁUSULA 14 -->
+    <h2>14. Fuerza Mayor y Caso Fortuito</h2>
+
+    <p>Ninguna de LAS PARTES será responsable por el incumplimiento total o parcial de sus obligaciones contractuales cuando dicho incumplimiento sea consecuencia de eventos de fuerza mayor o caso fortuito, conforme a lo previsto en el artículo 64 del Código Civil colombiano.</p>
+
+    <p>La Parte afectada deberá notificar a la otra, dentro de los cinco (5) días hábiles siguientes a la ocurrencia del evento, las circunstancias y el impacto sobre sus obligaciones contractuales.</p>
+
+    <p>En caso de fuerza mayor o caso fortuito que impida la realización del Workshop en la fecha programada, LAS PARTES coordinarán una nueva fecha de mutuo acuerdo, sin que ello genere costos adicionales ni penalidades para ninguna de LAS PARTES.</p>
+
+    <!-- CLÁUSULA 15 -->
+    <h2>15. Solución de Controversias</h2>
+
+    <p>Cualquier controversia derivada del presente Contrato será resuelta en primera instancia mediante negociación directa entre LAS PARTES. En caso de no alcanzarse un acuerdo dentro de los treinta (30) días calendario siguientes a la notificación de la controversia, las PARTES podrán acudir a los mecanismos alternativos de solución de controversias previstos en la legislación colombiana, o en su defecto, ante la jurisdicción ordinaria de la ciudad de Medellín.</p>
+
+    <!-- CLÁUSULA 16 -->
+    <h2>16. Disposiciones Generales</h2>
+
+    <div class="sub-clause">
+        <p><strong>a) Independencia de las partes.</strong> El presente Contrato no genera relación laboral, sociedad, agencia ni representación entre LAS PARTES. Cada una actuará como contratista independiente.</p>
+
+        <p><strong>b) Cesión.</strong> Ninguna de LAS PARTES podrá ceder total o parcialmente los derechos u obligaciones derivados del presente Contrato sin la autorización previa y expresa de la otra Parte.</p>
+
+        <p><strong>c) Integridad del acuerdo.</strong> El presente Contrato, junto con sus Anexos, constituye el acuerdo completo entre LAS PARTES y reemplaza cualquier negociación, acuerdo o comunicación previa, verbal o escrita, relacionada con su objeto.</p>
+
+        <p><strong>d) Modificaciones.</strong> Cualquier modificación al presente Contrato deberá constar por escrito y ser suscrita por ambas PARTES para tener validez.</p>
+
+        <p><strong>e) Nulidad parcial.</strong> Si alguna cláusula del presente Contrato fuere declarada nula o ineficaz, las demás cláusulas conservarán su plena validez y eficacia.</p>
+
+        <p><strong>f) Ley aplicable.</strong> El presente Contrato se regirá e interpretará de conformidad con las leyes de la República de Colombia.</p>
+    </div>
+
+    <!-- CLÁUSULA 17 -->
+    <h2>17. Firma Digital y Aceptación</h2>
+
+    <p>LAS PARTES acuerdan que el presente Contrato será suscrito mediante firma electrónica o firma digital, y reconocen que dicha firma tendrá plena validez jurídica, probatoria y fuerza obligatoria, de conformidad con la Ley 527 de 1999 y demás normatividad colombiana vigente, produciendo los mismos efectos que una firma manuscrita.</p>
+
+    <p>El presente Contrato podrá ser firmado de manera electrónica en uno o varios ejemplares, los cuales, en conjunto, constituirán un solo y mismo documento.</p>
+
+    <p>En constancia de aceptación, LAS PARTES firman electrónicamente el presente Contrato en la fecha que conste en el mecanismo de firma utilizado.</p>
+
+    <!-- FIRMAS -->
+    <div class="signature-block">
+        <div class="signature-grid">
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name">IRRELEVANT CLUB S.A.S.</p>
+                <p>NIT: 901.935.642-1</p>
+                <p>Representante Legal: Juan Pablo Gómez Mejía</p>
+                <p>C.C. 1006972309</p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name"><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></p>
+                <p>NIT: <span class="placeholder">{{CLIENTE_NIT}}</span></p>
+                <p>Representante Legal: <span class="placeholder">{{CLIENTE_REPRESENTANTE}}</span></p>
+                <p>C.C. <span class="placeholder">{{CLIENTE_CEDULA}}</span></p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <img src="https://storage.googleapis.com/cluvi/Audios_Cata/profile_irrelevant.jpeg" alt="Irrelevant">
+        <div class="page-number">Contrato de Prestación de Servicios de Capacitación en IA — IRRELEVANT CLUB S.A.S.</div>
+    </div>
+
+</body>
+</html>

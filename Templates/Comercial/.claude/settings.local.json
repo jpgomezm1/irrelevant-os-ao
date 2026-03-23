@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.rayzaandco.com)",
+      "WebFetch(domain:hub.stayirrelevant.com)",
+      "WebFetch(domain:maririo.vercel.app)",
+      "WebFetch(domain:risk-web.netlify.app)",
+      "WebFetch(domain:fynderai.netlify.app)",
+      "Bash(npm list:*)",
+      "Bash(npx -y @anthropic-ai/netlify-mcp --help)",
+      "Bash(npm search:*)",
+      "Bash(netlify status:*)"
+    ]
+  }
+}
