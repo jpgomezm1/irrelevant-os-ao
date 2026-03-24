@@ -115,7 +115,7 @@ Cuando se instala en la máquina del cliente, se copia la carpeta del skill a `.
 
 ---
 
-## Skills Disponibles (30 total)
+## Skills Disponibles (32 total)
 
 ### Gestión, Navegación y Construcción (3 skills)
 
@@ -128,6 +128,13 @@ Cuando se instala en la máquina del cliente, se copia la carpeta del skill a `.
 | Skill | Comando | Descripcion |
 |---|---|---|
 | Cliente | `/cliente` | Crea, consulta y lista carpetas de clientes. Usa /cliente [crear\|ver\|listar] [empresa] |
+
+### Contexto e Inteligencia (2 skills)
+
+| Skill | Comando | Descripcion |
+|---|---|---|
+| Procesar Transcript | `/procesar-transcript` | Procesa transcripts de reuniones no-pipeline (internas, estrategicas). Extrae contexto para consultoria |
+| Agregar Contexto | `/agregar-contexto` | Agrega contexto del cliente: URLs, LinkedIn, notas. Acumula en contexto-general.md |
 
 ### Diseño y Pre-venta (3 skills)
 
@@ -196,11 +203,15 @@ CALL:
 [Hacer la call real]
 
 POST-CALL:
-/procesar-call                   → Jala transcript de Fireflies
+/procesar-call                   → Jala transcript de Fireflies (pipeline)
+/procesar-transcript [empresa]   → Procesa transcript no-pipeline (contexto)
 /call-review                     → Evalua la call
 /follow-up-writer                → Genera follow-up WhatsApp
 /email-post-reunion              → Email profesional post-reunion
 /discovery-notes                 → Extrae brief del discovery
+
+CONTEXTO (en cualquier momento):
+/agregar-contexto [empresa]      → Agrega contexto: URL, LinkedIn, notas
 
 DISEÑO (post-discovery):
 /disenar-skills [empresa]        → Qué 5 procesos construir (Ops Layer)

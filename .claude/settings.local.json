@@ -105,7 +105,10 @@
       "Bash(curl -s \"https://ncqdixlsfoskuoyaijwk.supabase.co/rest/v1/tools?select=name,slug,category,logo,url,description&slug=in.\\(hera,circleback,mem-ai,elevenlabs,cursor,n8n,heygen,synthesia,midjourney,leonardo-ai,metricool,manychat,copy-ai,jasper-ai,apollo-io,gong,clay,fireflies-ai,dripify,hubspot\\)\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jcWRpeGxzZm9za3VveWFpandrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEyMjkxMzQsImV4cCI6MjA3NjgwNTEzNH0.luZriilQfA63OsU0mVuW_1bAF8G0tZtT6ZH72wIqQ5g\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jcWRpeGxzZm9za3VveWFpandrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEyMjkxMzQsImV4cCI6MjA3NjgwNTEzNH0.luZriilQfA63OsU0mVuW_1bAF8G0tZtT6ZH72wIqQ5g\")",
       "Bash(node batch-generate.js)",
       "Bash(node batch-week-2.js)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "WebFetch(domain:download-ff.s3.us-east-2.amazonaws.com)",
+      "Skill(update-config)",
+      "Skill(actualizar-skills-reference)"
     ]
   }
 }
