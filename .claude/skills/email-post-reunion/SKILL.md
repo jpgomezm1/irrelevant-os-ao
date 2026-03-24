@@ -130,66 +130,177 @@ Según el tipo de reunión y el resultado, recomendar qué documentos enviar:
 
 ---
 
+## STEP 2.5: Clasificar Profundidad del Email
+
+Antes de redactar, evalúa cuánta información accionable salió de la reunión:
+
+### NIVEL 1 — Email Ligero (C1 sin discovery real / call corta / prospect controló la agenda)
+**Cuándo aplica:**
+- Fue primera reunión y no se abrió dolor real
+- El prospect pidió que Irrelevant presentara (no hubo escucha activa)
+- No se obtuvieron métricas ni problemas concretos
+- El prospect se mostró cauteloso o en modo evaluación
+
+**Estructura:** Apertura personal + siguiente paso + adjunto si aplica. SIN recap detallado.
+**Por qué:** Si no hubo discovery real, un recap detallado inventa profundidad que no existió. Peor: puede mencionar cosas que incomodan o presionan al prospect.
+
+### NIVEL 2 — Email Estándar (C1 con buen discovery / C2 / follow-up con avance)
+**Cuándo aplica:**
+- Se identificaron dolores reales que el prospect expresó por cuenta propia
+- Hay métricas o información concreta que vale la pena documentar
+- Hubo decisiones o acuerdos que necesitan quedar por escrito
+
+**Estructura:** Apertura personal + recap (3-5 bullets) + siguiente paso + adjuntos.
+
+### NIVEL 3 — Email Completo (C3 / Presentación de Fase 0 / Entregable)
+**Cuándo aplica:**
+- Se presentó propuesta formal, diagnóstico o entregable
+- Hay documentos que adjuntar y términos que confirmar
+- El prospect necesita material para socializar internamente
+
+**Estructura:** Apertura + recap estructurado + docs adjuntos + siguiente paso + timeline.
+
+---
+
 ## STEP 3: Generar el Email
 
-### FRAMEWORK DEL EMAIL:
+### FRAMEWORK POR NIVEL:
+
+#### NIVEL 1 — Email Ligero
+
+**Formato:** Prosa natural, SIN headers, SIN negritas de sección, SIN bullets. Debe leerse como un email normal entre personas, no como un documento estructurado. La única excepción es poner en negrita la fecha/hora del siguiente paso.
+
+**Regla de framing para temas de la siguiente reunión:** Si vas a mencionar algo que se mostrará en la siguiente call, enmárcalo como lo que TÚ vas a traer, no como lo que ELLOS quieren. "Vamos a traer casos prácticos, incluyendo el tema de X" (preparación tuya) ≠ "Su interés en X" (los compromete antes de tiempo).
+
+**Links vs adjuntos:** Si existe un link web al documento (ej. one pager en Netlify), preferir el link sobre el adjunto. Es más ligero y más fácil de compartir internamente.
 
 ```
-Asunto: [Resumen de la reunión] — Irrelevant + [Empresa]
+Asunto: Siguiente reunión [fecha] — Irrelevant + [Empresa]
+
+Hola [Nombres agrupados], espero que estén muy bien.
+
+[1-2 líneas de agradecimiento + reconocimiento de su empresa/operación/cómo están
+viendo el tema de IA. Que se sienta que escuchaste y que valoras lo que hacen,
+sin halagar de más ni ser genérico.]
+
+[Siguiente paso: qué va a pasar, cuándo, y qué vas a traer tú. Si se mencionó
+algún tema específico en la call, se puede referenciar como lo que TÚ prepararás,
+no como lo que ellos pidieron.]
+
+[Mención ligera de adjunto o link — "les comparto un one pager de lo que hacemos
+por si lo quieren revisar o compartir internamente antes de la reunión."]
+
+[Link si existe, o indicación del adjunto]
+
+Quedo atenta a cualquier duda.
+
+Saludos,
+
+[Firma]
+```
+
+**Ejemplo real de Nivel 1 bien ejecutado:**
+"Hola Sara y Melissa, espero que estén muy bien.
+
+Gracias por el espacio hoy, fue muy valioso empezar a entender mejor cómo están trabajando hoy en Acrecer y el enfoque que tienen en cada una de las líneas y hacia la IA.
+
+Nos vemos entonces el **jueves 9 de abril a las 3pm**. En esa sesión vamos a traer algunos casos prácticos, incluyendo en el tema de cotización para proyectos, para que puedan ver de forma más tangible cómo se podría aplicar en su operación.
+
+Mientras tanto, les comparto un one pager de lo que hacemos por si lo quieren revisar o compartir internamente antes de la reunión.
+
+[link]
+
+Quedo atenta a cualquier duda.
+
+Saludos,"
+
+#### NIVEL 2 — Email Estándar
+```
+Asunto: Recap + próximos pasos — Irrelevant + [Empresa]
 
 Hola [Nombre],
 
-[1-2 líneas de agradecimiento genuino — NO genérico. Referenciar algo específico
-de la reunión que demuestre que escuchaste.]
+[1-2 líneas de apertura — referenciar algo específico que el prospect DIJO,
+no algo que tú presentaste.]
 
-**Resumen de lo que hablamos:**
+**Lo que hablamos:**
 
-• [Punto clave 1 — lo más importante que se discutió]
-• [Punto clave 2]
-• [Punto clave 3]
-[Máximo 4-5 bullets. Concisos. Sin repetir lo que ya saben.]
+• [Solo puntos que el PROSPECT trajo a la mesa — sus dolores, sus palabras]
+• [No incluir lo que tú presentaste o propusiste]
+• [Máximo 3-4 bullets]
 
 **Siguiente paso:**
 
-[SIEMPRE debe haber un siguiente paso claro con:
-- QUÉ se va a hacer
-- QUIÉN lo hace
-- CUÁNDO (fecha concreta, no "la próxima semana")]
+[QUÉ + QUIÉN + CUÁNDO]
 
-[Si aplica: mención de documentos adjuntos]
+[Adjuntos si aplican]
 
-[Línea de cierre — corta, directa, sin fórmulas genéricas]
+[Cierre]
 
 [Firma]
-Juan Pablo Gómez
-Irrelevant
-jpgomez@stayirrelevant.com
-+57 318 335 1733
+```
+
+#### NIVEL 3 — Email Completo
+```
+Asunto: [Documento] adjunto — [Empresa] + Irrelevant
+
+Hola [Nombre],
+
+[1-2 líneas que conecten con la decisión o el momento de la reunión]
+
+**Resumen:**
+
+• [Diagnóstico o propuesta presentada — 1 línea]
+• [Decisiones tomadas]
+• [Términos acordados si aplica]
+
+**Documentos adjuntos:**
+
+• [Doc 1 — qué es y para qué lo necesitan]
+• [Doc 2]
+
+**Siguiente paso:**
+
+[QUÉ + QUIÉN + CUÁNDO — con timeline claro]
+
+[Cierre con momentum si van a avanzar]
+
+[Firma]
 ```
 
 ### REGLAS DEL EMAIL:
 
 1. **SIEMPRE tiene que haber un next step con fecha.** Si no se acordó en la reunión, proponerlo: "¿Te funciona el [día] a las [hora] para [acción]?"
 
-2. **Máximo 15 líneas.** Nadie lee emails largos. Si hay mucho que decir, ponerlo en los documentos adjuntos.
+2. **Máximo 15 líneas.** Nadie lee emails largos. Si hay mucho que decir, ponerlo en los documentos adjuntos. Para Nivel 1, máximo 8 líneas.
 
-3. **El asunto debe ser específico.** NO: "Seguimiento reunión". SÍ: "Resumen: Discovery + próximos pasos — Irrelevant + [Empresa]" o "Fase 0 adjunta — [Empresa] + Irrelevant"
+3. **El asunto debe ser específico.** NO: "Seguimiento reunión". SÍ: "Siguiente reunión jueves 9 — Irrelevant + Acrecer" o "Fase 0 adjunta — [Empresa] + Irrelevant"
 
 4. **El tono NO es de vendedor.** Es de socio estratégico. No agradecer excesivamente. No ser servil. Ser directo, profesional, y mostrar que entendiste lo que les importa.
 
 5. **Las 2 primeras líneas deciden si leen el resto.** Deben referenciar algo ESPECÍFICO de la reunión — una frase que dijeron, un problema que mencionaron, una decisión que tomaron.
 
 6. **NO usar:**
-   - "Espero que estés bien" (filler)
    - "Fue un placer" (genérico)
    - "No dudes en contactarme" (pasivo)
    - "Quedo a tu disposición" (servil)
    - "Adjunto encontrarás..." (formal anticuado)
+   - "Hola [Nombre1], hola [Nombre2]" — NO saludar uno por uno. Agrupar en una línea natural: "Hola Sara y Melissa, espero que estén muy bien."
 
 7. **SÍ usar:**
    - Lenguaje directo: "Te comparto...", "El siguiente paso es...", "Necesito de tu parte..."
    - Referencias específicas a lo que dijeron
    - Datos concretos si aplica (el número del 84%, casos de éxito relevantes)
+
+### REGLAS DE CONTENIDO — QUÉ INCLUIR Y QUÉ NO:
+
+8. **NUNCA mencionar soluciones o productos específicos que el prospect aún no ha visto en acción.** Si mostraste un caso (ej. cotizador) pero no hiciste demo, no lo nombres en el email. Hacerlo quema el wow moment de la siguiente reunión. Ejemplo: NO decir "el cotizador inteligente que les mostré" — SÍ decir "los casos que hablamos".
+
+9. **NUNCA mencionar temas que el prospect cerró o dijo que no aplica a ellos.** Si dijeron "eso lo maneja otra área" o "eso ya lo tenemos cubierto", NO incluirlo en el recap. Mencionarlo demuestra que no escuchaste y presiona innecesariamente.
+
+10. **El recap solo incluye lo que el PROSPECT dijo, no lo que tú presentaste.** El email no es un resumen de tu pitch — es un reflejo de lo que a ELLOS les importó. Si la reunión fue mayormente presentación tuya, el recap es mínimo o no existe (Nivel 1).
+
+11. **Calibrar especificidad al nivel de confianza.** En C1 donde apenas se conocen, ser general: "cómo están viendo el tema de IA", "conocer más de su operación". En C2/C3 donde hay confianza, ser específico: "el problema de conversión de leads entre sedes", "los $X que están dejando en la mesa".
 
 ---
 

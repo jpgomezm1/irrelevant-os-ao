@@ -195,3 +195,51 @@ Irrelevant | AI Transformation
 - [ ] El prospect hablo mas que yo (>60%)
 - [ ] NO mencione precio, Fase 0, ni soluciones concretas
 - [ ] Agenda de C2 (Discovery) con fecha y hora
+
+---
+
+## PREGUNTAS ADICIONALES
+
+### Sobre Martin Restrepo (Director de Operaciones)
+> "Martin, como director de operaciones de 12 sedes, que es lo que mas tiempo te quita en el dia a dia?"
+
+### Sobre decision
+> "Si llegamos a ver que hay algo interesante, como funciona el proceso de decision aca en Acrecer? Ustedes lo definen o hay alguien mas involucrado?"
+
+---
+
+## POSIBLE C2 — Si la call evoluciona a Discovery
+
+**Senales de que se volvio C2:** Empiezan a soltar numeros concretos, describen procesos con detalle, mencionan frustraciones con cifras. Si pasa, dejala fluir y profundiza.
+
+### Bloque 1: Funnel
+- *"Cuantos leads les entran al mes entre todas las sedes? Portales, web, referidos, todo junto."*
+- *"De esos leads, cuantos terminan firmando contrato de arriendo o comprando?"*
+- *"Donde se les pierden mas — en el primer contacto, en las visitas, o en el cierre?"*
+
+### Bloque 2: Proceso
+- *"Cuando un lead entra por Metrocuadrado pidiendo un apartamento en Envigado, que pasa? Quien lo recibe, como llega al asesor correcto?"*
+- *"Cuanto tiempo pasa desde que alguien les escribe hasta que un asesor le responde?"*
+- *"Como se reparten los leads entre las 12 sedes? Es automatico o alguien lo hace manual?"*
+
+### Bloque 3: Friccion
+- *"Martin, de todo lo que manejas entre las 12 sedes, que proceso te genera mas ruido operativo?"*
+- *"Las solicitudes de reparaciones como les llegan — por WhatsApp, por Mi Acrecer, por llamada? Y como saben el estado de cada una?"*
+- *"Cuantas personas del equipo se dedican a tareas que son puro seguimiento o coordinacion manual?"*
+
+### Bloque 4: Impacto (las mas importantes)
+- *"Si un lead les escribe y nadie le contesta en la primera hora, que pasa con ese lead? Se va a otra inmobiliaria?"*
+- *"Cuanto vale en promedio una comision de arriendo? Y de venta?"*
+- *"Si me dicen que se pierden X leads al mes, eso en plata cuanto seria?"*
+- *"Cada mes que llevan operando asi, cuanto estiman que dejan en la mesa?"*
+
+### Urgencia (para cerrar)
+- *"O sea que cada mes que pasa sin resolver esto, estan dejando $X en la mesa?"*
+- *"Y eso lleva cuanto tiempo asi?"*
+
+### Regla: No pasar a C3 sin tener estos 3 metrics:
+1. **Conversion:** % de leads que se convierten en clientes
+2. **Tiempo:** Cuanto tarda el ciclo de lead a contrato
+3. **Costo:** Cuanto cuesta adquirir un cliente o cuanto pierden por lead perdido
+
+**Si sacas los 3 metrics → agenda C3 directo (no C2)**
