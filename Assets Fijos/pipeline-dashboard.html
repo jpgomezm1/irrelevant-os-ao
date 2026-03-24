@@ -3,508 +3,285 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pipeline Dashboard — Irrelevant</title>
+<title>Pipeline Dashboard &mdash; Irrelevant Sales OS</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background: #0a0a0a;
-    color: #ffffff;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-  .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
-  /* Header */
-  .header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 48px; padding-bottom: 24px;
-    border-bottom: 1px solid #222;
-  }
-  .header-left { display: flex; align-items: center; gap: 16px; }
-  .header-left img { height: 36px; }
-  .header-left h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-  .header-right { text-align: right; }
-  .header-right .date { font-size: 13px; color: #888; }
-  .header-right .badge {
-    display: inline-block; margin-top: 6px;
-    background: rgba(0,255,136,0.1); color: #00ff88;
-    font-size: 12px; font-weight: 600; padding: 4px 12px;
-    border-radius: 20px; border: 1px solid rgba(0,255,136,0.2);
-  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; background:#0a0a0a; color:#fff; line-height:1.6; }
 
-  /* Stats Grid */
-  .stats-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-    margin-bottom: 40px;
-  }
-  .stat-card {
-    background: #1a1a1a; border: 1px solid #2a2a2a;
-    border-radius: 14px; padding: 24px;
-    transition: border-color 0.2s;
-  }
-  .stat-card:hover { border-color: #444; }
-  .stat-label { font-size: 12px; color: #888; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-  .stat-value { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
-  .stat-value.green { color: #00ff88; }
-  .stat-value.amber { color: #fbbf24; }
-  .stat-value.red { color: #ff3333; }
-  .stat-value.white { color: #ffffff; }
-  .stat-sub { font-size: 12px; color: #666; margin-top: 4px; }
+  .container { max-width:1200px; margin:0 auto; padding:0 24px; }
 
-  /* Section Headers */
-  .section-title {
-    font-size: 20px; font-weight: 700; margin-bottom: 20px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .section-title .icon { font-size: 18px; }
+  /* HEADER */
+  .header { padding:32px 0 24px; border-bottom:1px solid #1a1a1a; margin-bottom:32px; }
+  .header-top { display:flex; justify-content:space-between; align-items:center; }
+  .header-left { display:flex; align-items:center; gap:16px; }
+  .header-left img { height:28px; opacity:0.8; }
+  .header-title { font-size:20px; font-weight:700; letter-spacing:-0.5px; }
+  .header-right { font-size:12px; color:#555; }
+  .header-right span { color:#00ff88; font-weight:600; }
 
-  /* Pipeline Table */
-  .table-container {
-    background: #1a1a1a; border: 1px solid #2a2a2a;
-    border-radius: 14px; overflow: hidden; margin-bottom: 40px;
-  }
-  table { width: 100%; border-collapse: collapse; }
-  thead th {
-    font-size: 11px; font-weight: 700; color: #00ff88;
-    text-transform: uppercase; letter-spacing: 1px;
-    padding: 14px 18px; text-align: left;
-    background: rgba(0,255,136,0.04);
-    border-bottom: 1px solid #2a2a2a;
-  }
-  tbody td {
-    font-size: 14px; color: #ccc; padding: 16px 18px;
-    border-bottom: 1px solid #1f1f1f;
-  }
-  tbody tr:hover td { background: rgba(255,255,255,0.02); }
-  tbody tr:last-child td { border-bottom: none; }
-  .client-name { font-weight: 700; color: #fff; font-size: 15px; }
-  .client-industry { font-size: 12px; color: #666; margin-top: 2px; }
+  /* STAT CARDS */
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:32px; }
+  .stat-card { background:#111; border:1px solid #1a1a1a; border-radius:12px; padding:20px 24px; }
+  .stat-label { font-size:11px; font-weight:600; color:#555; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px; }
+  .stat-value { font-size:32px; font-weight:800; letter-spacing:-1.5px; line-height:1; }
+  .stat-sub { font-size:11px; color:#555; margin-top:6px; }
+  .stat-value.green { color:#00ff88; }
+  .stat-value.purple { color:#a78bfa; }
 
-  /* Tags */
-  .tag {
-    display: inline-block; font-size: 11px; font-weight: 600;
-    padding: 3px 10px; border-radius: 6px; letter-spacing: 0.3px;
-  }
-  .tag-prep { background: rgba(167,139,250,0.12); color: #a78bfa; }
-  .tag-discovery { background: rgba(96,165,250,0.12); color: #60a5fa; }
-  .tag-diseno { background: rgba(251,191,36,0.12); color: #fbbf24; }
-  .tag-cotizacion { background: rgba(251,146,60,0.12); color: #fb923c; }
-  .tag-negociacion { background: rgba(244,114,182,0.12); color: #f472b6; }
-  .tag-contratos { background: rgba(52,211,153,0.12); color: #34d399; }
-  .tag-nuevo { background: rgba(255,255,255,0.08); color: #888; }
-  .tag-ops { background: rgba(124,58,237,0.12); color: #a78bfa; }
-  .tag-tbd { background: rgba(255,255,255,0.06); color: #666; }
+  /* SECTION TITLES */
+  .section-title { font-size:14px; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px; margin-top:8px; }
 
-  /* Status indicators */
-  .status-dot {
-    display: inline-block; width: 8px; height: 8px;
-    border-radius: 50%; margin-right: 8px;
-  }
-  .status-green { background: #00ff88; box-shadow: 0 0 8px rgba(0,255,136,0.4); }
-  .status-amber { background: #fbbf24; box-shadow: 0 0 8px rgba(251,191,36,0.4); }
-  .status-red { background: #ff3333; box-shadow: 0 0 8px rgba(255,51,51,0.4); }
+  /* PIPELINE TABLE */
+  .table-wrap { background:#111; border:1px solid #1a1a1a; border-radius:12px; overflow:hidden; margin-bottom:32px; }
+  table { width:100%; border-collapse:collapse; }
+  th { font-size:10px; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:1.5px; padding:14px 20px; text-align:left; border-bottom:1px solid #1a1a1a; background:#0d0d0d; }
+  td { font-size:13px; padding:16px 20px; border-bottom:1px solid #111; vertical-align:top; }
+  tr:hover td { background:rgba(255,255,255,0.02); }
+  tr:last-child td { border-bottom:none; }
 
-  /* Action badge */
-  .action {
-    font-size: 12px; color: #00ff88; font-weight: 500;
-    background: rgba(0,255,136,0.06); border: 1px solid rgba(0,255,136,0.15);
-    padding: 4px 10px; border-radius: 6px; display: inline-block;
-  }
+  .client-name { font-weight:700; font-size:14px; }
+  .client-industry { font-size:11px; color:#555; margin-top:2px; }
+  .client-contact { font-size:11px; color:#666; margin-top:2px; }
 
-  /* Risk / No-risk */
-  .no-risk {
-    background: rgba(0,255,136,0.04); border: 1px solid rgba(0,255,136,0.15);
-    border-radius: 14px; padding: 24px; text-align: center; margin-bottom: 40px;
-  }
-  .no-risk p { font-size: 14px; color: #00ff88; }
+  /* BADGES */
+  .badge { display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.5px; padding:4px 10px; border-radius:6px; text-transform:uppercase; }
+  .badge-preparacion { background:rgba(96,165,250,0.12); color:#60a5fa; border:1px solid rgba(96,165,250,0.2); }
+  .badge-cotizacion { background:rgba(251,191,36,0.12); color:#fbbf24; border:1px solid rgba(251,191,36,0.2); }
 
-  /* Client Detail Cards */
-  .client-detail {
-    background: #1a1a1a; border: 1px solid #2a2a2a;
-    border-radius: 14px; padding: 28px; margin-bottom: 20px;
-  }
-  .client-detail-header {
-    display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;
-  }
-  .client-detail h3 { font-size: 22px; font-weight: 700; }
-  .client-detail .meta { font-size: 13px; color: #888; margin-top: 4px; }
-  .detail-grid {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px;
-  }
-  .detail-box {
-    background: #111; border-radius: 10px; padding: 16px;
-  }
-  .detail-box .label {
-    font-size: 11px; color: #888; text-transform: uppercase;
-    letter-spacing: 1px; margin-bottom: 6px;
-  }
-  .detail-box .value { font-size: 14px; font-weight: 600; }
-  .detail-box .sub { font-size: 12px; color: #666; }
+  .valor { font-family:'JetBrains Mono',monospace; font-weight:600; font-size:13px; }
+  .valor.tbd { color:#555; font-style:italic; font-family:'Inter',sans-serif; font-weight:400; }
 
-  /* Progress bar */
-  .progress-track { display: flex; gap: 4px; align-items: center; margin-bottom: 6px; }
-  .progress-segment { flex: 1; height: 8px; border-radius: 4px; }
-  .progress-labels {
-    display: flex; justify-content: space-between; font-size: 10px; color: #666;
-  }
-  .progress-labels .active { color: #00ff88; font-weight: 600; }
+  .dias { font-family:'JetBrains Mono',monospace; font-size:13px; }
+  .dias.ok { color:#00ff88; }
 
-  /* File list */
-  .file-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-  .file-item {
-    background: #111; border-radius: 8px; padding: 10px 14px;
-    font-size: 13px; display: flex; align-items: center; gap: 8px;
-  }
+  .action { font-size:12px; color:#888; line-height:1.5; }
+  .action strong { color:#00ff88; font-weight:600; }
 
-  /* Next step box */
-  .next-box {
-    background: rgba(0,255,136,0.04); border: 1px solid rgba(0,255,136,0.15);
-    border-radius: 10px; padding: 16px;
-  }
-  .next-box .next-label {
-    font-size: 11px; color: #00ff88; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
-  }
-  .next-box p { font-size: 14px; color: #ccc; }
-  .next-box .skills { font-size: 12px; color: #666; margin-top: 8px; }
-  .next-box .skills span { color: #00ff88; }
+  /* NO RISK */
+  .no-risk { background:#111; border:1px solid rgba(0,255,136,0.15); border-left:3px solid #00ff88; border-radius:12px; padding:20px 24px; }
+  .no-risk p { font-size:13px; color:#00ff88; font-weight:600; }
 
-  /* Forecast */
-  .forecast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
-  .forecast-card {
-    background: #1a1a1a; border: 1px solid #2a2a2a;
-    border-radius: 14px; padding: 24px;
-  }
-  .forecast-card h4 { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 12px; }
-  .forecast-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 0; border-bottom: 1px solid #1f1f1f; font-size: 13px;
-  }
-  .forecast-row:last-child { border-bottom: none; }
-  .forecast-row .label { color: #888; }
-  .forecast-row .value { color: #fff; font-weight: 600; }
-  .forecast-total {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 0; margin-top: 8px; border-top: 2px solid #333;
-    font-size: 15px; font-weight: 700;
-  }
-  .forecast-total .value { color: #00ff88; }
+  /* FORECAST */
+  .forecast-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px; }
+  .forecast-card { background:#111; border:1px solid #1a1a1a; border-radius:12px; padding:20px 24px; }
+  .forecast-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #1a1a1a; }
+  .forecast-row:last-child { border-bottom:none; }
+  .forecast-label { font-size:12px; color:#888; }
+  .forecast-value { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; }
+  .forecast-value.green { color:#00ff88; }
 
-  /* Footer */
-  .footer {
-    text-align: center; padding: 32px 0; margin-top: 24px;
-    border-top: 1px solid #1a1a1a;
-    font-size: 12px; color: #444;
-  }
-  .footer span { color: #00ff88; }
+  .progress-bar-bg { height:6px; background:#1a1a1a; border-radius:3px; overflow:hidden; margin-top:8px; }
+  .progress-bar { height:100%; border-radius:3px; }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .forecast-grid { grid-template-columns: 1fr; }
-    .detail-grid { grid-template-columns: 1fr; }
-    .file-grid { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 600px) {
-    .stats-grid { grid-template-columns: 1fr; }
-    .header { flex-direction: column; gap: 16px; text-align: center; }
-    .header-right { text-align: center; }
+  /* FOOTER */
+  .footer { padding:32px 0; border-top:1px solid #1a1a1a; text-align:center; margin-top:16px; }
+  .footer p { font-size:11px; color:#333; }
+  .footer span { color:#555; }
+
+  @media (max-width:900px) {
+    .stats { grid-template-columns:repeat(2,1fr); }
+    .forecast-grid { grid-template-columns:1fr; }
+    th, td { padding:12px 14px; }
   }
 </style>
 </head>
 <body>
-
 <div class="container">
 
-  <!-- ═══ HEADER ═══ -->
-  <div class="header">
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
     <div class="header-left">
       <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
-      <h1>Pipeline Dashboard</h1>
+      <div class="header-title">Pipeline Dashboard</div>
     </div>
     <div class="header-right">
-      <div class="date">Generado: 24 de marzo de 2026 — 5:00 PM</div>
-      <div class="badge">2 clientes activos</div>
+      Generado: <span>24 de marzo de 2026</span> &mdash; 2 clientes activos
     </div>
   </div>
-
-  <!-- ═══ STATS ═══ -->
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-label">Total Clientes</div>
-      <div class="stat-value white">2</div>
-      <div class="stat-sub">En pipeline activo</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Valor del Pipeline</div>
-      <div class="stat-value green">$7.0M</div>
-      <div class="stat-sub">COP (sin IVA) — 1 deal valorizado, 1 por definir</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Distribución</div>
-      <div class="stat-value amber" style="font-size:20px;">1 Discovery · 1 Prep</div>
-      <div class="stat-sub">Ambos en etapa temprana</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Deals en Riesgo</div>
-      <div class="stat-value green">0</div>
-      <div class="stat-sub">>14 días sin actividad</div>
-    </div>
-  </div>
-
-  <!-- ═══ PIPELINE TABLE ═══ -->
-  <div class="section-title"><span class="icon">&#9670;</span> Pipeline Activo</div>
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Servicio</th>
-          <th>Etapa</th>
-          <th>Valor</th>
-          <th>Días en etapa</th>
-          <th>Último archivo</th>
-          <th>Siguiente acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- GALCO -->
-        <tr>
-          <td>
-            <div class="client-name">Galco</div>
-            <div class="client-industry">Metalmecánica — Referido</div>
-          </td>
-          <td><span class="tag tag-ops">Ops Layer</span></td>
-          <td>
-            <span class="status-dot status-green"></span>
-            <span class="tag tag-discovery">Discovery</span>
-          </td>
-          <td style="font-weight:700;">$7.000.000</td>
-          <td>
-            <span style="font-weight:700; color:#00ff88;">0 días</span>
-          </td>
-          <td>
-            <div style="font-size:13px;">email-post-2026-03-24.md</div>
-            <div style="font-size:11px; color:#666;">2026-03-24</div>
-          </td>
-          <td>
-            <span class="action">Presentar propuesta mañana</span>
-          </td>
-        </tr>
-        <!-- ACRECER -->
-        <tr>
-          <td>
-            <div class="client-name">Acrecer</div>
-            <div class="client-industry">Inmobiliario — Evento (Expoinmobiliaria)</div>
-          </td>
-          <td><span class="tag tag-tbd">Por definir</span></td>
-          <td>
-            <span class="status-dot status-green"></span>
-            <span class="tag tag-prep">Preparación</span>
-          </td>
-          <td style="font-weight:700; color:#666;">—</td>
-          <td>
-            <span style="font-weight:700; color:#00ff88;">0 días</span>
-          </td>
-          <td>
-            <div style="font-size:13px;">prep-call-c1.md</div>
-            <div style="font-size:11px; color:#666;">2026-03-24</div>
-          </td>
-          <td>
-            <span class="action">Agendar y ejecutar C1</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- ═══ AT-RISK ═══ -->
-  <div class="section-title"><span class="icon">&#9888;</span> Deals en Riesgo</div>
-  <div class="no-risk">
-    <p>No hay deals en riesgo. Todos los clientes tienen actividad reciente (&lt;14 días).</p>
-  </div>
-
-  <!-- ═══ DETAIL: GALCO ═══ -->
-  <div class="section-title"><span class="icon">&#9733;</span> Detalle por Cliente</div>
-
-  <div class="client-detail">
-    <div class="client-detail-header">
-      <div>
-        <h3>Galco</h3>
-        <div class="meta">Metalmecánica — Medellín — Referido — Comercial: JP</div>
-      </div>
-      <span class="tag tag-discovery" style="font-size:13px; padding:6px 14px;">Discovery Completado</span>
-    </div>
-
-    <div class="detail-grid">
-      <div class="detail-box">
-        <div class="label">Contacto</div>
-        <div class="value">Diego Saldarriaga</div>
-        <div class="sub">Director de Operaciones</div>
-      </div>
-      <div class="detail-box">
-        <div class="label">Valor Estimado</div>
-        <div class="value" style="color:#00ff88;">$7.000.000 COP + IVA</div>
-        <div class="sub">Ops Layer</div>
-      </div>
-      <div class="detail-box">
-        <div class="label">Personas Clave</div>
-        <div class="value" style="font-size:13px;">Jorge (Compras), Carolina (Contabilidad)</div>
-        <div class="sub">Don Ignacio (Gerente General — sin contacto)</div>
-      </div>
-    </div>
-
-    <div style="margin-bottom:20px;">
-      <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Progreso del Pipeline</div>
-      <div class="progress-track">
-        <div class="progress-segment" style="background:#00ff88;"></div>
-        <div class="progress-segment" style="background:#00ff88;"></div>
-        <div class="progress-segment" style="background:#333;"></div>
-        <div class="progress-segment" style="background:#222;"></div>
-        <div class="progress-segment" style="background:#222;"></div>
-        <div class="progress-segment" style="background:#222;"></div>
-      </div>
-      <div class="progress-labels">
-        <span>Creado</span>
-        <span class="active">Discovery</span>
-        <span>Diseño</span>
-        <span>Cotización</span>
-        <span>Contratos</span>
-        <span>Entrega</span>
-      </div>
-    </div>
-
-    <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Archivos Generados (6)</div>
-    <div class="file-grid">
-      <div class="file-item"><span style="color:#60a5fa;">&#9679;</span> discovery/discovery-notes.md</div>
-      <div class="file-item"><span style="color:#a78bfa;">&#9679;</span> contexto/transcript-jorge-compras.md</div>
-      <div class="file-item"><span style="color:#a78bfa;">&#9679;</span> contexto/transcript-carolina-contabilidad.md</div>
-      <div class="file-item"><span style="color:#fbbf24;">&#9679;</span> evaluaciones/call-review-C2.md</div>
-      <div class="file-item"><span style="color:#34d399;">&#9679;</span> comercial/emails/follow-up-C2.md</div>
-      <div class="file-item"><span style="color:#34d399;">&#9679;</span> comercial/emails/email-post-2026-03-24.md</div>
-    </div>
-
-    <div class="next-box">
-      <div class="next-label">Siguiente Acción</div>
-      <p>
-        <strong style="color:#fff;">1.</strong> Enviar follow-up WhatsApp + email HOY<br>
-        <strong style="color:#fff;">2.</strong> Mañana (25 mar): presentar propuesta AI Ops Layer a Diego<br>
-        <strong style="color:#fff;">3.</strong> Obtener métricas (horas Jorge/Carolina, volumen OC, costo hora-hombre) antes o durante la propuesta
-      </p>
-      <div class="skills">Skills sugeridos: <span>/disenar-skills galco</span> → <span>/cotizacion galco ops</span> → <span>/calcular-roi galco</span></div>
-    </div>
-  </div>
-
-  <!-- ═══ DETAIL: ACRECER ═══ -->
-  <div class="client-detail">
-    <div class="client-detail-header">
-      <div>
-        <h3>Acrecer</h3>
-        <div class="meta">Inmobiliario — Evento (Expoinmobiliaria 2026) — Comercial: JP</div>
-      </div>
-      <span class="tag tag-prep" style="font-size:13px; padding:6px 14px;">Preparación</span>
-    </div>
-
-    <div class="detail-grid">
-      <div class="detail-box">
-        <div class="label">Contacto</div>
-        <div class="value">Sara Velazquez</div>
-        <div class="sub">Cargo por confirmar</div>
-      </div>
-      <div class="detail-box">
-        <div class="label">Valor Estimado</div>
-        <div class="value" style="color:#666;">Por definir</div>
-        <div class="sub">Servicio aún no definido</div>
-      </div>
-      <div class="detail-box">
-        <div class="label">Archivos</div>
-        <div class="value" style="font-size:13px;">2 archivos</div>
-        <div class="sub">contexto-general.md, prep-call-c1.md</div>
-      </div>
-    </div>
-
-    <div style="margin-bottom:20px;">
-      <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Progreso del Pipeline</div>
-      <div class="progress-track">
-        <div class="progress-segment" style="background:#a78bfa;"></div>
-        <div class="progress-segment" style="background:#333;"></div>
-        <div class="progress-segment" style="background:#222;"></div>
-        <div class="progress-segment" style="background:#222;"></div>
-        <div class="progress-segment" style="background:#222;"></div>
-        <div class="progress-segment" style="background:#222;"></div>
-      </div>
-      <div class="progress-labels">
-        <span class="active" style="color:#a78bfa;">Prep</span>
-        <span>Discovery</span>
-        <span>Diseño</span>
-        <span>Cotización</span>
-        <span>Contratos</span>
-        <span>Entrega</span>
-      </div>
-    </div>
-
-    <div class="file-grid">
-      <div class="file-item"><span style="color:#a78bfa;">&#9679;</span> contexto/contexto-general.md</div>
-      <div class="file-item"><span style="color:#60a5fa;">&#9679;</span> discovery/prep-call-c1.md</div>
-    </div>
-
-    <div class="next-box">
-      <div class="next-label">Siguiente Acción</div>
-      <p>
-        <strong style="color:#fff;">1.</strong> Agendar C1 (Approach) con Sara Velazquez<br>
-        <strong style="color:#fff;">2.</strong> Ejecutar la C1 usando el prep-call generado<br>
-        <strong style="color:#fff;">3.</strong> Post-C1: /discovery-notes o /procesar-call
-      </p>
-      <div class="skills">Skills sugeridos: <span>/call-simulator acrecer</span> → ejecutar C1 → <span>/procesar-call</span></div>
-    </div>
-  </div>
-
-  <!-- ═══ REVENUE FORECAST ═══ -->
-  <div class="section-title"><span class="icon">&#9650;</span> Revenue Forecast</div>
-  <div class="forecast-grid">
-    <div class="forecast-card">
-      <h4>Pipeline por Etapa</h4>
-      <div class="forecast-row">
-        <span class="label"><span class="tag tag-discovery" style="margin-right:8px;">Discovery</span> Galco</span>
-        <span class="value">$7.000.000</span>
-      </div>
-      <div class="forecast-row">
-        <span class="label"><span class="tag tag-prep" style="margin-right:8px;">Preparación</span> Acrecer</span>
-        <span class="value" style="color:#666;">—</span>
-      </div>
-      <div class="forecast-total">
-        <span>Pipeline Total</span>
-        <span class="value">$7.000.000 COP</span>
-      </div>
-    </div>
-    <div class="forecast-card">
-      <h4>Pipeline Ponderado (por probabilidad)</h4>
-      <div class="forecast-row">
-        <span class="label">Galco — Discovery (20%)</span>
-        <span class="value">$1.400.000</span>
-      </div>
-      <div class="forecast-row">
-        <span class="label">Acrecer — Preparación (10%)</span>
-        <span class="value" style="color:#666;">—</span>
-      </div>
-      <div class="forecast-total">
-        <span>Forecast Ponderado</span>
-        <span class="value">$1.400.000 COP</span>
-      </div>
-      <div style="margin-top:12px; font-size:12px; color:#666;">
-        Probabilidades: Prep 10% → Discovery 20% → Diseño 35% → Cotización 50% → Negociación 65% → Contratos 85% → Producción 95%
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ FOOTER ═══ -->
-  <div class="footer">
-    <span>Irrelevant</span> Sales OS — Pipeline Dashboard<br>
-    Generado el 24 de marzo de 2026
-  </div>
-
 </div>
 
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-card">
+    <div class="stat-label">Clientes Activos</div>
+    <div class="stat-value">2</div>
+    <div class="stat-sub">En pipeline comercial</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Valor del Pipeline</div>
+    <div class="stat-value green">$7M</div>
+    <div class="stat-sub">$7.000.000 COP confirmado + 1 por definir</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Pipeline Ponderado</div>
+    <div class="stat-value purple">$3.5M</div>
+    <div class="stat-sub">Valor &times; probabilidad de cierre</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Deals en Riesgo</div>
+    <div class="stat-value green">0</div>
+    <div class="stat-sub">Ning&uacute;n deal con &gt;14 d&iacute;as sin actividad</div>
+  </div>
+</div>
+
+<!-- PIPELINE TABLE -->
+<div class="section-title">Pipeline Completo</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Servicio</th>
+        <th>Etapa</th>
+        <th>Valor</th>
+        <th>D&iacute;as</th>
+        <th>&Uacute;ltimo Archivo</th>
+        <th>Siguiente Acci&oacute;n</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- GALCO -->
+      <tr>
+        <td>
+          <div class="client-name">Galco</div>
+          <div class="client-industry">Metalmecanica</div>
+          <div class="client-contact">Diego Saldarriaga &mdash; Dir. Operaciones</div>
+        </td>
+        <td>Ops Layer</td>
+        <td><span class="badge badge-cotizacion">Cotizaci&oacute;n</span></td>
+        <td><span class="valor">$7.000.000</span></td>
+        <td><span class="dias ok">0d</span></td>
+        <td style="font-size:12px; color:#888;">cotizacion-ops.html<br><span style="color:#555;">24 mar 2026</span></td>
+        <td class="action">
+          <strong>/contrato galco ops</strong><br>
+          Agendar C3 con Diego para presentar slides + cotizaci&oacute;n. Obtener m&eacute;tricas econ&oacute;micas antes.
+        </td>
+      </tr>
+      <!-- ACRECER -->
+      <tr>
+        <td>
+          <div class="client-name">Acrecer</div>
+          <div class="client-industry">Inmobiliario</div>
+          <div class="client-contact">Sara Velazquez</div>
+        </td>
+        <td style="color:#555; font-style:italic;">Por definir</td>
+        <td><span class="badge badge-preparacion">Preparaci&oacute;n</span></td>
+        <td><span class="valor tbd">Por definir</span></td>
+        <td><span class="dias ok">0d</span></td>
+        <td style="font-size:12px; color:#888;">prep-call-c1.md<br><span style="color:#555;">24 mar 2026</span></td>
+        <td class="action">
+          <strong>Agendar C1 Discovery</strong><br>
+          Prep call listo. Contactar a Sara para agendar la primera reuni&oacute;n.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- AT-RISK -->
+<div class="section-title">Deals en Riesgo</div>
+<div class="no-risk">
+  <p>&#10003; Ning&uacute;n deal con m&aacute;s de 14 d&iacute;as sin actividad. Pipeline saludable.</p>
+</div>
+
+<div style="height:24px;"></div>
+
+<!-- REVENUE FORECAST -->
+<div class="section-title">Revenue Forecast</div>
+<div class="forecast-grid">
+  <div class="forecast-card">
+    <div class="stat-label" style="margin-bottom:16px;">Por Etapa &amp; Probabilidad</div>
+    <div class="forecast-row">
+      <span class="forecast-label">Galco &mdash; Cotizaci&oacute;n (50%)</span>
+      <span class="forecast-value green">$3.500.000</span>
+    </div>
+    <div class="forecast-row">
+      <span class="forecast-label">Acrecer &mdash; Preparaci&oacute;n (10%)</span>
+      <span class="forecast-value" style="color:#555;">$0</span>
+    </div>
+    <div class="forecast-row" style="border-top:2px solid #333; padding-top:12px; margin-top:4px;">
+      <span class="forecast-label" style="font-weight:700; color:#fff;">Pipeline Ponderado Total</span>
+      <span class="forecast-value green">$3.500.000</span>
+    </div>
+  </div>
+  <div class="forecast-card">
+    <div class="stat-label" style="margin-bottom:16px;">Progreso por Cliente</div>
+    <!-- Galco bar -->
+    <div style="margin-bottom:16px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+        <span style="font-size:12px; font-weight:600;">Galco</span>
+        <span style="font-size:12px; color:#fbbf24; font-weight:600;">Cotizaci&oacute;n</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar" style="width:70%; background:linear-gradient(90deg, #8b5cf6, #fbbf24);"></div>
+      </div>
+      <div style="font-size:10px; color:#555; margin-top:4px;">Discovery &#10132; Dise&ntilde;o &#10132; Cotizaci&oacute;n &bull; Pendiente: C3 + Contrato</div>
+    </div>
+    <!-- Acrecer bar -->
+    <div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+        <span style="font-size:12px; font-weight:600;">Acrecer</span>
+        <span style="font-size:12px; color:#60a5fa; font-weight:600;">Preparaci&oacute;n</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar" style="width:15%; background:linear-gradient(90deg, #60a5fa, #818cf8);"></div>
+      </div>
+      <div style="font-size:10px; color:#555; margin-top:4px;">Prep call listo &bull; Pendiente: Agendar C1</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT DETAIL CARDS -->
+<div class="section-title">Detalle por Cliente</div>
+<div class="forecast-grid">
+  <!-- GALCO -->
+  <div class="forecast-card" style="border-left:3px solid #fbbf24;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <div>
+        <div style="font-size:16px; font-weight:700;">Galco</div>
+        <div style="font-size:11px; color:#555;">Metalmecanica &mdash; Ops Layer</div>
+      </div>
+      <span class="badge badge-cotizacion">Cotizaci&oacute;n</span>
+    </div>
+    <div style="font-size:11px; color:#888; line-height:1.8;">
+      <div><strong style="color:#fff;">Archivos generados:</strong> 13</div>
+      <div>&bull; 2 transcripts (Jorge + Carolina)</div>
+      <div>&bull; 1 discovery notes</div>
+      <div>&bull; 1 call review C2</div>
+      <div>&bull; 4 archivos de dise&ntilde;o (skills + stack)</div>
+      <div>&bull; 1 slides de propuesta</div>
+      <div>&bull; 1 cotizaci&oacute;n</div>
+      <div>&bull; 2 emails/follow-ups</div>
+      <div style="margin-top:10px;"><strong style="color:#fbbf24;">Pr&oacute;ximo:</strong> Agendar C3 con Diego. Presentar slides + cotizaci&oacute;n. Obtener m&eacute;tricas econ&oacute;micas. Validar si Don Ignacio debe estar.</div>
+    </div>
+  </div>
+  <!-- ACRECER -->
+  <div class="forecast-card" style="border-left:3px solid #60a5fa;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <div>
+        <div style="font-size:16px; font-weight:700;">Acrecer</div>
+        <div style="font-size:11px; color:#555;">Inmobiliario &mdash; Por definir</div>
+      </div>
+      <span class="badge badge-preparacion">Preparaci&oacute;n</span>
+    </div>
+    <div style="font-size:11px; color:#888; line-height:1.8;">
+      <div><strong style="color:#fff;">Archivos generados:</strong> 3</div>
+      <div>&bull; 1 contexto general</div>
+      <div>&bull; 1 prep call C1</div>
+      <div>&bull; 1 README</div>
+      <div style="margin-top:10px;"><strong style="color:#60a5fa;">Pr&oacute;ximo:</strong> Contactar a Sara Velazquez para agendar C1 Discovery. Lleg&oacute; por Expoinmobiliaria 2026.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Generado por <span>Irrelevant Sales OS</span> &mdash; 24 de marzo de 2026</p>
+</div>
+
+</div>
 </body>
 </html>
