@@ -222,7 +222,7 @@ section+section{border-top:1px solid var(--border);}
   <h1>Irrelevant <span class="highlight">Operating System</span></h1>
   <p class="tagline">El sistema completo para vender, disenar, construir y entregar soluciones de IA.</p>
   <div class="stats">
-    <div class="stat"><div class="num" style="color:var(--purple-light);">32</div><div class="label">Skills</div></div>
+    <div class="stat"><div class="num" style="color:var(--purple-light);">33</div><div class="label">Skills</div></div>
     <div class="stat"><div class="num" style="color:var(--emerald);">3</div><div class="label">Servicios</div></div>
     <div class="stat"><div class="num" style="color:var(--amber);">9</div><div class="label">Etapas del pipeline</div></div>
     <div class="stat"><div class="num" style="color:var(--blue);">E2E</div><div class="label">Sistema end-to-end</div></div>
@@ -291,10 +291,11 @@ section+section{border-top:1px solid var(--border);}
       <div class="stage-name">Propuesta</div>
       <div class="stage-skills">
         <span class="skill-tag">/cotizacion</span>
+        <span class="skill-tag">/slides-propuesta-ops</span>
         <span class="skill-tag">/calcular-roi</span>
         <span class="skill-tag">/fase0</span>
       </div>
-      <div class="stage-detail"><strong>Produce:</strong> Cotizacion HTML (acepta RUT), ROI personalizado, documento Fase 0 + slides (Core Layer)</div>
+      <div class="stage-detail"><strong>Produce:</strong> Cotizacion HTML, slides propuesta Ops (5 skills + stack + precio), ROI personalizado, documento Fase 0 + slides (Core Layer)</div>
       <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/comercial/</code> + <code>/fase0/</code></div>
     </div>
     <div class="stage-arrow">&#8595;</div>
@@ -395,7 +396,7 @@ section+section{border-top:1px solid var(--border);}
   <div class="folder-cards">
     <div class="folder-card fade-in">
       <h4>.claude/skills/</h4>
-      <p>Las 32 skills que ejecuta Claude Code. Cada archivo <code>.md</code> define triggers, logica y outputs.</p>
+      <p>Las 33 skills que ejecuta Claude Code. Cada archivo <code>.md</code> define triggers, logica y outputs.</p>
       <div class="meta">Lee: todas las skills &bull; Escribe: nada directamente</div>
     </div>
     <div class="folder-card fade-in">
@@ -620,6 +621,18 @@ section+section{border-top:1px solid var(--border);}
       </div>
       <div class="skill-tags"><span class="tag tag-templates">Templates</span></div>
       <div class="skill-example">&gt; /cotizacion Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/slides-propuesta-ops</div>
+      <div class="skill-when">Para generar los slides de presentacion de propuesta del Ops Layer &mdash; 5 skills + stack sugerido + precio.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Slides HTML 16 diapositivas con propuesta visual completa</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/comercial/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>diseno/propuesta-skills.md, diseno/stack.md, comercial/cotizacion</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-templates">Templates</span></div>
+      <div class="skill-example">&gt; /slides-propuesta-ops Bancolombia</div>
     </div>
 
     <div class="skill-row fade-in">
@@ -1675,7 +1688,7 @@ section+section{border-top:1px solid var(--border);}
 <!-- FOOTER -->
 <footer class="footer fade-in">
   <div class="motto">Think AI or stay <span class="highlight">irrelevant</span>.</div>
-  <p style="margin-bottom:4px;">32 skills &mdash; 3 servicios &mdash; 9 etapas &mdash; sistema end-to-end</p>
+  <p style="margin-bottom:4px;">33 skills &mdash; 3 servicios &mdash; 9 etapas &mdash; sistema end-to-end</p>
   <p>Ultima actualizacion: Marzo 2026</p>
   <p style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;">Se actualiza con <code style="color:var(--purple-light);">/actualizar-skills-reference</code></p>
 </footer>

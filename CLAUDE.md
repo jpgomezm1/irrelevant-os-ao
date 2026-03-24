@@ -42,6 +42,7 @@ Claude_Code/
 │   │   ├── Cotizacion Edu Layer/    # Templates cotizacion AI Edu (ES/EN + ejemplo)
 │   │   ├── Fase 0 Core Layer/       # Templates Fase 0 diagnostico (ES/EN + ejemplo)
 │   │   ├── Slides Fase 0/           # Templates slides Fase 0 (ES/EN + ejemplo)
+│   │   ├── Slides Propuesta Ops/     # Templates slides propuesta Ops (ES/EN + ejemplo)
 │   │   ├── Entregable Ops Layer/    # Templates entregable post-setup (ES/EN + ejemplo)
 │   │   └── Slides Entregable Ops/   # Templates slides entregable (ES/EN + ejemplo)
 │   └── Contratos/
@@ -115,7 +116,7 @@ Cuando se instala en la máquina del cliente, se copia la carpeta del skill a `.
 
 ---
 
-## Skills Disponibles (32 total)
+## Skills Disponibles (33 total)
 
 ### Gestión, Navegación y Construcción (3 skills)
 
@@ -144,7 +145,7 @@ Cuando se instala en la máquina del cliente, se copia la carpeta del skill a `.
 | Diseñar Solución | `/disenar-solucion` | Define solución de Core Layer (previo a Fase 0). 2 outputs: cliente + equipo |
 | Diseñar Stack | `/disenar-stack` | Selecciona herramientas del catálogo Supabase en tiempo real. 2 outputs: cliente + equipo |
 
-### Documentos y Comercial (9 skills)
+### Documentos y Comercial (10 skills)
 
 | Skill | Comando | Descripcion |
 |---|---|---|
@@ -157,6 +158,7 @@ Cuando se instala en la máquina del cliente, se copia la carpeta del skill a `.
 | Resumen Reunion | `/resumen-reunion` | Genera acta de reunion con action items |
 | Calcular ROI | `/calcular-roi` | Calcula ROI personalizado para un prospecto |
 | Email Post-Reunion | `/email-post-reunion` | Genera email profesional de seguimiento post-reunion |
+| Slides Propuesta Ops | `/slides-propuesta-ops` | Genera slides de presentacion de propuesta para Ops Layer (5 skills + stack + precio) |
 
 ### Ventas y Coaching (8 skills — Framework Irrelevant)
 
@@ -220,6 +222,7 @@ DISEÑO (post-discovery):
 
 DOCUMENTOS:
 /cotizacion [empresa]            → Genera cotizacion
+/slides-propuesta-ops [empresa]  → Slides de propuesta Ops (5 skills + stack + precio)
 /contrato [empresa]              → Genera contratos (Core necesita Fase 0)
 /fase0 [empresa]                 → Genera Fase 0 (usa output de /disenar-solucion)
 /entregable [empresa]            → Genera entregable post-setup
