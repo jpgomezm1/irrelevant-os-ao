@@ -23,3 +23,5 @@
 - `contexto/transcript-2026-03-24-jorge-compras.md` — Transcript procesado: shadowing Jorge (Compras)
 - `contexto/transcript-2026-03-24-carolina-contabilidad.md` — Transcript procesado: shadowing Carolina (Contabilidad)
 - `evaluaciones/call-review-C2.md` — Análisis forense de la call C2 contra el framework
+- `comercial/emails/follow-up-C2.md` — Follow-ups post-discovery (WhatsApp + Email)
+- `comercial/emails/email-post-2026-03-24.md` — Email profesional post-reunión C2

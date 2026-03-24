@@ -8,7 +8,7 @@ description: >
   generates personalized follow-up messages ready to copy for WhatsApp and email
   based on the Irrelevant sales framework.
 argument-hint: "[tipo_call C1/C2/C3]"
-allowed-tools: [Read, Glob, Grep, AskUserQuestion]
+allowed-tools: [Read, Write, Glob, Grep, AskUserQuestion]
 disable-model-invocation: true
 ---
 

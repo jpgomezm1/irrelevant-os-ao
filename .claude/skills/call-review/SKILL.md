@@ -7,7 +7,7 @@ description: >
   "/call-review". Guides the user to provide a transcript file, then delivers
   deep expert B2B sales coaching based on the Irrelevant sales framework.
 argument-hint: "[archivo_transcript]"
-allowed-tools: [Read, Glob, Grep, AskUserQuestion]
+allowed-tools: [Read, Write, Glob, Grep, AskUserQuestion]
 disable-model-invocation: true
 ---
 

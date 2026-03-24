@@ -9,7 +9,7 @@ description: >
   sequence with messages ready to copy for LinkedIn, email, and WhatsApp based
   on the Irrelevant sales framework.
 argument-hint: "[nombre_empresa]"
-allowed-tools: [Read, Glob, Grep, AskUserQuestion]
+allowed-tools: [Read, Write, Glob, Grep, AskUserQuestion]
 disable-model-invocation: true
 ---
 
@@ -269,6 +269,18 @@ Resumen de que DEBE personalizar el rep antes de enviar:
 | 5 | — | Puede ir como esta |
 
 *"Los mensajes estan 80% listos. El 20% que personalizas es lo que marca la diferencia entre una respuesta y ser ignorado. NO envies sin personalizar las partes marcadas con [PERSONALIZAR]."*
+
+---
+
+## STEP 4: Guardar Output
+
+Guarda la secuencia completa como archivo en la carpeta del cliente:
+
+`Clientes/[empresa]/comercial/email-sequence-[empresa].md`
+
+Ejemplo: `Clientes/acme/comercial/email-sequence-acme.md`
+
+**SIEMPRE guardar.** La secuencia es un asset reutilizable — el rep puede personalizarla y usarla multiples veces.
 
 ---
 

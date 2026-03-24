@@ -162,9 +162,9 @@ Cuando se instala en la máquina del cliente, se copia la carpeta del skill a `.
 
 | Skill | Comando | Descripcion |
 |---|---|---|
-| Prep Call | `/prep-call` | Investiga empresa + prepara agenda, preguntas, objeciones y outreach |
+| Prep Call | `/prep-call` | Investiga empresa, coaching tactico, guion de referencia, recursos a presentar, pain points y objeciones |
 | Email Sequence | `/email-sequence` | Genera secuencia de prospecting multicanal (5 touchpoints, 18 dias) |
-| Call Simulator | `/call-simulator` | Simula llamada (random, real, o desde research de /prep-call) |
+| Call Simulator | `/call-simulator` | Simula llamada (role-play) o genera guion completo de call con scripts listos |
 | Objection Gym | `/objection-gym` | Practica de manejo de objeciones con scoring |
 | Framework Quiz | `/framework-quiz` | Quiz interactivo del framework de ventas Irrelevant |
 | Call Review | `/call-review` | Analisis forense de llamadas contra el framework |
@@ -261,3 +261,4 @@ INTERNAL OPS:
 - Los archivos de ejemplo (`ejemplo-escuela-ingenieria.html`) sirven como referencia de calidad
 - Para templates con version ES y EN, preguntar idioma al usuario
 - Los outputs se guardan en la misma carpeta del template o en una carpeta nueva segun el skill
+- **REGLA CRITICA — Chat primero, archivo despues:** TODOS los skills deben mostrar su output completo en el chat ANTES de guardar el archivo. El chat es la herramienta de trabajo interactiva — el comercial debe poder leer el resultado, hacer preguntas, pedir ajustes, y discutirlo. El archivo guardado es la referencia persistente. Nunca guardar en silencio sin mostrar en chat.
