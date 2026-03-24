@@ -57,8 +57,8 @@ Optimización continua atada a KPIs. Iteramos hasta que los números se muevan.
 
 ### AI Ops Layer — Setup de IA
 - **Qué es:** Entramos a la operación, diagnosticamos cómo trabaja el equipo, configuramos un motor de IA, diseñamos el stack de herramientas y dejamos procesos inteligentes funcionando.
-- **Precio COP:** $4.000.000 + IVA
-- **Precio USD:** $2,000
+- **Precio COP:** $7.000.000 + IVA
+- **Precio USD:** $3,500
 - **Duración:** 1 semana
 - **Entregables:** Documento diagnóstico, motor de IA configurado, stack de herramientas, 5 procesos inteligentes, sesión de entrenamiento, documentación
 - **Condiciones:** 50% anticipo + 50% entrega, vigencia 15 días

@@ -213,7 +213,7 @@ Listo. Desde ahí el sistema te dice qué sigue.
 ### "¿Qué servicio le ofrezco?"
 ```
 Depende de lo que encontraste en el discovery:
-- Procesos manuales y repetitivos → Ops Layer ($4M COP)
+- Procesos manuales y repetitivos → Ops Layer ($7M COP)
 - Quieren capacitar al equipo → Edu Layer ($4.5M COP)
 - Problema en el core del negocio → Core Layer (basado en impacto)
 💡 Lee: Assets Fijos/PROP_VALUE_IRRELEVANT.md para el detalle de cada servicio.

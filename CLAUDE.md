@@ -57,7 +57,7 @@ Claude_Code/
 ## Servicios y Precios
 
 ### AI Ops Layer (Setup de IA)
-- **Precio:** $4.000.000 COP + IVA / $2,000 USD
+- **Precio:** $7.000.000 COP + IVA / $3,500 USD
 - **Que es:** Setup completo de infraestructura de IA para operaciones. Implementacion de sistemas, flujos automatizados y stack de herramientas.
 
 ### AI Edu Layer (Workshop Think AI)

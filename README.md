@@ -65,7 +65,7 @@ Claude Code detecta automáticamente las skills en `.claude/skills/` y las activ
 
 | Servicio | Qué es | Precio COP | Precio USD |
 |----------|--------|-----------|-----------|
-| **AI Ops Layer** | Setup de IA: diagnóstico + motor de IA + stack + 5 procesos inteligentes. 1 semana. | $4.000.000 + IVA | $2,000 |
+| **AI Ops Layer** | Setup de IA: diagnóstico + motor de IA + stack + 5 procesos inteligentes. 1 semana. | $7.000.000 + IVA | $3,500 |
 | **AI Edu Layer** | Workshop Think AI: 3 horas (45 min conceptual + 2h15 práctico). Suite de Claude. | $4.500.000 + IVA | $2,500 |
 | **AI Core Layer** | Transformación del core del negocio. Fase 0 + implementación + fee mensual. 8-12 semanas. | Basado en impacto | Basado en impacto |
 

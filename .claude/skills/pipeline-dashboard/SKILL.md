@@ -40,7 +40,7 @@ Para CADA cliente:
 | **Cerrado** | Tiene entregable + check-in positivo |
 
 4. Determina el valor estimado basado en servicio:
-   - Ops Layer: $4.000.000 COP
+   - Ops Layer: $7.000.000 COP
    - Edu Layer: $4.500.000 COP
    - Core Layer: buscar en cotización o estimar $15.000.000 COP
    - No definido: $0

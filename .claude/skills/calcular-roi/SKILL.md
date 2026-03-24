@@ -56,7 +56,7 @@ Espera la respuesta.
 ### Datos Base
 - **Costo hora:** Si dan salario mensual, dividir por 160 (horas laborales/mes). Si dan salario en COP, convertir si es necesario.
 - **Precio del servicio:** Usar estandar si no se especifica:
-  - Ops Layer: $4.000.000 COP
+  - Ops Layer: $7.000.000 COP
   - Edu Layer: $4.500.000 COP
   - Core Layer: Pedir al usuario
 
@@ -138,8 +138,8 @@ Guarda como: `Clientes/[empresa]/comercial/calcular-roi.md`
 - SIEMPRE pedir datos reales — los calculos son tan buenos como los inputs
 - Si los datos son estimados, decirlo claramente: "Basado en estimados"
 - Los benchmarks (30-40 hrs Ops, 15-20% Edu) son GUIAS — si el usuario da datos reales, usar esos
-- Formatear numeros COP con puntos de miles: $4.000.000
-- Formatear numeros USD con comas: $2,000
+- Formatear numeros COP con puntos de miles: $7.000.000
+- Formatear numeros USD con comas: $3,500
 - El payback period es el dato mas poderoso en una venta — resaltarlo
 - Si el ROI es negativo o el payback es muy largo, ser honesto y decirlo
 - Espanol por defecto
