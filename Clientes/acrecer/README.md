@@ -10,7 +10,7 @@
 | **Servicio interesado** | Core Layer o Ops Layer (pendiente definir tras C2) |
 | **Como llego** | Evento — Expoinmobiliaria 2026 |
 | **Fecha de creacion** | 2026-03-24 |
-| **Comercial** | Sara Garces |
+| **Comercial** | Sara |
 | **Estado** | C2 agendada — Jueves 9 abril 3:00 PM |
 
 ## Historial

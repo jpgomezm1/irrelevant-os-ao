@@ -12,8 +12,8 @@
 | **Contacto** | Abdul Raheel |
 | **Servicio interesado** | Por definir (Abdul busca agentes de outbound sales, JP ve oportunidad mas amplia de operaciones) |
 | **Como llego** | LinkedIn (outbound JP) |
-| **Fecha de creacion** | 2025-03-24 |
-| **Comercial** | JP + Sara |
+| **Fecha de creacion** | 2026-03-18 |
+| **Comercial** | Sara |
 | **Estado** | Discovery realizado — siguiente call con Sara |
 
 ## Contexto Clave
@@ -24,10 +24,10 @@
 - Abdul ya tuvo call con el asistente de JP
 
 ## Historial
-- 2025-03-24: Carpeta creada
-- 2025-03-19: Discovery call (Abdul hablo con asistente de JP)
-- 2025-03-19: JP reframing: de "contratar agentes" a "construir operacion confiable remota"
-- 2025-03-20: JP presenta a Sara para liderar siguiente conversacion
+- 2026-03-18: Carpeta creada
+- 2026-03-19: Discovery call (Abdul hablo con asistente de JP)
+- 2026-03-19: JP reframing: de "contratar agentes" a "construir operacion confiable remota"
+- 2026-03-20: JP presenta a Sara para liderar siguiente conversacion
 
 ## Archivos
 (Se actualiza automaticamente con cada skill ejecutado)
