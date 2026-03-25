@@ -8,7 +8,7 @@
 
 El sistema operativo completo de Irrelevant — desde el primer contacto con un prospecto hasta la entrega del proyecto y el seguimiento post-entrega. Todo el ciclo comercial y de producción de la empresa vive aquí.
 
-[![Skills](https://img.shields.io/badge/Skills-30-8B5CF6?style=for-the-badge)](/) [![Services](https://img.shields.io/badge/Servicios-3-34d399?style=for-the-badge)](/) [![Pipeline](https://img.shields.io/badge/Pipeline-9_etapas-fbbf24?style=for-the-badge)](/) [![E2E](https://img.shields.io/badge/Sistema-End_to_End-60a5fa?style=for-the-badge)](/)
+[![Skills](https://img.shields.io/badge/Skills-33-8B5CF6?style=for-the-badge)](/) [![Services](https://img.shields.io/badge/Servicios-3-34d399?style=for-the-badge)](/) [![Pipeline](https://img.shields.io/badge/Pipeline-9_etapas-fbbf24?style=for-the-badge)](/) [![E2E](https://img.shields.io/badge/Sistema-End_to_End-60a5fa?style=for-the-badge)](/)
 
 </div>
 
@@ -18,7 +18,7 @@ El sistema operativo completo de Irrelevant — desde el primer contacto con un 
 
 Es un workspace de [Claude Code](https://claude.ai/claude-code) que contiene:
 
-- **30 skills** (comandos) que automatizan cada paso del proceso comercial
+- **33 skills** (comandos) que automatizan cada paso del proceso comercial
 - **Templates** para cotizaciones, contratos, entregables y presentaciones (ES + EN)
 - **Contratos legales** revisados para los 3 servicios
 - **Assets de ventas** listos para enviar (pitch decks, one pagers, casos de éxito)
@@ -89,7 +89,7 @@ Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactament
 
 ---
 
-## Las 30 skills
+## Las 33 skills
 
 ### Navegación y gestión
 
@@ -100,6 +100,13 @@ Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactament
 | `/cliente ver [empresa]` | Muestra el estado del pipeline del cliente |
 | `/cliente listar` | Lista todos los clientes activos |
 | `/crear-skill [nombre]` | Construye una skill de Claude Code completa |
+
+### Contexto e inteligencia
+
+| Comando | Qué hace |
+|---------|----------|
+| `/procesar-transcript [empresa]` | Procesa transcripts de reuniones no-pipeline (internas, estratégicas). Extrae contexto para consultoría |
+| `/agregar-contexto [empresa]` | Agrega contexto del cliente: URLs, LinkedIn, notas. Acumula en contexto-general.md |
 
 ### Pre-call y ventas
 
@@ -136,6 +143,7 @@ Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactament
 |---------|----------|
 | `/cotizacion [empresa] [ops\|edu]` | Genera cotización HTML (acepta RUT para extraer datos automáticamente) |
 | `/calcular-roi [empresa]` | Calcula ROI personalizado para presentar en reunión |
+| `/slides-propuesta-ops [empresa]` | Genera slides de presentación de propuesta para Ops Layer (5 skills + stack + precio) |
 | `/fase0 [empresa]` | Genera documento de Fase 0 + slides (Core Layer) |
 | `/contrato [empresa] [ops\|edu\|core]` | Genera paquete completo de contratos (acepta RUT) |
 | `/entregable [empresa]` | Genera documento entregable + slides post-setup |
@@ -154,6 +162,7 @@ Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactament
 | `/pipeline-dashboard` | Genera HTML con el estado de todos los clientes del pipeline |
 | `/weekly-standup` | Genera agenda del standup semanal del equipo |
 | `/weekly-sales-report` | Genera reporte semanal HTML con métricas de ventas |
+| `/actualizar-skills-reference` | Actualiza el HTML de referencia de skills cuando se agrega o modifica un skill |
 
 ### Core Layer producción
 
@@ -169,7 +178,7 @@ Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactament
 ```
 Claude_Code/
 │
-├── .claude/skills/              ← 30 skills que corren en este workspace
+├── .claude/skills/              ← 33 skills que corren en este workspace
 │
 ├── Assets Fijos/                ← Documentos listos para enviar (no se modifican)
 │   ├── Pitch Deck/              4 versiones: ES/EN, con/sin precio
@@ -180,7 +189,8 @@ Claude_Code/
 │   ├── framework-ventas.html     Metodología de ventas C1/C2/C3
 │   ├── guide-building-skills.pdf Guía oficial de Anthropic para construir skills
 │   ├── showcase-skills.html      Catálogo de 80+ skills pre-diseñadas
-│   └── skills-reference.html     ESTE sistema — el Operating System visual
+│   ├── skills-reference.html     ESTE sistema — el Operating System visual
+│   └── guia-uso-claude-code.html Guía de uso para clientes (instalación + skills)
 │
 ├── Templates/                   ← Templates con {{placeholders}} que los skills rellenan
 │   ├── Comercial/
@@ -188,6 +198,7 @@ Claude_Code/
 │   │   ├── Cotizacion Edu Layer/    ES + EN + ejemplo real
 │   │   ├── Fase 0 Core Layer/      ES + EN + ejemplo real
 │   │   ├── Slides Fase 0/          ES + EN + ejemplo real
+│   │   │   ├── Slides Propuesta Ops/   ES + EN + ejemplo real
 │   │   ├── Entregable Ops Layer/   ES + EN + ejemplo real
 │   │   └── Slides Entregable Ops/  ES + EN + ejemplo real
 │   └── Contratos/
@@ -271,7 +282,7 @@ Cada skill produce outputs tan buenos como la información que recibe. En cada c
 2. `/prep-call` → Research + preparación
 3. Call real (grabar en Fireflies)
 4. `/procesar-call` → `/discovery-notes` → `/email-post-reunion`
-5. `/disenar-skills` → `/disenar-stack`
+5. `/disenar-skills` → `/disenar-stack` → `/slides-propuesta-ops`
 6. `/cotizacion ops` → `/contrato ops` → **Firma + anticipo**
 7. `/crear-skill` ×5 → `/entregable`
 8. `/check-in` → `/upsell`
@@ -396,9 +407,9 @@ git push
 
 ## Guía visual
 
-Abre `Assets Fijos/skills-reference.html` en el browser para ver el **Operating System visual** — el pipeline completo, las 30 skills documentadas, los playbooks por servicio, los assets disponibles, y los power combos.
+Abre `Assets Fijos/skills-reference.html` en el browser para ver el **Operating System visual** — el pipeline completo, las 33 skills documentadas, los playbooks por servicio, los assets disponibles, y los power combos.
 
 ---
 
 *Think AI or stay irrelevant.*
-*30 skills — 3 servicios — 9 etapas — sistema end-to-end*
+*33 skills — 3 servicios — 9 etapas — sistema end-to-end*
