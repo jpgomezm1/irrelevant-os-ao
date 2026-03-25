@@ -566,6 +566,37 @@
     margin-top: 8px;
   }
 
+  /* ===================== PAIN GRID ===================== */
+  .pain-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pain-item {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 22px;
+  }
+
+  .pain-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .pain-item p {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #333;
+    margin: 0;
+  }
+
   /* ===================== RESPONSIVE ===================== */
   @media (max-width: 768px) {
     .page { width: 100%; }
@@ -691,52 +722,87 @@
       <p>Piensa en las tareas que tu equipo repite todas las semanas: resumir una reuni&oacute;n, escribir un seguimiento a un cliente, armar un reporte, crear una propuesta. Hoy alguien las hace a mano. Con el Setup de IA, <strong>esas tareas se convierten en procesos que se ejecutan en segundos</strong> &mdash; tu equipo solo da la instrucci&oacute;n y el sistema hace el resto.</p>
     </div>
 
-    <h3>Ejemplos de procesos que entregamos</h3>
-    <p style="margin-bottom:16px;">Estos son ejemplos reales. Los 6 procesos espec&iacute;ficos para MAAS 3 Ingenieros se definen durante el diagn&oacute;stico, seg&uacute;n lo que m&aacute;s impacto genere en tu operaci&oacute;n.</p>
+    <h3>Los 6 procesos inteligentes para MAAS 3 Ingenieros</h3>
+    <p style="margin-bottom:16px;">Estos son los procesos que vamos a automatizar, dise&ntilde;ados a partir del diagn&oacute;stico de tu operaci&oacute;n.</p>
 
-    <div class="card-grid single-col">
+    <div class="card-grid">
       <div class="card">
         <div class="card-header">
-          <span class="card-tag">Ejemplo</span>
-          <h5>Notas de obra &rarr; Informe semanal autom&aacute;tico</h5>
+          <span class="card-tag">Skill 01</span>
+          <h5>Hub de Documentos de Obra</h5>
         </div>
         <div class="card-body">
           <div class="label">Antes</div>
-          <p>Un ingeniero abre Gemini, pega notas, corrige, itera. Toma 1 hora por informe, 9 informes al mes.</p>
+          <p>David abre Gemini, pega notas, corrige, itera. ~1 hora por documento, ~10 documentos al mes entre informes de avance, presupuestos y contratos.</p>
           <div class="label" style="color: #166534;">Despu&eacute;s</div>
-          <p>Le das 3 bullet points y fotos al sistema, y genera el informe completo con formato profesional. <strong>Toma 2 minutos.</strong></p>
+          <p>Un solo comando genera informes de avance, presupuestos, contratos o emails. Le das bullet points y fotos, sale el documento con formato profesional. <strong>Toma 2 minutos.</strong></p>
         </div>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <span class="card-tag">Ejemplo</span>
-          <h5>Cotizaciones de proveedores &rarr; Cuadro comparativo</h5>
+          <span class="card-tag">Skill 02</span>
+          <h5>Comparador de Cotizaciones</h5>
         </div>
         <div class="card-body">
           <div class="label">Antes</div>
-          <p>Recibes 3 cotizaciones de pisos, abres cada una, copias datos a un Excel, comparas manualmente. Toma 30-45 min.</p>
+          <p>Recibes 3 cotizaciones de proveedores (pisos, cocinas, muros), abres cada una, copias datos a un Excel, comparas manualmente. Toma 30-45 min.</p>
           <div class="label" style="color: #166534;">Despu&eacute;s</div>
-          <p>Le cargas los 3 PDFs y el sistema genera un cuadro comparativo con precio/m2, tiempos y recomendaci&oacute;n. <strong>Listo en 1 minuto.</strong></p>
+          <p>Le cargas los PDFs y el sistema genera cuadro comparativo con precio/m2, tiempos, garant&iacute;as y recomendaci&oacute;n para el comit&eacute;. <strong>Listo en 1 minuto.</strong></p>
         </div>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <span class="card-tag">Ejemplo</span>
-          <h5>Foto de factura &rarr; Excel de costos actualizado</h5>
+          <span class="card-tag">Skill 03</span>
+          <h5>Facturaci&oacute;n Automatizada</h5>
         </div>
         <div class="card-body">
           <div class="label">Antes</div>
-          <p>Llega la factura del proveedor, alguien abre el Excel, digita los datos uno por uno. Se repite con cada factura.</p>
+          <p>Cada corte de obra, anticipo o entrega parcial se factura manualmente: calcular valores, IVA, retenciones y armar el documento.</p>
           <div class="label" style="color: #166534;">Despu&eacute;s</div>
-          <p>Le tomas foto a la factura, el sistema extrae todos los datos y los agrega al Excel del proyecto autom&aacute;ticamente. <strong>0 digitaci&oacute;n manual.</strong></p>
+          <p>Indicas proyecto, concepto y valor. El sistema calcula impuestos y genera la factura profesional lista para enviar. <strong>0 c&aacute;lculos manuales.</strong></p>
         </div>
       </div>
-    </div>
 
-    <div class="highlight-box" style="margin-top: 20px;">
-      <p><strong>Importante:</strong> Estos son solo ejemplos. Los 6 procesos que implementamos para MAAS 3 Ingenieros se eligen durante el diagn&oacute;stico, priorizando los que mayor impacto generan en tiempo recuperado y calidad de ejecuci&oacute;n. Se adaptan 100% a tu operaci&oacute;n, tu equipo y tus herramientas.</p>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Skill 04</span>
+          <h5>Cronograma de Obra</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Antes</div>
+          <p>Cada proyecto necesita un cronograma con fases, duraciones y dependencias. Armarlo y actualizarlo seg&uacute;n el avance real toma tiempo.</p>
+          <div class="label" style="color: #166534;">Despu&eacute;s</div>
+          <p>Le das tipo de obra, alcance y fecha de inicio. Genera cronograma con fases, duraciones, dependencias y ruta cr&iacute;tica. <strong>Se actualiza con el avance real.</strong></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Skill 05</span>
+          <h5>Actas de Comit&eacute; de Obra</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Antes</div>
+          <p>Los comit&eacute;s de obra con el cliente generan decisiones que quedan en WhatsApp o en la cabeza de alguien. No hay trazabilidad ni respaldo.</p>
+          <div class="label" style="color: #166534;">Despu&eacute;s</div>
+          <p>Se graba el comit&eacute;, el sistema genera acta autom&aacute;tica con decisiones, compromisos, responsables y fechas. <strong>Se env&iacute;a sola por correo.</strong></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Skill 06</span>
+          <h5>Procesador de Facturas de Proveedores</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Antes</div>
+          <p>Proveedores mandan facturas en foto, PDF, Word &mdash; cada uno en formato diferente. Alguien abre el Excel y digita datos uno por uno.</p>
+          <div class="label" style="color: #166534;">Despu&eacute;s</div>
+          <p>Le cargas la foto o PDF, el sistema extrae todos los datos y los agrega al Excel de costos del proyecto. <strong>0 digitaci&oacute;n manual.</strong></p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="page-footer">
@@ -833,32 +899,7 @@
       <li>Disposici&oacute;n para una sesi&oacute;n de entrega y transferencia de conocimiento</li>
     </ul>
 
-    <h4>Soporte post-setup</h4>
-    <div class="gradient-line"></div>
-
-    <div class="highlight-box">
-      <p>Incluye <strong>1 semana de soporte</strong> posterior a la implementaci&oacute;n para ajustes menores, resoluci&oacute;n de dudas y afinaci&oacute;n de los procesos configurados.</p>
-    </div>
-
-    <h4>Aceptaci&oacute;n</h4>
-    <div class="gradient-line"></div>
-
-    <p>Al firmar este documento, ambas partes aceptan los t&eacute;rminos y condiciones descritos en esta cotizaci&oacute;n.</p>
-
-    <div class="signature-block">
-      <div class="signature-side">
-        <div class="sig-line"></div>
-        <div class="sig-name">David Mesa Arango</div>
-        <div class="sig-role">Founder y Director Comercial &mdash; MAAS 3 Ingenieros</div>
-      </div>
-      <div class="signature-side">
-        <div class="sig-line"></div>
-        <div class="sig-name">Juan Pablo G&oacute;mez Mej&iacute;a</div>
-        <div class="sig-role">Representante Legal &mdash; Irrelevant</div>
-      </div>
-    </div>
-
-    <h4 style="margin-top:32px;">Contacto comercial</h4>
+    <h4>Contacto comercial</h4>
     <div class="gradient-line"></div>
     <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:8px; padding:18px 22px;">
       <p style="margin-bottom:4px;"><strong>Sara Garc&eacute;s T.</strong> &mdash; Directora de Marketing</p>

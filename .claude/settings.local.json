@@ -114,9 +114,13 @@
       "Skill(pipeline-dashboard)",
       "Bash(for folder:*)",
       "Bash(do echo:*)",
-      "Read(//mnt/c/Users/JuanPablo/Desktop/irrelevant core/Sales/Claude_Code/Clientes/maas-3-ingenieros/**)"
-    ],
-    "deny": [],
-    "ask": []
+      "Read(//mnt/c/Users/JuanPablo/Desktop/irrelevant core/Sales/Claude_Code/Clientes/maas-3-ingenieros/**)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --print-to-pdf=\"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/maas-3-ingenieros/comercial/cotizacion-ops.pdf\" --no-margins --print-to-pdf-no-header \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/maas-3-ingenieros/comercial/cotizacion-ops.html\" 2>&1)",
+      "Bash(sed -i '' 's/jpgomez@stayirrelevant.com/marketing@stayirrelevant.com/g' onepager-irrelevant-es-sara.html)",
+      "Bash(sed -i '' 's/+57 318 335 1733/+57 321 846 4652/g' onepager-irrelevant-es-sara.html)",
+      "Bash(sed -i '' 's/jpgomez@stayirrelevant.com/marketing@stayirrelevant.com/g' onepager-irrelevant-en-sara.html)",
+      "Bash(sed -i '' 's/+57 318 335 1733/+57 321 846 4652/g' onepager-irrelevant-en-sara.html)",
+      "Skill(email-post-reunion)"
+    ]
   }
 }

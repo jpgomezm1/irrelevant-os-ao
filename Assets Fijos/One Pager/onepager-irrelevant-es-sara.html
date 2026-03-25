@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +28,7 @@
     line-height: 1.6;
   }
 
+  /* NAV */
   .nav {
     position: fixed; top:0; left:0; right:0; height:60px;
     background: rgba(10,8,18,0.85); backdrop-filter:blur(20px);
@@ -44,6 +45,7 @@
   }
   .nav-cta:hover { background:var(--purple-dark); box-shadow:0 0 30px rgba(139,92,246,0.3); }
 
+  /* SECTIONS */
   section {
     max-width: 800px;
     margin: 0 auto;
@@ -64,6 +66,7 @@
 
   section.full { max-width:100%; text-align:center; }
 
+  /* HERO VIDEO */
   .hero-video {
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     filter:blur(2px) brightness(0.2); z-index:0;
@@ -75,6 +78,7 @@
   }
   .hero-content { position:relative; z-index:2; padding:0 32px; }
 
+  /* TYPOGRAPHY */
   h1 {
     font-size: 64px; font-weight:800; line-height:1.05; letter-spacing:-3px;
     margin-bottom: 20px;
@@ -87,6 +91,7 @@
     font-size: 24px; font-weight:700; line-height:1.2;
     margin-bottom: 12px;
   }
+  .muted { color: rgba(255,255,255,0.45); }
   .purple { color: var(--purple-light); }
   .emerald { color: var(--emerald); }
   .amber { color: var(--amber); }
@@ -102,12 +107,14 @@
     margin: 32px auto;
   }
 
+  /* BIG STAT */
   .big-stat {
     font-size: 160px; font-weight:800; letter-spacing:-6px; line-height:1;
     background: linear-gradient(135deg, var(--purple-light), var(--purple));
     -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   }
 
+  /* CARDS */
   .card-row {
     display:flex; gap:16px; margin:32px auto; max-width:800px;
   }
@@ -123,9 +130,14 @@
   .card-green::before { background: linear-gradient(90deg, var(--emerald), #6EE7B7); }
   .card-purple::before { background: linear-gradient(90deg, var(--purple), var(--purple-light)); }
 
-  .card h4 { font-size:14px; font-weight:700; margin-bottom:8px; }
-  .card p { font-size:13px; color:rgba(255,255,255,0.4); line-height:1.6; }
+  .card h4 {
+    font-size:14px; font-weight:700; margin-bottom:8px;
+  }
+  .card p {
+    font-size:13px; color:rgba(255,255,255,0.4); line-height:1.6;
+  }
 
+  /* CTA */
   .cta-btn {
     display:inline-flex; align-items:center; gap:10px;
     background:var(--purple); color:white;
@@ -140,6 +152,7 @@
     transform:translateY(-2px);
   }
 
+  /* LOGOS */
   .logo-grid {
     display:flex; flex-wrap:wrap; gap:24px; justify-content:center;
     align-items:center; margin:32px auto; max-width:700px;
@@ -150,11 +163,27 @@
   }
   .logo-grid img:hover { opacity:0.7; }
 
+  /* PROOF STATS */
+  .proof-row {
+    display:flex; gap:24px; justify-content:center; margin:32px auto; max-width:800px;
+  }
+  .proof-stat {
+    text-align:center; flex:1;
+  }
+  .proof-stat .val {
+    font-size:36px; font-weight:800; letter-spacing:-1px;
+  }
+  .proof-stat .lbl {
+    font-size:11px; color:rgba(255,255,255,0.35); margin-top:4px; line-height:1.4;
+  }
+
+  /* FOOTER */
   footer {
     text-align:center; padding:40px 32px; border-top:1px solid rgba(255,255,255,0.04);
     font-size:12px; color:rgba(255,255,255,0.2);
   }
 
+  /* FADE IN */
   .fade-in {
     opacity:0; transform:translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
@@ -177,6 +206,7 @@
     .big-stat { font-size:90px; letter-spacing:-4px; }
     .lead { font-size:15px; max-width:100%; }
     .card-row { flex-direction:column; }
+    .proof-row { flex-direction:column; gap:16px; }
     section { padding:70px 18px 36px; }
     section.hero { padding:0; }
     .hero-content { padding:0 20px; }
@@ -208,9 +238,10 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav class="nav">
   <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant">
-  <a href="https://cal.com/juan-irrelevant/discovery" target="_blank" class="nav-cta">Book a call</a>
+  <a href="https://cal.com/juan-irrelevant/discovery" target="_blank" class="nav-cta">Agendar llamada</a>
 </nav>
 
 <!-- HERO -->
@@ -221,69 +252,69 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1>Think AI<br><span class="purple">or stay irrelevant.</span></h1>
-    <p class="lead">Your team loses 40 hours a month on tasks an AI system could do for them.<br><strong style="color:rgba(255,255,255,0.7);">That can change this week.</strong></p>
-    <a href="https://cal.com/juan-irrelevant/discovery" target="_blank" class="cta-btn">Book Discovery Call &#10132;</a>
+    <p class="lead">Tu equipo pierde 40 horas al mes en tareas que un sistema con IA podr&iacute;a hacer por ellos.<br><strong style="color:rgba(255,255,255,0.7);">Eso se puede cambiar esta semana.</strong></p>
+    <a href="https://cal.com/juan-irrelevant/discovery" target="_blank" class="cta-btn">Agendar Discovery Call &#10132;</a>
   </div>
 </section>
 
-<!-- 84% -->
+<!-- 84% STAT -->
 <section class="full fade-in" style="padding:80px 32px;">
   <div class="big-stat">84%</div>
-  <h3 style="margin-top:16px;">of humanity has <span class="purple">never used</span> artificial intelligence.</h3>
-  <p class="lead" style="margin-top:12px;">Out of 8.1 billion people, 6.8 billion have never touched it. We&rsquo;re at minute zero. Companies that move now will have an advantage that&rsquo;s nearly impossible to close.</p>
-  <div style="font-size:10px; color:rgba(255,255,255,0.15); margin-top:16px;">Source: Torrenegra Consulting, Feb. 2026</div>
+  <h3 style="margin-top:16px;">de la humanidad <span class="purple">nunca ha usado</span> inteligencia artificial.</h3>
+  <p class="lead" style="margin-top:12px;">De 8.1 mil millones de personas, 6.8 mil millones nunca la han tocado. Estamos en el minuto cero. Las empresas que se muevan ahora van a tener una ventaja que ser&aacute; casi imposible de alcanzar.</p>
+  <div style="font-size:10px; color:rgba(255,255,255,0.15); margin-top:16px;">Fuente: Torrenegra Consulting, feb. 2026</div>
 </section>
 
 <div class="divider"></div>
 
-<!-- PROBLEM -->
+<!-- THE PROBLEM -->
 <section class="fade-in">
-  <h2>The problem isn&rsquo;t that you don&rsquo;t know about AI.</h2>
-  <h2 style="margin-top:-8px;"><span class="purple">The problem is how your company operates today.</span></h2>
+  <h2>El problema no es que no sepas de IA.</h2>
+  <h2 style="margin-top:-8px;"><span class="purple">El problema es c&oacute;mo opera tu empresa hoy.</span></h2>
   <div class="card-row" style="margin-top:32px;">
     <div class="card card-red">
-      <h4 style="color:rgba(239,68,68,0.8);">Without AI &mdash; The slow way</h4>
-      <p>&ldquo;We need to hire more people to handle the load&rdquo;</p>
-      <p style="margin-top:6px;">&ldquo;That would take 6 months to implement&rdquo;</p>
-      <p style="margin-top:6px;">&ldquo;We&rsquo;d need to invest in expensive software&rdquo;</p>
+      <h4 style="color:rgba(239,68,68,0.8);">Sin IA &mdash; La forma lenta</h4>
+      <p>&ldquo;Necesitamos m&aacute;s gente para cubrir la demanda&rdquo;</p>
+      <p style="margin-top:6px;">&ldquo;Eso tomar&iacute;a 6 meses implementarlo&rdquo;</p>
+      <p style="margin-top:6px;">&ldquo;Hay que invertir en un software car&iacute;simo&rdquo;</p>
     </div>
     <div class="card card-green">
-      <h4 style="color:var(--emerald);">With AI &mdash; A completely new way</h4>
-      <p>&ldquo;A system can do that for the current team&rdquo;</p>
-      <p style="margin-top:6px;">&ldquo;We can connect it in an afternoon&rdquo;</p>
-      <p style="margin-top:6px;">&ldquo;It&rsquo;ll be running by tomorrow&rdquo;</p>
+      <h4 style="color:var(--emerald);">Con IA &mdash; Una forma nueva</h4>
+      <p>&ldquo;Un sistema puede hacer eso por el equipo actual&rdquo;</p>
+      <p style="margin-top:6px;">&ldquo;Lo conectamos en una tarde&rdquo;</p>
+      <p style="margin-top:6px;">&ldquo;Ma&ntilde;ana ya est&aacute; funcionando&rdquo;</p>
     </div>
   </div>
-  <p style="text-align:center; font-size:15px; color:rgba(255,255,255,0.4); margin-top:24px;">The problem doesn&rsquo;t change. <strong style="color:white;">What&rsquo;s possible does.</strong></p>
+  <p style="text-align:center; font-size:15px; color:rgba(255,255,255,0.4); margin-top:24px;">El problema no cambia. <strong style="color:white;">Cambia lo que es posible.</strong></p>
 </section>
 
 <div class="divider"></div>
 
 <!-- WHAT WE DO -->
 <section class="full fade-in" style="padding:60px 32px;">
-  <p style="font-size:12px; font-weight:600; color:var(--purple-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">WHAT WE DO</p>
-  <h2>Where <span class="purple">business strategy</span> meets<br><span class="purple">artificial intelligence.</span></h2>
+  <p style="font-size:12px; font-weight:600; color:var(--purple-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">QU&Eacute; HACEMOS</p>
+  <h2>Donde <span class="purple">estrategia de negocio</span> se encuentra<br>con <span class="purple">inteligencia artificial.</span></h2>
   <div class="card-row" style="max-width:700px;">
     <div class="card card-purple">
-      <h4 style="color:var(--purple-light);">Strategy</h4>
-      <p>We understand your business. Where value is lost, where your team spends time without impact.</p>
+      <h4 style="color:var(--purple-light);">Estrategia</h4>
+      <p>Entendemos tu negocio. D&oacute;nde se pierde valor, d&oacute;nde el equipo gasta tiempo sin impacto.</p>
     </div>
     <div class="card" style="border-color:rgba(52,211,153,0.15);">
       <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--emerald), #6EE7B7);"></div>
-      <h4 style="color:var(--emerald);">Artificial Intelligence</h4>
-      <p>We turn it into systems that execute, connect information, and operate from day one.</p>
+      <h4 style="color:var(--emerald);">Inteligencia Artificial</h4>
+      <p>Lo convertimos en sistemas que ejecutan, conectan informaci&oacute;n y operan desde el d&iacute;a uno.</p>
     </div>
   </div>
-  <p style="font-size:16px; color:rgba(255,255,255,0.4); margin-top:20px;">First we improve <strong style="color:white;">how your team works.</strong><br>Then we transform <strong class="purple">how your company competes.</strong></p>
+  <p style="font-size:16px; color:rgba(255,255,255,0.4); margin-top:20px;">Primero mejoramos <strong style="color:white;">c&oacute;mo trabaja tu equipo.</strong><br>Despu&eacute;s transformamos <strong class="purple">c&oacute;mo compite tu empresa.</strong></p>
 </section>
 
 <div class="divider"></div>
 
 <!-- 3 SERVICES -->
 <section class="full fade-in" style="padding:70px 32px;">
-  <p style="font-size:12px; font-weight:600; color:var(--purple-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">HOW WE DO IT</p>
-  <h2>Three ways to transform your company.</h2>
-  <p class="lead" style="margin-bottom:40px;">Each one solves a different problem. All of them deliver real impact.</p>
+  <p style="font-size:12px; font-weight:600; color:var(--purple-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">C&Oacute;MO LO HACEMOS</p>
+  <h2>Tres formas de transformar tu empresa.</h2>
+  <p class="lead" style="margin-bottom:40px;">Cada una resuelve un problema diferente. Todas generan impacto real.</p>
 
   <div class="services-row" style="display:flex; gap:20px; max-width:900px; margin:0 auto;">
     <!-- OPS -->
@@ -291,10 +322,10 @@
       <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--emerald), #6EE7B7);"></div>
       <div style="font-size:28px; margin-bottom:12px;">&#9889;</div>
       <div style="font-size:10px; font-weight:700; color:var(--emerald); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">Ops Layer</div>
-      <h3 style="font-size:20px; margin-bottom:10px;">AI Setup</h3>
-      <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; flex:1;">We enter your operation, diagnose how your team works, and leave <strong style="color:rgba(255,255,255,0.7);">intelligent systems running the same day.</strong> What used to take hours now takes minutes.</p>
-      <div style="margin-top:16px; padding:10px 14px; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.1); border-radius:8px; font-size:11px; color:var(--emerald); font-weight:600;">Impact from day one.</div>
-      <div style="margin-top:8px; font-size:10px; color:rgba(255,255,255,0.2); font-style:italic;">Without this, your team keeps losing hours every week on tasks that shouldn&rsquo;t be manual anymore.</div>
+      <h3 style="font-size:20px; margin-bottom:10px;">Setup de IA</h3>
+      <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; flex:1;">Entramos a tu operaci&oacute;n, diagnosticamos c&oacute;mo trabaja tu equipo y dejamos <strong style="color:rgba(255,255,255,0.7);">sistemas inteligentes funcionando el mismo d&iacute;a.</strong> Lo que antes tomaba horas, ahora toma minutos.</p>
+      <div style="margin-top:16px; padding:10px 14px; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.1); border-radius:8px; font-size:11px; color:var(--emerald); font-weight:600;">Impacto desde el d&iacute;a uno.</div>
+      <div style="margin-top:8px; font-size:10px; color:rgba(255,255,255,0.2); font-style:italic;">Sin esto, tu equipo sigue perdiendo horas cada semana en tareas que ya no deber&iacute;an ser manuales.</div>
     </div>
     <!-- EDU -->
     <div style="flex:1; padding:32px 26px; background:rgba(255,255,255,0.03); border:1px solid rgba(96,165,250,0.15); border-radius:18px; text-align:left; position:relative; overflow:hidden; display:flex; flex-direction:column;">
@@ -302,9 +333,9 @@
       <div style="font-size:28px; margin-bottom:12px;">&#127891;</div>
       <div style="font-size:10px; font-weight:700; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">Edu Layer</div>
       <h3 style="font-size:20px; margin-bottom:10px;">Workshop: Think AI</h3>
-      <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; flex:1;">Your team goes from not understanding AI to <strong style="color:rgba(255,255,255,0.7);">thinking and solving problems with it.</strong> 3 hours where they leave with real tools and a completely new mindset.</p>
-      <div style="margin-top:16px; padding:10px 14px; background:rgba(96,165,250,0.06); border:1px solid rgba(96,165,250,0.1); border-radius:8px; font-size:11px; color:var(--blue); font-weight:600;">Your team thinks differently.</div>
-      <div style="margin-top:8px; font-size:10px; color:rgba(255,255,255,0.2); font-style:italic;">Without this, your team keeps solving 2026 problems with a 2019 mindset.</div>
+      <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; flex:1;">Tu equipo pasa de no saber qu&eacute; es IA a <strong style="color:rgba(255,255,255,0.7);">pensar y resolver problemas con ella.</strong> 3 horas donde salen con herramientas reales y una mentalidad completamente nueva.</p>
+      <div style="margin-top:16px; padding:10px 14px; background:rgba(96,165,250,0.06); border:1px solid rgba(96,165,250,0.1); border-radius:8px; font-size:11px; color:var(--blue); font-weight:600;">Tu equipo piensa diferente.</div>
+      <div style="margin-top:8px; font-size:10px; color:rgba(255,255,255,0.2); font-style:italic;">Sin esto, tu equipo sigue resolviendo problemas de 2026 con mentalidad de 2019.</div>
     </div>
     <!-- CORE -->
     <div style="flex:1; padding:32px 26px; background:rgba(255,255,255,0.03); border:1px solid rgba(251,191,36,0.15); border-radius:18px; text-align:left; position:relative; overflow:hidden; display:flex; flex-direction:column;">
@@ -312,46 +343,66 @@
       <div style="font-size:28px; margin-bottom:12px;">&#128640;</div>
       <div style="font-size:10px; font-weight:700; color:var(--amber); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">Core Layer</div>
       <h3 style="font-size:20px; margin-bottom:10px;">AI Transformation</h3>
-      <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; flex:1;">We identify the processes that sustain your value proposition and <strong style="color:rgba(255,255,255,0.7);">amplify them with AI.</strong> We don&rsquo;t improve how you operate. We change how you compete.</p>
-      <div style="margin-top:16px; padding:10px 14px; background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.1); border-radius:8px; font-size:11px; color:var(--amber); font-weight:600;">Direct impact on revenue.</div>
-      <div style="margin-top:8px; font-size:10px; color:rgba(255,255,255,0.2); font-style:italic;">Without this, your competitors will use AI to outcompete you. And you won&rsquo;t realize it until it&rsquo;s too late.</div>
+      <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; flex:1;">Identificamos los procesos que sostienen tu propuesta de valor y los <strong style="color:rgba(255,255,255,0.7);">amplificamos con IA.</strong> No mejoramos c&oacute;mo operas. Cambiamos c&oacute;mo compites.</p>
+      <div style="margin-top:16px; padding:10px 14px; background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.1); border-radius:8px; font-size:11px; color:var(--amber); font-weight:600;">Impacto directo en revenue.</div>
+      <div style="margin-top:8px; font-size:10px; color:rgba(255,255,255,0.2); font-style:italic;">Sin esto, tu competencia va a usar IA para competir mejor que t&uacute;. Y no te vas a dar cuenta hasta que sea tarde.</div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- CASE STUDIES -->
+<!-- PROOF: CASE STUDIES -->
 <section class="fade-in">
-  <p style="font-size:12px; font-weight:600; color:var(--purple-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; text-align:center;">REAL RESULTS</p>
-  <h2 style="text-align:center;">Companies already operating differently.</h2>
+  <p style="font-size:12px; font-weight:600; color:var(--purple-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; text-align:center;">RESULTADOS REALES</p>
+  <h2 style="text-align:center;">Empresas que ya operan diferente.</h2>
   <div class="card-row" style="margin-top:32px;">
+    <!-- Indemneasy -->
     <div class="card" style="border-color:rgba(139,92,246,0.15);">
       <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--purple), var(--purple-light));"></div>
       <a href="https://www.indemneasy.com/" target="_blank" style="text-decoration:none;">
-        <h4 style="color:white;">Indemneasy <span style="font-size:11px; color:rgba(255,255,255,0.25); font-weight:400;">&mdash; Legal firm</span></h4>
+        <h4 style="color:white;">Indemneasy <span style="font-size:11px; color:rgba(255,255,255,0.25); font-weight:400;">&mdash; Firma legal</span></h4>
       </a>
-      <p>Legal case classification went from 15-25 min manual to <strong style="color:var(--emerald);">2 minutes, automated.</strong></p>
+      <p>Clasificaci&oacute;n de casos legales que pasó de 15-25 min manuales a <strong style="color:var(--emerald);">2 minutos autom&aacute;ticos.</strong></p>
       <div style="display:flex; gap:12px; margin-top:16px;">
-        <div style="text-align:center; flex:1;"><div style="font-size:22px; font-weight:800; color:var(--emerald);">70%</div><div style="font-size:9px; color:rgba(255,255,255,0.3);">less workload</div></div>
-        <div style="text-align:center; flex:1;"><div style="font-size:22px; font-weight:800; color:var(--emerald);">24/7</div><div style="font-size:9px; color:rgba(255,255,255,0.3);">available</div></div>
-        <div style="text-align:center; flex:1;"><div style="font-size:22px; font-weight:800; color:var(--emerald);">0</div><div style="font-size:9px; color:rgba(255,255,255,0.3);">cases lost</div></div>
+        <div style="text-align:center; flex:1;">
+          <div style="font-size:22px; font-weight:800; color:var(--emerald);">70%</div>
+          <div style="font-size:9px; color:rgba(255,255,255,0.3);">menos carga</div>
+        </div>
+        <div style="text-align:center; flex:1;">
+          <div style="font-size:22px; font-weight:800; color:var(--emerald);">24/7</div>
+          <div style="font-size:9px; color:rgba(255,255,255,0.3);">disponible</div>
+        </div>
+        <div style="text-align:center; flex:1;">
+          <div style="font-size:22px; font-weight:800; color:var(--emerald);">0</div>
+          <div style="font-size:9px; color:rgba(255,255,255,0.3);">casos perdidos</div>
+        </div>
       </div>
     </div>
+    <!-- Fynder -->
     <div class="card" style="border-color:rgba(251,191,36,0.15);">
       <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--amber), #FCD34D);"></div>
       <a href="https://fynderai.netlify.app/" target="_blank" style="text-decoration:none;">
         <h4 style="color:white;">Fynder <span style="font-size:11px; color:rgba(255,255,255,0.25); font-weight:400;">&mdash; Real estate</span></h4>
       </a>
-      <p>Property search went from 15-30 min scrolling messages to <strong style="color:var(--amber);">~2 minutes with AI.</strong></p>
+      <p>B&uacute;squeda de propiedades que pasó de 15-30 min revisando mensajes a <strong style="color:var(--amber);">~2 minutos con IA.</strong></p>
       <div style="display:flex; gap:12px; margin-top:16px;">
-        <div style="text-align:center; flex:1;"><div style="font-size:22px; font-weight:800; color:var(--amber);">100%</div><div style="font-size:9px; color:rgba(255,255,255,0.3);">traceability</div></div>
-        <div style="text-align:center; flex:1;"><div style="font-size:22px; font-weight:800; color:var(--amber);">24/7</div><div style="font-size:9px; color:rgba(255,255,255,0.3);">available</div></div>
-        <div style="text-align:center; flex:1;"><div style="font-size:22px; font-weight:800; color:var(--amber);">0</div><div style="font-size:9px; color:rgba(255,255,255,0.3);">manual work</div></div>
+        <div style="text-align:center; flex:1;">
+          <div style="font-size:22px; font-weight:800; color:var(--amber);">100%</div>
+          <div style="font-size:9px; color:rgba(255,255,255,0.3);">trazabilidad</div>
+        </div>
+        <div style="text-align:center; flex:1;">
+          <div style="font-size:22px; font-weight:800; color:var(--amber);">24/7</div>
+          <div style="font-size:9px; color:rgba(255,255,255,0.3);">disponible</div>
+        </div>
+        <div style="text-align:center; flex:1;">
+          <div style="font-size:22px; font-weight:800; color:var(--amber);">0</div>
+          <div style="font-size:9px; color:rgba(255,255,255,0.3);">manual</div>
+        </div>
       </div>
     </div>
   </div>
-  <p style="text-align:center; font-size:13px; color:rgba(255,255,255,0.25); margin-top:20px;">Two completely different industries. <strong style="color:rgba(255,255,255,0.5);">Same approach.</strong></p>
+  <p style="text-align:center; font-size:13px; color:rgba(255,255,255,0.25); margin-top:20px;">Dos industrias completamente diferentes. <strong style="color:rgba(255,255,255,0.5);">El mismo enfoque.</strong></p>
 </section>
 
 <div class="divider"></div>
@@ -361,24 +412,24 @@
   <div class="stats-row" style="display:flex; gap:32px; justify-content:center; max-width:700px; margin:0 auto;">
     <div style="text-align:center; flex:1;">
       <div style="font-size:42px; font-weight:800; color:var(--purple-light); letter-spacing:-2px;">15+</div>
-      <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:4px;">Companies transformed</div>
+      <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:4px;">Empresas transformadas</div>
     </div>
     <div style="text-align:center; flex:1;">
       <div style="font-size:42px; font-weight:800; color:var(--emerald); letter-spacing:-2px;">1,200+</div>
-      <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:4px;">Weekly hours recovered</div>
+      <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:4px;">Horas semanales recuperadas</div>
     </div>
     <div style="text-align:center; flex:1;">
       <div style="font-size:42px; font-weight:800; color:var(--amber); letter-spacing:-2px;">6</div>
-      <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:4px;">Different industries</div>
+      <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:4px;">Industrias diferentes</div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- SOME COMPANIES THAT TRUST US -->
+<!-- TRUSTED BY -->
 <section class="full fade-in" style="padding:50px 32px;">
-  <p style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.2); letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">SOME COMPANIES THAT TRUST US</p>
+  <p style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.2); letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">ALGUNAS EMPRESAS QUE CONF&Iacute;AN EN NOSOTROS</p>
   <div class="logo-grid">
     <img src="https://storage.googleapis.com/cluvi/AI-Academy/banco%20(1).png" alt="Bancolombia">
     <img src="https://storage.googleapis.com/cluvi/Sara/Logos/logo%20conaltura.png" alt="Conaltura" style="filter:brightness(0) invert(1);">
@@ -399,17 +450,19 @@
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h2>30 minutes that can change<br>how your company operates.</h2>
-    <p class="lead" style="margin-top:8px;">We sit down, understand your operation, and show you exactly which processes can run on AI by tomorrow.</p>
-    <a href="https://cal.com/juan-irrelevant/discovery" target="_blank" class="cta-btn">Book Discovery Call &#10132;</a>
-    <div style="font-size:11px; color:rgba(255,255,255,0.2); margin-top:12px;">Limited capacity &mdash; We work with a maximum of 4 new companies per month.</div>
+    <h2>30 minutos que pueden cambiar<br>c&oacute;mo opera tu empresa.</h2>
+    <p class="lead" style="margin-top:8px;">Nos sentamos, entendemos tu operaci&oacute;n y te mostramos exactamente qu&eacute; procesos pueden funcionar con IA desde ma&ntilde;ana.</p>
+    <a href="https://cal.com/juan-irrelevant/discovery" target="_blank" class="cta-btn">Agendar Discovery Call &#10132;</a>
+    <div style="font-size:11px; color:rgba(255,255,255,0.2); margin-top:12px;">Capacidad limitada &mdash; Trabajamos con m&aacute;ximo 4 empresas nuevas por mes.</div>
     <div class="contact-row" style="display:flex; gap:28px; justify-content:center; margin-top:24px; font-size:13px; color:rgba(255,255,255,0.35);">
-      <span>&#9993; jpgomez@stayirrelevant.com</span>
-      <span>&#128172; +57 318 335 1733</span>
+      <span>&#9993; marketing@stayirrelevant.com</span>
+      <span>&#128172; +57 321 846 4652</span>
     </div>
+    <div style="font-size:12px; color:rgba(255,255,255,0.3); margin-top:8px;">Sara Garc&eacute;s T.</div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>irrelevant &mdash; AI Transformation &mdash; 2026</footer>
 
 <script>
