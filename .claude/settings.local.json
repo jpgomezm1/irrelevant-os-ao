@@ -109,7 +109,8 @@
       "WebFetch(domain:download-ff.s3.us-east-2.amazonaws.com)",
       "Skill(update-config)",
       "Skill(actualizar-skills-reference)",
-      "WebFetch(domain:www.linkedin.com)"
+      "WebFetch(domain:www.linkedin.com)",
+      "Skill(pipeline-dashboard)"
     ]
   }
 }
