@@ -42,7 +42,8 @@ Claude_Code/
 │   │   ├── Cotizacion Edu Layer/    # Templates cotizacion AI Edu (ES/EN + ejemplo)
 │   │   ├── Fase 0 Core Layer/       # Templates Fase 0 diagnostico (ES/EN + ejemplo)
 │   │   ├── Slides Fase 0/           # Templates slides Fase 0 (ES/EN + ejemplo)
-│   │   ├── Slides Propuesta Ops/     # Templates slides propuesta Ops (ES/EN + ejemplo)
+│   │   ├── Slides Assessment/         # Templates slides de assessment/hallazgos (ES)
+│   │   ├── Slides Propuesta Ops/     # Templates slides propuesta Ops (ES/EN + ejemplo + Edu upsell)
 │   │   ├── Entregable Ops Layer/    # Templates entregable post-setup (ES/EN + ejemplo)
 │   │   └── Slides Entregable Ops/   # Templates slides entregable (ES/EN + ejemplo)
 │   └── Contratos/
@@ -116,7 +117,7 @@ Cuando se instala en la máquina del cliente, se copia la carpeta del skill a `.
 
 ---
 
-## Skills Disponibles (33 total)
+## Skills Disponibles (35 total)
 
 ### Gestión, Navegación y Construcción (3 skills)
 
@@ -129,6 +130,13 @@ Cuando se instala en la máquina del cliente, se copia la carpeta del skill a `.
 | Skill | Comando | Descripcion |
 |---|---|---|
 | Cliente | `/cliente` | Crea, consulta y lista carpetas de clientes. Usa /cliente [crear\|ver\|listar] [empresa] |
+
+### Assessment Ops Layer (2 skills)
+
+| Skill | Comando | Descripcion |
+|---|---|---|
+| Discovery Ops | `/discovery-ops` | Discovery estructurado con 5 pilares obligatorios para Ops Layer. Produce output que alimenta el assessment |
+| Reporte Assessment | `/reporte-assessment` | Análisis profundo + slides de assessment. Matriz de procesos, ROI 3 escenarios, costo de no actuar |
 
 ### Contexto e Inteligencia (2 skills)
 
@@ -210,19 +218,23 @@ POST-CALL:
 /call-review                     → Evalua la call
 /follow-up-writer                → Genera follow-up WhatsApp
 /email-post-reunion              → Email profesional post-reunion
-/discovery-notes                 → Extrae brief del discovery
+/discovery-notes                 → Extrae brief del discovery (genérico)
+
+ASSESSMENT (post-discovery, pre-diseño — Ops Layer):
+/discovery-ops [empresa]         → Discovery estructurado 5 pilares obligatorios
+/reporte-assessment [empresa]    → Análisis profundo + slides assessment (urgencia)
 
 CONTEXTO (en cualquier momento):
 /agregar-contexto [empresa]      → Agrega contexto: URL, LinkedIn, notas
 
-DISEÑO (post-discovery):
+DISEÑO (post-assessment):
 /disenar-skills [empresa]        → Qué 5 procesos construir (Ops Layer)
 /disenar-solucion [empresa]      → Solución técnica (Core Layer)
 /disenar-stack [empresa]         → Stack de herramientas (consulta Supabase)
 
 DOCUMENTOS:
 /cotizacion [empresa]            → Genera cotizacion
-/slides-propuesta-ops [empresa]  → Slides de propuesta Ops (5 skills + stack + precio)
+/slides-propuesta-ops [empresa]  → Slides de propuesta Ops (5 skills + stack + precio + Edu upsell)
 /contrato [empresa]              → Genera contratos (Core necesita Fase 0)
 /fase0 [empresa]                 → Genera Fase 0 (usa output de /disenar-solucion)
 /entregable [empresa]            → Genera entregable post-setup

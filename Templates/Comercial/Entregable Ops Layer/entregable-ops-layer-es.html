@@ -1227,6 +1227,336 @@
     .cover-title { font-size: 36px; }
     .section-divider { flex-direction: column; }
   }
+
+  /* ===================== PROCESS ANALYSIS ===================== */
+  .process-card {
+    background: var(--blanco);
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+
+  .process-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .process-card-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gris-texto);
+  }
+
+  .process-card-meta {
+    font-size: 9px;
+    color: var(--morado);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .process-workflow {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+
+  .process-workflow ol {
+    margin-left: 16px;
+    margin-bottom: 0;
+  }
+
+  .process-workflow li {
+    font-size: 10px;
+    line-height: 1.7;
+    margin-bottom: 3px;
+    color: #444;
+  }
+
+  .process-stats {
+    display: flex;
+    gap: 20px;
+    margin: 12px 0;
+  }
+
+  .process-stat {
+    text-align: center;
+  }
+
+  .process-stat-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--morado);
+  }
+
+  .process-stat-label {
+    font-size: 8px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  .automation-bar-container {
+    margin: 10px 0;
+  }
+
+  .automation-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 4px;
+  }
+
+  .automation-bar {
+    height: 8px;
+    background: var(--gris-claro);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .automation-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    border-radius: 4px;
+    transition: width 0.6s ease-out;
+  }
+
+  .process-quote {
+    border-left: 3px solid var(--morado-claro);
+    padding: 8px 14px;
+    margin: 12px 0 0;
+    font-style: italic;
+    font-size: 10px;
+    color: #555;
+    background: rgba(139,92,246,0.03);
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* ===================== PRIORITY MATRIX ===================== */
+  .priority-matrix {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    gap: 0;
+    margin: 20px 0;
+    min-height: 320px;
+  }
+
+  .pm-corner { }
+
+  .pm-col-header {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 8px;
+  }
+
+  .pm-row-header {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-right: 8px;
+  }
+
+  .pm-quadrant {
+    border: 1px solid var(--gris-claro);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pm-q1 { background: rgba(52,211,153,0.06); border-color: rgba(52,211,153,0.2); }
+  .pm-q2 { background: rgba(139,92,246,0.06); border-color: rgba(139,92,246,0.2); }
+  .pm-q3 { background: rgba(251,191,36,0.06); border-color: rgba(251,191,36,0.2); }
+  .pm-q4 { background: rgba(200,200,200,0.06); }
+
+  .pm-quadrant-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .pm-q1 .pm-quadrant-label { color: #059669; }
+  .pm-q2 .pm-quadrant-label { color: var(--morado); }
+  .pm-q3 .pm-quadrant-label { color: #D97706; }
+  .pm-q4 .pm-quadrant-label { color: #888; }
+
+  .pm-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: #333;
+    line-height: 1.4;
+  }
+
+  .pm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .pm-dot-emerald { background: #34d399; }
+  .pm-dot-purple { background: #8B5CF6; }
+  .pm-dot-amber { background: #fbbf24; }
+  .pm-dot-gray { background: #aaa; }
+
+  /* ===================== FINANCIAL IMPACT ===================== */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .scenario-card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+
+  .scenario-card.moderate {
+    border-color: rgba(139,92,246,0.3);
+    background: rgba(139,92,246,0.03);
+  }
+
+  .scenario-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+
+  .scenario-card.moderate .scenario-label { color: var(--morado); }
+
+  .scenario-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gris-texto);
+    line-height: 1.2;
+  }
+
+  .scenario-sub {
+    font-size: 9px;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  .scenario-detail {
+    font-size: 9px;
+    color: #555;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--gris-claro);
+    text-align: left;
+    line-height: 1.6;
+  }
+
+  .cost-nothing-box {
+    background: #FEF2F2;
+    border: 1px solid rgba(239,68,68,0.2);
+    border-left: 4px solid #ef4444;
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+
+  .cost-nothing-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #991B1B;
+    margin-bottom: 12px;
+  }
+
+  .cost-nothing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .cost-nothing-period {
+    text-align: center;
+  }
+
+  .cost-nothing-period-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #991B1B;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .cost-nothing-period-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #DC2626;
+  }
+
+  .cost-nothing-period-sub {
+    font-size: 9px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  .cost-nothing-risks {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .cost-nothing-risks li {
+    color: #555;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== TOOL STATUS ===================== */
+  .tool-status {
+    display: inline-block;
+    font-size: 8px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tool-status-keep { background: rgba(52,211,153,0.15); color: #059669; }
+  .tool-status-enhance { background: rgba(251,191,36,0.15); color: #D97706; }
+  .tool-status-replace { background: rgba(239,68,68,0.15); color: #DC2626; }
 </style>
 </head>
 <body>
@@ -1480,7 +1810,374 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- SECCION 3 DIVIDER - HERRAMIENTAS SELECCIONADAS                -->
+<!-- SECCION 3 DIVIDER - ANALISIS PROCESO POR PROCESO              -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="12" y="12" width="24" height="24" rx="3"/>
+        <rect x="44" y="12" width="24" height="24" rx="3"/>
+        <rect x="12" y="44" width="24" height="24" rx="3"/>
+        <rect x="44" y="44" width="24" height="24" rx="3"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">03</div>
+      <div class="section-line"></div>
+      <h2>An&aacute;lisis Proceso por Proceso</h2>
+      <p>Cada proceso mapeado con su workflow actual, costo en tiempo, potencial de automatizaci&oacute;n y citas textuales del equipo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG - ANALISIS PROCESO POR PROCESO                            -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="page-header-title">An&aacute;lisis de Procesos</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Procesos mapeados</h4>
+    <div class="gradient-line"></div>
+
+    <!-- PROCESO 1 -->
+    <div class="process-card">
+      <div class="process-card-header">
+        <div class="process-card-name">{{PROCESO_1_NOMBRE}}</div>
+        <div class="process-card-meta">{{PROCESO_1_FRECUENCIA}}</div>
+      </div>
+      <div class="process-stats">
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_1_HORAS}}</div>
+          <div class="process-stat-label">Horas/semana</div>
+        </div>
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_1_PERSONAS}}</div>
+          <div class="process-stat-label">Personas</div>
+        </div>
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_1_HERRAMIENTAS_N}}</div>
+          <div class="process-stat-label">Herramientas</div>
+        </div>
+      </div>
+      <div class="process-workflow">
+        <ol>
+          <li>{{PROCESO_1_PASO_1}}</li>
+          <li>{{PROCESO_1_PASO_2}}</li>
+          <li>{{PROCESO_1_PASO_3}}</li>
+          <li>{{PROCESO_1_PASO_4}}</li>
+        </ol>
+      </div>
+      <div class="automation-bar-container">
+        <div class="automation-bar-label">
+          <span>Potencial de automatizaci&oacute;n</span>
+          <span>{{PROCESO_1_AUTO_SCORE}}%</span>
+        </div>
+        <div class="automation-bar">
+          <div class="automation-bar-fill" style="width: {{PROCESO_1_AUTO_SCORE}}%;"></div>
+        </div>
+      </div>
+      <div class="process-quote">&ldquo;{{PROCESO_1_CITA}}&rdquo;</div>
+    </div>
+
+    <!-- PROCESO 2 -->
+    <div class="process-card">
+      <div class="process-card-header">
+        <div class="process-card-name">{{PROCESO_2_NOMBRE}}</div>
+        <div class="process-card-meta">{{PROCESO_2_FRECUENCIA}}</div>
+      </div>
+      <div class="process-stats">
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_2_HORAS}}</div>
+          <div class="process-stat-label">Horas/semana</div>
+        </div>
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_2_PERSONAS}}</div>
+          <div class="process-stat-label">Personas</div>
+        </div>
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_2_HERRAMIENTAS_N}}</div>
+          <div class="process-stat-label">Herramientas</div>
+        </div>
+      </div>
+      <div class="process-workflow">
+        <ol>
+          <li>{{PROCESO_2_PASO_1}}</li>
+          <li>{{PROCESO_2_PASO_2}}</li>
+          <li>{{PROCESO_2_PASO_3}}</li>
+          <li>{{PROCESO_2_PASO_4}}</li>
+        </ol>
+      </div>
+      <div class="automation-bar-container">
+        <div class="automation-bar-label">
+          <span>Potencial de automatizaci&oacute;n</span>
+          <span>{{PROCESO_2_AUTO_SCORE}}%</span>
+        </div>
+        <div class="automation-bar">
+          <div class="automation-bar-fill" style="width: {{PROCESO_2_AUTO_SCORE}}%;"></div>
+        </div>
+      </div>
+      <div class="process-quote">&ldquo;{{PROCESO_2_CITA}}&rdquo;</div>
+    </div>
+
+    <!-- PROCESO 3 -->
+    <div class="process-card">
+      <div class="process-card-header">
+        <div class="process-card-name">{{PROCESO_3_NOMBRE}}</div>
+        <div class="process-card-meta">{{PROCESO_3_FRECUENCIA}}</div>
+      </div>
+      <div class="process-stats">
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_3_HORAS}}</div>
+          <div class="process-stat-label">Horas/semana</div>
+        </div>
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_3_PERSONAS}}</div>
+          <div class="process-stat-label">Personas</div>
+        </div>
+        <div class="process-stat">
+          <div class="process-stat-value">{{PROCESO_3_HERRAMIENTAS_N}}</div>
+          <div class="process-stat-label">Herramientas</div>
+        </div>
+      </div>
+      <div class="process-workflow">
+        <ol>
+          <li>{{PROCESO_3_PASO_1}}</li>
+          <li>{{PROCESO_3_PASO_2}}</li>
+          <li>{{PROCESO_3_PASO_3}}</li>
+          <li>{{PROCESO_3_PASO_4}}</li>
+        </ol>
+      </div>
+      <div class="automation-bar-container">
+        <div class="automation-bar-label">
+          <span>Potencial de automatizaci&oacute;n</span>
+          <span>{{PROCESO_3_AUTO_SCORE}}%</span>
+        </div>
+        <div class="automation-bar">
+          <div class="automation-bar-fill" style="width: {{PROCESO_3_AUTO_SCORE}}%;"></div>
+        </div>
+      </div>
+      <div class="process-quote">&ldquo;{{PROCESO_3_CITA}}&rdquo;</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 4 DIVIDER - MATRIZ DE PRIORIDAD                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <line x1="15" y1="65" x2="65" y2="65"/>
+        <line x1="15" y1="15" x2="15" y2="65"/>
+        <polyline points="12,20 15,15 18,20"/>
+        <polyline points="60,62 65,65 60,68"/>
+        <circle cx="30" cy="30" r="6" fill="rgba(139,92,246,0.3)" stroke="var(--morado)"/>
+        <circle cx="50" cy="25" r="5" fill="rgba(52,211,153,0.3)" stroke="#34d399"/>
+        <circle cx="35" cy="50" r="5" fill="rgba(251,191,36,0.3)" stroke="#fbbf24"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">04</div>
+      <div class="section-line"></div>
+      <h2>Matriz de Prioridad</h2>
+      <p>Procesos posicionados por impacto en el negocio vs esfuerzo de implementaci&oacute;n. Acci&oacute;n inmediata en los Quick Wins.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG - MATRIZ DE PRIORIDAD                                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="20" x2="20" y2="20"/><line x1="4" y1="4" x2="4" y2="20"/><polyline points="2,7 4,4 6,7"/><polyline points="17,18 20,20 17,22"/></svg>
+      <span class="page-header-title">Matriz de Prioridad</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>Impacto vs Esfuerzo</h4>
+    <div class="gradient-line"></div>
+
+    <p>Posicionamos cada proceso identificado en una matriz de impacto (ahorro de tiempo y dinero) contra esfuerzo de implementaci&oacute;n (complejidad t&eacute;cnica). Los <strong>Quick Wins</strong> son la prioridad inmediata.</p>
+
+    <div class="priority-matrix">
+      <div class="pm-corner"></div>
+      <div class="pm-col-header">Esfuerzo bajo</div>
+      <div class="pm-col-header">Esfuerzo alto</div>
+
+      <div class="pm-row-header">Impacto alto</div>
+      <div class="pm-quadrant pm-q1">
+        <div class="pm-quadrant-label">Quick Wins</div>
+        {{MATRIZ_Q1_ITEMS}}
+      </div>
+      <div class="pm-quadrant pm-q2">
+        <div class="pm-quadrant-label">Estrat&eacute;gicos</div>
+        {{MATRIZ_Q2_ITEMS}}
+      </div>
+
+      <div class="pm-row-header">Impacto bajo</div>
+      <div class="pm-quadrant pm-q3">
+        <div class="pm-quadrant-label">Complementarios</div>
+        {{MATRIZ_Q3_ITEMS}}
+      </div>
+      <div class="pm-quadrant pm-q4">
+        <div class="pm-quadrant-label">Postergar</div>
+        {{MATRIZ_Q4_ITEMS}}
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Hallazgo:</strong> Encontramos <strong>{{OPORTUNIDADES_QUICK_WINS}}</strong> oportunidades de impacto inmediato (Quick Wins) que pueden implementarse en los primeros d&iacute;as del sprint y generar resultados visibles desde la primera semana.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 5 DIVIDER - IMPACTO FINANCIERO                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="22"/>
+        <text x="40" y="46" text-anchor="middle" font-family="Quicksand" font-size="20" font-weight="700" fill="currentColor">$</text>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">05</div>
+      <div class="section-line"></div>
+      <h2>Impacto Financiero</h2>
+      <p>Proyecci&oacute;n del retorno de inversi&oacute;n en tres escenarios y el costo real de no actuar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG - IMPACTO FINANCIERO                                      -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span class="page-header-title">Impacto Financiero</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>Proyecci&oacute;n de retorno</h4>
+    <div class="gradient-line"></div>
+
+    <p>Tres escenarios basados en el nivel de adopci&oacute;n de los sistemas implementados. El escenario moderado asume que el equipo usa los sistemas de forma consistente a partir de la segunda semana.</p>
+
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <div class="scenario-label">Conservador</div>
+        <div class="scenario-value">{{ESCENARIO_CONSERVADOR_HORAS}}</div>
+        <div class="scenario-sub">horas/semana recuperadas</div>
+        <div class="scenario-detail">
+          <strong>Ahorro mensual:</strong> {{ESCENARIO_CONSERVADOR_AHORRO}}<br>
+          <strong>ROI anual:</strong> {{ESCENARIO_CONSERVADOR_ROI}}<br>
+          <strong>Payback:</strong> {{ESCENARIO_CONSERVADOR_PAYBACK}}
+        </div>
+      </div>
+      <div class="scenario-card moderate">
+        <div class="scenario-label">Moderado</div>
+        <div class="scenario-value">{{ESCENARIO_MODERADO_HORAS}}</div>
+        <div class="scenario-sub">horas/semana recuperadas</div>
+        <div class="scenario-detail">
+          <strong>Ahorro mensual:</strong> {{ESCENARIO_MODERADO_AHORRO}}<br>
+          <strong>ROI anual:</strong> {{ESCENARIO_MODERADO_ROI}}<br>
+          <strong>Payback:</strong> {{ESCENARIO_MODERADO_PAYBACK}}
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-label">Agresivo</div>
+        <div class="scenario-value">{{ESCENARIO_AGRESIVO_HORAS}}</div>
+        <div class="scenario-sub">horas/semana recuperadas</div>
+        <div class="scenario-detail">
+          <strong>Ahorro mensual:</strong> {{ESCENARIO_AGRESIVO_AHORRO}}<br>
+          <strong>ROI anual:</strong> {{ESCENARIO_AGRESIVO_ROI}}<br>
+          <strong>Payback:</strong> {{ESCENARIO_AGRESIVO_PAYBACK}}
+        </div>
+      </div>
+    </div>
+
+    <div class="cost-nothing-box">
+      <div class="cost-nothing-title">El costo de no hacer nada</div>
+      <div class="cost-nothing-grid">
+        <div class="cost-nothing-period">
+          <div class="cost-nothing-period-label">En 6 meses</div>
+          <div class="cost-nothing-period-value">{{COSTO_NADA_6M_HORAS}}</div>
+          <div class="cost-nothing-period-sub">horas perdidas</div>
+          <div class="cost-nothing-period-value" style="font-size:16px; margin-top:6px;">{{COSTO_NADA_6M_COP}}</div>
+          <div class="cost-nothing-period-sub">COP desperdiciados</div>
+        </div>
+        <div class="cost-nothing-period">
+          <div class="cost-nothing-period-label">En 12 meses</div>
+          <div class="cost-nothing-period-value">{{COSTO_NADA_12M_HORAS}}</div>
+          <div class="cost-nothing-period-sub">horas perdidas</div>
+          <div class="cost-nothing-period-value" style="font-size:16px; margin-top:6px;">{{COSTO_NADA_12M_COP}}</div>
+          <div class="cost-nothing-period-sub">COP desperdiciados</div>
+        </div>
+      </div>
+      <div class="cost-nothing-risks">
+        <strong>Riesgos adicionales:</strong>
+        <ul>
+          <li>{{RIESGO_1}}</li>
+          <li>{{RIESGO_2}}</li>
+          <li>{{RIESGO_3}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Conclusi&oacute;n:</strong> {{CONCLUSION_FINANCIERA}}</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 6 DIVIDER - HERRAMIENTAS SELECCIONADAS              -->
 <!-- ============================================================ -->
 <div class="page">
   <div class="section-divider">
@@ -1500,7 +2197,7 @@
       </svg>
     </div>
     <div class="section-divider-right">
-      <div class="section-number">03</div>
+      <div class="section-number">06</div>
       <div class="section-line"></div>
       <h2>Herramientas Seleccionadas</h2>
       <p>Las herramientas que recomendamos incorporar a su operaci&oacute;n, por qu&eacute; las elegimos y c&oacute;mo se conectan entre s&iacute;.</p>
@@ -1714,7 +2411,7 @@
       </svg>
     </div>
     <div class="section-divider-right">
-      <div class="section-number">04</div>
+      <div class="section-number">07</div>
       <div class="section-line"></div>
       <h2>Sistemas Implementados</h2>
       <p>Detalle de cada sistema entregado: qu&eacute; hace, c&oacute;mo funciona, qu&eacute; herramientas usa y qu&eacute; skills incluye.</p>
@@ -2143,7 +2840,7 @@
       </svg>
     </div>
     <div class="section-divider-right">
-      <div class="section-number">05</div>
+      <div class="section-number">08</div>
       <div class="section-line"></div>
       <h2>Gu&iacute;a de Uso</h2>
       <p>Instructivo completo para usar cada skill implementado: comandos, entradas, salidas y mejores pr&aacute;cticas.</p>
@@ -2292,7 +2989,7 @@
       </svg>
     </div>
     <div class="section-divider-right">
-      <div class="section-number">06</div>
+      <div class="section-number">09</div>
       <div class="section-line"></div>
       <h2>Stack T&eacute;cnico</h2>
       <p>Visi&oacute;n completa de la arquitectura: qu&eacute; herramientas se conectan, c&oacute;mo fluye la informaci&oacute;n y d&oacute;nde vive la inteligencia.</p>
@@ -2436,7 +3133,7 @@
       </svg>
     </div>
     <div class="section-divider-right">
-      <div class="section-number">07</div>
+      <div class="section-number">10</div>
       <div class="section-line"></div>
       <h2>M&eacute;tricas de Impacto</h2>
       <p>Estimaci&oacute;n del tiempo recuperado, eficiencia ganada y retorno de inversi&oacute;n por cada sistema implementado.</p>
@@ -2563,7 +3260,7 @@
       </svg>
     </div>
     <div class="section-divider-right">
-      <div class="section-number">08</div>
+      <div class="section-number">11</div>
       <div class="section-line"></div>
       <h2>Pr&oacute;ximos Pasos</h2>
       <p>C&oacute;mo seguir construyendo sobre lo implementado y llevar la operaci&oacute;n al siguiente nivel.</p>

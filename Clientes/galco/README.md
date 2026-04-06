@@ -10,7 +10,7 @@
 | **Cómo llegó** | Referido |
 | **Fecha de creación** | 2026-03-24 |
 | **Comercial** | JP |
-| **Estado** | Discovery completado |
+| **Estado** | Propuesta presentada (C3) — esperando decisión post-Semana Santa |
 | **Personas clave** | Jorge (Comprador, 14 años), Carolina (Contabilidad), Don Ignacio (Gerente General) |
 | **Sistemas** | Excel, SIGO (ERP local), Ilimitada (contable), Word Manager (documental), Jenguar (producción) |
 
@@ -21,6 +21,7 @@
 - 2026-03-24: Stack diseñado (5 herramientas, $50 USD/mes) — stack.md + spec-stack.md generados
 - 2026-03-24: Slides de propuesta Ops Layer generados — slides-propuesta-ops.html
 - 2026-03-24: Cotización Ops Layer generada — cotizacion-ops.html
+- 2026-03-26: C3 Propuesta presentada por Agustín a Diego y Felipe — propuesta bien recibida, pendiente aprobación de Ignacio y socios post-Semana Santa (~2026-04-06/07)
 
 ## Archivos
 - `discovery/discovery-notes.md` — Brief estructurado del discovery C2
@@ -33,3 +34,4 @@
 - `diseno/spec-skills.md` — Spec técnico para el equipo (frontmatter, tools, MCPs, workflows)
 - `diseno/stack.md` — Stack de herramientas recomendado para el cliente
 - `diseno/spec-stack.md` — Spec técnico del stack para el equipo
+- `contexto/transcript-2026-03-26-C3-propuesta.md` — Transcript procesado: C3 presentación de propuesta

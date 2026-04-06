@@ -144,6 +144,16 @@ Reemplaza TODOS los `{{PLACEHOLDER}}` con contenido real:
 - {{COMERCIAL_EMAIL}} — por defecto "jpgomez@stayirrelevant.com"
 - {{COMERCIAL_TELEFONO}} — por defecto "+57 318 335 1733"
 
+**Del Edu Layer (OBLIGATORIO — slides 16 y 17):**
+- {{EDU_LAYER_BENEFICIO_1}} — por defecto "Entienden qué es IA y qué no"
+- {{EDU_LAYER_BENEFICIO_2}} — por defecto "Practican con Claude sobre SUS procesos"
+- {{EDU_LAYER_BENEFICIO_3}} — por defecto "Salen con ideas concretas"
+- {{EDU_LAYER_BENEFICIO_4}} — por defecto "Usan las herramientas al 100%"
+- {{EDU_LAYER_CASO}} — por defecto "Bancolombia"
+- {{EDU_LAYER_PRECIO}} — por defecto "$4.500.000 COP + IVA"
+
+**NOTA:** Los slides de Edu Layer son OBLIGATORIOS en cada presentacion de Ops Layer. Son el upsell natural — el cliente siente lo que su equipo se lleva despues del workshop. Solo se remueven si el comercial lo pide explicitamente.
+
 ### Reglas de generacion:
 
 - Los pain points se extraen del contexto del cliente o del campo "problema" de cada skill
@@ -170,7 +180,7 @@ Reemplaza TODOS los `{{PLACEHOLDER}}` con contenido real:
 *"Slides de propuesta generados para [Empresa]:*
 *Archivo: [ruta]*
 *Verificacion: 0 placeholders pendientes.*
-*Total: 16 slides — Cover, Contexto, Dolores, Solucion, 5 Skills, Stack Sugerido, Impacto, Timeline, Inversion, Cierre.*
+*Total: 18 slides — Cover, Contexto, Dolores, Solucion, 5 Skills, Stack Sugerido, Impacto, Timeline, Inversion, Think AI (Hay algo mas), Think AI (Workshop), Cierre.*
 
 *Quieres que ajuste algo?*
 

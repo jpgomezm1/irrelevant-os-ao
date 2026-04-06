@@ -8,7 +8,7 @@
 
 El sistema operativo completo de Irrelevant — desde el primer contacto con un prospecto hasta la entrega del proyecto y el seguimiento post-entrega. Todo el ciclo comercial y de producción de la empresa vive aquí.
 
-[![Skills](https://img.shields.io/badge/Skills-33-8B5CF6?style=for-the-badge)](/) [![Services](https://img.shields.io/badge/Servicios-3-34d399?style=for-the-badge)](/) [![Pipeline](https://img.shields.io/badge/Pipeline-9_etapas-fbbf24?style=for-the-badge)](/) [![E2E](https://img.shields.io/badge/Sistema-End_to_End-60a5fa?style=for-the-badge)](/)
+[![Skills](https://img.shields.io/badge/Skills-35-8B5CF6?style=for-the-badge)](/) [![Services](https://img.shields.io/badge/Servicios-3-34d399?style=for-the-badge)](/) [![Pipeline](https://img.shields.io/badge/Pipeline-10_etapas-fbbf24?style=for-the-badge)](/) [![E2E](https://img.shields.io/badge/Sistema-End_to_End-60a5fa?style=for-the-badge)](/)
 
 </div>
 
@@ -18,7 +18,7 @@ El sistema operativo completo de Irrelevant — desde el primer contacto con un 
 
 Es un workspace de [Claude Code](https://claude.ai/claude-code) que contiene:
 
-- **33 skills** (comandos) que automatizan cada paso del proceso comercial
+- **35 skills** (comandos) que automatizan cada paso del proceso comercial
 - **Templates** para cotizaciones, contratos, entregables y presentaciones (ES + EN)
 - **Contratos legales** revisados para los 3 servicios
 - **Assets de ventas** listos para enviar (pitch decks, one pagers, casos de éxito)
@@ -71,25 +71,26 @@ Claude Code detecta automáticamente las skills en `.claude/skills/` y las activ
 
 ---
 
-## El ciclo completo (9 etapas)
+## El ciclo completo (10 etapas)
 
 ```
-1. PROSPECTING        →  Investigar empresa, preparar approach, practicar la call
-2. DISCOVERY           →  Hacer la call, procesar transcript, extraer brief
-3. DISEÑO              →  Definir qué construir (skills/solución) y con qué herramientas
-4. PROPUESTA           →  Cotización, ROI, Fase 0 (Core Layer)
-5. CIERRE              →  Contratos firmados, anticipo pagado
-6. CONSTRUCCIÓN        →  Construir skills, implementar sistemas
-7. ENTREGA             →  Documento entregable + slides de presentación
-8. POST-ENTREGA        →  Check-ins de seguimiento, detectar oportunidades de upsell
-9. PRODUCCIÓN          →  Solo Core Layer: kickoff, weekly updates, gestión del proyecto
+1.  PROSPECTING        →  Investigar empresa, preparar approach, practicar la call
+2.  DISCOVERY           →  Hacer la call, procesar transcript, extraer brief
+3.  ASSESSMENT          →  Discovery estructurado + análisis profundo + slides de hallazgos (Ops Layer)
+4.  DISEÑO              →  Definir qué construir (skills/solución) y con qué herramientas
+5.  PROPUESTA           →  Cotización, ROI, slides de propuesta (con Edu Layer upsell)
+6.  CIERRE              →  Contratos firmados, anticipo pagado
+7.  CONSTRUCCIÓN        →  Construir skills, implementar sistemas
+8.  ENTREGA             →  Documento entregable mejorado + slides de presentación
+9.  POST-ENTREGA        →  Check-ins de seguimiento, detectar oportunidades de upsell
+10. PRODUCCIÓN          →  Solo Core Layer: kickoff, weekly updates, gestión del proyecto
 ```
 
 Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactamente en qué etapa está cada cliente y qué comando ejecutar.
 
 ---
 
-## Las 33 skills
+## Las 35 skills
 
 ### Navegación y gestión
 
@@ -100,6 +101,13 @@ Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactament
 | `/cliente ver [empresa]` | Muestra el estado del pipeline del cliente |
 | `/cliente listar` | Lista todos los clientes activos |
 | `/crear-skill [nombre]` | Construye una skill de Claude Code completa |
+
+### Assessment Ops Layer (NUEVO)
+
+| Comando | Qué hace |
+|---------|----------|
+| `/discovery-ops [empresa]` | Discovery estructurado con 5 pilares obligatorios: auditoría de tiempo, mapeo de procesos, inventario de herramientas, cuantificación del dolor, mapa de decisión. Scoring GREEN/YELLOW/RED por pilar. |
+| `/reporte-assessment [empresa]` | Análisis profundo + slides de assessment. Genera: matriz de procesos, ROI 3 escenarios, matriz de prioridad 2x2, costo de no hacer nada. Produce slides de 12 slides para presentar hallazgos SIN precio. |
 
 ### Contexto e inteligencia
 
@@ -143,7 +151,7 @@ Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactament
 |---------|----------|
 | `/cotizacion [empresa] [ops\|edu]` | Genera cotización HTML (acepta RUT para extraer datos automáticamente) |
 | `/calcular-roi [empresa]` | Calcula ROI personalizado para presentar en reunión |
-| `/slides-propuesta-ops [empresa]` | Genera slides de presentación de propuesta para Ops Layer (5 skills + stack + precio) |
+| `/slides-propuesta-ops [empresa]` | Genera slides de propuesta Ops Layer (5 skills + stack + precio + **Edu Layer upsell obligatorio**) — 18 slides |
 | `/fase0 [empresa]` | Genera documento de Fase 0 + slides (Core Layer) |
 | `/contrato [empresa] [ops\|edu\|core]` | Genera paquete completo de contratos (acepta RUT) |
 | `/entregable [empresa]` | Genera documento entregable + slides post-setup |
@@ -178,7 +186,7 @@ Cada etapa tiene skills específicos. El sistema `/que-sigue` te dice exactament
 ```
 Claude_Code/
 │
-├── .claude/skills/              ← 33 skills que corren en este workspace
+├── .claude/skills/              ← 35 skills que corren en este workspace
 │
 ├── Assets Fijos/                ← Documentos listos para enviar (no se modifican)
 │   ├── Pitch Deck/              4 versiones: ES/EN, con/sin precio
@@ -198,8 +206,9 @@ Claude_Code/
 │   │   ├── Cotizacion Edu Layer/    ES + EN + ejemplo real
 │   │   ├── Fase 0 Core Layer/      ES + EN + ejemplo real
 │   │   ├── Slides Fase 0/          ES + EN + ejemplo real
-│   │   │   ├── Slides Propuesta Ops/   ES + EN + ejemplo real
-│   │   ├── Entregable Ops Layer/   ES + EN + ejemplo real
+│   │   ├── Slides Assessment/       ES (12 slides hallazgos + urgencia)
+│   │   ├── Slides Propuesta Ops/   ES + EN + ejemplo real (18 slides con Edu upsell)
+│   │   ├── Entregable Ops Layer/   ES + EN + ejemplo real (mejorado con assessment)
 │   │   └── Slides Entregable Ops/  ES + EN + ejemplo real
 │   └── Contratos/
 │       ├── AI Ops Layer/    Contrato + Acuerdo de Pago + NDA
@@ -247,7 +256,7 @@ Cada cliente tiene su propia carpeta donde se acumula TODO. Los skills guardan a
 ```
 
 La información fluye entre carpetas:
-- `discovery/` alimenta a `diseno/`
+- `discovery/` alimenta a `diseno/` (via `/discovery-ops` → `/reporte-assessment`)
 - `diseno/` alimenta a `fase0/` y `entregable/`
 - `fase0/` alimenta a `contratos/` (Core Layer)
 - Todo alimenta a `evaluaciones/` (post-entrega)
@@ -276,16 +285,17 @@ Cada skill produce outputs tan buenos como la información que recibe. En cada c
 
 **Regla de oro:** Si el prospect habla más del 60% de la call, vas bien.
 
-### Ops Layer (7 pasos → 1 semana)
+### Ops Layer (9 pasos → 1 semana)
 
 1. `/cliente crear` → Crear carpeta
 2. `/prep-call` → Research + preparación
 3. Call real (grabar en Fireflies)
-4. `/procesar-call` → `/discovery-notes` → `/email-post-reunion`
-5. `/disenar-skills` → `/disenar-stack` → `/slides-propuesta-ops`
-6. `/cotizacion ops` → `/contrato ops` → **Firma + anticipo**
-7. `/crear-skill` ×5 → `/entregable`
-8. `/check-in` → `/upsell`
+4. `/procesar-call` → `/discovery-ops` → `/email-post-reunion`
+5. `/reporte-assessment` → **Presentar assessment (genera urgencia)**
+6. `/disenar-skills` → `/disenar-stack` → `/slides-propuesta-ops` (incluye Edu Layer upsell)
+7. **Presentar propuesta con precio** → `/cotizacion ops` → `/contrato ops` → **Firma + anticipo**
+8. `/crear-skill` ×5 → `/entregable` (mejorado con assessment)
+9. `/check-in` → `/upsell`
 
 ### Core Layer (8 pasos → 8-12 semanas)
 
@@ -407,9 +417,9 @@ git push
 
 ## Guía visual
 
-Abre `Assets Fijos/skills-reference.html` en el browser para ver el **Operating System visual** — el pipeline completo, las 33 skills documentadas, los playbooks por servicio, los assets disponibles, y los power combos.
+Abre `Assets Fijos/skills-reference.html` en el browser para ver el **Operating System visual** — el pipeline completo, las 35 skills documentadas, los playbooks por servicio, los assets disponibles, y los power combos.
 
 ---
 
 *Think AI or stay irrelevant.*
-*33 skills — 3 servicios — 9 etapas — sistema end-to-end*
+*35 skills — 3 servicios — 10 etapas — sistema end-to-end*

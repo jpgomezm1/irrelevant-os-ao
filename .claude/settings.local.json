@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "WebFetch(domain:www.galco.com.co)"
+      "WebFetch(domain:www.galco.com.co)",
+      "Bash(split:*)",
+      "Skill(disenar-solucion)",
+      "WebFetch(domain:empresas.larepublica.co)"
     ],
     "deny": [],
     "ask": []

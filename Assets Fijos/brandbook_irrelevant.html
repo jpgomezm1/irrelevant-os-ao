@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>irrelevant — Brand Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════════════
+   CSS VARIABLES — Based on official brand kit
+   ════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Backgrounds — pure black base */
+  --bg: #000000;
+  --bg-surface: #0a0a0a;
+  --card: #111111;
+  --card-hover: #1a1a1a;
+  --border: rgba(255,255,255,0.08);
+  --border-solid: #222222;
+
+  /* Brand purples — from official kit */
+  --purple: #5e55fe;          /* Primary */
+  --purple-light: #8063dc;    /* Secondary light */
+  --purple-dark: #5b2ba7;     /* Secondary deep */
+  --purple-deep: #4a20a0;
+  --purple-bg: rgba(94,85,254,0.10);
+  --purple-glow: rgba(94,85,254,0.35);
+
+  /* Neutrals */
+  --white: #ffffff;
+  --black: #000000;
+
+  /* Accents */
+  --emerald: #34d399;
+  --amber: #fbbf24;
+  --blue: #60a5fa;
+  --pink: #f472b6;
+  --red: #ef4444;
+
+  /* Text */
+  --text: #e8eaed;
+  --text-muted: #8b8fa3;
+  --text-secondary: #5a5e72;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   RESET & BASE
+   ════════════════════════════════════════════════════════════════════ */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Poppins',sans-serif; font-weight:400; color:var(--text); background:var(--bg); line-height:1.7; }
+img { max-width:100%; display:block; }
+a { text-decoration:none; color:inherit; }
+
+::-webkit-scrollbar { width:8px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--purple-dark); border-radius:4px; }
+::-webkit-scrollbar-thumb:hover { background:var(--purple); }
+
+/* ════════════════════════════════════════════════════════════════════
+   SIDEBAR NAVIGATION
+   ════════════════════════════════════════════════════════════════════ */
+.side-nav { position:fixed; left:0; top:0; width:260px; height:100vh; background:var(--bg-surface); border-right:1px solid var(--border-solid); padding:32px 0; z-index:100; display:flex; flex-direction:column; overflow-y:auto; transition:transform .3s; }
+.side-nav-logo { padding:0 28px 24px; border-bottom:1px solid var(--border-solid); margin-bottom:16px; }
+.side-nav-logo img { height:36px; }
+.side-nav a { display:flex; align-items:center; gap:10px; padding:10px 28px; font-size:13px; color:var(--text-muted); text-decoration:none; transition:all .2s; font-weight:400; border-left:3px solid transparent; }
+.side-nav a:hover { color:var(--purple); background:var(--purple-bg); }
+.side-nav a.active { color:var(--purple); font-weight:700; border-left-color:var(--purple); background:var(--purple-bg); }
+.side-nav .nav-num { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:var(--purple); width:20px; text-align:right; }
+
+/* Mobile nav */
+.mobile-nav-btn { display:none; position:fixed; top:16px; right:16px; z-index:200; width:44px; height:44px; border-radius:12px; background:var(--purple); border:none; cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:5px; }
+.mobile-nav-btn span { display:block; width:20px; height:2px; background:var(--white); border-radius:2px; transition:all .3s; }
+.mobile-nav-btn.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.mobile-nav-btn.open span:nth-child(2) { opacity:0; }
+.mobile-nav-btn.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+.mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:90; backdrop-filter:blur(4px); }
+.mobile-overlay.open { display:block; }
+
+/* ════════════════════════════════════════════════════════════════════
+   MAIN LAYOUT
+   ════════════════════════════════════════════════════════════════════ */
+.main { margin-left:260px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   SECTIONS
+   ════════════════════════════════════════════════════════════════════ */
+.section { padding:80px; max-width:1100px; margin:0 auto; }
+.section-full { padding:80px; max-width:100%; }
+.section-surface { background:var(--bg-surface); }
+
+.section-divider { height:3px; background:linear-gradient(90deg, var(--purple), var(--purple-light), var(--emerald)); }
+.section-divider-thin { height:1px; background:var(--border-solid); }
+
+/* Section headers */
+.sec-label { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:4px; color:var(--purple); font-weight:700; margin-bottom:8px; }
+.sec-title { font-family:'Poppins',sans-serif; font-size:42px; font-weight:700; color:var(--white); margin-bottom:8px; }
+.sec-bar { width:60px; height:3px; background:linear-gradient(90deg, var(--purple), var(--emerald)); border-radius:2px; margin-bottom:40px; }
+.sec-intro { font-size:17px; color:var(--text-muted); max-width:640px; line-height:1.8; margin-bottom:48px; font-weight:300; }
+
+/* ════════════════════════════════════════════════════════════════════
+   CARDS & GRID
+   ════════════════════════════════════════════════════════════════════ */
+.card { background:var(--card); border:1px solid var(--border-solid); border-radius:16px; padding:28px; transition:all .3s; }
+.card:hover { border-color:rgba(94,85,254,0.3); box-shadow:0 0 30px rgba(94,85,254,0.08); }
+.card-purple { background:var(--purple-bg); border-color:rgba(94,85,254,0.2); }
+
+.grid { display:grid; gap:24px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); }
+.grid-3 { grid-template-columns:repeat(3,1fr); }
+.grid-4 { grid-template-columns:repeat(4,1fr); }
+.grid-5 { grid-template-columns:repeat(5,1fr); }
+
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+
+/* ════════════════════════════════════════════════════════════════════
+   COVER
+   ════════════════════════════════════════════════════════════════════ */
+.cover { min-height:100vh; min-height:100svh; background:var(--black); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 40px; position:relative; overflow:hidden; }
+.cover .blob { position:absolute; border-radius:50%; filter:blur(120px); pointer-events:none; z-index:0; }
+.cover .b1 { top:-200px; right:-150px; width:600px; height:600px; background:radial-gradient(ellipse, var(--purple), transparent 65%); opacity:0.3; }
+.cover .b2 { bottom:-200px; left:-150px; width:500px; height:500px; background:radial-gradient(ellipse, var(--purple-dark), transparent 65%); opacity:0.2; }
+.cover-logo { position:relative; z-index:1; width:320px; margin-bottom:32px; }
+.cover-tagline { position:relative; z-index:1; font-family:'Poppins',sans-serif; font-weight:300; font-size:17px; color:var(--text-muted); letter-spacing:4px; margin-bottom:48px; }
+.cover-divider { position:relative; z-index:1; width:100px; height:3px; background:linear-gradient(90deg, var(--purple), var(--emerald)); border-radius:2px; margin:0 auto 48px; }
+.cover-subtitle { position:relative; z-index:1; font-family:'Poppins',sans-serif; font-size:28px; color:var(--white); font-weight:700; letter-spacing:3px; }
+.cover-year { position:relative; z-index:1; font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--text-secondary); margin-top:48px; letter-spacing:3px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   SPARKLE — brand decorative element
+   ════════════════════════════════════════════════════════════════════ */
+.sparkle { display:inline-block; }
+.sparkle svg { width:24px; height:24px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   TYPOGRAPHY HELPERS
+   ════════════════════════════════════════════════════════════════════ */
+.gradient-text { background:linear-gradient(135deg, var(--purple), var(--purple-light), var(--emerald)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.font-poppins { font-family:'Poppins',sans-serif; }
+.font-mono { font-family:'JetBrains Mono',monospace; }
+
+/* ════════════════════════════════════════════════════════════════════
+   COLOR SWATCHES
+   ════════════════════════════════════════════════════════════════════ */
+.swatch { border-radius:16px; overflow:hidden; background:var(--card); border:1px solid var(--border-solid); }
+.swatch-block { height:100px; display:flex; align-items:center; justify-content:center; }
+.swatch-info { padding:14px; }
+.swatch-hex { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; color:var(--white); }
+.swatch-name { font-size:13px; color:var(--text-muted); margin-top:2px; }
+.swatch-role { font-size:11px; color:var(--text-secondary); margin-top:2px; text-transform:uppercase; letter-spacing:1px; }
+
+.tint-strip { display:flex; border-radius:16px; overflow:hidden; }
+.tint-strip > div { flex:1; padding:20px 12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; font-size:13px; font-weight:600; }
+
+/* ════════════════════════════════════════════════════════════════════
+   SPECIMENS
+   ════════════════════════════════════════════════════════════════════ */
+.specimen { background:var(--card); border:1px solid var(--border-solid); border-radius:16px; padding:32px; margin-bottom:24px; }
+.spec-name { font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--purple); text-transform:uppercase; letter-spacing:2px; margin-bottom:4px; }
+.spec-role { font-size:13px; color:var(--text-muted); margin-bottom:16px; font-weight:300; }
+
+.scale-row { display:flex; align-items:baseline; gap:20px; padding:12px 0; border-bottom:1px solid var(--border-solid); }
+.scale-size { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--purple); width:50px; text-align:right; flex-shrink:0; }
+
+/* ════════════════════════════════════════════════════════════════════
+   DO / DON'T TAGS
+   ════════════════════════════════════════════════════════════════════ */
+.do-tag { display:inline-block; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:700; letter-spacing:1px; margin-bottom:12px; }
+.do-yes { background:rgba(52,211,153,0.15); color:var(--emerald); }
+.do-no { background:rgba(239,68,68,0.15); color:var(--red); }
+
+/* ════════════════════════════════════════════════════════════════════
+   LOGO DISPLAY
+   ════════════════════════════════════════════════════════════════════ */
+.logo-display { background:var(--card); border:2px dashed var(--border-solid); border-radius:20px; padding:48px; display:flex; align-items:center; justify-content:center; min-height:200px; }
+.logo-display img { max-height:120px; }
+.logo-display-dark { background:var(--black); }
+.logo-display-purple { background:var(--purple-dark); }
+.logo-display-light { background:var(--white); }
+
+/* ════════════════════════════════════════════════════════════════════
+   PERSONALITY CHART
+   ════════════════════════════════════════════════════════════════════ */
+.personality-chart { position:relative; width:300px; height:300px; margin:0 auto 40px; }
+.personality-chart .axis-v { position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--border-solid); }
+.personality-chart .axis-h { position:absolute; top:50%; left:0; right:0; height:1px; background:var(--border-solid); }
+.personality-chart .dot { position:absolute; width:20px; height:20px; border-radius:50%; background:var(--purple); box-shadow:0 0 20px var(--purple-glow); top:25%; left:70%; transform:translate(-50%,-50%); }
+.personality-chart .label { position:absolute; font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:2px; }
+.personality-chart .label-top { top:-4px; left:50%; transform:translateX(-50%); }
+.personality-chart .label-bottom { bottom:-4px; left:50%; transform:translateX(-50%); }
+.personality-chart .label-left { left:-4px; top:50%; transform:translateY(-50%) rotate(-90deg); }
+.personality-chart .label-right { right:-4px; top:50%; transform:translateY(-50%) rotate(90deg); }
+
+/* ════════════════════════════════════════════════════════════════════
+   PILL TAGS
+   ════════════════════════════════════════════════════════════════════ */
+.pill { display:inline-block; padding:6px 18px; border-radius:20px; font-size:13px; font-weight:600; margin:4px; background:var(--purple-bg); color:var(--purple); border:1px solid rgba(94,85,254,0.2); }
+.pill-red { background:rgba(239,68,68,0.1); color:var(--red); border-color:rgba(239,68,68,0.2); }
+
+/* ════════════════════════════════════════════════════════════════════
+   MOCKUP FRAMES
+   ════════════════════════════════════════════════════════════════════ */
+.mock-frame { border-radius:16px; overflow:hidden; border:1px solid var(--border-solid); box-shadow:0 8px 30px rgba(0,0,0,0.4); }
+
+/* ════════════════════════════════════════════════════════════════════
+   GRAPHIC ELEMENTS — Hand-drawn style icons
+   ════════════════════════════════════════════════════════════════════ */
+.icon-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+.icon-card { border-radius:16px; padding:32px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; min-height:160px; }
+.icon-card svg { width:64px; height:64px; }
+.icon-card p { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:2px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   QUOTE
+   ════════════════════════════════════════════════════════════════════ */
+.quote-block { font-family:'Poppins',sans-serif; font-size:clamp(24px,4vw,36px); font-weight:700; color:var(--white); line-height:1.4; padding:40px 0; border-left:3px solid var(--purple); padding-left:32px; margin-bottom:40px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════════════════════ */
+.footer { background:var(--bg-surface); padding:48px; text-align:center; border-top:1px solid var(--border-solid); }
+.footer-bar { width:60px; height:3px; background:linear-gradient(90deg, var(--purple), var(--emerald)); border-radius:2px; margin:0 auto 24px; }
+
+/* ════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════════════ */
+@media (max-width:1024px) {
+  .side-nav { width:220px; }
+  .main { margin-left:220px; }
+  .section { padding:60px 40px; }
+  .grid-5 { grid-template-columns:repeat(3,1fr); }
+  .grid-4 { grid-template-columns:repeat(2,1fr); }
+  .icon-grid { grid-template-columns:repeat(2,1fr); }
+  .two-col { grid-template-columns:1fr; gap:32px; }
+}
+@media (max-width:768px) {
+  .side-nav { transform:translateX(-100%); width:280px; }
+  .side-nav.open { transform:translateX(0); }
+  .main { margin-left:0; }
+  .mobile-nav-btn { display:flex; }
+  .section, .section-full { padding:40px 20px; }
+  .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns:1fr; }
+  .icon-grid { grid-template-columns:repeat(2,1fr); }
+  .cover-logo { width:220px; }
+  .sec-title { font-size:32px; }
+  .tint-strip { flex-wrap:wrap; }
+  .tint-strip > div { min-width:80px; }
+  .personality-chart { width:240px; height:240px; }
+}
+@media (max-width:480px) {
+  .section { padding:32px 16px; }
+  .sec-title { font-size:26px; }
+  .cover-logo { width:180px; }
+  .cover-subtitle { font-size:20px; }
+  .icon-grid { grid-template-columns:1fr 1fr; }
+}
+
+/* Print */
+@media print {
+  .side-nav, .mobile-nav-btn, .mobile-overlay { display:none !important; }
+  .main { margin-left:0 !important; }
+  body { background:white; color:#222; }
+  .section { page-break-inside:avoid; }
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     MOBILE NAV
+     ════════════════════════════════════════════════════════════════════ -->
+<button class="mobile-nav-btn" id="mobileNavBtn" onclick="toggleMobileNav()">
+  <span></span><span></span><span></span>
+</button>
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileNav()"></div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ════════════════════════════════════════════════════════════════════ -->
+<nav class="side-nav" id="sideNav">
+  <div class="side-nav-logo">
+    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant">
+  </div>
+  <a href="#cover"><span class="nav-num">&mdash;</span> Portada</a>
+  <a href="#essence"><span class="nav-num">01</span> Esencia</a>
+  <a href="#purpose"><span class="nav-num">02</span> Proposito</a>
+  <a href="#positioning"><span class="nav-num">03</span> Posicionamiento</a>
+  <a href="#logo"><span class="nav-num">04</span> Sistema de Logo</a>
+  <a href="#logo-usage"><span class="nav-num">05</span> Uso del Logo</a>
+  <a href="#color"><span class="nav-num">06</span> Paleta de Colores</a>
+  <a href="#color-app"><span class="nav-num">07</span> Aplicaciones de Color</a>
+  <a href="#typo"><span class="nav-num">08</span> Tipografia</a>
+  <a href="#specimens"><span class="nav-num">09</span> Especimenes</a>
+  <a href="#voice"><span class="nav-num">10</span> Voz y Tono</a>
+  <a href="#personality"><span class="nav-num">11</span> Personalidad</a>
+  <a href="#content"><span class="nav-num">12</span> Contenido</a>
+  <a href="#graphics"><span class="nav-num">13</span> Elementos Graficos</a>
+  <a href="#experience"><span class="nav-num">14</span> Experiencia</a>
+  <a href="#identity"><span class="nav-num">15</span> Identidad en Accion</a>
+  <a href="#mascot"><span class="nav-num">16</span> Mr. irrelevant</a>
+  <a href="#summary"><span class="nav-num">17</span> Referencia Rapida</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ════════════════════════════════════════════════════════════════════ -->
+<div class="main">
+
+<!-- ── COVER ── -->
+<section class="cover" id="cover">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant" class="cover-logo">
+  <div class="cover-tagline">THINK AI OR STAY IRRELEVANT</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">BRAND BOOK</div>
+  <div class="cover-year">2026</div>
+</section>
+
+<!-- ── 01. ESENCIA ── -->
+<section class="section" id="essence">
+  <div class="sec-label">01 &mdash; Esencia</div>
+  <h2 class="sec-title">Nuestra Esencia</h2>
+  <div class="sec-bar"></div>
+
+  <div class="quote-block">
+    No vendemos AI.<br>
+    Redise&ntilde;amos como funcionan los negocios.
+  </div>
+
+  <p class="sec-intro">irrelevant es una compa&ntilde;ia que construye sistemas con inteligencia artificial para transformar la forma en que operan las empresas. Encontramos tus procesos clave. Los potenciamos con IA.</p>
+
+  <div style="margin-bottom:48px">
+    <h3 style="font-size:22px;font-weight:700;color:var(--white);margin-bottom:8px">Idea Central</h3>
+    <p style="font-size:17px;color:var(--text-muted);max-width:640px;font-weight:300">Las empresas no pierden por falta de estrategia. Pierden por mala ejecucion. irrelevant existe para cerrar ese gap.</p>
+  </div>
+
+  <div style="margin-bottom:48px">
+    <h3 style="font-size:22px;font-weight:700;color:var(--white);margin-bottom:8px">Rol en el Mundo</h3>
+    <p style="font-size:17px;color:var(--text-muted);max-width:640px;font-weight:300">Ser el puente entre lo que una empresa quiere hacer y lo que realmente logra ejecutar. Combinamos estrategia y tecnologia para dise&ntilde;ar sistemas con IA que amplifican la propuesta de valor de tu negocio.</p>
+  </div>
+
+  <div class="grid grid-4">
+    <div class="card">
+      <div style="margin-bottom:12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5e55fe" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+      <h4 style="font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px">AI + Estrategia</h4>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.6;font-weight:300">No tecnologia por tecnologia. AI aplicada a problemas reales de negocio.</p>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5e55fe" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <h4 style="font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px">Ejecucion Real</h4>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.6;font-weight:300">Sistemas que funcionan, no PDFs bonitos. Construimos e implementamos.</p>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5e55fe" stroke-width="2" stroke-linecap="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></div>
+      <h4 style="font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px">Basado en Resultados</h4>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.6;font-weight:300">Pricing basado en impacto. Si no genera valor, no cobramos.</p>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5e55fe" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+      <h4 style="font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px">Transformacion Completa</h4>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.6;font-weight:300">De operaciones manuales a ventaja competitiva con AI.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 02. PROPOSITO ── -->
+<section class="section section-surface" id="purpose">
+  <div class="sec-label">02 &mdash; Proposito</div>
+  <h2 class="sec-title">Proposito, Mision y Vision</h2>
+  <div class="sec-bar"></div>
+
+  <div class="grid grid-3" style="margin-bottom:48px">
+    <div class="card card-purple">
+      <div class="sec-label" style="margin-bottom:12px;font-size:10px">Proposito</div>
+      <p style="font-size:16px;color:var(--white);font-weight:600;line-height:1.6">Eliminar la friccion entre las ideas y la ejecucion en los negocios.</p>
+    </div>
+    <div class="card card-purple">
+      <div class="sec-label" style="margin-bottom:12px;font-size:10px">Mision</div>
+      <p style="font-size:16px;color:var(--white);font-weight:600;line-height:1.6">Dise&ntilde;ar e implementar sistemas que permitan a las empresas operar mas rapido, mejor y con menos dependencia humana.</p>
+    </div>
+    <div class="card card-purple">
+      <div class="sec-label" style="margin-bottom:12px;font-size:10px">Vision</div>
+      <p style="font-size:16px;color:var(--white);font-weight:600;line-height:1.6">Un mundo donde las empresas operan con sistemas inteligentes que ejecutan, deciden y escalan sin friccion.</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:60px 40px;background:var(--card);border-radius:24px;margin-bottom:32px;border:1px solid var(--border-solid)">
+    <div class="gradient-text" style="font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.3;margin-bottom:16px">Execution beats ideas.</div>
+    <div style="font-size:clamp(18px,3vw,28px);font-weight:500;color:var(--text-muted)">Build systems. Not excuses.</div>
+  </div>
+
+  <div class="sec-label" style="margin-bottom:16px">Taglines Oficiales</div>
+  <div class="grid grid-2">
+    <div class="card" style="text-align:center">
+      <p style="font-size:20px;font-weight:700;color:var(--white)">&ldquo;Execution beats ideas.&rdquo;</p>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px">Posicionamiento principal &mdash; EN</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <p style="font-size:20px;font-weight:700;color:var(--white)">&ldquo;AI que si mueve el negocio.&rdquo;</p>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px">Propuesta de valor &mdash; ES</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <p style="font-size:20px;font-weight:700;color:var(--white)">&ldquo;Built to help companies scale with AI.&rdquo;</p>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px">Descriptor &mdash; EN</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <p style="font-size:20px;font-weight:700;color:var(--white)">&ldquo;Encontramos tus procesos clave. Los potenciamos con IA.&rdquo;</p>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px">Propuesta &mdash; ES (Website)</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider-thin"></div>
+
+<!-- ── 03. POSICIONAMIENTO ── -->
+<section class="section" id="positioning">
+  <div class="sec-label">03 &mdash; Posicionamiento</div>
+  <h2 class="sec-title">Execution Intelligence</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">No solo AI, sino inteligencia aplicada a ejecutar mejor. Ese es nuestro territorio de marca.</p>
+
+  <div style="margin-bottom:48px">
+    <h3 style="font-size:22px;font-weight:700;color:var(--white);margin-bottom:16px">El Problema Profundo</h3>
+    <p style="font-size:16px;color:var(--text-muted);line-height:1.8;margin-bottom:24px;font-weight:300">El verdadero problema no es la falta de tecnologia. Es esto:</p>
+    <div class="grid grid-5" style="margin-bottom:32px">
+      <div class="card" style="text-align:center;padding:20px"><p style="font-size:14px;color:var(--red);font-weight:600">Procesos invisiblemente rotos</p></div>
+      <div class="card" style="text-align:center;padding:20px"><p style="font-size:14px;color:var(--red);font-weight:600">Equipos al limite</p></div>
+      <div class="card" style="text-align:center;padding:20px"><p style="font-size:14px;color:var(--red);font-weight:600">Informacion desordenada</p></div>
+      <div class="card" style="text-align:center;padding:20px"><p style="font-size:14px;color:var(--red);font-weight:600">Decisiones lentas</p></div>
+      <div class="card" style="text-align:center;padding:20px"><p style="font-size:14px;color:var(--red);font-weight:600">Dependencia de personas clave</p></div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:40px">
+    <div class="card" style="border-left:3px solid var(--purple)">
+      <h4 style="font-weight:700;font-size:18px;color:var(--purple);margin-bottom:16px">Que SOMOS</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px;color:var(--text)">
+        <li>&#10003; &nbsp;Un equipo que entiende negocio Y tecnologia</li>
+        <li>&#10003; &nbsp;Ejecutores que construyen sistemas reales</li>
+        <li>&#10003; &nbsp;Partners de transformacion, no vendors</li>
+        <li>&#10003; &nbsp;Pricing basado en impacto</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <h4 style="font-weight:700;font-size:18px;color:var(--red);margin-bottom:16px">Que NO Somos</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px;color:var(--text-muted)">
+        <li>&#10007; &nbsp;Agencia de marketing</li>
+        <li>&#10007; &nbsp;Consultores tradicionales</li>
+        <li>&#10007; &nbsp;Vendedores de herramientas</li>
+        <li>&#10007; &nbsp;&ldquo;AI hype&rdquo; sin sustancia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-purple" style="text-align:center;padding:40px">
+    <div class="sec-label" style="margin-bottom:8px">Categoria</div>
+    <p style="font-size:24px;font-weight:700;color:var(--white)">AI aplicada a operaciones y crecimiento de negocio</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 04. SISTEMA DE LOGO ── -->
+<section class="section section-surface" id="logo">
+  <div class="sec-label">04 &mdash; Logo</div>
+  <h2 class="sec-title">Sistema de Logo</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">Nuestro sistema de logo tiene cuatro elementos: el logotipo principal, el isotipo (gafas), la mascota Mr. irrelevant, y variantes por fondo.</p>
+
+  <!-- Logotipo principal sobre negro -->
+  <div style="margin-bottom:48px">
+    <div class="sec-label" style="margin-bottom:12px">Logotipo Principal &mdash; Sobre Negro</div>
+    <div class="logo-display logo-display-dark" style="margin-bottom:16px;flex-direction:column;gap:8px">
+      <svg width="60" height="45" viewBox="0 0 60 45" fill="none" style="margin-bottom:4px">
+        <ellipse cx="20" cy="22" rx="10" ry="9" stroke="white" stroke-width="2.5" fill="none"/>
+        <ellipse cx="42" cy="22" rx="10" ry="9" stroke="white" stroke-width="2.5" fill="none"/>
+        <path d="M30 20 Q31 17 32 20" stroke="white" stroke-width="2.5" fill="none"/>
+        <path d="M10 20 Q5 14 2 16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M52 20 Q55 14 58 16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div style="font-size:42px;font-weight:700;letter-spacing:3px;color:var(--white)"><span style="color:#5e55fe">ir</span>relevant</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--white);letter-spacing:6px">co.</div>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.6;font-weight:300">El logotipo usa una tipografia custom (FF Providence Sans) con un trazo artesanal e imperfecto. Las letras &ldquo;<strong style="color:#5e55fe">ir</strong>&rdquo; siempre van en el morado de marca (#5e55fe). Las gafas se posicionan centradas arriba del wordmark.</p>
+  </div>
+
+  <!-- Logotipo sobre blanco -->
+  <div style="margin-bottom:48px">
+    <div class="sec-label" style="margin-bottom:12px">Logotipo Principal &mdash; Sobre Blanco</div>
+    <div class="logo-display logo-display-light" style="flex-direction:column;gap:8px">
+      <svg width="60" height="45" viewBox="0 0 60 45" fill="none" style="margin-bottom:4px">
+        <ellipse cx="20" cy="22" rx="10" ry="9" stroke="black" stroke-width="2.5" fill="none"/>
+        <ellipse cx="42" cy="22" rx="10" ry="9" stroke="black" stroke-width="2.5" fill="none"/>
+        <path d="M30 20 Q31 17 32 20" stroke="black" stroke-width="2.5" fill="none"/>
+        <path d="M10 20 Q5 14 2 16" stroke="black" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M52 20 Q55 14 58 16" stroke="black" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div style="font-size:42px;font-weight:700;letter-spacing:3px;color:#000000"><span style="color:#5e55fe">ir</span>relevant</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:#000000;letter-spacing:6px">co.</div>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.6;margin-top:16px;font-weight:300">Version para fondos claros: gafas y texto en negro, &ldquo;<strong style="color:#5e55fe">ir</strong>&rdquo; se mantiene en #5e55fe.</p>
+  </div>
+
+  <!-- Isotipo -->
+  <div style="margin-bottom:48px">
+    <div class="sec-label" style="margin-bottom:12px">Isotipo &mdash; Las Gafas</div>
+    <div class="grid grid-3">
+      <div class="logo-display logo-display-dark">
+        <svg width="80" height="60" viewBox="0 0 60 45" fill="none">
+          <ellipse cx="20" cy="22" rx="10" ry="9" stroke="white" stroke-width="2.5" fill="none"/>
+          <ellipse cx="42" cy="22" rx="10" ry="9" stroke="white" stroke-width="2.5" fill="none"/>
+          <path d="M30 20 Q31 17 32 20" stroke="white" stroke-width="2.5" fill="none"/>
+          <path d="M10 20 Q5 14 2 16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M52 20 Q55 14 58 16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="logo-display logo-display-light">
+        <svg width="80" height="60" viewBox="0 0 60 45" fill="none">
+          <ellipse cx="20" cy="22" rx="10" ry="9" stroke="black" stroke-width="2.5" fill="none"/>
+          <ellipse cx="42" cy="22" rx="10" ry="9" stroke="black" stroke-width="2.5" fill="none"/>
+          <path d="M30 20 Q31 17 32 20" stroke="black" stroke-width="2.5" fill="none"/>
+          <path d="M10 20 Q5 14 2 16" stroke="black" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M52 20 Q55 14 58 16" stroke="black" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="logo-display logo-display-dark">
+        <svg width="80" height="60" viewBox="0 0 60 45" fill="none">
+          <ellipse cx="20" cy="22" rx="10" ry="9" stroke="#5e55fe" stroke-width="2.5" fill="none"/>
+          <ellipse cx="42" cy="22" rx="10" ry="9" stroke="#5e55fe" stroke-width="2.5" fill="none"/>
+          <path d="M30 20 Q31 17 32 20" stroke="#5e55fe" stroke-width="2.5" fill="none"/>
+          <path d="M10 20 Q5 14 2 16" stroke="#5e55fe" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M52 20 Q55 14 58 16" stroke="#5e55fe" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.6;margin-top:16px;font-weight:300">Las gafas como isotipo aislado. Disponible en blanco (sobre oscuro), negro (sobre claro), y morado (sobre oscuro). Usar como avatar, favicon, icono de app, o marca de agua.</p>
+  </div>
+
+  <!-- Regla del "ir" -->
+  <div class="card card-purple" style="padding:32px">
+    <div class="sec-label" style="margin-bottom:12px">Regla Clave del Logo</div>
+    <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <div style="font-size:48px;font-weight:700;letter-spacing:3px;color:var(--white)"><span style="color:#5e55fe">ir</span>relevant</div>
+      <div style="flex:1;min-width:200px">
+        <p style="font-size:15px;color:var(--text);font-weight:600;margin-bottom:4px">Las letras &ldquo;ir&rdquo; siempre en morado #5e55fe</p>
+        <p style="font-size:13px;color:var(--text-muted);font-weight:300">No es solo la &ldquo;i&rdquo; &mdash; son las dos primeras letras &ldquo;ir&rdquo;. Este es el diferenciador visual clave del logotipo. Se mantiene en todas las variantes y fondos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider-thin"></div>
+
+<!-- ── 05. USO DEL LOGO ── -->
+<section class="section" id="logo-usage">
+  <div class="sec-label">05 &mdash; Logo</div>
+  <h2 class="sec-title">Uso del Logo</h2>
+  <div class="sec-bar"></div>
+
+  <div class="sec-label" style="margin-bottom:16px">Variantes Sobre Fondos</div>
+  <div class="grid grid-3" style="margin-bottom:40px">
+    <div>
+      <div class="logo-display logo-display-dark" style="margin-bottom:12px">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant" style="max-height:60px">
+      </div>
+      <div class="do-tag do-yes">Sobre fondo negro (principal)</div>
+      <p style="font-size:13px;color:var(--text-muted);font-weight:300">Uso primario. Gafas y texto blanco, &ldquo;ir&rdquo; en #5e55fe.</p>
+    </div>
+    <div>
+      <div class="logo-display logo-display-light" style="margin-bottom:12px">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant" style="max-height:60px">
+      </div>
+      <div class="do-tag do-yes">Sobre fondo blanco</div>
+      <p style="font-size:13px;color:var(--text-muted);font-weight:300">Gafas y texto negro, &ldquo;ir&rdquo; en #5e55fe.</p>
+    </div>
+    <div>
+      <div class="logo-display logo-display-purple" style="margin-bottom:12px">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant" style="max-height:60px;filter:brightness(2)">
+      </div>
+      <div class="do-tag do-yes">Sobre fondo morado</div>
+      <p style="font-size:13px;color:var(--text-muted);font-weight:300">Version full white para fondos de color.</p>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card" style="border:2px solid rgba(52,211,153,0.3)">
+      <div class="do-tag do-yes">Correcto</div>
+      <ul style="font-size:14px;color:var(--text);list-style:none;display:flex;flex-direction:column;gap:10px;line-height:1.6">
+        <li>&#10003; &nbsp;Mantener las proporciones originales</li>
+        <li>&#10003; &nbsp;Respetar la zona de proteccion minima</li>
+        <li>&#10003; &nbsp;Usar sobre fondos limpios con contraste</li>
+        <li>&#10003; &nbsp;&ldquo;ir&rdquo; siempre en morado #5e55fe</li>
+        <li>&#10003; &nbsp;Tamano minimo: 100px de ancho</li>
+      </ul>
+    </div>
+    <div class="card" style="border:2px solid rgba(239,68,68,0.3)">
+      <div class="do-tag do-no">Incorrecto</div>
+      <ul style="font-size:14px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:10px;line-height:1.6">
+        <li>&#10007; &nbsp;Distorsionar, estirar o rotar el logotipo</li>
+        <li>&#10007; &nbsp;Cambiar los colores o tipografia</li>
+        <li>&#10007; &nbsp;Agregar sombras, bordes o efectos</li>
+        <li>&#10007; &nbsp;Colocar sobre fondos con mucho ruido</li>
+        <li>&#10007; &nbsp;Colorear solo la &ldquo;i&rdquo; &mdash; son las dos letras &ldquo;ir&rdquo;</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 06. PALETA DE COLORES ── -->
+<section class="section section-surface" id="color">
+  <div class="sec-label">06 &mdash; Color</div>
+  <h2 class="sec-title">Paleta de Colores</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">Cinco colores componen la paleta oficial de irrelevant. El morado #5e55fe es el corazon de la identidad &mdash; audaz, tecnologico y memorable.</p>
+
+  <!-- Primary swatch -->
+  <div class="two-col" style="margin-bottom:60px">
+    <div style="display:flex;justify-content:center">
+      <div style="width:240px">
+        <div style="width:240px;height:240px;border-radius:24px;background:#5e55fe;box-shadow:0 12px 40px var(--purple-glow);margin-bottom:16px;display:flex;align-items:center;justify-content:center">
+          <!-- 8-point sparkle -->
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="white" opacity="0.9">
+            <path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/>
+          </svg>
+        </div>
+        <div style="text-align:center">
+          <h3 style="font-weight:700;font-size:18px;color:var(--white)">Purple-Blue</h3>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--text-muted);margin-top:4px">#5e55fe</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-weight:700;font-size:18px;color:var(--white);margin-bottom:16px">Color Primario</h3>
+      <table style="font-size:14px;border-collapse:collapse;width:100%">
+        <tr><td style="padding:10px 0;color:var(--text-muted);border-bottom:1px solid var(--border-solid);width:120px">HEX</td><td style="padding:10px 0;font-weight:700;border-bottom:1px solid var(--border-solid);color:var(--white)">#5E55FE</td></tr>
+        <tr><td style="padding:10px 0;color:var(--text-muted);border-bottom:1px solid var(--border-solid)">RGB</td><td style="padding:10px 0;font-weight:700;border-bottom:1px solid var(--border-solid);color:var(--white)">94, 85, 254</td></tr>
+        <tr><td style="padding:10px 0;color:var(--text-muted);border-bottom:1px solid var(--border-solid)">HSL</td><td style="padding:10px 0;font-weight:700;border-bottom:1px solid var(--border-solid);color:var(--white)">243&deg;, 99%, 66%</td></tr>
+        <tr><td style="padding:10px 0;color:var(--text-muted)">Uso</td><td style="padding:10px 0;font-weight:700;color:var(--white)">Acento principal, CTAs, &ldquo;ir&rdquo; del logo</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Official 5-color palette -->
+  <div class="sec-label" style="margin-bottom:16px">Paleta Oficial (5 Colores)</div>
+  <div class="grid grid-5" style="margin-bottom:48px">
+    <div class="swatch">
+      <div class="swatch-block" style="background:#5e55fe">
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="white" opacity="0.8"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg>
+      </div>
+      <div class="swatch-info"><div class="swatch-hex">#5E55FE</div><div class="swatch-name">Purple-Blue</div><div class="swatch-role">Primario</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#ffffff">
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="#5e55fe" opacity="0.6"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg>
+      </div>
+      <div class="swatch-info"><div class="swatch-hex">#FFFFFF</div><div class="swatch-name">Blanco</div><div class="swatch-role">Fondos claros</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#000000">
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="white" opacity="0.5"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg>
+      </div>
+      <div class="swatch-info"><div class="swatch-hex">#000000</div><div class="swatch-name">Negro</div><div class="swatch-role">Fondos / Texto</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#5b2ba7">
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="white" opacity="0.8"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg>
+      </div>
+      <div class="swatch-info"><div class="swatch-hex">#5B2BA7</div><div class="swatch-name">Deep Purple</div><div class="swatch-role">Secundario oscuro</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#8063dc">
+        <svg width="32" height="32" viewBox="0 0 80 80" fill="white" opacity="0.8"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg>
+      </div>
+      <div class="swatch-info"><div class="swatch-hex">#8063DC</div><div class="swatch-name">Medium Purple</div><div class="swatch-role">Secundario claro</div></div>
+    </div>
+  </div>
+
+  <!-- Tints -->
+  <div style="margin-bottom:48px">
+    <div class="sec-label" style="margin-bottom:16px">Escala de Tints (#5E55FE)</div>
+    <div class="tint-strip">
+      <div style="background:#5e55fe;color:var(--white)"><span>100%</span><span style="font-weight:300;font-size:10px">#5E55FE</span></div>
+      <div style="background:#8680fe;color:var(--white)"><span>75%</span><span style="font-weight:300;font-size:10px">#8680FE</span></div>
+      <div style="background:#afaafe;color:#222"><span>50%</span><span style="font-weight:300;font-size:10px">#AFAAFE</span></div>
+      <div style="background:#d7d5ff;color:#222"><span>25%</span><span style="font-weight:300;font-size:10px">#D7D5FF</span></div>
+      <div style="background:#eeedff;color:#666"><span>10%</span><span style="font-weight:300;font-size:10px">#EEEDFF</span></div>
+    </div>
+  </div>
+
+  <!-- Functional -->
+  <div class="sec-label" style="margin-bottom:16px">Colores Funcionales (UI)</div>
+  <div class="grid grid-4">
+    <div class="swatch"><div class="swatch-block" style="background:var(--emerald)"></div><div class="swatch-info"><div class="swatch-hex">#34D399</div><div class="swatch-name">Emerald</div><div class="swatch-role">Exito</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:var(--amber)"></div><div class="swatch-info"><div class="swatch-hex">#FBBF24</div><div class="swatch-name">Amber</div><div class="swatch-role">Advertencia</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:var(--blue)"></div><div class="swatch-info"><div class="swatch-hex">#60A5FA</div><div class="swatch-name">Blue</div><div class="swatch-role">Info</div></div></div>
+    <div class="swatch"><div class="swatch-block" style="background:var(--red)"></div><div class="swatch-info"><div class="swatch-hex">#EF4444</div><div class="swatch-name">Red</div><div class="swatch-role">Error</div></div></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 07. APLICACIONES DE COLOR ── -->
+<section class="section" id="color-app">
+  <div class="sec-label">07 &mdash; Color</div>
+  <h2 class="sec-title">Aplicaciones de Color</h2>
+  <div class="sec-bar"></div>
+
+  <!-- Gradient -->
+  <div style="margin-bottom:40px">
+    <div class="sec-label" style="margin-bottom:12px">Gradiente Signature</div>
+    <div style="height:80px;border-radius:20px;background:linear-gradient(90deg, #5e55fe, #5b2ba7, #8063dc);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px var(--purple-glow)">
+      <span style="color:white;font-weight:700;font-size:15px;letter-spacing:4px;text-shadow:0 2px 4px rgba(0,0,0,0.3)">IRRELEVANT &mdash; GRADIENTE BRAND</span>
+    </div>
+    <p style="margin-top:12px;font-size:13px;color:var(--text-muted);font-weight:300">Combina los 3 morados oficiales. Usar para separadores, barras de acento y elementos premium.</p>
+  </div>
+
+  <!-- Surface depth -->
+  <div style="margin-bottom:40px">
+    <div class="sec-label" style="margin-bottom:12px">Profundidad de Superficies</div>
+    <div style="background:var(--black);border-radius:20px;padding:32px;border:1px solid var(--border-solid)">
+      <div style="display:flex;gap:16px;align-items:end;justify-content:center;flex-wrap:wrap">
+        <div style="width:120px;height:80px;background:#000000;border:1px solid var(--border-solid);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><span style="font-size:11px;color:var(--text-secondary)">Base</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-secondary)">#000000</span></div>
+        <div style="font-size:20px;color:var(--text-secondary)">&rarr;</div>
+        <div style="width:120px;height:90px;background:#0a0a0a;border:1px solid var(--border-solid);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><span style="font-size:11px;color:var(--text-secondary)">Surface</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-secondary)">#0A0A0A</span></div>
+        <div style="font-size:20px;color:var(--text-secondary)">&rarr;</div>
+        <div style="width:120px;height:100px;background:#111111;border:1px solid var(--border-solid);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><span style="font-size:11px;color:var(--text-secondary)">Card</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-secondary)">#111111</span></div>
+        <div style="font-size:20px;color:var(--text-secondary)">&rarr;</div>
+        <div style="width:120px;height:110px;background:#1a1a1a;border:1px solid rgba(94,85,254,0.2);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 0 20px rgba(94,85,254,0.08)"><span style="font-size:11px;color:var(--text-muted)">Elevated</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-secondary)">#1A1A1A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approved combos -->
+  <div class="sec-label" style="margin-bottom:16px">Combinaciones Aprobadas</div>
+  <div class="grid grid-4">
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="background:#000000;padding:24px;text-align:center;border-bottom:1px solid var(--border-solid)">
+        <p style="font-weight:700;font-size:15px;color:var(--white)">Blanco sobre Negro</p>
+      </div>
+      <div style="padding:12px;text-align:center;font-size:11px;font-weight:700;color:var(--emerald)">&#10003; AAA &mdash; 21:1</div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="background:#000000;padding:24px;text-align:center;border-bottom:1px solid var(--border-solid)">
+        <p style="font-weight:700;font-size:15px;color:#5e55fe">Purple sobre Negro</p>
+      </div>
+      <div style="padding:12px;text-align:center;font-size:11px;font-weight:700;color:var(--emerald)">&#10003; AA &mdash; 5.2:1</div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="background:#5e55fe;padding:24px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.1)">
+        <p style="font-weight:700;font-size:15px;color:var(--white)">Blanco sobre Purple</p>
+      </div>
+      <div style="padding:12px;text-align:center;font-size:11px;font-weight:700;color:var(--emerald)">&#10003; AA &mdash; 4.1:1</div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="background:#ffffff;padding:24px;text-align:center;border-bottom:1px solid #ddd">
+        <p style="font-weight:700;font-size:15px;color:#000000">Negro sobre Blanco</p>
+      </div>
+      <div style="padding:12px;text-align:center;font-size:11px;font-weight:700;color:var(--emerald)">&#10003; AAA &mdash; 21:1</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider-thin"></div>
+
+<!-- ── 08. TIPOGRAFIA ── -->
+<section class="section section-surface" id="typo">
+  <div class="sec-label">08 &mdash; Tipografia</div>
+  <h2 class="sec-title">Sistema Tipografico</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">Dos familias tipograficas principales definen la identidad. FF Providence Sans para la marca y Poppins para todo lo demas.</p>
+
+  <div class="specimen" style="border-left:3px solid var(--purple)">
+    <div class="spec-name">FF Providence Sans</div>
+    <div class="spec-role">Display / Marca &mdash; Nombre de marca, logotipo, titulos hero</div>
+    <div style="font-size:clamp(32px,7vw,52px);font-weight:700;color:var(--white);letter-spacing:3px"><span style="color:#5e55fe">ir</span>relevant</div>
+    <div style="margin-top:16px;padding:12px 20px;background:var(--purple-bg);border-radius:10px;font-size:13px;color:var(--purple);display:inline-block">
+      &#9432; &nbsp;Fuente propietaria de marca. Archivo .ttf disponible internamente. Tiene un trazo artesanal e imperfecto que es parte del caracter de la marca.
+    </div>
+  </div>
+
+  <div class="specimen">
+    <div class="spec-name">Poppins</div>
+    <div class="spec-role">Cuerpo / UI / Titulos &mdash; Todo el contenido: parrafos, headings, interfaces, presentaciones</div>
+    <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(26px,5.5vw,42px);color:var(--white);margin-bottom:8px">Execution beats ideas.</div>
+    <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:17px;color:var(--text-muted);line-height:1.8;max-width:640px;margin-bottom:16px">Combinamos estrategia y tecnologia para dise&ntilde;ar sistemas con IA que amplifican la propuesta de valor de tu negocio.</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <span style="font-family:'Poppins',sans-serif;font-weight:300;font-size:14px;color:var(--text-muted)">Light 300</span>
+      <span style="font-family:'Poppins',sans-serif;font-weight:400;font-size:14px;color:var(--text-muted)">Regular 400</span>
+      <span style="font-family:'Poppins',sans-serif;font-weight:500;font-size:14px;color:var(--text-muted)">Medium 500</span>
+      <span style="font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;color:var(--text)">Semibold 600</span>
+      <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;color:var(--text)">Bold 700</span>
+      <span style="font-family:'Poppins',sans-serif;font-weight:800;font-size:14px;color:var(--text)">Extrabold 800</span>
+      <span style="font-family:'Poppins',sans-serif;font-weight:900;font-size:14px;color:var(--text)">Black 900</span>
+    </div>
+  </div>
+
+  <div class="specimen">
+    <div class="spec-name">JetBrains Mono</div>
+    <div class="spec-role">Code / Tecnico &mdash; Codigo, numeros de seccion, datos, labels tecnicos</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--emerald);margin-bottom:8px">const result = await ai.transform(business);</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--text-muted)">01 &mdash; 02 &mdash; 03 &mdash; #5E55FE &mdash; $7,000,000 COP</div>
+  </div>
+
+  <!-- Scale -->
+  <div style="margin-top:48px;background:var(--card);border-radius:20px;padding:32px 36px;border:1px solid var(--border-solid)">
+    <div class="sec-label" style="margin-bottom:20px">Escala Tipografica</div>
+    <div class="scale-row"><span class="scale-size">52px</span><span style="font-weight:700;font-size:clamp(32px,7vw,52px);color:var(--white)">Display</span></div>
+    <div class="scale-row"><span class="scale-size">42px</span><span style="font-weight:700;font-size:clamp(26px,5.5vw,42px);color:var(--white)">Titulo H1</span></div>
+    <div class="scale-row"><span class="scale-size">28px</span><span style="font-weight:700;font-size:clamp(20px,4vw,28px);color:var(--white)">Subtitulo H2</span></div>
+    <div class="scale-row"><span class="scale-size">20px</span><span style="font-weight:600;font-size:clamp(17px,3vw,20px);color:var(--white)">Subtitulo H3</span></div>
+    <div class="scale-row"><span class="scale-size">16px</span><span style="font-weight:400;font-size:16px;color:var(--text)">Cuerpo de texto</span></div>
+    <div class="scale-row"><span class="scale-size">14px</span><span style="font-weight:300;font-size:14px;color:var(--text-muted)">Texto secundario</span></div>
+    <div class="scale-row"><span class="scale-size">11px</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase">Labels / Captions</span></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 09. ESPECIMENES ── -->
+<section class="section" id="specimens">
+  <div class="sec-label">09 &mdash; Tipografia</div>
+  <h2 class="sec-title">Especimenes Tipograficos</h2>
+  <div class="sec-bar"></div>
+
+  <div class="card" style="margin-bottom:24px">
+    <div class="spec-name">Poppins</div>
+    <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(20px,5vw,36px);color:var(--white);letter-spacing:1px;margin-bottom:8px;overflow-wrap:break-word">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+    <div style="font-family:'Poppins',sans-serif;font-weight:400;font-size:clamp(16px,4vw,28px);color:var(--text-muted);overflow-wrap:break-word">abcdefghijklmnopqrstuvwxyz</div>
+    <div style="font-family:'Poppins',sans-serif;font-weight:400;font-size:clamp(16px,4vw,28px);color:var(--text-muted)">0123456789 !@#$&amp;*</div>
+  </div>
+
+  <div class="card" style="margin-bottom:24px">
+    <div class="spec-name">JetBrains Mono</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(18px,4vw,30px);color:var(--white);letter-spacing:1px;margin-bottom:8px;overflow-wrap:break-word">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:clamp(14px,3vw,24px);color:var(--text-muted);overflow-wrap:break-word">abcdefghijklmnopqrstuvwxyz</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:clamp(14px,3vw,24px);color:var(--text-muted)">0123456789 !@#$&amp;*{}[]</div>
+  </div>
+
+  <!-- Poppins weights -->
+  <div class="sec-label" style="margin-top:40px;margin-bottom:16px">Pesos Poppins en Contexto</div>
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-weight:900;font-size:20px;color:var(--white)">Black 900 &mdash; Para impacto maximo</div>
+      <div style="font-weight:800;font-size:20px;color:var(--white)">Extrabold 800 &mdash; Titulos hero</div>
+      <div style="font-weight:700;font-size:20px;color:var(--white)">Bold 700 &mdash; Encabezados</div>
+      <div style="font-weight:600;font-size:20px;color:var(--text)">Semibold 600 &mdash; Subtitulos</div>
+      <div style="font-weight:500;font-size:20px;color:var(--text)">Medium 500 &mdash; Labels UI</div>
+      <div style="font-weight:400;font-size:20px;color:var(--text-muted)">Regular 400 &mdash; Cuerpo de texto</div>
+      <div style="font-weight:300;font-size:20px;color:var(--text-muted)">Light 300 &mdash; Texto secundario</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider-thin"></div>
+
+<!-- ── 10. VOZ Y TONO ── -->
+<section class="section section-surface" id="voice">
+  <div class="sec-label">10 &mdash; Comunicacion</div>
+  <h2 class="sec-title">Voz y Tono</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">irrelevant habla como construye: directo, sin relleno, con sustancia. Cada palabra debe aportar valor o no estar ahi.</p>
+
+  <div style="display:flex;justify-content:center;margin-bottom:48px">
+    <div class="personality-chart">
+      <div class="axis-v"></div>
+      <div class="axis-h"></div>
+      <div class="dot"></div>
+      <div class="label label-top">Directo</div>
+      <div class="label label-bottom">Diplomatico</div>
+      <div class="label label-left">Casual</div>
+      <div class="label label-right">Tecnico</div>
+    </div>
+  </div>
+
+  <div class="sec-label" style="margin-bottom:16px">Principios de Comunicacion</div>
+  <div class="grid grid-4" style="margin-bottom:48px">
+    <div class="card" style="text-align:center;padding:24px">
+      <p style="font-size:14px;font-weight:700;color:var(--white)">Claridad</p>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:300">sobre complejidad</p>
+    </div>
+    <div class="card" style="text-align:center;padding:24px">
+      <p style="font-size:14px;font-weight:700;color:var(--white)">Impacto</p>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:300">sobre volumen</p>
+    </div>
+    <div class="card" style="text-align:center;padding:24px">
+      <p style="font-size:14px;font-weight:700;color:var(--white)">Ejemplos</p>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:300">sobre teoria</p>
+    </div>
+    <div class="card" style="text-align:center;padding:24px">
+      <p style="font-size:14px;font-weight:700;color:var(--white)">Verdad</p>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:300">sobre marketing</p>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:48px">
+    <span class="pill">Frases cortas</span>
+    <span class="pill">Lenguaje simple</span>
+    <span class="pill">Ideas fuertes</span>
+    <span class="pill">Cero relleno</span>
+    <span class="pill">Verbos de accion</span>
+    <span class="pill">Data &gt; Claims</span>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card" style="border:2px solid rgba(52,211,153,0.3)">
+      <div class="do-tag do-yes">Asi SI hablamos</div>
+      <ul style="font-size:14px;color:var(--text);list-style:none;display:flex;flex-direction:column;gap:12px;line-height:1.6">
+        <li>&#10003; &nbsp;&ldquo;Si no respondes rapido, pierdes ventas. Nosotros resolvemos eso.&rdquo;</li>
+        <li>&#10003; &nbsp;&ldquo;Pasamos de 4 horas de trabajo manual a 12 minutos automatizados.&rdquo;</li>
+        <li>&#10003; &nbsp;&ldquo;Tu equipo no necesita mas gente. Necesita mejores sistemas.&rdquo;</li>
+        <li>&#10003; &nbsp;&ldquo;Cada minuto que tardas en responder, alguien mas vende.&rdquo;</li>
+      </ul>
+    </div>
+    <div class="card" style="border:2px solid rgba(239,68,68,0.3)">
+      <div class="do-tag do-no">Asi NO hablamos</div>
+      <ul style="font-size:14px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:12px;line-height:1.6">
+        <li>&#10007; &nbsp;&ldquo;Implementamos soluciones innovadoras de inteligencia artificial&rdquo;</li>
+        <li>&#10007; &nbsp;&ldquo;Nuestro framework disruptivo de transformacion digital&rdquo;</li>
+        <li>&#10007; &nbsp;&ldquo;Aprovecha el poder de la AI para potenciar tu negocio&rdquo;</li>
+        <li>&#10007; &nbsp;&ldquo;Somos lideres en el mercado de la inteligencia artificial&rdquo;</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 11. PERSONALIDAD ── -->
+<section class="section" id="personality">
+  <div class="sec-label">11 &mdash; Personalidad</div>
+  <h2 class="sec-title">Personalidad y Arquetipos</h2>
+  <div class="sec-bar"></div>
+
+  <div class="grid grid-2" style="margin-bottom:48px">
+    <div class="card card-purple" style="padding:36px">
+      <div class="sec-label" style="font-size:10px;margin-bottom:8px">Arquetipo Principal</div>
+      <h3 style="font-size:28px;font-weight:700;color:var(--white);margin-bottom:12px">El Ingeniero (Builder)</h3>
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.7;margin-bottom:16px;font-weight:300">Construye. Optimiza. Hace que las cosas funcionen. No hablamos de lo que podria ser &mdash; lo construimos.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="pill">Construir</span>
+        <span class="pill">Optimizar</span>
+        <span class="pill">Ejecutar</span>
+      </div>
+    </div>
+    <div class="card" style="padding:36px;border-left:3px solid var(--red)">
+      <div class="sec-label" style="font-size:10px;margin-bottom:8px;color:var(--red)">Arquetipo Secundario</div>
+      <h3 style="font-size:28px;font-weight:700;color:var(--white);margin-bottom:12px">El Rebelde</h3>
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.7;margin-bottom:16px;font-weight:300">Cuestiona lo tradicional. Rompe con lo establecido. No seguimos tendencias &mdash; las filtramos.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="pill pill-red">Cuestionar</span>
+        <span class="pill pill-red">Romper</span>
+        <span class="pill pill-red">Provocar</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label" style="margin-bottom:16px">Rasgos de Personalidad</div>
+  <div class="grid grid-3" style="margin-bottom:48px">
+    <div class="card" style="text-align:center"><p style="font-weight:700;font-size:18px;color:var(--white)">Directa</p><p style="font-size:13px;color:var(--text-muted);margin-top:4px;font-weight:300">Sin rodeos, al grano</p></div>
+    <div class="card" style="text-align:center"><p style="font-weight:700;font-size:18px;color:var(--white)">Critica</p><p style="font-size:13px;color:var(--text-muted);margin-top:4px;font-weight:300">Cuestiona el status quo</p></div>
+    <div class="card" style="text-align:center"><p style="font-weight:700;font-size:18px;color:var(--white)">Inteligente</p><p style="font-size:13px;color:var(--text-muted);margin-top:4px;font-weight:300">Profunda sin ser densa</p></div>
+    <div class="card" style="text-align:center"><p style="font-weight:700;font-size:18px;color:var(--white)">Tecnica</p><p style="font-size:13px;color:var(--text-muted);margin-top:4px;font-weight:300">Sabe de lo que habla</p></div>
+    <div class="card" style="text-align:center"><p style="font-weight:700;font-size:18px;color:var(--white)">Retadora</p><p style="font-size:13px;color:var(--text-muted);margin-top:4px;font-weight:300">Provoca para mejorar</p></div>
+    <div class="card" style="text-align:center"><p style="font-weight:700;font-size:18px;color:var(--white)">Ejecutora</p><p style="font-size:13px;color:var(--text-muted);margin-top:4px;font-weight:300">Resultados, no promesas</p></div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:16px;font-size:15px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap"><span style="color:var(--purple);font-weight:700;min-width:200px">No seguimos tendencias</span><span style="color:var(--text-muted)">&rarr; las filtramos</span></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap"><span style="color:var(--purple);font-weight:700;min-width:200px">No explicamos</span><span style="color:var(--text-muted)">&rarr; mostramos</span></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap"><span style="color:var(--purple);font-weight:700;min-width:200px">No prometemos</span><span style="color:var(--text-muted)">&rarr; ejecutamos</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider-thin"></div>
+
+<!-- ── 12. SISTEMA DE CONTENIDO ── -->
+<section class="section section-surface" id="content">
+  <div class="sec-label">12 &mdash; Contenido</div>
+  <h2 class="sec-title">Sistema de Contenido</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">irrelevant no crea contenido para &ldquo;likes&rdquo;. Crea contenido para generar autoridad, educar sin ser profesor, mostrar casos reales y convertir leads.</p>
+
+  <div class="sec-label" style="margin-bottom:16px">Mensajes Clave</div>
+  <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:48px">
+    <div class="card card-purple" style="padding:20px 28px"><p style="font-size:18px;font-weight:700;color:var(--white)">&ldquo;La mayoria de empresas no necesita mas leads. Necesita operar mejor.&rdquo;</p></div>
+    <div class="card card-purple" style="padding:20px 28px"><p style="font-size:18px;font-weight:700;color:var(--white)">&ldquo;El problema no es la estrategia. Es la ejecucion.&rdquo;</p></div>
+    <div class="card card-purple" style="padding:20px 28px"><p style="font-size:18px;font-weight:700;color:var(--white)">&ldquo;La AI no reemplaza equipos. Multiplica su capacidad.&rdquo;</p></div>
+    <div class="card card-purple" style="padding:20px 28px"><p style="font-size:18px;font-weight:700;color:var(--white)">&ldquo;Encontramos tus procesos clave. Los potenciamos con IA.&rdquo;</p></div>
+  </div>
+
+  <div class="grid grid-4" style="margin-bottom:48px">
+    <div class="card"><h4 style="font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px">Problemas Reales</h4><p style="font-size:13px;color:var(--text-muted);line-height:1.6;font-weight:300">Ventas perdidas, procesos lentos, oportunidades que se escapan</p></div>
+    <div class="card"><h4 style="font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px">Casos de Uso</h4><p style="font-size:13px;color:var(--text-muted);line-height:1.6;font-weight:300">Antes vs despues, impacto real medible</p></div>
+    <div class="card"><h4 style="font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px">Educacion Practica</h4><p style="font-size:13px;color:var(--text-muted);line-height:1.6;font-weight:300">AI aplicada sin tecnicismos</p></div>
+    <div class="card"><h4 style="font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px">Construccion</h4><p style="font-size:13px;color:var(--text-muted);line-height:1.6;font-weight:300">Como se construye irrelevant, aprendizajes reales</p></div>
+  </div>
+
+  <div class="grid grid-3" style="margin-bottom:48px">
+    <div class="card" style="border-top:3px solid var(--red)"><h4 style="font-weight:700;font-size:16px;color:var(--red);margin-bottom:12px">Antes (Cliente)</h4><ul style="font-size:14px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:6px;font-weight:300"><li>&bull; Procesos manuales</li><li>&bull; Desorden operativo</li><li>&bull; Tiempo perdido</li><li>&bull; Decisiones lentas</li></ul></div>
+    <div class="card" style="border-top:3px solid var(--purple)"><h4 style="font-weight:700;font-size:16px;color:var(--purple);margin-bottom:12px">Durante (irrelevant)</h4><ul style="font-size:14px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:6px;font-weight:300"><li>&bull; Diagnostico claro</li><li>&bull; Redise&ntilde;o de procesos</li><li>&bull; Implementacion de sistemas</li><li>&bull; Iteracion rapida</li></ul></div>
+    <div class="card" style="border-top:3px solid var(--emerald)"><h4 style="font-weight:700;font-size:16px;color:var(--emerald);margin-bottom:12px">Despues</h4><ul style="font-size:14px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:6px;font-weight:300"><li>&bull; Operacion fluida</li><li>&bull; Respuestas rapidas</li><li>&bull; Decisiones con data</li><li>&bull; Crecimiento eficiente</li></ul></div>
+  </div>
+
+  <div style="text-align:center;padding:40px;background:var(--card);border-radius:20px;border:1px solid var(--border-solid)">
+    <div class="sec-label" style="margin-bottom:12px">Hashtag Oficial</div>
+    <div class="gradient-text" style="font-size:clamp(24px,6vw,48px);font-weight:700">#STAYIRRELEVANT</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 13. ELEMENTOS GRAFICOS ── -->
+<section class="section" id="graphics">
+  <div class="sec-label">13 &mdash; Elementos Graficos</div>
+  <h2 class="sec-title">Elementos Graficos</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">Cuatro iconos hand-drawn y un elemento decorativo (sparkle) componen el sistema de elementos graficos. Todos siguen el estilo artesanal e imperfecto de la marca.</p>
+
+  <!-- Sparkle element -->
+  <div style="margin-bottom:48px">
+    <div class="sec-label" style="margin-bottom:16px">Sparkle &mdash; Elemento Decorativo</div>
+    <div class="grid grid-3">
+      <div class="card" style="text-align:center;padding:40px;background:var(--black)">
+        <svg width="64" height="64" viewBox="0 0 80 80" fill="white"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:12px">Blanco sobre negro</p>
+      </div>
+      <div class="card" style="text-align:center;padding:40px;background:var(--white)">
+        <svg width="64" height="64" viewBox="0 0 80 80" fill="#5e55fe"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg>
+        <p style="font-size:12px;color:#666;margin-top:12px">Purple sobre blanco</p>
+      </div>
+      <div class="card" style="text-align:center;padding:40px;background:var(--black)">
+        <svg width="64" height="64" viewBox="0 0 80 80" fill="#5e55fe"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:12px">Purple sobre negro</p>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);margin-top:16px;font-weight:300">Estrella de 8 puntas usada como elemento decorativo en swatches de color, fondos y composiciones. No abusar &mdash; usar como acento sutil.</p>
+  </div>
+
+  <!-- Hand-drawn icons -->
+  <div class="sec-label" style="margin-bottom:16px">Iconos Hand-Drawn &mdash; Sobre Negro</div>
+  <div class="icon-grid" style="margin-bottom:32px">
+    <div class="icon-card" style="background:var(--black);border:1px solid var(--border-solid);border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="18" cy="32" rx="12" ry="14"/><ellipse cx="46" cy="32" rx="12" ry="14"/>
+        <path d="M30 30 Q32 26 34 30"/><rect x="14" y="46" width="8" height="10" rx="2"/>
+        <rect x="42" y="46" width="8" height="10" rx="2"/><path d="M18 18 L18 10 M46 18 L46 10"/>
+      </svg>
+      <p style="color:var(--text-muted)">Audifonos</p>
+    </div>
+    <div class="icon-card" style="background:var(--black);border:1px solid var(--border-solid);border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="10" width="48" height="32" rx="3"/><path d="M4 48 L60 48"/>
+        <line x1="22" y1="42" x2="42" y2="42"/><path d="M36 22 L44 18 M36 26 L42 24"/>
+      </svg>
+      <p style="color:var(--text-muted)">Laptop</p>
+    </div>
+    <div class="icon-card" style="background:var(--black);border:1px solid var(--border-solid);border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="30" cy="32" rx="16" ry="10"/><path d="M46 32 Q50 32 50 36 L50 38 Q50 40 46 40"/>
+        <ellipse cx="30" cy="44" rx="20" ry="4"/><path d="M24 24 Q28 18 34 24"/>
+      </svg>
+      <p style="color:var(--text-muted)">Cafe</p>
+    </div>
+    <div class="icon-card" style="background:var(--black);border:1px solid var(--border-solid);border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="16" width="28" height="24" rx="3"/><rect x="22" y="22" width="8" height="6" rx="1"/>
+        <rect x="34" y="22" width="8" height="6" rx="1"/><line x1="26" y1="34" x2="38" y2="34"/>
+        <rect x="20" y="40" width="10" height="10" rx="2"/><rect x="34" y="40" width="10" height="10" rx="2"/>
+        <path d="M14 14 L12 8 M50 14 L52 8"/><path d="M14 12 L18 14 M50 12 L46 14"/>
+      </svg>
+      <p style="color:var(--text-muted)">Robot</p>
+    </div>
+  </div>
+
+  <!-- Purple variant -->
+  <div class="sec-label" style="margin-bottom:16px">Variante Morada &mdash; Sobre Negro</div>
+  <div class="icon-grid" style="margin-bottom:32px">
+    <div class="icon-card" style="background:var(--black);border:1px solid var(--border-solid);border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#5e55fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="18" cy="32" rx="12" ry="14"/><ellipse cx="46" cy="32" rx="12" ry="14"/>
+        <path d="M30 30 Q32 26 34 30"/><rect x="14" y="46" width="8" height="10" rx="2"/>
+        <rect x="42" y="46" width="8" height="10" rx="2"/><path d="M18 18 L18 10 M46 18 L46 10"/>
+      </svg>
+      <p style="color:var(--text-muted)">Audifonos</p>
+    </div>
+    <div class="icon-card" style="background:var(--black);border:1px solid var(--border-solid);border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#5e55fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="10" width="48" height="32" rx="3"/><path d="M4 48 L60 48"/>
+        <line x1="22" y1="42" x2="42" y2="42"/><path d="M36 22 L44 18 M36 26 L42 24"/>
+      </svg>
+      <p style="color:var(--text-muted)">Laptop</p>
+    </div>
+    <div class="icon-card" style="background:var(--black);border:1px solid var(--border-solid);border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#5e55fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="30" cy="32" rx="16" ry="10"/><path d="M46 32 Q50 32 50 36 L50 38 Q50 40 46 40"/>
+        <ellipse cx="30" cy="44" rx="20" ry="4"/><path d="M24 24 Q28 18 34 24"/>
+      </svg>
+      <p style="color:var(--text-muted)">Cafe</p>
+    </div>
+    <div class="icon-card" style="background:var(--black);border:1px solid var(--border-solid);border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#5e55fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="16" width="28" height="24" rx="3"/><rect x="22" y="22" width="8" height="6" rx="1"/>
+        <rect x="34" y="22" width="8" height="6" rx="1"/><line x1="26" y1="34" x2="38" y2="34"/>
+        <rect x="20" y="40" width="10" height="10" rx="2"/><rect x="34" y="40" width="10" height="10" rx="2"/>
+        <path d="M14 14 L12 8 M50 14 L52 8"/><path d="M14 12 L18 14 M50 12 L46 14"/>
+      </svg>
+      <p style="color:var(--text-muted)">Robot</p>
+    </div>
+  </div>
+
+  <!-- Light variant -->
+  <div class="sec-label" style="margin-bottom:16px">Variante Oscura &mdash; Sobre Blanco</div>
+  <div class="icon-grid">
+    <div class="icon-card" style="background:var(--white);border:1px solid #e0e0e0;border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="18" cy="32" rx="12" ry="14"/><ellipse cx="46" cy="32" rx="12" ry="14"/>
+        <path d="M30 30 Q32 26 34 30"/><rect x="14" y="46" width="8" height="10" rx="2"/>
+        <rect x="42" y="46" width="8" height="10" rx="2"/><path d="M18 18 L18 10 M46 18 L46 10"/>
+      </svg>
+      <p style="color:#666">Audifonos</p>
+    </div>
+    <div class="icon-card" style="background:var(--white);border:1px solid #e0e0e0;border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="10" width="48" height="32" rx="3"/><path d="M4 48 L60 48"/>
+        <line x1="22" y1="42" x2="42" y2="42"/><path d="M36 22 L44 18 M36 26 L42 24"/>
+      </svg>
+      <p style="color:#666">Laptop</p>
+    </div>
+    <div class="icon-card" style="background:var(--white);border:1px solid #e0e0e0;border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="30" cy="32" rx="16" ry="10"/><path d="M46 32 Q50 32 50 36 L50 38 Q50 40 46 40"/>
+        <ellipse cx="30" cy="44" rx="20" ry="4"/><path d="M24 24 Q28 18 34 24"/>
+      </svg>
+      <p style="color:#666">Cafe</p>
+    </div>
+    <div class="icon-card" style="background:var(--white);border:1px solid #e0e0e0;border-radius:16px">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="16" width="28" height="24" rx="3"/><rect x="22" y="22" width="8" height="6" rx="1"/>
+        <rect x="34" y="22" width="8" height="6" rx="1"/><line x1="26" y1="34" x2="38" y2="34"/>
+        <rect x="20" y="40" width="10" height="10" rx="2"/><rect x="34" y="40" width="10" height="10" rx="2"/>
+        <path d="M14 14 L12 8 M50 14 L52 8"/><path d="M14 12 L18 14 M50 12 L46 14"/>
+      </svg>
+      <p style="color:#666">Robot</p>
+    </div>
+  </div>
+
+  <p style="font-size:14px;color:var(--text-muted);margin-top:24px;font-weight:300">Los iconos siguen un estilo hand-drawn / sketch con lineas imperfectas, alineado con el caracter artesanal de FF Providence Sans. Representan los elementos del universo irrelevant: musica (audifonos), tecnologia (laptop), cafe (cultura de trabajo), e inteligencia artificial (robot).</p>
+</section>
+
+<div class="section-divider-thin"></div>
+
+<!-- ── 14. EXPERIENCIA DE MARCA ── -->
+<section class="section section-surface" id="experience">
+  <div class="sec-label">14 &mdash; Experiencia</div>
+  <h2 class="sec-title">Experiencia de Marca</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">irrelevant no solo se ve diferente. Se siente diferente.</p>
+
+  <div class="grid grid-3" style="margin-bottom:48px">
+    <div class="card" style="padding:32px"><h4 style="font-weight:700;font-size:18px;color:var(--white);margin-bottom:12px">En Ventas</h4><ul style="font-size:14px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:8px;font-weight:300"><li>&bull; Conversaciones reales</li><li>&bull; Cero humo</li><li>&bull; Enfoque en el problema</li></ul></div>
+    <div class="card" style="padding:32px"><h4 style="font-weight:700;font-size:18px;color:var(--white);margin-bottom:12px">En Producto</h4><ul style="font-size:14px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:8px;font-weight:300"><li>&bull; Rapido</li><li>&bull; Funcional</li><li>&bull; Iterativo</li></ul></div>
+    <div class="card" style="padding:32px"><h4 style="font-weight:700;font-size:18px;color:var(--white);margin-bottom:12px">En Entrega</h4><ul style="font-size:14px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:8px;font-weight:300"><li>&bull; Claridad</li><li>&bull; Acompa&ntilde;amiento</li><li>&bull; Impacto tangible</li></ul></div>
+  </div>
+
+  <div class="sec-label" style="margin-bottom:16px">Principios de Estilo Visual</div>
+  <div class="grid grid-2">
+    <div class="card"><h4 style="font-weight:700;color:var(--white);margin-bottom:12px">Negro Puro como Base</h4><p style="font-size:14px;color:var(--text-muted);line-height:1.7;font-weight:300">El fondo #000000 es nuestro default. Transmite sofisticacion, tecnologia y contraste maximo. El contenido sobre negro puro se siente premium.</p></div>
+    <div class="card"><h4 style="font-weight:700;color:var(--white);margin-bottom:12px">Trazo Artesanal</h4><p style="font-size:14px;color:var(--text-muted);line-height:1.7;font-weight:300">Tanto la tipografia de marca (Providence Sans) como los iconos hand-drawn comparten un trazo imperfecto que humaniza la marca tech.</p></div>
+    <div class="card"><h4 style="font-weight:700;color:var(--white);margin-bottom:12px">Purple como Acento</h4><p style="font-size:14px;color:var(--text-muted);line-height:1.7;font-weight:300">El morado #5e55fe nunca domina &mdash; acentua. Se usa en el &ldquo;ir&rdquo; del logo, CTAs, labels y elementos interactivos.</p></div>
+    <div class="card"><h4 style="font-weight:700;color:var(--white);margin-bottom:12px">Alto Contraste</h4><p style="font-size:14px;color:var(--text-muted);line-height:1.7;font-weight:300">Negro y blanco puros como base. Sin grises intermedios en fondos principales. El contraste es parte de la personalidad: directo, sin medias tintas.</p></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 15. IDENTIDAD EN ACCION ── -->
+<section class="section" id="identity">
+  <div class="sec-label">15 &mdash; Aplicaciones</div>
+  <h2 class="sec-title">Identidad en Accion</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">Asi trabajan juntos los elementos de marca en diferentes puntos de contacto.</p>
+
+  <div class="grid grid-3" style="align-items:start">
+    <!-- Social Post -->
+    <div>
+      <div class="sec-label" style="margin-bottom:12px">Post Redes Sociales</div>
+      <div class="mock-frame">
+        <div style="width:100%;aspect-ratio:1;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px;position:relative;overflow:hidden">
+          <div style="position:absolute;top:20px;right:20px"><svg width="24" height="24" viewBox="0 0 80 80" fill="#5e55fe" opacity="0.5"><path d="M40 0 L44 32 L80 40 L44 48 L40 80 L36 48 L0 40 L36 32 Z"/></svg></div>
+          <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="" style="width:100px;margin-bottom:20px;position:relative;z-index:1">
+          <div style="font-weight:700;font-size:18px;color:var(--white);margin-bottom:10px;line-height:1.3;position:relative;z-index:1">Execution<br>beats ideas.</div>
+          <div style="font-weight:300;font-size:11px;color:var(--text-muted);margin-bottom:16px;position:relative;z-index:1">Built to help companies scale with AI</div>
+          <div style="padding:10px 28px;background:#5e55fe;color:white;border-radius:60px;font-size:11px;font-weight:700;letter-spacing:1px;position:relative;z-index:1">CONOCE MAS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Card -->
+    <div>
+      <div class="sec-label" style="margin-bottom:12px">Tarjeta de Presentacion</div>
+      <div class="mock-frame" style="margin-bottom:16px">
+        <div style="aspect-ratio:1.6;background:var(--black);padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+          <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="" style="width:120px;margin-bottom:12px">
+          <div style="width:40px;height:2px;background:linear-gradient(90deg,#5e55fe,#8063dc);border-radius:1px;margin-top:8px"></div>
+        </div>
+      </div>
+      <div class="mock-frame">
+        <div style="aspect-ratio:1.6;background:var(--black);padding:28px;display:flex;flex-direction:column;justify-content:center;border-top:3px solid #5e55fe">
+          <div style="font-weight:700;font-size:14px;color:var(--white)">Juan Pablo Gomez</div>
+          <div style="font-weight:400;font-size:12px;color:var(--text-muted);margin-top:2px">CEO &amp; Fundador</div>
+          <div style="margin-top:16px;font-size:12px;color:var(--text-secondary);line-height:1.8">
+            jpgomez@stayirrelevant.com<br>
+            stayirrelevant.com<br>
+            +57 318 335 1733
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Signature + Slide -->
+    <div>
+      <div class="sec-label" style="margin-bottom:12px">Firma de Email</div>
+      <div class="mock-frame">
+        <div style="background:var(--white);padding:24px;color:#222">
+          <div style="display:flex;gap:16px;align-items:start">
+            <div style="width:3px;background:linear-gradient(180deg,#5e55fe,#8063dc);border-radius:2px;align-self:stretch"></div>
+            <div>
+              <div style="font-weight:700;font-size:14px;color:#222">Juan Pablo Gomez M.</div>
+              <div style="font-weight:400;font-size:12px;color:#666;margin-top:2px">CEO &amp; Fundador</div>
+              <div style="margin-top:12px;font-size:11px;color:#888;line-height:1.7">
+                <strong style="color:#5e55fe">irrelevant</strong><br>
+                jpgomez@stayirrelevant.com<br>
+                +57 318 335 1733<br>
+                <span style="color:#5e55fe">stayirrelevant.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px">
+        <div class="sec-label" style="margin-bottom:8px">Website</div>
+        <div class="mock-frame">
+          <div style="aspect-ratio:16/9;background:var(--black);padding:24px;display:flex;flex-direction:column;justify-content:center;text-align:center">
+            <div style="font-weight:600;font-size:14px;color:var(--white);line-height:1.4;margin-bottom:8px">Encontramos tus procesos clave.<br><span style="color:#5e55fe;font-weight:700">Los potenciamos con IA.</span></div>
+            <div style="font-size:10px;color:var(--text-secondary);font-weight:300">stayirrelevant.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider-thin"></div>
+
+<!-- ── 16. MR. IRRELEVANT ── -->
+<section class="section section-surface" id="mascot">
+  <div class="sec-label">16 &mdash; Mascota</div>
+  <h2 class="sec-title">Mr. irrelevant</h2>
+  <div class="sec-bar"></div>
+  <p class="sec-intro">Mr. irrelevant es nuestra mascota oficial: un blob morado con gafas que personifica la actitud de la marca. Inteligente, un poco irreverente, siempre cuestionando.</p>
+
+  <div class="two-col" style="margin-bottom:48px">
+    <div style="display:flex;justify-content:center">
+      <div style="width:280px;height:340px;background:var(--black);border-radius:24px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid var(--border-solid)">
+        <div style="text-align:center;position:relative;z-index:1">
+          <!-- Lightbulb -->
+          <div style="margin-bottom:8px"><svg width="32" height="32" viewBox="0 0 32 32" fill="#fbbf24"><circle cx="16" cy="14" r="8"/><rect x="12" y="22" width="8" height="4" rx="1" fill="#fbbf24"/><path d="M10 6 L8 2 M22 6 L24 2 M6 14 L2 14 M26 14 L30 14" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <!-- Body -->
+          <div style="width:140px;height:160px;background:#5e55fe;border-radius:50% 50% 45% 45%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 12px 40px var(--purple-glow);position:relative">
+            <!-- Glasses on face -->
+            <svg width="60" height="30" viewBox="0 0 60 30" fill="none" stroke="black" stroke-width="2.5" style="margin-bottom:4px">
+              <ellipse cx="16" cy="15" rx="10" ry="8"/><ellipse cx="44" cy="15" rx="10" ry="8"/>
+              <path d="M26 14 Q30 10 34 14"/><path d="M6 13 Q2 8 0 10" stroke-linecap="round"/>
+              <path d="M54 13 Q58 8 60 10" stroke-linecap="round"/>
+            </svg>
+            <!-- Smile -->
+            <div style="font-size:18px;margin-top:2px">&#128578;</div>
+          </div>
+          <!-- Arms and legs -->
+          <div style="display:flex;justify-content:center;gap:40px;margin-top:-5px">
+            <div style="width:12px;height:30px;background:#5e55fe;border-radius:0 0 6px 6px"></div>
+            <div style="width:12px;height:30px;background:#5e55fe;border-radius:0 0 6px 6px"></div>
+          </div>
+          <div style="font-weight:700;font-size:12px;color:var(--purple);margin-top:12px;letter-spacing:2px">MR. IRRELEVANT</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-weight:700;font-size:22px;color:var(--white);margin-bottom:16px">El Personaje</h3>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px;font-weight:300">
+        <div><strong style="color:var(--purple);font-weight:600">Forma:</strong> <span style="color:var(--text-muted)">Blob amorfo en #5e55fe con brazos y piernas</span></div>
+        <div><strong style="color:var(--purple);font-weight:600">Elemento clave:</strong> <span style="color:var(--text-muted)">Las gafas de la marca (mismo isotipo)</span></div>
+        <div><strong style="color:var(--purple);font-weight:600">Expresion:</strong> <span style="color:var(--text-muted)">Amigable, inteligente, con actitud</span></div>
+        <div><strong style="color:var(--purple);font-weight:600">Variantes:</strong> <span style="color:var(--text-muted)">Morado (principal), negro (sobre blanco), close-up (solo cabeza)</span></div>
+      </div>
+
+      <div class="sec-label" style="margin-bottom:12px">Poses Documentadas</div>
+      <div class="grid grid-2" style="gap:12px;margin-bottom:24px">
+        <div class="card" style="padding:16px;text-align:center"><p style="font-size:12px;font-weight:600;color:var(--purple)">Se&ntilde;alando con Lightbulb</p><p style="font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:300">Ideas, innovacion, momentos &ldquo;aha&rdquo;</p></div>
+        <div class="card" style="padding:16px;text-align:center"><p style="font-size:12px;font-weight:600;color:var(--purple)">Leyendo Periodico</p><p style="font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:300">Contenido, educacion, autoridad</p></div>
+        <div class="card" style="padding:16px;text-align:center"><p style="font-size:12px;font-weight:600;color:var(--purple)">Close-up (Solo Cabeza)</p><p style="font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:300">Avatar, favicon, marca de agua</p></div>
+        <div class="card" style="padding:16px;text-align:center"><p style="font-size:12px;font-weight:600;color:var(--purple)">Version Negra</p><p style="font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:300">Para fondos claros/blancos</p></div>
+      </div>
+
+      <div class="grid grid-2" style="gap:12px">
+        <div class="card" style="padding:16px;border-left:3px solid var(--emerald)"><p style="font-size:12px;font-weight:700;color:var(--emerald);margin-bottom:8px">SI usar en</p><ul style="font-size:12px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:4px;font-weight:300"><li>&bull; Redes sociales</li><li>&bull; Comunicaciones internas</li><li>&bull; Stickers / merch</li><li>&bull; Onboarding</li></ul></div>
+        <div class="card" style="padding:16px;border-left:3px solid var(--red)"><p style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:8px">NO usar en</p><ul style="font-size:12px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:4px;font-weight:300"><li>&bull; Propuestas formales</li><li>&bull; Contratos legales</li><li>&bull; Presentaciones enterprise</li><li>&bull; Comunicados oficiales</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-purple" style="text-align:center;padding:32px">
+    <p style="font-size:14px;color:var(--text-muted);font-weight:300">Existe contenido de video de Mr. irrelevant en contexto de oficina. Disponible internamente para uso en redes sociales y contenido de marca.</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── 17. REFERENCIA RAPIDA ── -->
+<section class="section" id="summary" style="padding-bottom:40px">
+  <div class="sec-label">17 &mdash; Referencia</div>
+  <h2 class="sec-title">Referencia Rapida</h2>
+  <div class="sec-bar"></div>
+
+  <div class="card card-purple" style="padding:40px;border-radius:24px">
+    <div class="grid grid-2" style="gap:40px;align-items:start">
+      <div>
+        <div style="margin-bottom:24px">
+          <div class="sec-label" style="margin-bottom:12px">Logotipo</div>
+          <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="" style="height:40px">
+        </div>
+        <div style="margin-bottom:24px">
+          <div class="sec-label" style="margin-bottom:12px">Isotipo</div>
+          <svg width="48" height="36" viewBox="0 0 60 45" fill="none">
+            <ellipse cx="20" cy="22" rx="10" ry="9" stroke="white" stroke-width="2.5" fill="none"/>
+            <ellipse cx="42" cy="22" rx="10" ry="9" stroke="white" stroke-width="2.5" fill="none"/>
+            <path d="M30 20 Q31 17 32 20" stroke="white" stroke-width="2.5" fill="none"/>
+            <path d="M10 20 Q5 14 2 16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M52 20 Q55 14 58 16" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div style="margin-bottom:24px">
+          <div class="sec-label" style="margin-bottom:12px">Tagline</div>
+          <p style="font-weight:600;font-size:16px;color:var(--white)">Think AI or stay irrelevant.</p>
+        </div>
+        <div style="margin-bottom:24px">
+          <div class="sec-label" style="margin-bottom:12px">Voz</div>
+          <p style="font-size:14px;color:var(--text-muted);font-weight:300">Directa &bull; Tecnica &bull; Retadora &bull; Sin relleno</p>
+        </div>
+        <div>
+          <div class="sec-label" style="margin-bottom:12px">Regla Logo</div>
+          <p style="font-size:14px;color:var(--text-muted);font-weight:300">&ldquo;<strong style="color:#5e55fe">ir</strong>&rdquo; siempre en #5E55FE</p>
+        </div>
+      </div>
+      <div>
+        <div style="margin-bottom:24px">
+          <div class="sec-label" style="margin-bottom:12px">Paleta Oficial</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div style="width:48px;height:48px;border-radius:12px;background:#5e55fe;box-shadow:0 4px 12px var(--purple-glow)"></div>
+            <div style="width:48px;height:48px;border-radius:12px;background:#5b2ba7"></div>
+            <div style="width:48px;height:48px;border-radius:12px;background:#8063dc"></div>
+            <div style="width:48px;height:48px;border-radius:12px;background:#000000;border:1px solid var(--border-solid)"></div>
+            <div style="width:48px;height:48px;border-radius:12px;background:#ffffff;border:1px solid #ddd"></div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);margin-top:8px">#5E55FE &bull; #5B2BA7 &bull; #8063DC &bull; #000 &bull; #FFF</div>
+        </div>
+        <div style="margin-bottom:24px">
+          <div class="sec-label" style="margin-bottom:12px">Tipografias</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:baseline;gap:10px"><span style="font-weight:700;font-size:18px;color:var(--white)">Aa</span><span style="font-size:13px;color:var(--text-muted);font-weight:300">FF Providence Sans &mdash; Marca</span></div>
+            <div style="display:flex;align-items:baseline;gap:10px"><span style="font-weight:700;font-size:18px;color:var(--white)">Aa</span><span style="font-size:13px;color:var(--text-muted);font-weight:300">Poppins &mdash; Body / UI</span></div>
+            <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;color:var(--white)">Aa</span><span style="font-size:13px;color:var(--text-muted);font-weight:300">JetBrains Mono &mdash; Code</span></div>
+          </div>
+        </div>
+        <div style="margin-bottom:24px">
+          <div class="sec-label" style="margin-bottom:8px">Web</div>
+          <p style="font-size:15px;font-weight:700;color:var(--purple)">stayirrelevant.com</p>
+          <p style="font-size:13px;color:var(--text-muted);font-weight:300">hub.stayirrelevant.com</p>
+        </div>
+        <div>
+          <div class="sec-label" style="margin-bottom:8px">Contacto</div>
+          <p style="font-size:13px;color:var(--text-muted);font-weight:300">jpgomez@stayirrelevant.com</p>
+          <p style="font-size:13px;color:var(--text-muted);font-weight:300">+57 318 335 1733</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px;text-align:center">
+    <p style="font-size:13px;color:var(--text-secondary)">IRRELEVANT CLUB S.A.S. &mdash; NIT 901.935.642-1</p>
+    <p style="font-size:12px;color:var(--text-secondary);margin-top:4px">Medellin, Antioquia, Colombia</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<div class="footer">
+  <div class="footer-bar"></div>
+  <p style="color:var(--text-muted);font-size:13px;letter-spacing:2px">Brand Book &mdash; 2026</p>
+  <p style="color:var(--text-secondary);font-size:11px;margin-top:8px">Todos los derechos reservados &copy; irrelevant</p>
+</div>
+
+</div><!-- /main -->
+
+<!-- ════════════════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ════════════════════════════════════════════════════════════════════ -->
+<script>
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.side-nav a');
+const sideNav=document.getElementById('sideNav');
+const mobileBtn=document.getElementById('mobileNavBtn');
+const mobileOverlay=document.getElementById('mobileOverlay');
+
+function updateNav(){
+  let current='';
+  sections.forEach(sec=>{
+    const top=sec.offsetTop-120;
+    if(window.scrollY>=top) current=sec.getAttribute('id');
+  });
+  navLinks.forEach(a=>{
+    a.classList.remove('active');
+    if(a.getAttribute('href')==='#'+current) a.classList.add('active');
+  });
+}
+
+window.addEventListener('scroll',updateNav,true);
+updateNav();
+
+function toggleMobileNav(){
+  sideNav.classList.toggle('open');
+  mobileBtn.classList.toggle('open');
+  mobileOverlay.classList.toggle('open');
+  document.body.style.overflow=sideNav.classList.contains('open')?'hidden':'';
+}
+
+navLinks.forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const id=a.getAttribute('href').substring(1);
+    const target=document.getElementById(id);
+    if(sideNav.classList.contains('open')) toggleMobileNav();
+    if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>
