@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "WebFetch(domain:www.galco.com.co)"
+      "WebFetch(domain:www.galco.com.co)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
