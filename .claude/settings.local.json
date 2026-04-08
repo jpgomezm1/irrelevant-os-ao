@@ -5,7 +5,10 @@
       "WebFetch(domain:www.galco.com.co)",
       "Bash(split:*)",
       "Skill(disenar-solucion)",
-      "WebFetch(domain:empresas.larepublica.co)"
+      "WebFetch(domain:empresas.larepublica.co)",
+      "Bash(python3 -c \"from docx import Document; d=Document\\('/Users/saragarcest/Downloads/Posts linkedin.docx'\\); [print\\(p.text\\) for p in d.paragraphs]\")",
+      "Read(//private/tmp/posts_lk/word/**)",
+      "Bash(python3)"
     ],
     "deny": [],
     "ask": []
