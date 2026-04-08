@@ -8,7 +8,11 @@
       "WebFetch(domain:empresas.larepublica.co)",
       "Bash(python3 -c \"from docx import Document; d=Document\\('/Users/saragarcest/Downloads/Posts linkedin.docx'\\); [print\\(p.text\\) for p in d.paragraphs]\")",
       "Read(//private/tmp/posts_lk/word/**)",
-      "Bash(python3)"
+      "Bash(python3)",
+      "WebFetch(domain:www.escuelaing.edu.co)",
+      "Bash(python3 -c ':*)",
+      "Skill(pipeline-dashboard)",
+      "Bash(echo \"EXIT:$?\")"
     ],
     "deny": [],
     "ask": []
