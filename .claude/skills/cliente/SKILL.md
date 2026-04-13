@@ -32,24 +32,26 @@ Cada cliente tiene su propia carpeta en `Clientes/` donde se acumula TODO: trans
 2. Genera el slug: nombre empresa en lowercase, espacios → guiones, sin caracteres especiales
    Ejemplo: "Escuela de Ingeniería" → `escuela-de-ingenieria`
 
-3. Crea la estructura completa:
+3. Crea la estructura completa. **CRITICO: Para CADA subcarpeta, crea un archivo `.gitkeep` usando el Write tool.** Los directorios vacíos NO existen en el filesystem hasta que tienen al menos un archivo. Debes crear TODOS estos archivos (usa llamadas paralelas al Write tool para eficiencia):
 
 ```
 Clientes/[slug]/
 ├── README.md
-├── contexto/
-├── discovery/
-├── diseno/
-├── comercial/
-│   └── emails/
-├── contratos/
-├── fase0/
-├── entregable/
-├── produccion/
-│   ├── kickoff/
-│   └── updates/
-└── evaluaciones/
+├── contexto/.gitkeep
+├── discovery/.gitkeep
+├── diseno/.gitkeep
+├── comercial/.gitkeep
+├── comercial/emails/.gitkeep
+├── contratos/.gitkeep
+├── fase0/.gitkeep
+├── entregable/.gitkeep
+├── produccion/.gitkeep
+├── produccion/kickoff/.gitkeep
+├── produccion/updates/.gitkeep
+└── evaluaciones/.gitkeep
 ```
+
+Cada `.gitkeep` es un archivo vacío (contenido: cadena vacía `""`). Son 12 archivos `.gitkeep` + el README.md = 13 archivos en total. **NO te saltes ninguno. Crea los 13 archivos.**
 
 4. Genera `README.md` con la ficha:
 

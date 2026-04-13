@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Assessment &mdash; {{EMPRESA}} | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+    --emerald: #34d399;
+    --emerald-bg: rgba(52,211,153,0.1);
+    --amber: #fbbf24;
+    --amber-bg: rgba(251,191,36,0.1);
+    --blue: #60a5fa;
+    --blue-bg: rgba(96,165,250,0.1);
+    --red: #ef4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+  body { font-family: 'Inter', sans-serif; background: #1a1a2e; display: flex; flex-direction: column; align-items: center; justify-content: center; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .slide { width: 100vw; height: 100vh; position: relative; overflow: hidden; flex-shrink: 0; display: none; }
+  .slide.active { display: flex; }
+  .slide-dark { background: var(--negro); color: var(--blanco); }
+  .slide-light { background: var(--blanco); color: var(--gris-texto); }
+  .slide-lavanda { background: var(--lavanda); color: var(--gris-texto); }
+
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+  .b1 { top:-160px; right:-100px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%); opacity:0.6; }
+  .b2 { bottom:-120px; left:-80px; width:500px; height:500px; background:radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%); opacity:0.4; }
+  .b3 { top:50%; left:-150px; width:400px; height:400px; background:radial-gradient(ellipse at 50% 50%, #6366F1, var(--negro-medio) 50%, transparent 70%); opacity:0.3; }
+
+  .s-label { font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--morado-claro); margin-bottom: 16px; }
+  .slide-light .s-label, .slide-lavanda .s-label { color: var(--morado); }
+  .s-title { font-family: 'Quicksand', sans-serif; font-size: 42px; font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+  .s-title.medium { font-size: 34px; }
+  .s-title.small { font-size: 28px; }
+  .s-subtitle { font-family: 'Quicksand', sans-serif; font-size: 18px; font-weight: 400; line-height: 1.6; max-width: 700px; }
+  .slide-dark .s-subtitle { color: rgba(255,255,255,0.65); }
+  .gradient-line { width: 40px; height: 2px; background: linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom: 20px; }
+
+  .s-content { position: relative; z-index: 1; padding: 60px 80px; width: 100%; height: 100%; display: flex; flex-direction: column; }
+  .s-content.centered { align-items: center; justify-content: center; text-align: center; }
+  .s-content.v-center { justify-content: center; }
+
+  .s-split { display: flex; width: 100%; height: 100%; }
+  .s-split-left { flex: 1; background: var(--lavanda); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+  .s-split-right { flex: 1.3; background: linear-gradient(135deg, var(--morado-oscuro), var(--negro)); display: flex; flex-direction: column; justify-content: center; padding: 50px 60px; position: relative; overflow: hidden; }
+  .s-split-right::before { content: ''; position: absolute; top: -80px; right: -80px; width: 350px; height: 350px; background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%); border-radius: 50%; filter: blur(60px); }
+  .s-split-num { font-family: 'Quicksand', sans-serif; font-size: 72px; font-weight: 700; color: rgba(255,255,255,0.06); position: absolute; top: 30px; right: 40px; }
+  .s-split-right .s-title { color: white; position: relative; z-index: 1; font-size: 32px; }
+  .s-split-right .s-subtitle { color: rgba(255,255,255,0.6); position: relative; z-index: 1; font-size: 14px; }
+  .s-split-right .gradient-line { position: relative; z-index: 1; }
+
+  .stat-row { display: flex; gap: 20px; margin: 20px 0; }
+  .stat-card { background: var(--lavanda); border: 1px solid rgba(139,92,246,0.12); border-radius: 10px; padding: 24px 20px; text-align: center; flex: 1; }
+  .stat-card .stat-value { font-family: 'Quicksand', sans-serif; font-size: 36px; font-weight: 700; line-height: 1; }
+  .stat-card .stat-label { font-size: 10px; font-weight: 500; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
+  .stat-card.red { border-color: rgba(239,68,68,0.2); background: #FEF2F2; }
+  .stat-card.red .stat-value { color: var(--red); }
+  .stat-card.amber { border-color: rgba(251,191,36,0.2); background: rgba(251,191,36,0.06); }
+  .stat-card.amber .stat-value { color: #D97706; }
+  .stat-card.blue { border-color: rgba(96,165,250,0.2); background: rgba(96,165,250,0.06); }
+  .stat-card.blue .stat-value { color: var(--blue); }
+
+  .cta-btn { display: inline-block; background: linear-gradient(135deg, var(--morado), var(--morado-deep)); color: white; font-family: 'Quicksand', sans-serif; font-size: 16px; font-weight: 700; padding: 14px 36px; border-radius: 14px; text-decoration: none; transition: transform 0.2s; border: none; cursor: pointer; }
+  .cta-btn:hover { transform: scale(1.03); }
+
+  /* QUOTE STYLES */
+  .quote-block { position: relative; padding: 20px 24px; margin-bottom: 16px; border-left: 3px solid var(--morado-claro); background: rgba(139,92,246,0.04); border-radius: 0 8px 8px 0; }
+  .quote-block .quote-mark { font-family: 'Quicksand', sans-serif; font-size: 48px; font-weight: 700; color: rgba(139,92,246,0.2); position: absolute; top: -8px; left: 10px; line-height: 1; }
+  .quote-block .quote-text { font-family: 'Quicksand', sans-serif; font-size: 15px; font-weight: 500; font-style: italic; color: rgba(255,255,255,0.8); line-height: 1.6; padding-left: 8px; }
+  .quote-block .quote-author { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 8px; padding-left: 8px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* PROCESS STEP */
+  .step-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; position: relative; z-index: 1; }
+  .step-item { display: flex; align-items: flex-start; gap: 10px; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.25); display: flex; align-items: center; justify-content: center; font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 700; color: var(--morado-claro); flex-shrink: 0; }
+  .step-text { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; padding-top: 3px; }
+
+  /* PRIORITY MATRIX */
+  .pm-grid { display: grid; grid-template-columns: 36px 1fr 1fr; grid-template-rows: auto 1fr 1fr; gap: 0; margin: 16px 0; max-width: 700px; }
+  .pm-col-header { text-align: center; font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; padding-bottom: 8px; }
+  .pm-row-header { writing-mode: vertical-lr; transform: rotate(180deg); text-align: center; font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; padding-right: 6px; }
+  .pm-quadrant { border: 1px solid rgba(255,255,255,0.06); padding: 14px; display: flex; flex-direction: column; gap: 8px; min-height: 110px; }
+  .pm-q1 { background: rgba(52,211,153,0.06); border-color: rgba(52,211,153,0.15); }
+  .pm-q2 { background: rgba(139,92,246,0.06); border-color: rgba(139,92,246,0.15); }
+  .pm-q3 { background: rgba(251,191,36,0.06); border-color: rgba(251,191,36,0.15); }
+  .pm-q4 { background: rgba(255,255,255,0.02); }
+  .pm-qlabel { font-family: 'Quicksand', sans-serif; font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .pm-q1 .pm-qlabel { color: var(--emerald); }
+  .pm-q2 .pm-qlabel { color: var(--morado-claro); }
+  .pm-q3 .pm-qlabel { color: var(--amber); }
+  .pm-q4 .pm-qlabel { color: rgba(255,255,255,0.3); }
+  .pm-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.65); }
+  .pm-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  /* SCENARIO CARDS */
+  .scenario-row { display: flex; gap: 16px; margin: 16px 0; }
+  .scenario-card { flex: 1; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 20px 18px; text-align: center; }
+  .scenario-card.featured { border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.06); }
+  .scenario-name { font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
+  .scenario-card.featured .scenario-name { color: var(--morado-claro); }
+  .scenario-val { font-family: 'Quicksand', sans-serif; font-size: 26px; font-weight: 700; color: white; }
+  .scenario-sub { font-size: 9px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+  .scenario-detail { font-size: 9px; color: rgba(255,255,255,0.4); margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); text-align: left; line-height: 1.7; }
+
+  /* TIMELINE MINI */
+  .timeline-mini { display: flex; gap: 0; margin: 16px 0; position: relative; }
+  .timeline-mini::before { content: ''; position: absolute; top: 14px; left: 14px; right: 14px; height: 2px; background: rgba(139,92,246,0.2); }
+  .tl-step { flex: 1; text-align: center; position: relative; }
+  .tl-dot { width: 28px; height: 28px; border-radius: 50%; background: rgba(139,92,246,0.15); border: 2px solid var(--morado); display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 700; color: var(--morado-claro); position: relative; z-index: 1; }
+  .tl-label { font-size: 9px; color: rgba(255,255,255,0.4); }
+
+  .slide-counter { position: fixed; bottom: 20px; right: 28px; font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.25); letter-spacing: 2px; z-index: 999; }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide slide-dark active" data-slide="1">
+  <video autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(2px) brightness(0.25); z-index:0;">
+    <source src="https://storage.googleapis.com/cluvi/Sara/Videos/video%20mr%20irrelevants%20oficina.MOV" type="video/mp4">
+  </video>
+  <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,10,31,0.7), rgba(124,58,237,0.15), rgba(15,10,31,0.8)); z-index:0;"></div>
+  <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px); background-size:60px 60px; z-index:0;"></div>
+  <div class="s-content v-center" style="position:relative; z-index:1;">
+    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant" style="height:80px; margin-bottom:28px; opacity:0.9;">
+    <div class="s-label">AI ASSESSMENT</div>
+    <div class="s-title">Diagn&oacute;stico Operativo<br>con IA</div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:16px 0 20px;"></div>
+    <div class="s-subtitle">{{EMPRESA}}</div>
+    <div style="display:flex; gap:20px; margin-top:20px;">
+      <span style="font-size:11px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1px;">{{INDUSTRIA}}</span>
+      <span style="font-size:11px; color:rgba(255,255,255,0.35);">&bull;</span>
+      <span style="font-size:11px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1px;">{{FECHA}}</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 2: AGENDA ==================== -->
+<div class="slide slide-dark" data-slide="2">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="s-content centered">
+    <div class="s-label">AGENDA</div>
+    <div class="s-title medium">De qu&eacute; vamos a hablar hoy</div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:12px auto 28px;"></div>
+    <div style="display:flex; flex-direction:column; gap:16px; text-align:left; max-width:500px;">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="width:32px; height:32px; border-radius:50%; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:12px; font-weight:700; color:var(--morado-claro); flex-shrink:0;">1</div>
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:600; color:white;">Contexto</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Lo que entendimos de tu operaci&oacute;n</div></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="width:32px; height:32px; border-radius:50%; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:12px; font-weight:700; color:var(--morado-claro); flex-shrink:0;">2</div>
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:600; color:white;">Hallazgos</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Los n&uacute;meros detr&aacute;s del problema</div></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="width:32px; height:32px; border-radius:50%; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:12px; font-weight:700; color:var(--morado-claro); flex-shrink:0;">3</div>
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:600; color:white;">Procesos</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">An&aacute;lisis detallado de cada proceso cr&iacute;tico</div></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="width:32px; height:32px; border-radius:50%; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:12px; font-weight:700; color:var(--morado-claro); flex-shrink:0;">4</div>
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:600; color:white;">Impacto</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Cu&aacute;nto cuesta no actuar</div></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="width:32px; height:32px; border-radius:50%; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.2); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:12px; font-weight:700; color:var(--morado-claro); flex-shrink:0;">5</div>
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:600; color:white;">Recomendaci&oacute;n</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Qu&eacute; proponemos hacer</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 3: LO QUE ESCUCHAMOS ==================== -->
+<div class="slide slide-dark" data-slide="3">
+  <div class="blob b1"></div>
+  <div class="blob b3"></div>
+  <div class="s-content v-center">
+    <div class="s-label">CONTEXTO</div>
+    <div class="s-title medium" style="margin-bottom:28px;">Lo que escuchamos</div>
+    <div style="display:flex; flex-direction:column; gap:14px; max-width:750px;">
+      <div class="quote-block">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="quote-text">{{CITA_1}}</div>
+        <div class="quote-author">{{CITA_1_AUTOR}}</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="quote-text">{{CITA_2}}</div>
+        <div class="quote-author">{{CITA_2_AUTOR}}</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="quote-text">{{CITA_3}}</div>
+        <div class="quote-author">{{CITA_3_AUTOR}}</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-mark">&ldquo;</div>
+        <div class="quote-text">{{CITA_4}}</div>
+        <div class="quote-author">{{CITA_4_AUTOR}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 4: ESTADO ACTUAL ==================== -->
+<div class="slide slide-lavanda" data-slide="4">
+  <div class="s-content v-center">
+    <div class="s-label">HALLAZGOS</div>
+    <div class="s-title medium">C&oacute;mo opera {{EMPRESA}} hoy</div>
+    <div class="gradient-line"></div>
+    <div class="stat-row">
+      <div class="stat-card red">
+        <div class="stat-value">{{HORAS_PERDIDAS}}</div>
+        <div class="stat-label">Horas/semana en trabajo manual repetitivo</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-value">{{PROCESOS_MANUALES}}</div>
+        <div class="stat-label">Procesos sin automatizar</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-value">{{HERRAMIENTAS_DESCONECTADAS}}</div>
+        <div class="stat-label">Herramientas desconectadas</div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:#555; line-height:1.7; max-width:700px; margin-top:12px;">{{ESTADO_ACTUAL_DESC}}</p>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 5: PROCESO 1 ==================== -->
+<div class="slide slide-dark" data-slide="5">
+  <div class="s-split">
+    <div class="s-split-left">
+      <div style="font-family:'Quicksand',sans-serif; font-size:64px; font-weight:700; color:rgba(139,92,246,0.15);">01</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--morado); margin-top:8px;">{{PROCESO_1_CATEGORIA}}</div>
+    </div>
+    <div class="s-split-right">
+      <div class="s-split-num">01</div>
+      <div class="gradient-line"></div>
+      <div class="s-title" style="font-size:28px;">{{PROCESO_1_NOMBRE}}</div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">{{PROCESO_1_PASO_1}}</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">{{PROCESO_1_PASO_2}}</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">{{PROCESO_1_PASO_3}}</div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-text">{{PROCESO_1_PASO_4}}</div></div>
+      </div>
+      <div style="border-left:3px solid var(--morado-claro); padding:8px 14px; margin:14px 0; font-style:italic; font-size:12px; color:rgba(255,255,255,0.5); position:relative; z-index:1;">&ldquo;{{PROCESO_1_CITA}}&rdquo;</div>
+      <div style="display:flex; gap:24px; margin-top:12px; position:relative; z-index:1;">
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:24px; font-weight:700; color:var(--red);">{{PROCESO_1_HORAS}}</div><div style="font-size:9px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.5px;">hrs/semana</div></div>
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:24px; font-weight:700; color:var(--amber);">{{PROCESO_1_COSTO_MES}}</div><div style="font-size:9px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.5px;">COP/mes estimado</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 6: PROCESO 2 ==================== -->
+<div class="slide slide-dark" data-slide="6">
+  <div class="s-split">
+    <div class="s-split-left">
+      <div style="font-family:'Quicksand',sans-serif; font-size:64px; font-weight:700; color:rgba(139,92,246,0.15);">02</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--morado); margin-top:8px;">{{PROCESO_2_CATEGORIA}}</div>
+    </div>
+    <div class="s-split-right">
+      <div class="s-split-num">02</div>
+      <div class="gradient-line"></div>
+      <div class="s-title" style="font-size:28px;">{{PROCESO_2_NOMBRE}}</div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">{{PROCESO_2_PASO_1}}</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">{{PROCESO_2_PASO_2}}</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">{{PROCESO_2_PASO_3}}</div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-text">{{PROCESO_2_PASO_4}}</div></div>
+      </div>
+      <div style="border-left:3px solid var(--morado-claro); padding:8px 14px; margin:14px 0; font-style:italic; font-size:12px; color:rgba(255,255,255,0.5); position:relative; z-index:1;">&ldquo;{{PROCESO_2_CITA}}&rdquo;</div>
+      <div style="display:flex; gap:24px; margin-top:12px; position:relative; z-index:1;">
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:24px; font-weight:700; color:var(--red);">{{PROCESO_2_HORAS}}</div><div style="font-size:9px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.5px;">hrs/semana</div></div>
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:24px; font-weight:700; color:var(--amber);">{{PROCESO_2_COSTO_MES}}</div><div style="font-size:9px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.5px;">COP/mes estimado</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 7: PROCESO 3 ==================== -->
+<div class="slide slide-dark" data-slide="7">
+  <div class="s-split">
+    <div class="s-split-left">
+      <div style="font-family:'Quicksand',sans-serif; font-size:64px; font-weight:700; color:rgba(139,92,246,0.15);">03</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--morado); margin-top:8px;">{{PROCESO_3_CATEGORIA}}</div>
+    </div>
+    <div class="s-split-right">
+      <div class="s-split-num">03</div>
+      <div class="gradient-line"></div>
+      <div class="s-title" style="font-size:28px;">{{PROCESO_3_NOMBRE}}</div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">{{PROCESO_3_PASO_1}}</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">{{PROCESO_3_PASO_2}}</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">{{PROCESO_3_PASO_3}}</div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-text">{{PROCESO_3_PASO_4}}</div></div>
+      </div>
+      <div style="border-left:3px solid var(--morado-claro); padding:8px 14px; margin:14px 0; font-style:italic; font-size:12px; color:rgba(255,255,255,0.5); position:relative; z-index:1;">&ldquo;{{PROCESO_3_CITA}}&rdquo;</div>
+      <div style="display:flex; gap:24px; margin-top:12px; position:relative; z-index:1;">
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:24px; font-weight:700; color:var(--red);">{{PROCESO_3_HORAS}}</div><div style="font-size:9px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.5px;">hrs/semana</div></div>
+        <div><div style="font-family:'Quicksand',sans-serif; font-size:24px; font-weight:700; color:var(--amber);">{{PROCESO_3_COSTO_MES}}</div><div style="font-size:9px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.5px;">COP/mes estimado</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 8: COSTO DE NO HACER NADA ==================== -->
+<div class="slide slide-dark" data-slide="8">
+  <div style="position:absolute; inset:0; background:linear-gradient(135deg, #1a0505, #0F0A1F 60%); z-index:0;"></div>
+  <div style="position:absolute; top:-100px; right:-80px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(239,68,68,0.12), transparent 65%); border-radius:50%; filter:blur(90px); z-index:0;"></div>
+  <div style="position:absolute; bottom:-80px; left:-60px; width:400px; height:400px; background:radial-gradient(ellipse, rgba(239,68,68,0.08), transparent 65%); border-radius:50%; filter:blur(80px); z-index:0;"></div>
+  <div class="s-content centered" style="position:relative; z-index:1;">
+    <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--red); margin-bottom:16px;">IMPACTO</div>
+    <div class="s-title" style="color:var(--red);">El costo de<br>no hacer nada</div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--red), rgba(239,68,68,0.3)); margin:16px auto 32px;"></div>
+    <div style="display:flex; gap:60px; margin-bottom:32px;">
+      <div style="text-align:center;">
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:rgba(239,68,68,0.6); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">En 6 meses</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:44px; font-weight:700; color:white; line-height:1;">{{COSTO_6M_HORAS}}</div>
+        <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-top:4px;">horas perdidas</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; color:var(--red); margin-top:10px;">{{COSTO_6M_COP}}</div>
+        <div style="font-size:10px; color:rgba(255,255,255,0.35);">COP desperdiciados</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:rgba(239,68,68,0.6); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">En 12 meses</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:44px; font-weight:700; color:white; line-height:1;">{{COSTO_12M_HORAS}}</div>
+        <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-top:4px;">horas perdidas</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; color:var(--red); margin-top:10px;">{{COSTO_12M_COP}}</div>
+        <div style="font-size:10px; color:rgba(255,255,255,0.35);">COP desperdiciados</div>
+      </div>
+    </div>
+    <div style="text-align:left; max-width:550px;">
+      <div style="font-size:11px; color:rgba(255,255,255,0.5); line-height:1.7;">
+        <div style="margin-bottom:6px;">&bull; {{RIESGO_1}}</div>
+        <div style="margin-bottom:6px;">&bull; {{RIESGO_2}}</div>
+        <div>&bull; {{RIESGO_3}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 9: MATRIZ DE PRIORIDAD ==================== -->
+<div class="slide slide-dark" data-slide="9">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="s-content v-center">
+    <div class="s-label">OPORTUNIDADES</div>
+    <div class="s-title medium">D&oacute;nde est&aacute;n las oportunidades</div>
+    <div class="gradient-line"></div>
+    <div class="pm-grid">
+      <div></div>
+      <div class="pm-col-header">Esfuerzo bajo</div>
+      <div class="pm-col-header">Esfuerzo alto</div>
+      <div class="pm-row-header">Impacto alto</div>
+      <div class="pm-quadrant pm-q1">
+        <div class="pm-qlabel">Quick Wins</div>
+        {{MATRIZ_Q1_ITEMS}}
+      </div>
+      <div class="pm-quadrant pm-q2">
+        <div class="pm-qlabel">Estrat&eacute;gicos</div>
+        {{MATRIZ_Q2_ITEMS}}
+      </div>
+      <div class="pm-row-header">Impacto bajo</div>
+      <div class="pm-quadrant pm-q3">
+        <div class="pm-qlabel">Complementarios</div>
+        {{MATRIZ_Q3_ITEMS}}
+      </div>
+      <div class="pm-quadrant pm-q4">
+        <div class="pm-qlabel">Postergar</div>
+        {{MATRIZ_Q4_ITEMS}}
+      </div>
+    </div>
+    <div style="background:rgba(52,211,153,0.08); border:1px solid rgba(52,211,153,0.15); border-radius:8px; padding:12px 18px; margin-top:12px; font-size:13px; color:var(--emerald); text-align:center; max-width:700px;">
+      Encontramos <strong>{{OPORTUNIDADES_N}}</strong> oportunidades de impacto inmediato
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 10: IMPACTO FINANCIERO ==================== -->
+<div class="slide slide-dark" data-slide="10">
+  <div class="blob b1"></div>
+  <div class="s-content v-center">
+    <div class="s-label">RETORNO</div>
+    <div class="s-title medium">El retorno de la inversi&oacute;n</div>
+    <div class="gradient-line"></div>
+    <div class="scenario-row">
+      <div class="scenario-card">
+        <div class="scenario-name">Conservador</div>
+        <div class="scenario-val">{{ESCENARIO_CONSERVADOR_HORAS}}</div>
+        <div class="scenario-sub">horas/semana recuperadas</div>
+        <div class="scenario-detail">
+          <strong>Ahorro mensual:</strong> {{ESCENARIO_CONSERVADOR_AHORRO}}<br>
+          <strong>ROI anual:</strong> {{ESCENARIO_CONSERVADOR_ROI}}
+        </div>
+      </div>
+      <div class="scenario-card featured">
+        <div class="scenario-name">Moderado</div>
+        <div class="scenario-val">{{ESCENARIO_MODERADO_HORAS}}</div>
+        <div class="scenario-sub">horas/semana recuperadas</div>
+        <div class="scenario-detail">
+          <strong>Ahorro mensual:</strong> {{ESCENARIO_MODERADO_AHORRO}}<br>
+          <strong>ROI anual:</strong> {{ESCENARIO_MODERADO_ROI}}
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-name">Agresivo</div>
+        <div class="scenario-val">{{ESCENARIO_AGRESIVO_HORAS}}</div>
+        <div class="scenario-sub">horas/semana recuperadas</div>
+        <div class="scenario-detail">
+          <strong>Ahorro mensual:</strong> {{ESCENARIO_AGRESIVO_AHORRO}}<br>
+          <strong>ROI anual:</strong> {{ESCENARIO_AGRESIVO_ROI}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 11: RECOMENDACION ==================== -->
+<div class="slide slide-dark" data-slide="11">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="s-content v-center">
+    <div class="s-label">RECOMENDACI&Oacute;N</div>
+    <div class="s-title medium">Lo que proponemos</div>
+    <div class="gradient-line"></div>
+    <div style="background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.15); border-radius:12px; padding:24px 28px; max-width:700px; margin-bottom:24px;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+        <div style="background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.25); border-radius:8px; padding:6px 14px; font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:var(--morado-claro); text-transform:uppercase; letter-spacing:1.5px;">AI Ops Layer</div>
+        <div style="font-size:10px; color:rgba(255,255,255,0.35);">Setup completo en 5 d&iacute;as</div>
+      </div>
+      <div style="font-size:13px; color:rgba(255,255,255,0.6); line-height:1.7;">{{RECOMENDACION_DESC}}</div>
+    </div>
+    <div class="timeline-mini" style="max-width:600px; width:100%;">
+      <div class="tl-step"><div class="tl-dot">1</div><div class="tl-label">D&iacute;a 1</div></div>
+      <div class="tl-step"><div class="tl-dot">2</div><div class="tl-label">D&iacute;a 2</div></div>
+      <div class="tl-step"><div class="tl-dot">3</div><div class="tl-label">D&iacute;a 3</div></div>
+      <div class="tl-step"><div class="tl-dot">4</div><div class="tl-label">D&iacute;a 4</div></div>
+      <div class="tl-step"><div class="tl-dot">5</div><div class="tl-label">D&iacute;a 5</div></div>
+    </div>
+    <div style="margin-top:24px; text-align:left; max-width:700px;">
+      <div style="font-size:10px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Procesos a automatizar</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.55); line-height:1.8;">{{TOP_PROCESOS_LISTA}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 12: SIGUIENTE PASO ==================== -->
+<div class="slide slide-dark" data-slide="12">
+  <video autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(2px) brightness(0.25); z-index:0;">
+    <source src="https://storage.googleapis.com/cluvi/Sara/Videos/video%20mr%20irrelevants%20oficina.MOV" type="video/mp4">
+  </video>
+  <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,10,31,0.7), rgba(124,58,237,0.15), rgba(15,10,31,0.8)); z-index:0;"></div>
+  <div class="s-content centered" style="position:relative; z-index:1;">
+    <div class="s-label">SIGUIENTE PASO</div>
+    <div class="s-title">Queremos mostrarte<br>exactamente qu&eacute;<br>vamos a construir.</div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:16px auto 20px;"></div>
+    <div class="s-subtitle" style="margin-bottom:24px;">{{SIGUIENTE_PASO_DESC}}</div>
+    <a href="https://cal.com/juan-irrelevant/discovery" target="_blank" class="cta-btn">Agendar siguiente conversaci&oacute;n &#10132;</a>
+    <div style="display:flex; gap:24px; margin-top:24px;">
+      <span style="font-size:14px; color:rgba(255,255,255,0.5);">{{COMERCIAL_NOMBRE}}</span>
+      <span style="font-size:14px; color:rgba(255,255,255,0.5);">&#9993; {{COMERCIAL_EMAIL}}</span>
+      <span style="font-size:14px; color:rgba(255,255,255,0.5);">&#128172; {{COMERCIAL_TELEFONO}}</span>
+    </div>
+    <div style="margin-top:36px; font-family:'Quicksand',sans-serif; font-size:12px; font-weight:600; color:rgba(255,255,255,0.2); letter-spacing:3px;">THINK AI OR STAY IRRELEVANT.</div>
+  </div>
+</div>
+
+<!-- SLIDE COUNTER -->
+<div class="slide-counter" id="slideCounter">1 / 12</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slideCounter');
+  let current = 0;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    slides[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      showSlide(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      showSlide(current - 1);
+    } else if (e.key === 'Home') {
+      showSlide(0);
+    } else if (e.key === 'End') {
+      showSlide(slides.length - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const x = e.clientX;
+    const w = window.innerWidth;
+    if (x > w / 2) showSlide(current + 1);
+    else showSlide(current - 1);
+  });
+</script>
+
+</body>
+</html>

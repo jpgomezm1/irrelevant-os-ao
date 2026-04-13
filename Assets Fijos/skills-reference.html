@@ -222,9 +222,9 @@ section+section{border-top:1px solid var(--border);}
   <h1>Irrelevant <span class="highlight">Operating System</span></h1>
   <p class="tagline">El sistema completo para vender, disenar, construir y entregar soluciones de IA.</p>
   <div class="stats">
-    <div class="stat"><div class="num" style="color:var(--purple-light);">33</div><div class="label">Skills</div></div>
+    <div class="stat"><div class="num" style="color:var(--purple-light);">35</div><div class="label">Skills</div></div>
     <div class="stat"><div class="num" style="color:var(--emerald);">3</div><div class="label">Servicios</div></div>
-    <div class="stat"><div class="num" style="color:var(--amber);">9</div><div class="label">Etapas del pipeline</div></div>
+    <div class="stat"><div class="num" style="color:var(--amber);">10</div><div class="label">Etapas del pipeline</div></div>
     <div class="stat"><div class="num" style="color:var(--blue);">E2E</div><div class="label">Sistema end-to-end</div></div>
   </div>
 </section>
@@ -265,9 +265,25 @@ section+section{border-top:1px solid var(--border);}
         <span class="skill-tag">/follow-up-writer</span>
         <span class="skill-tag">/email-post-reunion</span>
         <span class="skill-tag">/discovery-notes</span>
+        <span class="skill-tag" style="background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.2);color:var(--orange);">/discovery-ops</span>
       </div>
-      <div class="stage-detail"><strong>Produce:</strong> Transcript procesado, contexto acumulado, evaluacion de call, follow-up WhatsApp, email profesional, brief estructurado</div>
+      <div class="stage-detail"><strong>Produce:</strong> Transcript procesado, contexto acumulado, evaluacion de call, follow-up WhatsApp, email profesional, brief estructurado, discovery 5 pilares (Ops)</div>
       <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/discovery/</code> + <code>/contexto/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 2.5 - Assessment -->
+    <div class="stage fade-in" style="border-left:none;">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:var(--orange);"></div>
+      <div class="stage-num" style="color:var(--orange);">Etapa 2.5</div>
+      <div class="stage-name">Assessment <span style="font-size:10px;color:var(--orange);font-weight:400;">(Ops Layer)</span></div>
+      <div class="stage-skills">
+        <span class="skill-tag" style="background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.2);color:var(--orange);">/discovery-ops</span>
+        <span class="skill-tag" style="background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.2);color:var(--orange);">/reporte-assessment</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Discovery 5 pilares, an&aacute;lisis de procesos, ROI 3 escenarios, matriz de prioridad, costo de no actuar, slides de assessment (12 slides sin precio)</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/discovery/</code> + <code>/diseno/</code> + <code>/comercial/</code></div>
+      <div class="stage-detail" style="color:var(--orange);"><strong>Objetivo:</strong> Generar urgencia ANTES de hablar de precio</div>
     </div>
     <div class="stage-arrow">&#8595;</div>
 
@@ -563,6 +579,36 @@ section+section{border-top:1px solid var(--border);}
       </div>
       <div class="skill-tags"><span class="tag tag-web">WebSearch</span></div>
       <div class="skill-example">&gt; /agregar-contexto Bancolombia</div>
+    </div>
+  </div>
+
+  <!-- ASSESSMENT OPS LAYER -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--orange);color:var(--orange);">Etapa 2.5 &mdash; Assessment (Ops Layer)</div>
+
+    <div class="skill-row featured fade-in">
+      <div class="skill-cmd" style="color:var(--orange);">/discovery-ops &#9733;</div>
+      <div class="skill-when">Discovery estructurado con 5 pilares obligatorios para Ops Layer. Produce output machine-parseable que alimenta el assessment.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Discovery con 5 pilares (GREEN/YELLOW/RED), tabla resumen de procesos, citas textuales, coverage score</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/discovery/discovery-ops.md</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Fireflies MCP, contexto/, discovery/ previos</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /discovery-ops Galco</div>
+    </div>
+
+    <div class="skill-row featured fade-in">
+      <div class="skill-cmd" style="color:var(--orange);">/reporte-assessment &#9733;</div>
+      <div class="skill-when">An&aacute;lisis profundo + slides de assessment. Genera urgencia ANTES de hablar de precio. Matriz de procesos, ROI 3 escenarios, costo de no actuar.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>An&aacute;lisis ops (MD) + slides assessment (12 slides HTML sin precio)</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/diseno/analisis-ops.md</code> + <code>/comercial/slides-assessment.html</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>discovery-ops.md, contexto/, transcripts</div>
+        <div class="skill-meta-item"><strong>Requiere</strong><code>/discovery-ops</code> ejecutado previamente</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-templates">Templates</span><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /reporte-assessment Galco</div>
     </div>
   </div>
 
@@ -941,7 +987,7 @@ section+section{border-top:1px solid var(--border);}
   <div class="tool-card fade-in">
     <h4 style="color:var(--pink);">Fireflies MCP</h4>
     <p>Transcripts automaticos de reuniones. Se conecta via MCP para jalar, buscar y procesar grabaciones.</p>
-    <div class="tool-skills">Skills: /procesar-call, /discovery-notes, /resumen-reunion, /fase0, /entregable, /call-review, /weekly-update</div>
+    <div class="tool-skills">Skills: /procesar-call, /discovery-notes, /discovery-ops, /reporte-assessment, /resumen-reunion, /fase0, /entregable, /call-review, /weekly-update</div>
   </div>
 
   <div class="tool-card fade-in">
@@ -979,16 +1025,18 @@ section+section{border-top:1px solid var(--border);}
   </div>
 
   <div class="combo fade-in">
-    <h4>Del approach al contrato <span style="font-size:12px;color:var(--purple-light);font-weight:400;">&mdash; Ops Layer completo</span></h4>
-    <div class="combo-desc">El flujo completo desde primer contacto hasta contrato firmado para Ops Layer.</div>
+    <h4>Del approach al contrato <span style="font-size:12px;color:var(--purple-light);font-weight:400;">&mdash; Ops Layer completo (con Assessment)</span></h4>
+    <div class="combo-desc">El flujo completo desde primer contacto hasta contrato firmado para Ops Layer. Incluye la nueva etapa de Assessment que genera urgencia antes de hablar de precio.</div>
     <div class="combo-flow">
       <span class="combo-step">/cliente crear</span><span class="combo-arrow">&rarr;</span>
       <span class="combo-step">/prep-call</span><span class="combo-arrow">&rarr;</span>
       <span class="combo-step">call</span><span class="combo-arrow">&rarr;</span>
       <span class="combo-step">/procesar-call</span><span class="combo-arrow">&rarr;</span>
-      <span class="combo-step">/discovery-notes</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step" style="background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.2);color:var(--orange);">/discovery-ops</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step" style="background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.2);color:var(--orange);">/reporte-assessment</span><span class="combo-arrow">&rarr;</span>
       <span class="combo-step">/disenar-skills</span><span class="combo-arrow">&rarr;</span>
       <span class="combo-step">/disenar-stack</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/slides-propuesta-ops</span><span class="combo-arrow">&rarr;</span>
       <span class="combo-step">/cotizacion</span><span class="combo-arrow">&rarr;</span>
       <span class="combo-step">/contrato</span>
     </div>

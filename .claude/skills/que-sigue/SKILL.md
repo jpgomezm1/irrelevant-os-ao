@@ -92,8 +92,15 @@ Responde SIEMPRE con este formato (corto y directo):
 ### Tiene contexto pero no discovery notes:
 ```
 ➡️ /procesar-call (si la call ya fue y está en Fireflies)
-➡️ /discovery-notes (para extraer el brief)
+➡️ /discovery-notes (para extraer el brief genérico)
+➡️ /discovery-ops [empresa] (si es Ops Layer — discovery estructurado con 5 pilares)
 💡 No olvides enviar el email post-reunión: /email-post-reunion
+```
+
+### Tiene discovery-ops pero no assessment:
+```
+➡️ /reporte-assessment [empresa] — Análisis profundo + slides de assessment
+💡 Este paso genera urgencia ANTES de hablar de precio. Presenta primero el assessment, luego la propuesta.
 ```
 
 ### Tiene discovery notes pero no diseño:
@@ -102,6 +109,7 @@ Responde SIEMPRE con este formato (corto y directo):
 
 Si es **Ops Layer:**
 ```
+➡️ /reporte-assessment [empresa] — Si no se ha hecho el assessment
 ➡️ /disenar-skills [empresa] — Define los 5 procesos
 ➡️ /disenar-stack [empresa] — Define las herramientas
 ```
