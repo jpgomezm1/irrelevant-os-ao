@@ -20,3 +20,6 @@ Thumbs.db
 
 # Claude Code cache
 .claude/todos/
+
+# Test clients
+Clientes/npd-inc/
