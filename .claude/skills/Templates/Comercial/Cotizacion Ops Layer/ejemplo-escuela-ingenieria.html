@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizaci&oacute;n Setup de IA &mdash; Ops Layer | Escuela Colombiana de Ingeniería Julio Garavito | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px; object-fit: contain;
+    opacity: 0.95;
+    
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page h4:first-child { margin-top: 0; }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== EXEC SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul { margin-left: 14px; }
+
+  /* ===================== COST BLOCK ===================== */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== SIGNATURE BLOCK ===================== */
+  .signature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 20px;
+  }
+
+  .signature-side {
+    text-align: center;
+  }
+
+  .signature-side .sig-line {
+    width: 100%;
+    height: 1px;
+    background: var(--gris-claro);
+    margin-bottom: 10px;
+    margin-top: 60px;
+  }
+
+  .signature-side .sig-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 2px;
+  }
+
+  .signature-side .sig-role {
+    font-size: 9px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px; left: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 80px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .back-cover-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-cover-content .back-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .cover-title { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Cotizaci&oacute;n de Servicios</div>
+      <div class="cover-title">Setup de IA<br>Ops Layer</div>
+      <div class="cover-subtitle">Escuela Colombiana de Ingeniería Julio Garavito</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>Marzo 2026 | CONFIDENCIAL</span>
+        <span>Preparado por Irrelevant</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 01 - RESUMEN                                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>Qu&eacute; es el Setup de IA</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Hoy tu equipo realiza muchas tareas de forma manual: escribir follow-ups, armar reportes, buscar informaci&oacute;n en 5 plataformas distintas, resumir reuniones, crear propuestas desde cero. <strong>El Setup de IA cambia eso.</strong></p>
+      <p style="margin-top:8px;">Lo que hacemos es instalar un <strong>&ldquo;cerebro&rdquo; de inteligencia artificial</strong> dentro de tu operaci&oacute;n &mdash; como tener un asistente que entiende tu negocio, est&aacute; conectado a tus herramientas, y puede ejecutar tareas complejas en segundos. No es una app nueva que tu equipo tiene que aprender. Es una capa inteligente que se conecta a lo que ya usan.</p>
+    </div>
+
+    <h3>En concreto, lo que entregamos es:</h3>
+
+    <div class="pain-grid" style="margin-top:16px;">
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">1. Un diagn&oacute;stico de tu operaci&oacute;n</div>
+        <p style="color: var(--gris-texto);">Entendemos c&oacute;mo trabaja tu equipo hoy, d&oacute;nde se pierde tiempo y qu&eacute; se puede mejorar. Recibes un documento con la radiograf&iacute;a completa.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">2. El cerebro de IA configurado</div>
+        <p style="color: var(--gris-texto);">Configuramos Claude &mdash; el motor de IA m&aacute;s avanzado del mercado &mdash; y lo conectamos a las plataformas que tu equipo ya usa (email, calendario, documentos, etc.)</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">3. Tu stack de herramientas dise&ntilde;ado</div>
+        <p style="color: var(--gris-texto);">Seleccionamos las herramientas correctas para tu caso (reuniones, documentos, CRM, comunicaci&oacute;n) y las dejamos integradas entre s&iacute;.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">4. Cinco procesos inteligentes funcionando</div>
+        <p style="color: var(--gris-texto);">Tareas espec&iacute;ficas de tu operaci&oacute;n que hoy toman horas y que con IA se ejecutan en minutos. Listos para usar desde el d&iacute;a uno.</p>
+      </div>
+    </div>
+
+    <div class="metric-row" style="margin-top: 24px;">
+      <div class="metric-card">
+        <div class="metric-value">1 sem</div>
+        <div class="metric-label">De implementaci&oacute;n</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">5</div>
+        <div class="metric-label">Procesos inteligentes entregados</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">D&iacute;a 1</div>
+        <div class="metric-label">Todo funcionando</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 02 - QUE INCLUYE                                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span class="page-header-title">Qu&eacute; incluye</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Qu&eacute; son los &ldquo;procesos inteligentes&rdquo;</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Piensa en las tareas que tu equipo repite todas las semanas: resumir una reuni&oacute;n, escribir un seguimiento a un cliente, armar un reporte, crear una propuesta. Hoy alguien las hace a mano. Con el Setup de IA, <strong>esas tareas se convierten en procesos que se ejecutan en segundos</strong> &mdash; tu equipo solo da la instrucci&oacute;n y el sistema hace el resto.</p>
+    </div>
+
+    <h3>Ejemplos de procesos que entregamos</h3>
+    <p style="margin-bottom:16px;">Estos son ejemplos reales. Los 5 procesos espec&iacute;ficos para Escuela Colombiana de Ingeniería Julio Garavito se definen durante el diagn&oacute;stico, seg&uacute;n lo que m&aacute;s impacto genere en tu operaci&oacute;n.</p>
+
+    <div class="card-grid single-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Ejemplo</span>
+          <h5>Reuni&oacute;n &rarr; Acta + tareas autom&aacute;ticas</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Antes</div>
+          <p>Alguien toma notas durante la reuni&oacute;n, las pasa en limpio, las env&iacute;a por correo. Toma 30-45 min. A veces nadie lo hace.</p>
+          <div class="label" style="color: #166534;">Despu&eacute;s</div>
+          <p>La reuni&oacute;n se graba, el sistema genera el acta con decisiones, tareas asignadas y fechas. Se publica autom&aacute;ticamente. <strong>Toma 0 minutos de tu equipo.</strong></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Ejemplo</span>
+          <h5>Datos del cliente &rarr; Propuesta lista para enviar</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Antes</div>
+          <p>El comercial abre un template viejo, copia datos, ajusta precios, revisa errores, pide aprobaci&oacute;n. Toma 2-3 d&iacute;as.</p>
+          <div class="label" style="color: #166534;">Despu&eacute;s</div>
+          <p>El sistema toma la informaci&oacute;n del cliente y genera una propuesta profesional con precios, alcance y condiciones. <strong>Lista en 30 segundos.</strong></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Ejemplo</span>
+          <h5>Llamada de ventas &rarr; Follow-up personalizado</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Antes</div>
+          <p>El vendedor termina la llamada y tiene que escribir el seguimiento a mano. A veces se olvida o lo env&iacute;a 3 d&iacute;as despu&eacute;s.</p>
+          <div class="label" style="color: #166534;">Despu&eacute;s</div>
+          <p>El sistema escucha la llamada, identifica los puntos clave y genera un mensaje de seguimiento personalizado para WhatsApp o email. <strong>Listo en 2 minutos.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 20px;">
+      <p><strong>Importante:</strong> Estos son solo ejemplos. Los 5 procesos que implementamos para Escuela Colombiana de Ingeniería Julio Garavito se eligen durante el diagn&oacute;stico, priorizando los que mayor impacto generan en tiempo recuperado y calidad de ejecuci&oacute;n. Se adaptan 100% a tu operaci&oacute;n, tu equipo y tus herramientas.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 03 - INVERSION                                             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Inversi&oacute;n</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Inversi&oacute;n total</h4>
+    <div class="gradient-line"></div>
+
+    <div class="cost-block">
+      <div class="cost-label">Setup de IA &mdash; Ops Layer</div>
+      <div class="cost-value">$7.000.000 COP + IVA</div>
+      <div class="cost-desc">Implementaci&oacute;n completa &mdash; 1 semana</div>
+    </div>
+
+    <h4>Condiciones de pago</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Anticipo para iniciar</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Contra entrega</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 d&iacute;as</div>
+        <div class="metric-label">Validez de la cotizaci&oacute;n</div>
+      </div>
+    </div>
+
+    <h4>Qu&eacute; no incluye</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Costos de hosting o infraestructura de terceros</li>
+      <li>Suscripciones a herramientas de IA (Claude, ChatGPT, etc.)</li>
+      <li>Desarrollo adicional fuera del alcance del setup</li>
+      <li>Mantenimiento continuo post-periodo de soporte</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Importante:</strong> Esta cotizaci&oacute;n es v&aacute;lida por <strong>15 d&iacute;as</strong> a partir de la fecha de emisi&oacute;n. Los precios pueden estar sujetos a cambios despu&eacute;s de este periodo.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 04 - CONDICIONES                                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="page-header-title">Condiciones</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Tiempo de implementaci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>El setup se realiza en <strong>1 semana h&aacute;biles</strong>, dependiendo de la complejidad de la operaci&oacute;n y la disponibilidad del equipo. La fecha de inicio se coordina una vez confirmado el anticipo.</p>
+    </div>
+
+    <h4>Requisitos del cliente</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Acceso a las herramientas y plataformas actuales del equipo</li>
+      <li>Disponibilidad de al menos una persona clave para la sesi&oacute;n de descubrimiento</li>
+      <li>Permisos de administrador en las plataformas donde se configurar&aacute; el motor de IA</li>
+      <li>Disposici&oacute;n para una sesi&oacute;n de entrega y transferencia de conocimiento</li>
+    </ul>
+
+    <h4>Soporte post-setup</h4>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box">
+      <p>Incluye <strong>1 semana de soporte</strong> posterior a la implementaci&oacute;n para ajustes menores, resoluci&oacute;n de dudas y afinaci&oacute;n de los procesos configurados.</p>
+    </div>
+
+    <h4>Aceptaci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <p>Al firmar este documento, ambas partes aceptan los t&eacute;rminos y condiciones descritos en esta cotizaci&oacute;n.</p>
+
+    <div class="signature-block">
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">María González</div>
+        <div class="sig-role">Directora Comercial &mdash; Escuela Colombiana de Ingeniería Julio Garavito</div>
+      </div>
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">Juan Pablo Gomez</div>
+        <div class="sig-role">Founder &mdash; Irrelevant</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top:32px;">Contacto comercial</h4>
+    <div class="gradient-line"></div>
+    <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:8px; padding:18px 22px;">
+      <p style="margin-bottom:4px;"><strong>Juan Pablo Gomez</strong> &mdash; Founder</p>
+      <p style="margin-bottom:2px;">&#9993; jpgomez@stayirrelevant.com</p>
+      <p style="margin-bottom:2px;">&#128172; +57 318 335 1733</p>
+      <p>&#127760; stayirrelevant.com</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+      <p class="back-sub">Escuela Colombiana de Ingeniería Julio Garavito &mdash; Setup de IA &mdash; Ops Layer &mdash; Marzo 2026</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

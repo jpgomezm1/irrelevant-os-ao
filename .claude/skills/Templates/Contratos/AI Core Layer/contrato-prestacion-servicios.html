@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrato de Prestación de Servicios Tecnológicos y Licenciamiento de Software</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 25mm 30mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: white;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 25mm 30mm;
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #7C3AED;
+            margin-bottom: 30px;
+        }
+
+        .document-header img {
+            height: 30px;
+        }
+
+        .document-header .doc-title {
+            font-size: 10px;
+            color: #6b7280;
+            text-align: right;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contract-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contract-subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 6px;
+        }
+
+        h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .clause-content {
+            margin-left: 0;
+            margin-bottom: 10px;
+        }
+
+        .sub-clause {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .sub-clause p {
+            margin-bottom: 6px;
+        }
+
+        .indent {
+            margin-left: 20px;
+        }
+
+        .bold {
+            font-weight: 600;
+        }
+
+        .placeholder {
+            background-color: #f3f0ff;
+            color: #7C3AED;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+            font-family: 'Inter', monospace;
+            font-size: 10px;
+        }
+
+        .signature-block {
+            margin-top: 50px;
+            page-break-inside: avoid;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        .signature-party {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 10px;
+        }
+
+        .signature-party p {
+            text-align: left;
+            margin-bottom: 3px;
+            font-size: 10px;
+        }
+
+        .signature-party .party-name {
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .signature-line {
+            margin-top: 50px;
+            border-bottom: 1px solid #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .document-footer { margin-top:40px;
+            
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .document-footer img { display:block; margin:0 auto;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .document-footer .page-number {
+            font-size: 9px;
+            color: #9ca3af;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .incident-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10px;
+        }
+
+        .incident-table th,
+        .incident-table td {
+            border: 1px solid #e5e7eb;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .incident-table th {
+            background-color: #f9f7ff;
+            color: #7C3AED;
+            font-weight: 600;
+            font-size: 10px;
+        }
+
+        .bullet-list {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 4px;
+            list-style-type: disc;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                max-width: none;
+            }
+
+            .document-header {
+                position: running(header);
+            }
+
+            .document-footer { margin-top:40px;
+                position: running(footer);
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+
+            .signature-block {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-header">
+        <div style="font-family:'Inter',sans-serif; font-size:14px; font-weight:800; color:#7C3AED; letter-spacing:1px; text-transform:lowercase;">irrelevant club sas</div>
+        <div class="doc-title">Contrato de Prestación de Servicios<br>Tecnológicos y Licenciamiento de Software</div>
+    </div>
+
+    <div class="contract-title">Contrato de Prestación de Servicios Tecnológicos<br>y Licenciamiento de Software</div>
+    <div class="contract-subtitle">IRRELEVANT CLUB S.A.S. — Documento Confidencial</div>
+
+    <!-- CLÁUSULA 1 -->
+    <h2>1. Identificación de las Partes</h2>
+
+    <p>Entre los suscritos a saber:</p>
+
+    <p><strong>IRRELEVANT CLUB S.A.S.</strong>, sociedad por acciones simplificada legalmente constituida conforme a las leyes de la República de Colombia, identificada con NIT 901.935.642-1, con domicilio principal en la ciudad de Medellín, Antioquia, representada legalmente por <strong>Juan Pablo Gómez Mejía</strong>, mayor de edad, identificado con cédula de ciudadanía No. 1006972309, quien actúa en su calidad de representante legal, en adelante <strong>"IRRELEVANT"</strong> o <strong>"EL PRESTADOR"</strong>;</p>
+
+    <p>y</p>
+
+    <p><strong><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></strong>, <span class="placeholder">{{CLIENTE_TIPO_SOCIEDAD}}</span> legalmente constituida conforme a las leyes de la República de Colombia, identificada con NIT <span class="placeholder">{{CLIENTE_NIT}}</span>, con domicilio principal en la ciudad de <span class="placeholder">{{CLIENTE_DOMICILIO}}</span>, en la dirección <span class="placeholder">{{CLIENTE_DIRECCION}}</span>, representada legalmente por <strong><span class="placeholder">{{CLIENTE_REPRESENTANTE}}</span></strong>, mayor de edad, identificado(a) con cédula de ciudadanía No. <span class="placeholder">{{CLIENTE_CEDULA}}</span>, quien actúa en su calidad de representante legal, en adelante <strong>"EL CLIENTE"</strong>;</p>
+
+    <p>IRRELEVANT y EL CLIENTE, conjuntamente denominadas <strong>"LAS PARTES"</strong>, acuerdan celebrar el presente Contrato de Prestación de Servicios Tecnológicos y Licenciamiento de Software, el cual se regirá por las cláusulas que se establecen a continuación.</p>
+
+    <!-- CLÁUSULA 2 -->
+    <h2>2. Definiciones</h2>
+
+    <p>Para efectos del presente Contrato, los términos que se indican a continuación tendrán el significado que aquí se les asigna, independientemente de que se utilicen en singular o plural:</p>
+
+    <div class="sub-clause">
+        <p><strong>Contrato:</strong> El presente Contrato de Prestación de Servicios Tecnológicos y Licenciamiento de Software, junto con sus Anexos, los cuales hacen parte integral del mismo.</p>
+
+        <p><strong>Servicios:</strong> Conjunto de actividades de carácter tecnológico, técnico y operativo prestadas por IRRELEVANT al CLIENTE, orientadas a la implementación, configuración y puesta en funcionamiento de soluciones de automatización, inteligencia artificial y software, conforme al alcance definido en este Contrato y sus Anexos.</p>
+
+        <p><strong>Software:</strong> Herramientas, aplicaciones, plataformas, flujos, agentes conversacionales, integraciones, modelos, desarrollos y demás componentes tecnológicos de propiedad de IRRELEVANT, puestos a disposición del CLIENTE bajo un esquema de licenciamiento.</p>
+
+        <p><strong>Licencia:</strong> Derecho de uso limitado, no exclusivo, no transferible y revocable del Software, otorgado al CLIENTE en los términos del presente Contrato.</p>
+
+        <p><strong>Entregables:</strong> Resultados verificables derivados de la ejecución de los Servicios, cuya descripción, alcance y condiciones de aceptación se encuentran definidos en el Anexo 3 – Alcance / Propuesta Técnica (Fase 0).</p>
+
+        <p><strong>Información Confidencial:</strong> Toda información técnica, operativa, legal, comercial, estratégica o de cualquier otra naturaleza perteneciente al CLIENTE, a la cual IRRELEVANT tenga acceso con ocasión de la ejecución del Contrato, incluyendo, sin limitarse a, procesos internos, documentación, bases de datos, información de clientes, flujos de operación y know-how.</p>
+
+        <p><strong>WhatsApp Business API:</strong> Plataforma de mensajería administrada por terceros, necesaria para la operación de los servicios de comunicación automatizada implementados en el marco del presente Contrato.</p>
+
+        <p><strong>Anexos:</strong> Documentos que desarrollan aspectos específicos del Contrato, incluyendo el Anexo 1 – Acuerdo de Pago, el Anexo 2 – Acuerdo de Confidencialidad (NDA) y el Anexo 3 – Alcance / Propuesta Técnica (Fase 0), los cuales hacen parte integral del presente Contrato.</p>
+    </div>
+
+    <!-- CLÁUSULA 3 -->
+    <h2>3. Objeto del Contrato</h2>
+
+    <p>Por medio del presente Contrato, IRRELEVANT se obliga a prestar al CLIENTE servicios tecnológicos especializados, orientados a la implementación de soluciones de automatización e inteligencia artificial, así como a otorgar una licencia de uso del Software desarrollado y operado por IRRELEVANT, conforme a los términos y condiciones establecidos en este Contrato y sus Anexos.</p>
+
+    <p>Los Servicios tendrán como finalidad apoyar y optimizar procesos internos del CLIENTE mediante el uso de herramientas tecnológicas, sin que en ningún caso se entienda que IRRELEVANT presta servicios legales, financieros, comerciales o de consultoría distinta a la tecnológica.</p>
+
+    <p>El CLIENTE, por su parte, se obliga a pagar el precio pactado y a cumplir con las obligaciones derivadas del presente Contrato.</p>
+
+    <!-- CLÁUSULA 4 -->
+    <h2>4. Alcance del Servicio</h2>
+
+    <p>El alcance específico de los Servicios, incluyendo las funcionalidades, Entregables, condiciones técnicas y fases de implementación, se encuentra descrito de manera detallada en el Anexo 3 – Alcance / Propuesta Técnica (Fase 0), el cual hace parte integral del presente Contrato.</p>
+
+    <p>Las PARTES acuerdan que el presente Contrato regula exclusivamente los Servicios expresamente incluidos en dicho Anexo. Cualquier actividad, funcionalidad, desarrollo, integración o modificación que no se encuentre contemplada de manera expresa en el alcance definido se considerará fuera del alcance y deberá ser previamente acordada por escrito entre LAS PARTES, incluyendo su correspondiente ajuste en precio y plazos, de ser aplicable.</p>
+
+    <p>IRRELEVANT no estará obligado a ejecutar actividades adicionales que no se encuentren expresamente incluidas en el alcance pactado, aun cuando dichas actividades resulten necesarias para fines distintos a los previstos en el presente Contrato.</p>
+
+    <div class="page-break"></div>
+
+    <!-- CLÁUSULA 5 -->
+    <h2>5. Modelo de Licenciamiento</h2>
+
+    <p>IRRELEVANT otorga al CLIENTE una licencia de uso del Software, bajo las siguientes condiciones:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> La licencia es de carácter no exclusivo, no transferible y revocable, y se concede únicamente para el uso interno del CLIENTE, en relación con los procesos, funcionalidades y casos de uso definidos en el presente Contrato y sus Anexos. La presente licencia no se entenderá, en ningún caso, como una venta, cesión o transferencia del Software ni de la tecnología subyacente.</p>
+
+        <p><strong>b)</strong> La licencia otorgada no implica, en ningún caso, cesión, transferencia o reconocimiento de derechos de propiedad intelectual sobre el Software, sus componentes o su tecnología subyacente, los cuales permanecerán en todo momento en cabeza exclusiva de IRRELEVANT.</p>
+
+        <p><strong>c)</strong> El CLIENTE no podrá sublicenciar, reproducir, copiar, modificar, adaptar, descompilar, realizar ingeniería inversa, comercializar, explotar o poner a disposición de terceros el Software, total o parcialmente, sin autorización previa y expresa por escrito de IRRELEVANT.</p>
+
+        <p><strong>d)</strong> IRRELEVANT conservará la titularidad plena sobre la arquitectura, lógica, frameworks, modelos de inteligencia artificial, algoritmos, prompts, metodologías, infraestructura, documentación y demás componentes tecnológicos que conforman el Software, aun cuando estos hayan sido configurados, parametrizados o adaptados para el CLIENTE durante la ejecución del presente Contrato.</p>
+
+        <p><strong>e)</strong> Las configuraciones, parametrizaciones, reglas operativas, flujos internos, ajustes funcionales y adaptaciones realizadas sobre el Software para adecuarlo a la operación del CLIENTE se consideran parte del uso licenciado del Software. Dichos elementos, en la medida en que incorporen Información Confidencial del CLIENTE, tendrán carácter exclusivo para este y se encontrarán protegidos conforme a lo establecido en el Anexo 2 – Acuerdo de Confidencialidad (NDA), sin que ello implique exclusividad tecnológica o comercial sobre el Software.</p>
+
+        <p><strong>f)</strong> Lo anterior no limitará a IRRELEVANT para ofrecer, licenciar o implementar soluciones tecnológicas similares o equivalentes para otras empresas del mismo sector o de sectores afines, siempre que no utilice Información Confidencial del CLIENTE ni replique de forma específica sus flujos internos, reglas propias, datos o procesos operativos protegidos por el NDA.</p>
+
+        <p><strong>g)</strong> Únicamente en el evento en que LAS PARTES acuerden de manera expresa el desarrollo de funcionalidades, módulos o componentes tecnológicos de carácter exclusivo para el CLIENTE, y dichos desarrollos sean definidos como tales por escrito y con contraprestación diferenciada, se establecerá en el Anexo correspondiente el régimen específico de titularidad o derechos de uso aplicables, sin que en ningún caso se presuman derechos distintos a los aquí establecidos.</p>
+
+        <p><strong>h)</strong> La licencia se mantendrá vigente mientras el presente Contrato se encuentre vigente y el CLIENTE se encuentre al día en el cumplimiento de todas sus obligaciones contractuales.</p>
+
+        <p><strong>i)</strong> <strong>Garantía de no infracción y defensa limitada.</strong> IRRELEVANT declara y garantiza que, a su leal saber y entender, el Software y los desarrollos propios entregados en el marco del presente Contrato no infringen derechos de propiedad intelectual de terceros y que cuenta con los derechos necesarios para otorgar la Licencia aquí prevista.</p>
+
+        <p>En caso de que un tercero formule una reclamación judicial firme contra el CLIENTE alegando que el Software, en su versión entregada por IRRELEVANT y utilizada conforme al presente Contrato, infringe derechos de propiedad intelectual, IRRELEVANT asumirá la defensa del CLIENTE y responderá por los perjuicios directos que se deriven de dicha reclamación, siempre que:</p>
+
+        <div class="indent">
+            <p><strong>a)</strong> El CLIENTE notifique oportunamente y por escrito a IRRELEVANT sobre la reclamación;</p>
+            <p><strong>b)</strong> El CLIENTE no haya modificado, usado indebidamente o combinado el Software con tecnologías no autorizadas;</p>
+            <p><strong>c)</strong> La reclamación no derive de Información Confidencial, datos, contenidos o instrucciones provistas por el CLIENTE ni de servicios o plataformas de terceros.</p>
+        </div>
+
+        <p>La responsabilidad de IRRELEVANT derivada de esta garantía se encontrará sujeta en todo caso a las limitaciones establecidas en la Cláusula 11 del presente Contrato.</p>
+    </div>
+
+    <!-- CLÁUSULA 6 -->
+    <h2>6. Precio, Tratamiento Tributario y Forma de Pago</h2>
+
+    <p>El valor del presente Contrato, así como la estructura, condiciones y plazos de pago, se regirán por lo establecido en el Anexo 1 – Acuerdo de Pago, el cual hace parte integral del presente Contrato y se entiende aceptado por LAS PARTES con la firma del mismo.</p>
+
+    <p>LAS PARTES acuerdan expresamente que el tratamiento tributario de los servicios será el siguiente:</p>
+
+    <div class="sub-clause">
+        <p><strong>a) Implementación inicial y servicios profesionales.</strong> El valor correspondiente a la implementación inicial de los Servicios, incluyendo actividades de configuración, parametrización, ajustes específicos y demás servicios profesionales ejecutados de manera directa para el CLIENTE, tendrá la naturaleza de servicio gravado y será facturado por IRRELEVANT incluyendo el Impuesto sobre las Ventas (IVA), de conformidad con la normatividad tributaria vigente.</p>
+
+        <p><strong>b) Licenciamiento, operación y servicio integral en la nube.</strong> El valor correspondiente al pago periódico por el uso del Software y la prestación continua de los Servicios, incluyendo soporte, operación, mantenimiento, infraestructura y funcionamiento integral de la solución tecnológica en la nube, constituye un servicio integral de software en la nube, prestado de manera remota. Dicho servicio será facturado sin IVA, de conformidad con la naturaleza del servicio prestado y los criterios establecidos por la Dirección de Impuestos y Aduanas Nacionales (DIAN), en particular lo señalado en el Oficio No. 100208192-190 del 18 de marzo de 2024, siempre que el servicio sea facturado de manera integral y no segregada.</p>
+
+        <p><strong>c) Segregación de conceptos.</strong> En el evento en que, por acuerdo expreso entre LAS PARTES o por requerimiento normativo, los componentes del servicio deban ser segregados en la facturación, cada concepto será facturado aplicando el tratamiento tributario que legalmente le corresponda.</p>
+    </div>
+
+    <p>IRRELEVANT emitirá las facturas correspondientes de acuerdo con la naturaleza de cada concepto y el cronograma de pagos definido en el Anexo 1. Para la correcta radicación de las facturas asociadas a hitos de implementación o entregables específicos, se requerirá la entrega del respectivo entregable y la suscripción del acta de entrega y aceptación. El CLIENTE contará con un plazo máximo de cinco (5) días hábiles para manifestar observaciones por escrito; vencido dicho plazo sin pronunciamiento, el entregable se entenderá aceptado a satisfacción.</p>
+
+    <p>IRRELEVANT estará facultado para suspender temporalmente la ejecución de los Servicios y/o el acceso al Software en caso de incumplimiento imputable en los pagos por parte del CLIENTE, previa notificación escrita y otorgando un plazo de quince (15) días hábiles para la subsanación, sin que dicha suspensión constituya incumplimiento contractual por parte de IRRELEVANT.</p>
+
+    <p>La suspensión de los Servicios no implicará la terminación automática del Contrato, sin perjuicio de los demás derechos que le asistan a IRRELEVANT conforme al presente Contrato y la ley.</p>
+
+    <div class="page-break"></div>
+
+    <!-- CLÁUSULA 7 -->
+    <h2>7. Obligaciones de las Partes, Niveles de Servicio y Soporte</h2>
+
+    <h3>7.1 Obligaciones de IRRELEVANT</h3>
+
+    <p>IRRELEVANT se obliga a:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Prestar los Servicios conforme al alcance, condiciones y Entregables definidos en el presente Contrato y sus Anexos.</p>
+
+        <p><strong>b)</strong> Ejecutar la implementación del Software de manera diligente, profesional y conforme a las buenas prácticas de la industria tecnológica.</p>
+
+        <p><strong>c)</strong> Otorgar y mantener vigente la Licencia de uso del Software durante la vigencia del Contrato, siempre que el CLIENTE se encuentre al día en el cumplimiento de sus obligaciones contractuales.</p>
+
+        <p><strong>d)</strong> Mantener la confidencialidad de la Información Confidencial del CLIENTE, conforme a lo establecido en el presente Contrato y el Anexo 2 – Acuerdo de Confidencialidad (NDA).</p>
+
+        <p><strong>e)</strong> Asumir el costo de la plataforma WhatsApp Business API durante los primeros seis (6) meses de operación, contados a partir del inicio del licenciamiento del Software.</p>
+
+        <p><strong>f)</strong> Informar al CLIENTE con antelación razonable cualquier cambio relevante que pueda afectar la prestación de los Servicios.</p>
+    </div>
+
+    <h3>g) Disponibilidad del Software</h3>
+
+    <p>IRRELEVANT realizará esfuerzos razonables para garantizar una disponibilidad mensual mínima del noventa y cinco por ciento (95%) del Software y de las funcionalidades esenciales bajo su gestión directa.</p>
+
+    <p>La disponibilidad se medirá mensualmente y se entenderá como el porcentaje de tiempo en el cual las funcionalidades esenciales del Software se encuentran operativas, excluyendo expresamente:</p>
+
+    <ul class="bullet-list">
+        <li>Ventanas de mantenimiento programado debidamente notificadas;</li>
+        <li>Fallas o indisponibilidades atribuibles a servicios de terceros, incluyendo, sin limitarse a, WhatsApp Business API, proveedores de infraestructura en la nube, proveedores de modelos de inteligencia artificial o servicios de conectividad;</li>
+        <li>Fallas ocasionadas por uso indebido del Software, modificaciones no autorizadas, integraciones externas no aprobadas o infraestructura propia del CLIENTE.</li>
+    </ul>
+
+    <h3>h) Funcionalidades esenciales</h3>
+
+    <p>Para efectos del presente Contrato, se entenderán como funcionalidades esenciales aquellas sin las cuales el Software no puede cumplir su propósito principal, incluyendo, según el alcance definido en el Anexo 3:</p>
+
+    <ul class="bullet-list">
+        <li>Recepción y procesamiento de interacciones entrantes;</li>
+        <li>Ejecución de flujos automatizados principales;</li>
+        <li>Enrutamiento y transferencia efectiva de conversaciones a agentes humanos (handoff);</li>
+        <li>Acceso operativo a la interfaz de gestión habilitada para el CLIENTE.</li>
+    </ul>
+
+    <h3>i) Soporte técnico y gestión de incidentes</h3>
+
+    <p>IRRELEVANT brindará soporte técnico al CLIENTE conforme a la siguiente tipología de incidentes, diferenciando claramente entre tiempo de respuesta y tiempo objetivo de solución, sin que ello implique garantía de disponibilidad ininterrumpida del Software:</p>
+
+    <table class="incident-table">
+        <thead>
+            <tr>
+                <th>Tipo de Incidente</th>
+                <th>Descripción</th>
+                <th>Tiempo de Respuesta</th>
+                <th>Tiempo Objetivo de Solución</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Crítico</strong> (Alta severidad)</td>
+                <td>Falla total de las funcionalidades esenciales</td>
+                <td>Hasta 24 horas hábiles</td>
+                <td>Atención prioritaria y acciones razonables orientadas a su corrección en el menor tiempo posible</td>
+            </tr>
+            <tr>
+                <td><strong>Medio</strong></td>
+                <td>Fallas que afecten parcialmente la operación del Software sin impedir completamente las funcionalidades esenciales</td>
+                <td>Hasta 48 horas hábiles</td>
+                <td>Corrección progresiva conforme a la complejidad técnica</td>
+            </tr>
+            <tr>
+                <td><strong>Bajo</strong></td>
+                <td>Errores menores, ajustes operativos, mejoras no urgentes o consultas generales</td>
+                <td>Hasta 72 horas hábiles</td>
+                <td>Atención conforme a priorización y disponibilidad</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>El tiempo de respuesta corresponde al primer contacto técnico efectivo con el CLIENTE. El tiempo de solución constituye un objetivo estimado y no una garantía absoluta, dada la naturaleza tecnológica de los Servicios.</p>
+
+    <h3>j) Escalamiento</h3>
+
+    <p>En el evento en que un incidente no sea resuelto dentro del tiempo objetivo establecido, el CLIENTE podrá solicitar el escalamiento del caso a un nivel superior de atención, mediante notificación por escrito dirigida al equipo de IRRELEVANT.</p>
+
+    <h3>7.2 Obligaciones del CLIENTE</h3>
+
+    <p>EL CLIENTE se obliga a:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Pagar oportunamente los valores pactados conforme a lo establecido en el Anexo 1 – Acuerdo de Pago.</p>
+
+        <p><strong>b)</strong> Suministrar de manera oportuna, completa y veraz la información, documentos, accesos, permisos y demás elementos necesarios para la correcta ejecución de los Servicios.</p>
+
+        <p><strong>c)</strong> Designar un interlocutor o equipo responsable para la coordinación operativa del proyecto.</p>
+
+        <p><strong>d)</strong> Utilizar el Software exclusivamente conforme a los términos de la Licencia otorgada y dentro del alcance definido en el Contrato y sus Anexos.</p>
+
+        <p><strong>e)</strong> No realizar modificaciones, integraciones o accesos no autorizados al Software ni a su infraestructura.</p>
+
+        <p><strong>f)</strong> Cumplir con las demás obligaciones derivadas del presente Contrato y sus Anexos.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CLÁUSULA 8 -->
+    <h2>8. Propiedad Intelectual</h2>
+
+    <p>LAS PARTES reconocen y aceptan que todos los derechos de propiedad intelectual sobre el Software, incluyendo su código fuente, arquitectura, diseño, lógica de negocio, algoritmos, modelos de inteligencia artificial, prompts, metodologías, documentación técnica y demás componentes, son y seguirán siendo de titularidad exclusiva de IRRELEVANT.</p>
+
+    <p>Ninguna disposición del presente Contrato se interpretará como cesión, transferencia o reconocimiento de derechos de propiedad intelectual a favor del CLIENTE, salvo el derecho de uso limitado otorgado mediante la Licencia.</p>
+
+    <p>La Información Confidencial, los datos, los contenidos y la información de negocio del CLIENTE seguirán siendo de su exclusiva propiedad, conforme a lo establecido en el Anexo 2 – Acuerdo de Confidencialidad (NDA).</p>
+
+    <!-- CLÁUSULA 9 -->
+    <h2>9. Confidencialidad y Protección de Datos</h2>
+
+    <p>Las obligaciones de confidencialidad, protección de datos personales y tratamiento de la Información Confidencial se regirán por lo dispuesto en el Anexo 2 – Acuerdo de Confidencialidad (NDA), el cual hace parte integral del presente Contrato.</p>
+
+    <p>IRRELEVANT actuará como Encargado del Tratamiento de los datos personales a los que tenga acceso con ocasión de la ejecución del Contrato, y se obliga a dar cumplimiento a las disposiciones de la Ley 1581 de 2012 y demás normatividad aplicable en materia de protección de datos personales.</p>
+
+    <!-- CLÁUSULA 10 -->
+    <h2>10. Vigencia y Duración</h2>
+
+    <p>El presente Contrato tendrá una vigencia inicial de un (1) año, contado a partir de la fecha de su suscripción. Transcurrido dicho período, el Contrato se renovará automáticamente por períodos sucesivos de un (1) año, salvo que alguna de LAS PARTES manifieste por escrito su voluntad de no renovarlo, con una antelación mínima de treinta (30) días calendario antes del vencimiento del período vigente.</p>
+
+    <!-- CLÁUSULA 11 -->
+    <h2>11. Limitación de Responsabilidad</h2>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> La responsabilidad total y acumulada de IRRELEVANT por cualquier concepto derivado del presente Contrato no excederá el valor total efectivamente pagado por el CLIENTE a IRRELEVANT durante los últimos doce (12) meses anteriores al hecho generador de la reclamación.</p>
+
+        <p><strong>b)</strong> IRRELEVANT no será responsable por daños indirectos, incidentales, especiales, consecuenciales, lucro cesante, pérdida de datos, pérdida de oportunidades de negocio o daños punitivos, cualquiera que sea la causa o teoría de responsabilidad invocada.</p>
+
+        <p><strong>c)</strong> IRRELEVANT no será responsable por fallas, interrupciones o indisponibilidades atribuibles a servicios de terceros, incluyendo, sin limitarse a, WhatsApp Business API, proveedores de infraestructura en la nube, proveedores de modelos de inteligencia artificial, servicios de conectividad o plataformas operadas por terceros.</p>
+
+        <p><strong>d)</strong> Las limitaciones de responsabilidad establecidas en la presente cláusula no aplicarán en caso de dolo o culpa grave de IRRELEVANT, ni respecto de las obligaciones de confidencialidad establecidas en el Anexo 2.</p>
+    </div>
+
+    <!-- CLÁUSULA 12 -->
+    <h2>12. Terminación del Contrato</h2>
+
+    <p>El presente Contrato podrá darse por terminado en los siguientes eventos:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> Por mutuo acuerdo entre LAS PARTES, formalizado por escrito.</p>
+
+        <p><strong>b)</strong> Por incumplimiento grave de cualquiera de las obligaciones contractuales por parte de una de LAS PARTES, previa notificación escrita y otorgando un plazo de quince (15) días hábiles para la subsanación del incumplimiento.</p>
+
+        <p><strong>c)</strong> Por decisión unilateral de cualquiera de LAS PARTES, previa notificación escrita con una antelación mínima de treinta (30) días calendario.</p>
+
+        <p><strong>d)</strong> Por imposibilidad sobrevenida en la ejecución de los Servicios, derivada de circunstancias de fuerza mayor o caso fortuito que se prolonguen por un período superior a sesenta (60) días calendario.</p>
+    </div>
+
+    <p>En caso de terminación, IRRELEVANT facilitará la transición ordenada del servicio, incluyendo la exportación de la información del CLIENTE en un formato estándar, conforme a lo que LAS PARTES acuerden de buena fe.</p>
+
+    <!-- CLÁUSULA 13 -->
+    <h2>13. Fuerza Mayor y Caso Fortuito</h2>
+
+    <p>Ninguna de LAS PARTES será responsable por el incumplimiento total o parcial de sus obligaciones contractuales cuando dicho incumplimiento sea consecuencia de eventos de fuerza mayor o caso fortuito, conforme a lo previsto en el artículo 64 del Código Civil colombiano.</p>
+
+    <p>La Parte afectada deberá notificar a la otra, dentro de los cinco (5) días hábiles siguientes a la ocurrencia del evento, las circunstancias y el impacto sobre sus obligaciones contractuales.</p>
+
+    <!-- CLÁUSULA 14 -->
+    <h2>14. Solución de Controversias</h2>
+
+    <p>Cualquier controversia derivada del presente Contrato será resuelta en primera instancia mediante negociación directa entre LAS PARTES. En caso de no alcanzarse un acuerdo dentro de los treinta (30) días calendario siguientes a la notificación de la controversia, las PARTES podrán acudir a los mecanismos alternativos de solución de controversias previstos en la legislación colombiana, o en su defecto, ante la jurisdicción ordinaria de la ciudad de Medellín.</p>
+
+    <!-- CLÁUSULA 15 -->
+    <h2>15. Disposiciones Generales</h2>
+
+    <div class="sub-clause">
+        <p><strong>a) Independencia de las partes.</strong> El presente Contrato no genera relación laboral, sociedad, agencia ni representación entre LAS PARTES. Cada una actuará como contratista independiente.</p>
+
+        <p><strong>b) Cesión.</strong> Ninguna de LAS PARTES podrá ceder total o parcialmente los derechos u obligaciones derivados del presente Contrato sin la autorización previa y expresa de la otra Parte.</p>
+
+        <p><strong>c) Integridad del acuerdo.</strong> El presente Contrato, junto con sus Anexos, constituye el acuerdo completo entre LAS PARTES y reemplaza cualquier negociación, acuerdo o comunicación previa, verbal o escrita, relacionada con su objeto.</p>
+
+        <p><strong>d) Modificaciones.</strong> Cualquier modificación al presente Contrato deberá constar por escrito y ser suscrita por ambas PARTES para tener validez.</p>
+
+        <p><strong>e) Nulidad parcial.</strong> Si alguna cláusula del presente Contrato fuere declarada nula o ineficaz, las demás cláusulas conservarán su plena validez y eficacia.</p>
+
+        <p><strong>f) Ley aplicable.</strong> El presente Contrato se regirá e interpretará de conformidad con las leyes de la República de Colombia.</p>
+    </div>
+
+    <!-- CLÁUSULA 16 -->
+    <h2>16. Firma Digital y Aceptación</h2>
+
+    <p>LAS PARTES acuerdan que el presente Contrato será suscrito mediante firma electrónica o firma digital, y reconocen que dicha firma tendrá plena validez jurídica, probatoria y fuerza obligatoria, de conformidad con la Ley 527 de 1999 y demás normatividad colombiana vigente, produciendo los mismos efectos que una firma manuscrita.</p>
+
+    <p>El presente Contrato podrá ser firmado de manera electrónica en uno o varios ejemplares, los cuales, en conjunto, constituirán un solo y mismo documento.</p>
+
+    <p>En constancia de aceptación, LAS PARTES firman electrónicamente el presente Contrato en la fecha que conste en el mecanismo de firma utilizado.</p>
+
+    <!-- FIRMAS -->
+    <div class="signature-block">
+        <div class="signature-grid">
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name">IRRELEVANT CLUB S.A.S.</p>
+                <p>NIT: 901.935.642-1</p>
+                <p>Representante Legal: Juan Pablo Gómez Mejía</p>
+                <p>C.C. 1006972309</p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name"><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></p>
+                <p>NIT: <span class="placeholder">{{CLIENTE_NIT}}</span></p>
+                <p>Representante Legal: <span class="placeholder">{{CLIENTE_REPRESENTANTE}}</span></p>
+                <p>C.C. <span class="placeholder">{{CLIENTE_CEDULA}}</span></p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <img src="https://storage.googleapis.com/cluvi/Audios_Cata/profile_irrelevant.jpeg" alt="Irrelevant">
+        <div class="page-number">Contrato de Prestación de Servicios Tecnológicos y Licenciamiento de Software — IRRELEVANT CLUB S.A.S.</div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irrelevant Operating System — Manual Operativo Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0812;
+  --surface: rgba(255,255,255,0.03);
+  --surface-2: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.06);
+  --border-2: rgba(255,255,255,0.1);
+  --text: #fff;
+  --text-2: rgba(255,255,255,0.55);
+  --text-3: rgba(255,255,255,0.35);
+  --purple: #8B5CF6;
+  --purple-light: #A78BFA;
+  --purple-dark: #7C3AED;
+  --emerald: #34d399;
+  --amber: #fbbf24;
+  --blue: #60a5fa;
+  --pink: #f472b6;
+  --cyan: #22d3ee;
+  --orange: #fb923c;
+  --red: #ef4444;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+code,.mono{font-family:'JetBrains Mono',monospace;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;height:56px;z-index:100;background:rgba(10,8,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--purple);box-shadow:0 0 12px var(--purple);}
+.nav-brand span{font-size:11px;color:var(--text-3);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;}
+.nav-links{display:flex;gap:20px;flex-wrap:wrap;}
+.nav-links a{font-size:11px;color:var(--text-3);text-decoration:none;transition:color 0.2s;letter-spacing:0.5px;text-transform:uppercase;font-weight:500;}
+.nav-links a:hover{color:var(--purple-light);}
+.nav-toggle{display:none;background:none;border:none;color:var(--text-2);font-size:20px;cursor:pointer;}
+
+/* LAYOUT */
+.container{max-width:1000px;margin:0 auto;padding:80px 24px 40px;}
+section{padding:64px 0;}
+section+section{border-top:1px solid var(--border);}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease;min-height:1px;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* BG BLOBS */
+.blob{position:fixed;border-radius:50%;filter:blur(120px);opacity:0.07;pointer-events:none;z-index:-1;}
+.blob-1{width:500px;height:500px;background:var(--purple);top:-100px;right:-100px;}
+.blob-2{width:400px;height:400px;background:var(--emerald);bottom:200px;left:-150px;}
+
+/* HERO */
+.hero{text-align:center;padding:80px 0 48px;}
+.hero h1{font-size:48px;font-weight:900;letter-spacing:-2.5px;line-height:1.05;margin-bottom:8px;}
+.hero h1 .highlight{background:linear-gradient(135deg,var(--purple-light),var(--emerald));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero .subtitle{font-size:13px;color:var(--text-3);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;font-weight:600;}
+.hero .tagline{font-size:18px;color:var(--text-2);max-width:560px;margin:0 auto 40px;font-weight:400;}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 16px;text-align:center;}
+.stat .num{font-size:32px;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.stat .label{font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+
+/* SECTION HEADERS */
+.section-header{margin-bottom:40px;}
+.section-header h2{font-size:32px;font-weight:800;letter-spacing:-1.5px;margin-bottom:8px;}
+.section-header p{font-size:15px;color:var(--text-2);max-width:600px;}
+
+/* PIPELINE */
+.pipeline{display:flex;flex-direction:column;gap:0;}
+.stage{position:relative;padding:28px 24px;border-radius:12px;background:var(--surface);border:1px solid var(--border);margin-bottom:2px;}
+.stage::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
+.stage-purple::before{background:var(--purple);}
+.stage-blue::before{background:var(--blue);}
+.stage-emerald::before{background:var(--emerald);}
+.stage-amber::before{background:var(--amber);}
+.stage-pink::before{background:var(--pink);}
+.stage-cyan::before{background:var(--cyan);}
+.stage-orange::before{background:var(--orange);}
+.stage-red::before{background:var(--red);}
+.stage-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;}
+.stage-name{font-size:20px;font-weight:700;margin-bottom:12px;}
+.stage-skills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.skill-tag{font-family:'JetBrains Mono',monospace;font-size:12px;padding:4px 10px;border-radius:6px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.2);color:var(--purple-light);}
+.stage-detail{font-size:13px;color:var(--text-2);margin-bottom:4px;}
+.stage-detail strong{color:var(--text);}
+.stage-arrow{text-align:center;font-size:18px;color:var(--text-3);padding:4px 0;line-height:1;}
+
+/* WORKSPACE TREE */
+.tree{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 32px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2;overflow-x:auto;}
+.tree .folder{color:var(--amber);}
+.tree .comment{color:var(--text-3);font-style:italic;}
+.tree .count{color:var(--emerald);font-size:11px;}
+
+.folder-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;}
+.folder-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;}
+.folder-card h4{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--amber);margin-bottom:8px;}
+.folder-card p{font-size:13px;color:var(--text-2);}
+.folder-card .meta{font-size:11px;color:var(--text-3);margin-top:8px;}
+
+/* SKILL ROWS */
+.skill-row{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:12px;transition:border-color 0.2s;}
+.skill-row:hover{border-color:var(--border-2);}
+.skill-row.featured{border-color:rgba(139,92,246,0.3);background:rgba(139,92,246,0.04);}
+.skill-cmd{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--purple-light);margin-bottom:6px;}
+.skill-when{font-size:14px;color:var(--text);margin-bottom:12px;font-weight:500;}
+.skill-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-bottom:12px;}
+.skill-meta-item{font-size:12px;color:var(--text-2);}
+.skill-meta-item strong{color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;font-size:10px;display:block;margin-bottom:2px;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.tag{font-size:10px;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+.tag-fireflies{background:rgba(244,114,182,0.12);color:var(--pink);}
+.tag-templates{background:rgba(251,191,36,0.12);color:var(--amber);}
+.tag-web{background:rgba(96,165,250,0.12);color:var(--blue);}
+.tag-supabase{background:rgba(52,211,153,0.12);color:var(--emerald);}
+.tag-framework{background:rgba(139,92,246,0.12);color:var(--purple-light);}
+.tag-anthropic{background:rgba(34,211,238,0.12);color:var(--cyan);}
+.skill-example{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-3);margin-top:8px;padding:6px 12px;background:rgba(0,0,0,0.3);border-radius:6px;display:inline-block;}
+
+/* STAGE SKILL GROUP */
+.skill-group{margin-bottom:36px;}
+.skill-group-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;padding-left:12px;border-left:3px solid;}
+
+/* CLIENT FOLDER */
+.client-tree{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 28px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2.2;}
+.flow-diagram{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:28px;}
+.flow-node{text-align:center;padding:16px 8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}
+.flow-node .fname{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;margin-bottom:4px;}
+.flow-node .fdesc{font-size:10px;color:var(--text-3);}
+.flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:16px;}
+
+/* TOOLS */
+.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:12px;}
+.tool-card h4{font-size:16px;font-weight:700;margin-bottom:6px;}
+.tool-card p{font-size:13px;color:var(--text-2);}
+.tool-card .tool-skills{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-3);margin-top:8px;}
+
+/* COMBOS */
+.combo{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px;}
+.combo h4{font-size:16px;font-weight:700;margin-bottom:4px;}
+.combo .combo-desc{font-size:13px;color:var(--text-2);margin-bottom:14px;}
+.combo-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;}
+.combo-step{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 10px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);border-radius:6px;color:var(--purple-light);white-space:nowrap;}
+.combo-arrow{color:var(--text-3);font-size:12px;}
+
+/* ASSET CARDS */
+.asset-group{margin-bottom:32px;}
+.asset-group-title{font-size:16px;font-weight:700;margin-bottom:4px;}
+.asset-group-sub{font-size:12px;color:var(--text-3);margin-bottom:16px;}
+.asset-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;}
+.asset-card .asset-name{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;margin-bottom:4px;}
+.asset-card .asset-desc{font-size:12px;color:var(--text-2);line-height:1.5;}
+.asset-card .asset-use{font-size:11px;color:var(--text-3);margin-top:4px;}
+.asset-card .asset-badge{font-size:10px;padding:3px 8px;border-radius:4px;white-space:nowrap;font-weight:600;}
+
+/* FOOTER */
+.footer{text-align:center;padding:48px 0;border-top:1px solid var(--border);margin-top:32px;}
+.footer .motto{font-size:20px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+.footer .motto .highlight{background:linear-gradient(135deg,var(--purple-light),var(--emerald));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.footer p{font-size:12px;color:var(--text-3);}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .nav-links.open{display:flex;position:absolute;top:56px;left:0;right:0;flex-direction:column;background:rgba(10,8,18,0.97);padding:16px 24px;gap:12px;border-bottom:1px solid var(--border);}
+  .nav-toggle{display:block;}
+  .hero h1{font-size:30px;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .folder-cards{grid-template-columns:1fr;}
+  .skill-meta{grid-template-columns:1fr;}
+  .combo-flow{flex-direction:column;align-items:flex-start;}
+  .combo-arrow{transform:rotate(90deg);}
+  .flow-diagram{grid-template-columns:1fr 1fr;}
+  .section-header h2{font-size:24px;}
+  .asset-card{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr 1fr;}
+  .stat .num{font-size:24px;}
+  .container{padding:70px 16px 24px;}
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="dot"></div>
+    <span>Irrelevant OS</span>
+  </div>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+  <div class="nav-links">
+    <a href="#pipeline">Pipeline</a>
+    <a href="#workspace">Workspace</a>
+    <a href="#skills">Skills</a>
+    <a href="#cliente">Cliente</a>
+    <a href="#tools">Herramientas</a>
+    <a href="#combos">Combos</a>
+    <a href="#assets">Assets</a>
+    <a href="#playbooks">Playbooks</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<!-- SECTION 1: HERO -->
+<!-- ============================================================ -->
+<section class="hero fade-in">
+  <div class="subtitle">Manual Operativo Completo</div>
+  <h1>Irrelevant <span class="highlight">Operating System</span></h1>
+  <p class="tagline">El sistema completo para vender, disenar, construir y entregar soluciones de IA.</p>
+  <div class="stats">
+    <div class="stat"><div class="num" style="color:var(--purple-light);">33</div><div class="label">Skills</div></div>
+    <div class="stat"><div class="num" style="color:var(--emerald);">3</div><div class="label">Servicios</div></div>
+    <div class="stat"><div class="num" style="color:var(--amber);">9</div><div class="label">Etapas del pipeline</div></div>
+    <div class="stat"><div class="num" style="color:var(--blue);">E2E</div><div class="label">Sistema end-to-end</div></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: EL CICLO COMPLETO -->
+<!-- ============================================================ -->
+<section id="pipeline" class="fade-in">
+  <div class="section-header">
+    <h2>De prospecto a cliente operando con IA</h2>
+    <p>Cada paso del ciclo esta cubierto por una o mas skills que se encadenan automaticamente.</p>
+  </div>
+
+  <div class="pipeline">
+    <!-- Stage 1 -->
+    <div class="stage stage-purple fade-in">
+      <div class="stage-num" style="color:var(--purple-light);">Etapa 1</div>
+      <div class="stage-name">Prospecting</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/prep-call</span>
+        <span class="skill-tag">/email-sequence</span>
+        <span class="skill-tag">/call-simulator</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Research, preparacion de call, outreach multicanal 18 dias, practica pre-call</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/discovery/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 2 -->
+    <div class="stage stage-blue fade-in">
+      <div class="stage-num" style="color:var(--blue);">Etapa 2</div>
+      <div class="stage-name">Discovery</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/procesar-call</span>
+        <span class="skill-tag">/procesar-transcript</span>
+        <span class="skill-tag">/agregar-contexto</span>
+        <span class="skill-tag">/call-review</span>
+        <span class="skill-tag">/follow-up-writer</span>
+        <span class="skill-tag">/email-post-reunion</span>
+        <span class="skill-tag">/discovery-notes</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Transcript procesado, contexto acumulado, evaluacion de call, follow-up WhatsApp, email profesional, brief estructurado</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/discovery/</code> + <code>/contexto/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 3 -->
+    <div class="stage stage-emerald fade-in">
+      <div class="stage-num" style="color:var(--emerald);">Etapa 3</div>
+      <div class="stage-name">Diseno</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/disenar-skills</span>
+        <span class="skill-tag">/disenar-solucion</span>
+        <span class="skill-tag">/disenar-stack</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> 5 procesos Ops Layer (match con showcase), solucion Core Layer, stack de herramientas en tiempo real</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/diseno/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 4 -->
+    <div class="stage stage-amber fade-in">
+      <div class="stage-num" style="color:var(--amber);">Etapa 4</div>
+      <div class="stage-name">Propuesta</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/cotizacion</span>
+        <span class="skill-tag">/slides-propuesta-ops</span>
+        <span class="skill-tag">/calcular-roi</span>
+        <span class="skill-tag">/fase0</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Cotizacion HTML, slides propuesta Ops (5 skills + stack + precio), ROI personalizado, documento Fase 0 + slides (Core Layer)</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/comercial/</code> + <code>/fase0/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 5 -->
+    <div class="stage stage-pink fade-in">
+      <div class="stage-num" style="color:var(--pink);">Etapa 5</div>
+      <div class="stage-name">Cierre</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/contrato</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Paquete contractual completo (acepta RUT, Core requiere Fase 0)</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/contratos/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 6 -->
+    <div class="stage stage-cyan fade-in">
+      <div class="stage-num" style="color:var(--cyan);">Etapa 6</div>
+      <div class="stage-name">Construccion</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/crear-skill</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Skills funcionales basadas en guia Anthropic &mdash; disena, construye, testa, guarda</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Skills Construidas/</code> + <code>Clientes/[empresa]/skills/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 7 -->
+    <div class="stage stage-orange fade-in">
+      <div class="stage-num" style="color:var(--orange);">Etapa 7</div>
+      <div class="stage-name">Entrega</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/entregable</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Documento de entrega + slides del entregable</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/entregable/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 8 -->
+    <div class="stage stage-emerald fade-in">
+      <div class="stage-num" style="color:var(--emerald);">Etapa 8</div>
+      <div class="stage-name">Post-Entrega</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/check-in</span>
+        <span class="skill-tag">/upsell</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Seguimiento post-entrega, detecta siguiente servicio</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/evaluaciones/</code></div>
+    </div>
+    <div class="stage-arrow">&#8595;</div>
+
+    <!-- Stage 9 -->
+    <div class="stage stage-cyan fade-in">
+      <div class="stage-num" style="color:var(--cyan);">Etapa 9 &mdash; Solo Core Layer</div>
+      <div class="stage-name">Producci&oacute;n</div>
+      <div class="stage-skills">
+        <span class="skill-tag">/kickoff</span>
+        <span class="skill-tag">/weekly-update</span>
+      </div>
+      <div class="stage-detail"><strong>Produce:</strong> Materiales del kickoff meeting, reporte semanal de avance</div>
+      <div class="stage-detail"><strong>Guarda en:</strong> <code>Clientes/[empresa]/produccion/</code></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: ESTRUCTURA DEL WORKSPACE -->
+<!-- ============================================================ -->
+<section id="workspace" class="fade-in">
+  <div class="section-header">
+    <h2>Como esta organizado todo</h2>
+    <p>El workspace completo y donde vive cada pieza del sistema.</p>
+  </div>
+
+  <div class="tree">
+    <span class="folder">Claude_Code/</span><br>
+    ├── <span class="folder">.claude/skills/</span> <span class="count">(30)</span> <span class="comment">&larr; Skills que corren en ESTE workspace</span><br>
+    ├── <span class="folder">Assets Fijos/</span> <span class="comment">&larr; Documentos que se mandan tal cual</span><br>
+    │&nbsp;&nbsp; ├── <span class="folder">Pitch Deck/</span> <span class="count">(4)</span><br>
+    │&nbsp;&nbsp; ├── <span class="folder">One Pager/</span> <span class="count">(2)</span><br>
+    │&nbsp;&nbsp; ├── Ejemplos reales<br>
+    │&nbsp;&nbsp; ├── PROP_VALUE_IRRELEVANT.md <span class="comment">&larr; LA BIBLIA</span><br>
+    │&nbsp;&nbsp; ├── framework-ventas.html <span class="comment">&larr; Metodologia de ventas</span><br>
+    │&nbsp;&nbsp; ├── guide-building-skills.pdf <span class="comment">&larr; Guia Anthropic</span><br>
+    │&nbsp;&nbsp; ├── showcase-skills.html <span class="comment">&larr; Catalogo 80+ skills</span><br>
+    │&nbsp;&nbsp; └── skills-reference.html <span class="comment">&larr; ESTE documento</span><br>
+    ├── <span class="folder">Templates/</span> <span class="comment">&larr; Templates con &#123;&#123;placeholders&#125;&#125;</span><br>
+    │&nbsp;&nbsp; ├── <span class="folder">Comercial/</span> <span class="count">(7 tipos, ES+EN)</span><br>
+    │&nbsp;&nbsp; └── <span class="folder">Contratos/</span> <span class="count">(3 servicios)</span><br>
+    ├── <span class="folder">Clientes/</span> <span class="comment">&larr; Carpeta por cliente</span><br>
+    │&nbsp;&nbsp; └── <span class="folder">[empresa]/</span> <span class="comment">&larr; TODO el historial</span><br>
+    ├── <span class="folder">Skills Construidas/</span> <span class="comment">&larr; Skills ya implementadas</span><br>
+    └── CLAUDE.md <span class="comment">&larr; Instrucciones del workspace</span>
+  </div>
+
+  <div class="folder-cards">
+    <div class="folder-card fade-in">
+      <h4>.claude/skills/</h4>
+      <p>Las 33 skills que ejecuta Claude Code. Cada archivo <code>.md</code> define triggers, logica y outputs.</p>
+      <div class="meta">Lee: todas las skills &bull; Escribe: nada directamente</div>
+    </div>
+    <div class="folder-card fade-in">
+      <h4>Assets Fijos/</h4>
+      <p>Pitch decks, one pagers, prop de valor, framework de ventas, guia Anthropic, showcase de skills. Se adjuntan tal cual.</p>
+      <div class="meta">Lee: prep-call, email-sequence, crear-skill, disenar-skills &bull; Archivos: 12+</div>
+    </div>
+    <div class="folder-card fade-in">
+      <h4>Templates/</h4>
+      <p>Plantillas HTML con <code>&#123;&#123;placeholders&#125;&#125;</code> para cotizaciones, contratos, fase 0, entregables. ES + EN.</p>
+      <div class="meta">Lee: cotizacion, contrato, fase0, entregable &bull; Archivos: 10+</div>
+    </div>
+    <div class="folder-card fade-in">
+      <h4>Clientes/</h4>
+      <p>Una carpeta por empresa con todo el historial: discovery, contexto, diseno, comercial, fase0, contratos, produccion, evaluaciones.</p>
+      <div class="meta">Lee/Escribe: casi todas las skills &bull; Creada por: /cliente crear</div>
+    </div>
+    <div class="folder-card fade-in">
+      <h4>Skills Construidas/</h4>
+      <p>Skills ya implementadas para clientes. Cada una con su <code>.md</code> de especificacion y archivos asociados.</p>
+      <div class="meta">Escribe: crear-skill &bull; Lee: entregable</div>
+    </div>
+    <div class="folder-card fade-in">
+      <h4>CLAUDE.md</h4>
+      <p>El archivo de instrucciones del workspace. Define identidad, reglas, paths y comportamiento de Claude Code.</p>
+      <div class="meta">Lee: el sistema automaticamente al iniciar</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: LAS 30 SKILLS -->
+<!-- ============================================================ -->
+<section id="skills" class="fade-in">
+  <div class="section-header">
+    <h2>Cada skill, que hace, y cuando usarla</h2>
+    <p>Organizadas por etapa del pipeline. Las 3 mas importantes estan destacadas.</p>
+  </div>
+
+  <!-- PROSPECTING -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--purple);color:var(--purple-light);">Etapa 1 &mdash; Prospecting</div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/prep-call</div>
+      <div class="skill-when">Antes de cualquier call &mdash; investiga la empresa, te da coaching tactico, guion de referencia, recursos a presentar, y anticipacion de objeciones.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Research + coaching tactico + guion con scripts + recursos de Assets Fijos a llevar + objeciones</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/discovery/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>WebSearch, Assets Fijos (Pitch Deck, One Pager, Fase 0 Ejemplo), PROP_VALUE, framework-ventas</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-web">WebSearch</span><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /prep-call Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/email-sequence</div>
+      <div class="skill-when">Cuando quieres generar una secuencia multicanal de 18 dias para un prospecto.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Secuencia email + LinkedIn + WhatsApp (18 dias)</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/discovery/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>WebSearch, PROP_VALUE, framework-ventas</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-web">WebSearch</span><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /email-sequence Rappi CEO</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/call-simulator</div>
+      <div class="skill-when">2 modos: (1) Role-play interactivo con evaluacion, o (2) Guion completo de call con scripts minuto a minuto.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Simulacion con evaluacion O guion completo con scripts, recursos y checklists</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong>No guarda &mdash; interactivo en sesion</div>
+        <div class="skill-meta-item"><strong>Lee</strong>framework-ventas, Assets Fijos, PROP_VALUE, contexto del cliente</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /call-simulator Falabella</div>
+    </div>
+  </div>
+
+  <!-- DISCOVERY -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--blue);color:var(--blue);">Etapa 2 &mdash; Discovery</div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/procesar-call</div>
+      <div class="skill-when">Despues de una reunion &mdash; jala el transcript de Fireflies y lo procesa.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Transcript limpio + resumen estructurado</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/discovery/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Fireflies MCP (transcript automatico)</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span></div>
+      <div class="skill-example">&gt; /procesar-call Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/call-review</div>
+      <div class="skill-when">Cuando quieres evaluar tu desempeno en una call con feedback accionable.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Evaluacion detallada + score + areas de mejora</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/discovery/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Fireflies MCP, framework-ventas</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /call-review Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/follow-up-writer</div>
+      <div class="skill-when">Inmediatamente despues de la call &mdash; genera follow-up WhatsApp listo para enviar.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Mensaje WhatsApp personalizado post-reunion</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/discovery/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Transcript procesado, contexto del cliente</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span></div>
+      <div class="skill-example">&gt; /follow-up-writer Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/email-post-reunion</div>
+      <div class="skill-when">Para enviar un email profesional post-reunion con adjuntos relevantes.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Email formal con resumen + assets adjuntos</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/discovery/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Transcript, Assets Fijos (adjunta pitch deck, one pager, etc.)</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span><span class="tag tag-templates">Templates</span></div>
+      <div class="skill-example">&gt; /email-post-reunion Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/discovery-notes</div>
+      <div class="skill-when">Para generar el brief estructurado del cliente &mdash; el documento que alimenta todo lo que sigue.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Brief con pain points, procesos, oportunidades, next steps</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/contexto/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Fireflies MCP, discovery/ existente</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span></div>
+      <div class="skill-example">&gt; /discovery-notes Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/procesar-transcript</div>
+      <div class="skill-when">Para procesar reuniones que NO son del pipeline (internas del cliente, estrategicas, con terceros).</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Contexto estructurado con insights, citas textuales y personas clave</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/contexto/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Fireflies MCP, contexto previo del cliente</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span></div>
+      <div class="skill-example">&gt; /procesar-transcript Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/agregar-contexto</div>
+      <div class="skill-when">Para acumular contexto del cliente: URLs de empresa, LinkedIn de decisores, notas del consultor.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Entrada timestamped en contexto-general.md (acumulativo)</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/contexto/contexto-general.md</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>WebFetch, WebSearch, contexto existente</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-web">WebSearch</span></div>
+      <div class="skill-example">&gt; /agregar-contexto Bancolombia</div>
+    </div>
+  </div>
+
+  <!-- DISENO -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--emerald);color:var(--emerald);">Etapa 3 &mdash; Diseno</div>
+
+    <div class="skill-row featured fade-in">
+      <div class="skill-cmd">/disenar-skills &#9733;</div>
+      <div class="skill-when">Para disenar los 5 procesos del Ops Layer &mdash; hace match con el catalogo showcase de 80+ skills.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>5 skills dise&ntilde;adas con match del showcase</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/diseno/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>showcase-skills.html, contexto/, discovery/</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-web">WebSearch</span><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /disenar-skills Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/disenar-solucion</div>
+      <div class="skill-when">Para disenar la solucion Core Layer &mdash; arquitectura completa de agente/sistema.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Documento de diseno de solucion Core</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/diseno/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>contexto/, discovery/, PROP_VALUE</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /disenar-solucion Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/disenar-stack</div>
+      <div class="skill-when">Para definir el stack de herramientas &mdash; consulta Supabase en tiempo real.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Stack tecnologico recomendado con herramientas</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/diseno/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Supabase API (catalogo herramientas), diseno/</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-supabase">Supabase</span></div>
+      <div class="skill-example">&gt; /disenar-stack Bancolombia</div>
+    </div>
+  </div>
+
+  <!-- PROPUESTA -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--amber);color:var(--amber);">Etapa 4 &mdash; Propuesta</div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/cotizacion</div>
+      <div class="skill-when">Para generar la cotizacion HTML &mdash; acepta RUT para auto-llenar datos legales.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Cotizacion HTML profesional con desglose</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/comercial/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Templates/Comercial/, diseno/, RUT (opcional)</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-templates">Templates</span></div>
+      <div class="skill-example">&gt; /cotizacion Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/slides-propuesta-ops</div>
+      <div class="skill-when">Para generar los slides de presentacion de propuesta del Ops Layer &mdash; 5 skills + stack sugerido + precio.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Slides HTML 16 diapositivas con propuesta visual completa</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/comercial/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>diseno/propuesta-skills.md, diseno/stack.md, comercial/cotizacion</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-templates">Templates</span></div>
+      <div class="skill-example">&gt; /slides-propuesta-ops Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/calcular-roi</div>
+      <div class="skill-when">Para calcular y presentar el ROI personalizado del proyecto.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Documento ROI con metricas, ahorro, payback</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/comercial/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>diseno/, contexto/, datos de la industria</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-web">WebSearch</span></div>
+      <div class="skill-example">&gt; /calcular-roi Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/fase0</div>
+      <div class="skill-when">Para generar el documento Fase 0 + slides &mdash; exclusivo para Core Layer.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Documento Fase 0 + presentacion slides</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/fase0/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Fireflies, diseno/, contexto/, Templates/</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span><span class="tag tag-templates">Templates</span></div>
+      <div class="skill-example">&gt; /fase0 Bancolombia</div>
+    </div>
+  </div>
+
+  <!-- CIERRE -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--pink);color:var(--pink);">Etapa 5 &mdash; Cierre</div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/contrato</div>
+      <div class="skill-when">Para generar el paquete contractual completo &mdash; acepta RUT, Core requiere Fase 0 previa.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Contrato + anexos del servicio correspondiente</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/contratos/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Templates/Contratos/, comercial/, fase0/, RUT</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-templates">Templates</span></div>
+      <div class="skill-example">&gt; /contrato Bancolombia ops-layer</div>
+    </div>
+  </div>
+
+  <!-- CONSTRUCCION -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--cyan);color:var(--cyan);">Etapa 6 &mdash; Construccion</div>
+
+    <div class="skill-row featured fade-in">
+      <div class="skill-cmd">/crear-skill &#9733;</div>
+      <div class="skill-when">THE skill builder &mdash; construye skills funcionales basandose en la guia Anthropic. Disena, construye, testa, guarda.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Skill <code>.md</code> funcional + archivos asociados</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Skills Construidas/</code> + <code>Clientes/[empresa]/skills/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>guide-building-skills.pdf, diseno/, showcase-skills</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-anthropic">Guia Anthropic</span></div>
+      <div class="skill-example">&gt; /crear-skill "Generador de reportes semanales" para Bancolombia</div>
+    </div>
+  </div>
+
+  <!-- ENTREGA -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--orange);color:var(--orange);">Etapa 7 &mdash; Entrega</div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/entregable</div>
+      <div class="skill-when">Para generar el documento de entrega + slides del proyecto completado.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Documento de entrega + presentacion</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/entregable/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Skills Construidas/, diseno/, Fireflies</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span><span class="tag tag-templates">Templates</span></div>
+      <div class="skill-example">&gt; /entregable Bancolombia</div>
+    </div>
+  </div>
+
+  <!-- POST-ENTREGA -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--emerald);color:var(--emerald);">Etapa 8 &mdash; Post-Entrega</div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/check-in</div>
+      <div class="skill-when">Cu&aacute;ndo: 2 semanas, 1 mes, 2 meses despu&eacute;s de entregar.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Agenda + email de seguimiento</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/evaluaciones/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>entregable/, contexto/, discovery/</div>
+      </div>
+      <div class="skill-example">&gt; /check-in Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/upsell</div>
+      <div class="skill-when">Cu&aacute;ndo: el check-in revela que el cliente quiere m&aacute;s.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Mensaje approach + brief interno</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/comercial/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>evaluaciones/, entregable/, contexto/</div>
+      </div>
+      <div class="skill-example">&gt; /upsell Bancolombia</div>
+    </div>
+  </div>
+
+  <!-- PRODUCCION CORE LAYER -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--cyan);color:var(--cyan);">Etapa 9 &mdash; Producci&oacute;n Core Layer</div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/kickoff</div>
+      <div class="skill-when">Cu&aacute;ndo: despu&eacute;s de firmar contrato Core Layer.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Agenda + slides + email</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/produccion/kickoff/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>fase0/, contratos/, contexto/</div>
+      </div>
+      <div class="skill-example">&gt; /kickoff Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/weekly-update</div>
+      <div class="skill-when">Cu&aacute;ndo: cada semana durante implementaci&oacute;n.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Reporte semanal de avance</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/produccion/updates/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>produccion/kickoff/, fase0/, Fireflies</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span></div>
+      <div class="skill-example">&gt; /weekly-update Bancolombia</div>
+    </div>
+  </div>
+
+  <!-- INTERNAL OPS -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--amber);color:var(--amber);">Internal Ops &mdash; Transversal</div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/pipeline-dashboard</div>
+      <div class="skill-when">Cu&aacute;ndo: reuni&oacute;n de equipo, revisi&oacute;n semanal.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>HTML dashboard</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Assets Fijos/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Clientes/ (todas las carpetas)</div>
+      </div>
+      <div class="skill-example">&gt; /pipeline-dashboard</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/weekly-standup</div>
+      <div class="skill-when">Cu&aacute;ndo: antes del standup del equipo.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Agenda del standup</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Assets Fijos/standups/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Clientes/, pipeline-dashboard</div>
+      </div>
+      <div class="skill-example">&gt; /weekly-standup</div>
+    </div>
+  </div>
+
+  <!-- TRANSVERSALES -->
+  <div class="skill-group">
+    <div class="skill-group-title" style="border-color:var(--text-3);color:var(--text-2);">Transversales &mdash; Siempre disponibles</div>
+
+    <div class="skill-row featured fade-in">
+      <div class="skill-cmd">/cliente &#9733;</div>
+      <div class="skill-when">Gestiona carpetas de clientes &mdash; crear, ver, listar. El punto de partida para todo.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Estructura completa de carpetas del cliente</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Clientes/ (listado existente)</div>
+      </div>
+      <div class="skill-example">&gt; /cliente crear Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/investigar</div>
+      <div class="skill-when">Para investigar una empresa, mercado o tema a fondo con busqueda web.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Reporte de investigacion</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/contexto/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>WebSearch, WebFetch</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-web">WebSearch</span></div>
+      <div class="skill-example">&gt; /investigar mercado fintech Colombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/resumen-reunion</div>
+      <div class="skill-when">Para obtener un resumen ejecutivo rapido de una reunion grabada.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Resumen ejecutivo de la reunion</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Clientes/[empresa]/discovery/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Fireflies MCP</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-fireflies">Fireflies</span></div>
+      <div class="skill-example">&gt; /resumen-reunion Bancolombia</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/framework-quiz</div>
+      <div class="skill-when">Para practicar y reforzar el framework de ventas de Irrelevant con quiz interactivo.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Quiz interactivo con feedback</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong>No guarda &mdash; interactivo</div>
+        <div class="skill-meta-item"><strong>Lee</strong>framework-ventas.html</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /framework-quiz</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/objection-gym</div>
+      <div class="skill-when">Para practicar manejo de objeciones comunes en ventas de IA.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Sesion interactiva de objeciones</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong>No guarda &mdash; interactivo</div>
+        <div class="skill-meta-item"><strong>Lee</strong>framework-ventas.html, PROP_VALUE</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /objection-gym</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/weekly-sales-report</div>
+      <div class="skill-when">Para generar un reporte semanal de ventas con m&eacute;tricas y evaluaci&oacute;n.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Reporte HTML semanal con scoring</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Assets Fijos/</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Clientes/, framework-ventas</div>
+      </div>
+      <div class="skill-tags"><span class="tag tag-framework">Framework</span></div>
+      <div class="skill-example">&gt; /weekly-sales-report</div>
+    </div>
+
+    <div class="skill-row fade-in">
+      <div class="skill-cmd">/actualizar-skills-reference</div>
+      <div class="skill-when">Para regenerar este documento cuando cambian las skills.</div>
+      <div class="skill-meta">
+        <div class="skill-meta-item"><strong>Produce</strong>Actualizacion de skills-reference.html</div>
+        <div class="skill-meta-item"><strong>Guarda en</strong><code>Assets Fijos/skills-reference.html</code></div>
+        <div class="skill-meta-item"><strong>Lee</strong>Todas las skills en .claude/skills/</div>
+      </div>
+      <div class="skill-example">&gt; /actualizar-skills-reference</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: CARPETA DEL CLIENTE -->
+<!-- ============================================================ -->
+<section id="cliente" class="fade-in">
+  <div class="section-header">
+    <h2>Todo en un solo lugar</h2>
+    <p>La carpeta del cliente es el corazon del sistema. Cada subfolder alimenta al siguiente.</p>
+  </div>
+
+  <div class="client-tree">
+    <span style="color:var(--amber);">Clientes/[empresa]/</span><br>
+    ├── <span style="color:var(--blue);">discovery/</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; prep-call, procesar-call, call-review, follow-up, email-post</span><br>
+    ├── <span style="color:var(--blue);">contexto/</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; discovery-notes, investigar</span><br>
+    ├── <span style="color:var(--emerald);">diseno/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; disenar-skills, disenar-solucion, disenar-stack</span><br>
+    ├── <span style="color:var(--amber);">comercial/</span>&nbsp;&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; cotizacion, calcular-roi, upsell</span><br>
+    ├── <span style="color:var(--amber);">fase0/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; fase0 (Core Layer)</span><br>
+    ├── <span style="color:var(--pink);">contratos/</span>&nbsp;&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; contrato</span><br>
+    ├── <span style="color:var(--cyan);">skills/</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; crear-skill</span><br>
+    ├── <span style="color:var(--orange);">entregable/</span>&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; entregable</span><br>
+    ├── <span style="color:var(--cyan);">produccion/</span>&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; kickoff, weekly-update (Core Layer)</span><br>
+    │&nbsp;&nbsp; ├── <span style="color:var(--cyan);">kickoff/</span>&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; /kickoff</span><br>
+    │&nbsp;&nbsp; └── <span style="color:var(--cyan);">updates/</span>&nbsp;&nbsp; <span style="color:var(--text-3);">&larr; /weekly-update</span><br>
+    └── <span style="color:var(--emerald);">evaluaciones/</span> <span style="color:var(--text-3);">&larr; check-in</span>
+  </div>
+
+  <h3 style="font-size:16px;margin:32px 0 16px;color:var(--text-2);">Flujo de datos entre carpetas</h3>
+  <div class="flow-diagram">
+    <div class="flow-node" style="border-color:rgba(96,165,250,0.3);"><div class="fname" style="color:var(--blue);">discovery/</div><div class="fdesc">Research + transcripts</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node" style="border-color:rgba(96,165,250,0.3);"><div class="fname" style="color:var(--blue);">contexto/</div><div class="fdesc">Brief estructurado</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node" style="border-color:rgba(52,211,153,0.3);"><div class="fname" style="color:var(--emerald);">diseno/</div><div class="fdesc">Skills + solucion + stack</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node" style="border-color:rgba(251,191,36,0.3);"><div class="fname" style="color:var(--amber);">comercial/</div><div class="fdesc">Cotizacion + ROI</div></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node" style="border-color:rgba(244,114,182,0.3);"><div class="fname" style="color:var(--pink);">contratos/</div><div class="fdesc">Paquete legal</div></div>
+  </div>
+
+  <div style="margin-top:28px;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
+    <h4 style="font-size:14px;margin-bottom:10px;">Comandos <code>/cliente</code></h4>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-2);line-height:2;">
+      <code style="color:var(--purple-light);">/cliente crear Bancolombia</code> &mdash; Crea toda la estructura de carpetas<br>
+      <code style="color:var(--purple-light);">/cliente ver Bancolombia</code> &mdash; Muestra estado actual y archivos<br>
+      <code style="color:var(--purple-light);">/cliente listar</code> &mdash; Lista todos los clientes activos
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: HERRAMIENTAS EXTERNAS -->
+<!-- ============================================================ -->
+<section id="tools" class="fade-in">
+  <div class="section-header">
+    <h2>Con que se conecta</h2>
+    <p>Herramientas externas y MCPs que potencian las skills del sistema.</p>
+  </div>
+
+  <div class="tool-card fade-in">
+    <h4 style="color:var(--pink);">Fireflies MCP</h4>
+    <p>Transcripts automaticos de reuniones. Se conecta via MCP para jalar, buscar y procesar grabaciones.</p>
+    <div class="tool-skills">Skills: /procesar-call, /discovery-notes, /resumen-reunion, /fase0, /entregable, /call-review, /weekly-update</div>
+  </div>
+
+  <div class="tool-card fade-in">
+    <h4 style="color:var(--emerald);">Supabase API</h4>
+    <p>Catalogo de herramientas de IA en tiempo real. Consulta la base de datos para recomendar el stack optimo.</p>
+    <div class="tool-skills">Skills: /disenar-stack</div>
+  </div>
+
+  <div class="tool-card fade-in">
+    <h4 style="color:var(--blue);">WebSearch / WebFetch</h4>
+    <p>Investigacion de empresas, mercados, competidores y tendencias. Busqueda web en tiempo real.</p>
+    <div class="tool-skills">Skills: /prep-call, /disenar-skills, /investigar, /email-sequence</div>
+  </div>
+
+  <div class="tool-card fade-in">
+    <h4 style="color:var(--amber);">RUT Reader</h4>
+    <p>Extraccion automatica de datos legales desde PDF o imagen de RUT. Auto-llena razon social, NIT, direccion.</p>
+    <div class="tool-skills">Skills: /cotizacion, /contrato</div>
+  </div>
+
+  <div class="tool-card fade-in">
+    <h4 style="color:var(--purple-light);">Cal.com</h4>
+    <p>Link de agenda para discovery calls. Se incluye automaticamente en outreach y follow-ups.</p>
+    <div class="tool-skills">Link: <a href="https://cal.com/juan-irrelevant/discovery" style="color:var(--purple-light);">cal.com/juan-irrelevant/discovery</a></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: POWER COMBOS -->
+<!-- ============================================================ -->
+<section id="combos" class="fade-in">
+  <div class="section-header">
+    <h2>Flujos encadenados</h2>
+    <p>Combinaciones de skills que muestran el poder real del sistema end-to-end.</p>
+  </div>
+
+  <div class="combo fade-in">
+    <h4>Del approach al contrato <span style="font-size:12px;color:var(--purple-light);font-weight:400;">&mdash; Ops Layer completo</span></h4>
+    <div class="combo-desc">El flujo completo desde primer contacto hasta contrato firmado para Ops Layer.</div>
+    <div class="combo-flow">
+      <span class="combo-step">/cliente crear</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/prep-call</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">call</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/procesar-call</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/discovery-notes</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/disenar-skills</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/disenar-stack</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/cotizacion</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/contrato</span>
+    </div>
+  </div>
+
+  <div class="combo fade-in">
+    <h4>Del discovery a la Fase 0 <span style="font-size:12px;color:var(--emerald);font-weight:400;">&mdash; Core Layer</span></h4>
+    <div class="combo-desc">Desde el brief de discovery hasta el documento de Fase 0 para proyectos Core.</div>
+    <div class="combo-flow">
+      <span class="combo-step">/discovery-notes</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/disenar-solucion</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/disenar-stack</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/fase0</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/contrato</span>
+    </div>
+  </div>
+
+  <div class="combo fade-in">
+    <h4>Setup completo + entrega <span style="font-size:12px;color:var(--cyan);font-weight:400;">&mdash; Construccion</span></h4>
+    <div class="combo-desc">Desde el diseno de skills hasta la entrega documentada del proyecto.</div>
+    <div class="combo-flow">
+      <span class="combo-step">/disenar-skills</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/crear-skill (x5)</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/entregable</span>
+    </div>
+  </div>
+
+  <div class="combo fade-in">
+    <h4>Mejorar tu juego de ventas <span style="font-size:12px;color:var(--amber);font-weight:400;">&mdash; Entrenamiento</span></h4>
+    <div class="combo-desc">Ciclo completo de practica y mejora del desempeno comercial.</div>
+    <div class="combo-flow">
+      <span class="combo-step">/framework-quiz</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/objection-gym</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/call-simulator</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/call-review</span>
+    </div>
+  </div>
+
+  <div class="combo fade-in">
+    <h4>Post-reunion perfecto <span style="font-size:12px;color:var(--blue);font-weight:400;">&mdash; Follow-up completo</span></h4>
+    <div class="combo-desc">Todo lo que haces despues de una call para no perder el momentum.</div>
+    <div class="combo-flow">
+      <span class="combo-step">/procesar-call</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/call-review</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/follow-up-writer</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/email-post-reunion</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/discovery-notes</span>
+    </div>
+  </div>
+
+  <div class="combo fade-in">
+    <h4>Retener y crecer la cuenta <span style="font-size:12px;color:var(--emerald);font-weight:400;">&mdash; Customer Success</span></h4>
+    <div class="combo-desc">Del seguimiento post-entrega al siguiente deal.</div>
+    <div class="combo-flow">
+      <span class="combo-step">/check-in</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/upsell</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/prep-call</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">[nuevo ciclo]</span>
+    </div>
+  </div>
+
+  <div class="combo fade-in">
+    <h4>Producci&oacute;n Core Layer <span style="font-size:12px;color:var(--cyan);font-weight:400;">&mdash; Del kickoff al cierre</span></h4>
+    <div class="combo-desc">Del kickoff al cierre del proyecto.</div>
+    <div class="combo-flow">
+      <span class="combo-step">/kickoff</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/weekly-update (&times;8-12)</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/entregable</span><span class="combo-arrow">&rarr;</span>
+      <span class="combo-step">/check-in</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: ASSETS Y DOCUMENTOS PRE-CREADOS -->
+<!-- ============================================================ -->
+<section id="assets" class="fade-in">
+  <div class="section-header">
+    <h2>Lo que ya tienes listo</h2>
+    <p>Todos los assets, templates y documentos pre-creados en el workspace. Listos para usar.</p>
+  </div>
+
+  <!-- Assets Fijos -->
+  <div class="asset-group">
+    <div class="asset-group-title" style="color:var(--amber);">Assets Fijos/ &mdash; Documentos que se env&iacute;an tal cual</div>
+    <div class="asset-group-sub">Archivos finales, no templates. Se adjuntan directamente al cliente o los lee el sistema.</div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--amber);">Pitch Deck</div>
+        <div class="asset-desc">Presentaci&oacute;n de ventas de Irrelevant. Usada en primera reuni&oacute;n o approach.</div>
+        <div class="asset-use">Versiones: ES, EN, con precio, sin precio (4 archivos)</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(251,191,36,0.1);color:var(--amber);">4 archivos</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--amber);">One Pager</div>
+        <div class="asset-desc">Documento de outreach para generar inter&eacute;s. Antes de la primera call o cold outreach.</div>
+        <div class="asset-use">Versiones: ES, EN (2 archivos)</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(251,191,36,0.1);color:var(--amber);">2 archivos</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--orange);">Entregable Ejemplo (NovaTech)</div>
+        <div class="asset-desc">Ejemplo real de entregable. Referencia de calidad para <code>/entregable</code>.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(251,146,60,0.1);color:var(--orange);">1 archivo</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--orange);">Fase 0 Ejemplo (Escuela Ingenier&iacute;a)</div>
+        <div class="asset-desc">Ejemplo real de Fase 0. Referencia de calidad para <code>/fase0</code>.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(251,146,60,0.1);color:var(--orange);">1 archivo</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--purple-light);">PROP_VALUE_IRRELEVANT.md</div>
+        <div class="asset-desc">La biblia de Irrelevant &mdash; prop value, portafolio, casos. <strong>Le&iacute;do por TODOS los skills.</strong></div>
+      </div>
+      <div class="asset-badge" style="background:rgba(139,92,246,0.1);color:var(--purple-light);">LA BIBLIA</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--purple-light);">framework-ventas-irrelevant.html</div>
+        <div class="asset-desc">Metodolog&iacute;a C1/C2/C3 de ventas. Usado por skills de ventas y coaching.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(139,92,246,0.1);color:var(--purple-light);">1 archivo</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--cyan);">guide-building-skills-claude.pdf</div>
+        <div class="asset-desc">Gu&iacute;a oficial de Anthropic para construir skills. Usada por <code>/crear-skill</code> y <code>/disenar-skills</code>.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(34,211,238,0.1);color:var(--cyan);">1 archivo</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--emerald);">showcase-skills-irrelevant.html</div>
+        <div class="asset-desc">Cat&aacute;logo de 80+ skills pre-dise&ntilde;adas (14 combos). Usado por <code>/disenar-skills</code> para match.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(52,211,153,0.1);color:var(--emerald);">1 archivo</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--blue);">skills-reference.html</div>
+        <div class="asset-desc">ESTE documento &mdash; el Operating System. Gu&iacute;a del equipo.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(96,165,250,0.1);color:var(--blue);">ESTE</div>
+    </div>
+  </div>
+
+  <!-- Templates Comercial -->
+  <div class="asset-group">
+    <div class="asset-group-title" style="color:var(--emerald);">Templates/Comercial/ &mdash; Templates con &#123;&#123;placeholders&#125;&#125;</div>
+    <div class="asset-group-sub">Plantillas que los skills llenan autom&aacute;ticamente con datos del cliente.</div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--emerald);">Cotizacion Ops Layer</div>
+        <div class="asset-desc">Template de cotizaci&oacute;n para Setup de IA. Skill: <code>/cotizacion</code></div>
+        <div class="asset-use">Versiones: ES, EN, ejemplo</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(52,211,153,0.1);color:var(--emerald);">3 archivos</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--emerald);">Cotizacion Edu Layer</div>
+        <div class="asset-desc">Template de cotizaci&oacute;n para Workshop. Skill: <code>/cotizacion</code></div>
+        <div class="asset-use">Versiones: ES, EN, ejemplo</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(52,211,153,0.1);color:var(--emerald);">3 archivos</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--emerald);">Fase 0 Core Layer</div>
+        <div class="asset-desc">Template del documento de Fase 0 diagn&oacute;stico. Skill: <code>/fase0</code></div>
+        <div class="asset-use">Versiones: ES, EN, ejemplo</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(52,211,153,0.1);color:var(--emerald);">3 archivos</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--emerald);">Slides Fase 0</div>
+        <div class="asset-desc">Template de slides de presentaci&oacute;n Fase 0. Skill: <code>/fase0</code></div>
+        <div class="asset-use">Versiones: ES, EN, ejemplo</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(52,211,153,0.1);color:var(--emerald);">3 archivos</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--emerald);">Entregable Ops Layer</div>
+        <div class="asset-desc">Template del entregable post-setup. Skill: <code>/entregable</code></div>
+        <div class="asset-use">Versiones: ES, EN, ejemplo</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(52,211,153,0.1);color:var(--emerald);">3 archivos</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--emerald);">Slides Entregable Ops</div>
+        <div class="asset-desc">Template de slides del entregable. Skill: <code>/entregable</code></div>
+        <div class="asset-use">Versiones: ES, EN, ejemplo</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(52,211,153,0.1);color:var(--emerald);">3 archivos</div>
+    </div>
+  </div>
+
+  <!-- Templates Contratos -->
+  <div class="asset-group">
+    <div class="asset-group-title" style="color:var(--pink);">Templates/Contratos/ &mdash; Paquetes de contratos legales</div>
+    <div class="asset-group-sub">Paquetes completos generados por <code>/contrato</code>. Cada paquete incluye todos los documentos legales.</div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--pink);">AI Ops Layer</div>
+        <div class="asset-desc">Contrato + Pago (50/50) + NDA. Skill: <code>/contrato ops</code></div>
+      </div>
+      <div class="asset-badge" style="background:rgba(244,114,182,0.1);color:var(--pink);">3 docs</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--pink);">AI Edu Layer</div>
+        <div class="asset-desc">Contrato + Pago (50/50) + NDA. Skill: <code>/contrato edu</code></div>
+      </div>
+      <div class="asset-badge" style="background:rgba(244,114,182,0.1);color:var(--pink);">3 docs</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--pink);">AI Core Layer</div>
+        <div class="asset-desc">Contrato + Pago (hitos) + NDA + Alcance t&eacute;cnico. Skill: <code>/contrato core</code></div>
+      </div>
+      <div class="asset-badge" style="background:rgba(244,114,182,0.1);color:var(--pink);">4 docs</div>
+    </div>
+  </div>
+
+  <!-- Skills Construidas -->
+  <div class="asset-group">
+    <div class="asset-group-title" style="color:var(--cyan);">Skills Construidas/ &mdash; Skills ya implementadas</div>
+    <div class="asset-group-sub">Repositorio de skills construidas con <code>/crear-skill</code>. Se copian al workspace del cliente.</div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--cyan);">sales-irrelevant/</div>
+        <div class="asset-desc">12 skills de ventas originales del equipo Irrelevant.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(34,211,238,0.1);color:var(--cyan);">12 skills</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--cyan);">[nombre-cliente]/</div>
+        <div class="asset-desc">Skills construidas para un cliente espec&iacute;fico.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(34,211,238,0.1);color:var(--cyan);">por cliente</div>
+    </div>
+
+    <div class="asset-card fade-in">
+      <div>
+        <div class="asset-name" style="color:var(--cyan);">genericas/</div>
+        <div class="asset-desc">Skills reutilizables entre clientes.</div>
+      </div>
+      <div class="asset-badge" style="background:rgba(34,211,238,0.1);color:var(--cyan);">reutilizables</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 9: PLAYBOOKS POR SERVICIO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="playbooks" class="fade-in" style="margin-top:64px;">
+  <div class="section-label" style="color:var(--amber);">PLAYBOOKS</div>
+  <h2 class="section-title">C&oacute;mo abordar cada tipo de negocio</h2>
+  <p style="font-size:14px;color:var(--text-3);max-width:700px;margin-bottom:16px;">Cada servicio tiene un flujo diferente. Lo que NO cambia: <strong style="color:var(--text);">el rol del comercial es hacer preguntas excelentes</strong> para que la IA tenga la mejor informaci&oacute;n posible.</p>
+
+  <!-- ROL DEL COMERCIAL -->
+  <div style="padding:28px 28px;background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(52,211,153,0.04));border:1px solid rgba(139,92,246,0.15);border-radius:16px;margin-bottom:40px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="font-size:28px;">&#127919;</div>
+      <div>
+        <div style="font-size:18px;font-weight:800;color:white;">El rol del comercial: hacer preguntas, no documentos</div>
+        <div style="font-size:12px;color:var(--text-3);">La IA genera los documentos. T&uacute; generas la informaci&oacute;n.</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--text-2);line-height:1.8;margin-bottom:16px;">
+      Cada skill produce outputs tan buenos como la informaci&oacute;n que recibe. Tu trabajo en cada call es extraer la mayor cantidad de contexto posible: <strong style="color:white;">dolores espec&iacute;ficos, n&uacute;meros, procesos, herramientas que usan, tama&ntilde;o del equipo, qu&eacute; les quita el sue&ntilde;o.</strong> Mientras mejor preguntes, mejores documentos genera la IA.
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="padding:14px 16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.1);border-radius:10px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(239,68,68,0.7);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">&#10005; No hagas esto</div>
+        <div style="font-size:11px;color:var(--text-3);line-height:1.6;">
+          &bull; Preguntas gen&eacute;ricas: &ldquo;&iquest;C&oacute;mo va el negocio?&rdquo;<br>
+          &bull; No pedir n&uacute;meros: &ldquo;Les toma mucho tiempo&rdquo;<br>
+          &bull; No entender el proceso: &ldquo;Usan un CRM&rdquo;<br>
+          &bull; Hablar m&aacute;s que escuchar<br>
+          &bull; Mencionar precio antes de tiempo
+        </div>
+      </div>
+      <div style="padding:14px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.1);border-radius:10px;">
+        <div style="font-size:11px;font-weight:700;color:var(--emerald);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">&#10003; Haz esto</div>
+        <div style="font-size:11px;color:var(--text-3);line-height:1.6;">
+          &bull; &ldquo;&iquest;Cu&aacute;ntas horas le toma a tu equipo hacer X?&rdquo;<br>
+          &bull; &ldquo;&iquest;Cu&aacute;ntas personas est&aacute;n involucradas en ese proceso?&rdquo;<br>
+          &bull; &ldquo;&iquest;Qu&eacute; herramientas usan hoy para eso?&rdquo;<br>
+          &bull; &ldquo;&iquest;Qu&eacute; pasa cuando eso falla o se atrasa?&rdquo;<br>
+          &bull; &ldquo;&iquest;Cu&aacute;nto les cuesta eso al mes?&rdquo;
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:10px 14px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.1);border-radius:8px;">
+      <div style="font-size:11px;color:var(--text-2);"><strong style="color:white;">Regla de oro:</strong> Si el prospect habla m&aacute;s del 60% de la call, vas bien. Si hablas t&uacute; m&aacute;s, est&aacute;s vendiendo en vez de entendiendo.</div>
+    </div>
+  </div>
+
+  <!-- PLAYBOOK 1: OPS LAYER -->
+  <div style="margin-bottom:40px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#0a0812;">1</div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--emerald);letter-spacing:2px;text-transform:uppercase;">Playbook</div>
+        <div style="font-size:22px;font-weight:800;color:white;">AI Ops Layer &mdash; Setup de IA</div>
+      </div>
+      <div style="margin-left:auto;font-size:11px;color:var(--text-3);">$7M COP &bull; 1 semana</div>
+    </div>
+
+    <div style="position:relative;padding-left:28px;">
+      <div style="position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--emerald),var(--purple-light),var(--amber),var(--emerald));border-radius:2px;"></div>
+
+      <!-- Step 1 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Crear carpeta del cliente</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Antes de cualquier cosa, organizar la casa.</div>
+          <code style="font-size:11px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:3px 8px;border-radius:4px;">/cliente crear [empresa]</code>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;flex-shrink:0;z-index:1;margin-left:-14px;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Preparar el approach + Discovery Call</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Investigar la empresa. Preparar preguntas inteligentes. Hacer la call.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--purple-light);background:rgba(139,92,246,0.08);padding:2px 8px;border-radius:4px;">/prep-call</code>
+            <code style="font-size:10px;color:var(--purple-light);background:rgba(139,92,246,0.08);padding:2px 8px;border-radius:4px;">/call-simulator</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Post-call: procesar y hacer follow-up</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Jalar el transcript, evaluar, enviar follow-up y email, extraer el brief.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--blue);background:rgba(96,165,250,0.08);padding:2px 8px;border-radius:4px;">/procesar-call</code>
+            <code style="font-size:10px;color:var(--blue);background:rgba(96,165,250,0.08);padding:2px 8px;border-radius:4px;">/follow-up-writer</code>
+            <code style="font-size:10px;color:var(--blue);background:rgba(96,165,250,0.08);padding:2px 8px;border-radius:4px;">/email-post-reunion</code>
+            <code style="font-size:10px;color:var(--blue);background:rgba(96,165,250,0.08);padding:2px 8px;border-radius:4px;">/discovery-notes</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">4</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Dise&ntilde;ar: skills + stack</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Definir los 5 procesos inteligentes y el stack de herramientas.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/disenar-skills</code>
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/disenar-stack</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">5</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Cotizar + Presentar</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Calcular ROI, generar cotizaci&oacute;n, presentar la propuesta.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--amber);background:rgba(251,191,36,0.08);padding:2px 8px;border-radius:4px;">/calcular-roi</code>
+            <code style="font-size:10px;color:var(--amber);background:rgba(251,191,36,0.08);padding:2px 8px;border-radius:4px;">/cotizacion [empresa] ops</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;flex-shrink:0;z-index:1;margin-left:-14px;">6</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Contrato firmado &rarr; Arrancar</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Generar paquete de contratos. <strong style="color:var(--red);">No se empieza sin contrato firmado.</strong></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--red);background:rgba(239,68,68,0.08);padding:2px 8px;border-radius:4px;">/contrato [empresa] ops</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">7</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Construir + Entregar</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Construir los 5 skills, implementar, generar entregable + slides.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--pink);background:rgba(244,114,182,0.08);padding:2px 8px;border-radius:4px;">/crear-skill</code>
+            <span style="font-size:10px;color:var(--text-3);">&times;5</span>
+            <code style="font-size:10px;color:var(--pink);background:rgba(244,114,182,0.08);padding:2px 8px;border-radius:4px;">/entregable</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">8</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Post-entrega</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Seguimiento post-entrega (semana 2, mes 1, mes 2). Detectar siguiente servicio.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/check-in</code>
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/upsell</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAYBOOK 2: CORE LAYER -->
+  <div style="margin-bottom:40px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#0a0812;">2</div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--amber);letter-spacing:2px;text-transform:uppercase;">Playbook</div>
+        <div style="font-size:22px;font-weight:800;color:white;">AI Core Layer &mdash; Transformation</div>
+      </div>
+      <div style="margin-left:auto;font-size:11px;color:var(--text-3);">Basado en impacto &bull; 8-12 sem</div>
+    </div>
+
+    <div style="position:relative;padding-left:28px;">
+      <div style="position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--amber),var(--purple-light),var(--emerald),var(--cyan));border-radius:2px;"></div>
+
+      <!-- Step 1 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Crear carpeta + Preparar approach</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Igual que Ops Layer. Investigar, preparar, hacer la call.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--amber);background:rgba(251,191,36,0.08);padding:2px 8px;border-radius:4px;">/cliente crear</code>
+            <code style="font-size:10px;color:var(--amber);background:rgba(251,191,36,0.08);padding:2px 8px;border-radius:4px;">/prep-call</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;flex-shrink:0;z-index:1;margin-left:-14px;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Discovery profundo (m&uacute;ltiples calls)</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Core Layer requiere entender la propuesta de valor y el proceso core. Esto toma 2-3 calls.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--purple-light);background:rgba(139,92,246,0.08);padding:2px 8px;border-radius:4px;">/procesar-call</code>
+            <code style="font-size:10px;color:var(--purple-light);background:rgba(139,92,246,0.08);padding:2px 8px;border-radius:4px;">/discovery-notes</code>
+            <span style="font-size:10px;color:var(--text-3);">(repetir por cada call)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Dise&ntilde;ar la soluci&oacute;n + stack</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Identificar el proceso core, definir c&oacute;mo AI lo amplifica, seleccionar herramientas.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/disenar-solucion</code>
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/disenar-stack</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">4</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Fase 0 + Presentaci&oacute;n + Cotizaci&oacute;n</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Generar el documento de diagn&oacute;stico estrat&eacute;gico + slides. Presentar al cliente. Generar cotizaci&oacute;n.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--amber);background:rgba(251,191,36,0.08);padding:2px 8px;border-radius:4px;">/fase0</code>
+            <code style="font-size:10px;color:var(--amber);background:rgba(251,191,36,0.08);padding:2px 8px;border-radius:4px;">/calcular-roi</code>
+            <code style="font-size:10px;color:var(--amber);background:rgba(251,191,36,0.08);padding:2px 8px;border-radius:4px;">/cotizacion [empresa] core</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;flex-shrink:0;z-index:1;margin-left:-14px;">5</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Contrato firmado &rarr; Arrancar</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Generar paquete completo. <strong style="color:var(--red);">No se empieza sin contrato firmado.</strong></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--red);background:rgba(239,68,68,0.08);padding:2px 8px;border-radius:4px;">/contrato [empresa] core</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">6</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;">Implementar (8-12 semanas)</div>
+          <div style="font-size:11px;color:var(--text-3);">Construir la soluci&oacute;n. Entra el equipo de desarrollo.</div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">7</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Producci&oacute;n: Kickoff + Updates semanales</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Materiales de kickoff y reportes semanales durante 8-12 semanas de implementaci&oacute;n.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--cyan);background:rgba(34,211,238,0.08);padding:2px 8px;border-radius:4px;">/kickoff</code>
+            <span style="font-size:10px;color:var(--text-3);">&rarr;</span>
+            <code style="font-size:10px;color:var(--cyan);background:rgba(34,211,238,0.08);padding:2px 8px;border-radius:4px;">/weekly-update</code>
+            <span style="font-size:10px;color:var(--text-3);">(durante 8-12 semanas)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">8</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Post-entrega</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Seguimiento post-entrega y detecci&oacute;n de siguiente servicio.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/check-in</code>
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/upsell</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAYBOOK 3: EDU LAYER -->
+  <div style="margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#0a0812;">3</div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--blue);letter-spacing:2px;text-transform:uppercase;">Playbook</div>
+        <div style="font-size:22px;font-weight:800;color:white;">AI Edu Layer &mdash; Workshop Think AI</div>
+      </div>
+      <div style="margin-left:auto;font-size:11px;color:var(--text-3);">$4.5M COP &bull; 3 horas</div>
+    </div>
+
+    <div style="position:relative;padding-left:28px;">
+      <div style="position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--blue),var(--purple-light),var(--emerald));border-radius:2px;"></div>
+
+      <!-- Step 1 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Approach + Discovery r&aacute;pido</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Edu Layer es el ciclo m&aacute;s corto. 1 call suele ser suficiente.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--blue);background:rgba(96,165,250,0.08);padding:2px 8px;border-radius:4px;">/cliente crear</code>
+            <code style="font-size:10px;color:var(--blue);background:rgba(96,165,250,0.08);padding:2px 8px;border-radius:4px;">/prep-call</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;flex-shrink:0;z-index:1;margin-left:-14px;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Post-call + Cotizar</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Follow-up, email profesional, generar cotizaci&oacute;n.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--purple-light);background:rgba(139,92,246,0.08);padding:2px 8px;border-radius:4px;">/email-post-reunion</code>
+            <code style="font-size:10px;color:var(--purple-light);background:rgba(139,92,246,0.08);padding:2px 8px;border-radius:4px;">/cotizacion [empresa] edu</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;flex-shrink:0;z-index:1;margin-left:-14px;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Contrato firmado &rarr; Agendar</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Generar contratos. <strong style="color:var(--red);">No se agenda el workshop sin contrato firmado y anticipo pagado.</strong></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--red);background:rgba(239,68,68,0.08);padding:2px 8px;border-radius:4px;">/contrato [empresa] edu</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">4</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;">Personalizar + Dictar el workshop</div>
+          <div style="font-size:11px;color:var(--text-3);">Sesi&oacute;n previa de contexto para adaptar ejercicios. 3 horas: 45 min conceptual + 2h15 pr&aacute;ctico.</div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div style="display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#0a0812;flex-shrink:0;z-index:1;margin-left:-14px;">5</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Post-workshop</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">Seguimiento post-workshop. Proponer Ops o Core Layer.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/check-in</code>
+            <code style="font-size:10px;color:var(--emerald);background:rgba(52,211,153,0.08);padding:2px 8px;border-radius:4px;">/upsell</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;padding:10px 14px;background:rgba(96,165,250,0.06);border:1px solid rgba(96,165,250,0.1);border-radius:8px;">
+      <div style="font-size:11px;color:var(--text-2);"><strong style="color:var(--blue);">Tip:</strong> Edu Layer es la puerta de entrada m&aacute;s f&aacute;cil. Despu&eacute;s del workshop, el equipo entiende AI y pide Ops Layer o Core Layer naturalmente.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION: GPS — /que-sigue -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="fade-in" style="margin-top:56px;">
+  <div style="padding:32px;background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(52,211,153,0.05));border:2px solid rgba(139,92,246,0.2);border-radius:20px;text-align:center;">
+    <div style="font-size:40px;margin-bottom:12px;">&#128204;</div>
+    <div style="font-size:28px;font-weight:800;color:white;margin-bottom:8px;">&iquest;Perdido? &iquest;No sabes qu&eacute; sigue?</div>
+    <div style="font-size:14px;color:var(--text-2);max-width:500px;margin:0 auto 20px;line-height:1.7;">Solo escribe <strong style="color:white;">/que-sigue</strong> y el nombre de la empresa. El sistema escanea la carpeta del cliente, detecta en qu&eacute; punto est&aacute;s, y te dice exactamente qu&eacute; hacer ahora.</div>
+    <div style="display:inline-block;padding:14px 32px;background:var(--surface-2);border:1px solid var(--border-2);border-radius:12px;margin-bottom:16px;">
+      <code style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--purple-light);">/que-sigue [empresa]</code>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+      <div style="padding:10px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:left;max-width:220px;">
+        <div style="font-size:10px;font-weight:700;color:var(--emerald);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Ejemplo</div>
+        <div style="font-size:11px;color:var(--text-3);line-height:1.5;font-family:'JetBrains Mono',monospace;">
+          &gt; /que-sigue bancolombia<br><br>
+          <span style="color:var(--text-2);">&#128205; Bancolombia &mdash; Etapa: Dise&ntilde;o</span><br>
+          <span style="color:var(--emerald);">&#10003;</span> <span style="color:var(--text-3);">Discovery hecho</span><br>
+          <span style="color:var(--text-2);">&#10132; /disenar-skills bancolombia</span>
+        </div>
+      </div>
+      <div style="padding:10px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:left;max-width:220px;">
+        <div style="font-size:10px;font-weight:700;color:var(--purple-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Tambi&eacute;n funciona con</div>
+        <div style="font-size:11px;color:var(--text-3);line-height:1.8;">
+          &ldquo;qu&eacute; sigue&rdquo;<br>
+          &ldquo;estoy perdido&rdquo;<br>
+          &ldquo;qu&eacute; hago ahora&rdquo;<br>
+          &ldquo;siguiente paso&rdquo;<br>
+          &ldquo;c&oacute;mo empiezo&rdquo;
+        </div>
+      </div>
+      <div style="padding:10px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:left;max-width:220px;">
+        <div style="font-size:10px;font-weight:700;color:var(--amber);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Lo que hace</div>
+        <div style="font-size:11px;color:var(--text-3);line-height:1.8;">
+          &#128269; Escanea la carpeta<br>
+          &#128202; Detecta la etapa<br>
+          &#10132; Te dice el comando exacto<br>
+          &#128161; Te da un tip pr&aacute;ctico<br>
+          &#9201; En menos de 10 l&iacute;neas
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer class="footer fade-in">
+  <div class="motto">Think AI or stay <span class="highlight">irrelevant</span>.</div>
+  <p style="margin-bottom:4px;">33 skills &mdash; 3 servicios &mdash; 9 etapas &mdash; sistema end-to-end</p>
+  <p>Ultima actualizacion: Marzo 2026</p>
+  <p style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;">Se actualiza con <code style="color:var(--purple-light);">/actualizar-skills-reference</code></p>
+</footer>
+
+</div><!-- /container -->
+
+<script>
+// IntersectionObserver fade-in with fallback
+if ('IntersectionObserver' in window) {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.01, rootMargin: '100px' });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+} else {
+  // Fallback: show everything immediately
+  document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+}
+// Safety: make sure everything is visible after 2 seconds
+setTimeout(() => {
+  document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+}, 2000);
+</script>
+</body>
+</html>

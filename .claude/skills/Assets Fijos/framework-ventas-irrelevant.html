@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework de Ventas — Sprint 2 Semanas | Irrelevant</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #110e1a;
+    --card: #191626;
+    --card-hover: #1e1a2e;
+    --border: #2a2640;
+    --text: #e8eaed;
+    --text-muted: #8b8fa3;
+    --text-secondary: #6b6894;
+    --purple: #7c3aed;
+    --purple-light: #a78bfa;
+    --purple-glow: rgba(124, 58, 237, 0.3);
+    --purple-bg: rgba(124, 58, 237, 0.08);
+    --emerald: #34d399;
+    --emerald-bg: rgba(52, 211, 153, 0.1);
+    --amber: #fbbf24;
+    --amber-bg: rgba(251, 191, 36, 0.1);
+    --pink: #f472b6;
+    --pink-bg: rgba(244, 114, 182, 0.1);
+    --blue: #60a5fa;
+    --blue-bg: rgba(96, 165, 250, 0.1);
+    --red: #f87171;
+    --red-bg: rgba(248, 113, 113, 0.1);
+    --orange: #fb923c;
+    --orange-bg: rgba(251, 146, 60, 0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── Sticky Navigation ─────────────────────────────────────── */
+  .top-nav {
+    position: fixed; top: 0; left: 0; right: 0; height: 64px;
+    background: rgba(17, 14, 26, 0.85); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; z-index: 1000; transition: transform 0.3s ease;
+  }
+  .top-nav.hidden { transform: translateY(-100%); }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo img { height: 28px; }
+  .nav-logo span {
+    font-size: 16px; font-weight: 700;
+    background: linear-gradient(135deg, var(--purple-light), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .nav-links { display: flex; gap: 4px; align-items: center; flex-wrap: nowrap; overflow-x: auto; }
+  .nav-links a {
+    font-size: 11px; font-weight: 500; color: var(--text-muted);
+    text-decoration: none; padding: 6px 8px; border-radius: 8px;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--purple-bg); }
+
+  /* ── Section Layout ────────────────────────────────────────── */
+  .section { width: 100%; padding: 80px 40px; display: flex; flex-direction: column; align-items: center; }
+  .section:first-of-type { padding-top: 140px; }
+  .section-alt { background: rgba(25, 22, 38, 0.4); }
+  .section-inner { width: 100%; max-width: 1100px; }
+  .section-header { text-align: center; margin-bottom: 48px; }
+  .section-number {
+    font-size: 11px; font-weight: 600; color: var(--purple);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  /* ── Typography ────────────────────────────────────────────── */
+  h1 { font-size: 52px; font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
+  h2 { font-size: 36px; font-weight: 700; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px; }
+  h3 { font-size: 20px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.3px; }
+  h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .subtitle { font-size: 18px; color: var(--text-muted); line-height: 1.5; max-width: 700px; font-weight: 400; }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--purple-light), var(--purple), var(--emerald));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* ── Cards & Grids ─────────────────────────────────────────── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; transition: all 0.3s ease;
+  }
+  .card:hover { border-color: rgba(124, 58, 237, 0.3); box-shadow: 0 0 30px rgba(124, 58, 237, 0.08); }
+  .card-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 16px;
+  }
+  .card-icon.purple { background: var(--purple-bg); }
+  .card-icon.emerald { background: var(--emerald-bg); }
+  .card-icon.amber { background: var(--amber-bg); }
+  .card-icon.pink { background: var(--pink-bg); }
+  .card-icon.blue { background: var(--blue-bg); }
+  .card-icon.red { background: var(--red-bg); }
+  .card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 8px; }
+
+  /* ── Highlight box ─────────────────────────────────────────── */
+  .highlight-box {
+    background: var(--purple-bg); border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: 12px; padding: 20px 24px; margin-top: 16px;
+  }
+  .highlight-box p { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .highlight-box.emerald { background: var(--emerald-bg); border-color: rgba(52, 211, 153, 0.15); }
+  .highlight-box.amber { background: var(--amber-bg); border-color: rgba(251, 191, 36, 0.15); }
+  .highlight-box.red { background: var(--red-bg); border-color: rgba(248, 113, 113, 0.15); }
+  .highlight-box.pink { background: var(--pink-bg); border-color: rgba(244, 114, 182, 0.15); }
+  .highlight-box.blue { background: var(--blue-bg); border-color: rgba(96, 165, 250, 0.15); }
+
+  /* ── Tags ───────────────────────────────────────────────────── */
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    padding: 3px 10px; border-radius: 6px; letter-spacing: 0.5px;
+  }
+  .tag-purple { background: var(--purple-bg); color: var(--purple-light); }
+  .tag-emerald { background: var(--emerald-bg); color: var(--emerald); }
+  .tag-amber { background: var(--amber-bg); color: var(--amber); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-pink { background: var(--pink-bg); color: var(--pink); }
+  .tag-blue { background: var(--blue-bg); color: var(--blue); }
+
+  /* ── Feature list ──────────────────────────────────────────── */
+  .feature-list { list-style: none; }
+  .feature-list li {
+    font-size: 14px; color: var(--text-muted); padding: 7px 0;
+    display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;
+  }
+  .feature-list li .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; margin-top: 7px; }
+  .feature-list li .dot.emerald { background: var(--emerald); }
+  .feature-list li .dot.red { background: var(--red); }
+  .feature-list li .dot.amber { background: var(--amber); }
+  .feature-list li .dot.blue { background: var(--blue); }
+  .feature-list li .dot.pink { background: var(--pink); }
+
+  /* ── Table ──────────────────────────────────────────────────── */
+  .data-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+  }
+  .data-table th {
+    font-size: 11px; font-weight: 700; color: var(--purple-light);
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 14px 18px; text-align: left;
+    background: rgba(124, 58, 237, 0.06);
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    font-size: 13px; color: var(--text-muted);
+    padding: 12px 18px;
+    border-bottom: 1px solid rgba(42,38,64,0.3);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(124, 58, 237, 0.03); }
+
+  /* ── Pipeline timeline ─────────────────────────────────────── */
+  .pipeline-timeline { display: flex; flex-direction: column; gap: 0; width: 100%; position: relative; padding-left: 40px; }
+  .pipeline-timeline::before {
+    content: ''; position: absolute; top: 0; bottom: 0; left: 19px;
+    width: 3px; background: linear-gradient(180deg, var(--purple), var(--emerald), var(--amber), var(--red));
+    border-radius: 2px;
+  }
+  .pipeline-step { position: relative; padding: 20px 0 20px 32px; }
+  .pipeline-dot {
+    position: absolute; left: -31px; top: 24px;
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 3px solid var(--purple); background: var(--bg); z-index: 2;
+  }
+  .pipeline-dot.active { background: var(--purple); box-shadow: 0 0 12px var(--purple-glow); }
+  .pipeline-dot.emerald { border-color: var(--emerald); }
+  .pipeline-dot.emerald.active { background: var(--emerald); box-shadow: 0 0 12px rgba(52, 211, 153, 0.3); }
+  .pipeline-dot.amber { border-color: var(--amber); }
+  .pipeline-dot.amber.active { background: var(--amber); box-shadow: 0 0 12px rgba(251, 191, 36, 0.3); }
+  .pipeline-dot.red { border-color: var(--red); }
+  .pipeline-dot.red.active { background: var(--red); box-shadow: 0 0 12px rgba(248, 113, 113, 0.3); }
+  .pipeline-dot.blue { border-color: var(--blue); }
+  .pipeline-day {
+    font-size: 11px; font-weight: 700; color: var(--purple-light);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .pipeline-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .pipeline-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── Call structure ─────────────────────────────────────────── */
+  .call-block {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; margin-bottom: 24px;
+  }
+  .call-header {
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .call-number {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; flex-shrink: 0;
+  }
+  .call-header-text h3 { margin-bottom: 2px; }
+  .call-header-text p { font-size: 13px; color: var(--text-muted); margin: 0; }
+  .call-body { padding: 24px 28px; }
+  .call-section { margin-bottom: 20px; }
+  .call-section:last-child { margin-bottom: 0; }
+  .call-section-title {
+    font-size: 12px; font-weight: 700; color: var(--purple-light);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
+  }
+
+  /* ── Do / Don't boxes ──────────────────────────────────────── */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .do-box, .dont-box { border-radius: 12px; padding: 16px 20px; }
+  .do-box { background: var(--emerald-bg); border: 1px solid rgba(52, 211, 153, 0.15); }
+  .dont-box { background: var(--red-bg); border: 1px solid rgba(248, 113, 113, 0.15); }
+  .do-box h4, .dont-box h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .do-box h4 { color: var(--emerald); }
+  .dont-box h4 { color: var(--red); }
+  .do-box li, .dont-box li { font-size: 13px; color: var(--text-muted); padding: 3px 0; list-style: none; }
+
+  /* ── Next step box ─────────────────────────────────────────── */
+  .next-step {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(52, 211, 153, 0.06));
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 12px; padding: 16px 20px; margin-top: 16px;
+  }
+  .next-step-label {
+    font-size: 10px; font-weight: 700; color: var(--emerald);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;
+  }
+  .next-step p { font-size: 14px; color: var(--text); line-height: 1.5; font-style: italic; }
+
+  /* ── Rule cards ─────────────────────────────────────────────── */
+  .rule-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 24px;
+    display: flex; align-items: flex-start; gap: 16px;
+    border-left: 4px solid var(--red);
+  }
+  .rule-number {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--red-bg); color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+  .rule-content h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .rule-content p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── Metric card ────────────────────────────────────────────── */
+  .metric-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 24px; text-align: center;
+  }
+  .metric-value { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
+  .metric-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+  .metric-value.purple { color: var(--purple-light); }
+  .metric-value.emerald { color: var(--emerald); }
+  .metric-value.amber { color: var(--amber); }
+  .metric-value.red { color: var(--red); }
+
+  /* ── Copy blocks ───────────────────────────────────────────── */
+  .copy-block {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 24px; margin-bottom: 16px;
+    border-left: 3px solid var(--purple);
+  }
+  .copy-label {
+    font-size: 11px; font-weight: 700; color: var(--purple-light);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .copy-text { font-size: 14px; color: var(--text); line-height: 1.6; font-style: italic; }
+
+  /* ── Schedule ───────────────────────────────────────────────── */
+  .schedule-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 0; border-bottom: 1px solid rgba(42,38,64,0.3);
+  }
+  .schedule-row:last-child { border-bottom: none; }
+  .schedule-time {
+    font-size: 13px; font-weight: 700; color: var(--purple-light);
+    min-width: 120px; flex-shrink: 0;
+  }
+  .schedule-activity { font-size: 14px; color: var(--text-muted); }
+
+  /* ── Lead classification ────────────────────────────────────── */
+  .lead-card { border-radius: 14px; padding: 20px 24px; border: 1px solid; }
+  .lead-card.hot { background: var(--emerald-bg); border-color: rgba(52, 211, 153, 0.2); }
+  .lead-card.warm { background: var(--amber-bg); border-color: rgba(251, 191, 36, 0.2); }
+  .lead-card.cold { background: var(--red-bg); border-color: rgba(248, 113, 113, 0.2); }
+  .lead-badge { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .lead-card.hot .lead-badge { color: var(--emerald); }
+  .lead-card.warm .lead-badge { color: var(--amber); }
+  .lead-card.cold .lead-badge { color: var(--red); }
+
+  /* ── Scoreboard ─────────────────────────────────────────────── */
+  .scoreboard {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px;
+  }
+  .scoreboard-header {
+    font-size: 12px; font-weight: 700; color: var(--purple-light);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;
+  }
+
+  /* ── Video card ─────────────────────────────────────────────── */
+  .video-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; transition: all 0.3s ease;
+    text-decoration: none; display: block;
+  }
+  .video-card:hover { border-color: rgba(124, 58, 237, 0.4); box-shadow: 0 0 30px rgba(124, 58, 237, 0.1); transform: translateY(-2px); }
+  .video-thumb {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    border-bottom: 1px solid var(--border);
+  }
+  .video-info { padding: 16px 20px; }
+  .video-info h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
+  .video-info p { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+  .video-play {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; color: var(--purple-light);
+    margin-top: 8px;
+  }
+
+  /* ── Podcast card ───────────────────────────────────────────── */
+  .podcast-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px; transition: all 0.3s ease;
+  }
+  .podcast-card:hover { border-color: rgba(124, 58, 237, 0.3); box-shadow: 0 0 30px rgba(124, 58, 237, 0.08); }
+  .podcast-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 14px;
+  }
+
+  /* ── Numbered step ──────────────────────────────────────────── */
+  .num-step {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 16px; background: rgba(124,58,237,0.04); border-radius: 10px;
+  }
+  .num-step.highlight {
+    background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.15);
+  }
+  .num-step.success {
+    background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15);
+  }
+  .num-step-n {
+    font-size: 14px; font-weight: 800; color: var(--purple-light); min-width: 24px;
+  }
+  .num-step.highlight .num-step-n { color: var(--amber); }
+  .num-step.success .num-step-n { color: var(--emerald); }
+
+  /* ── Objection handler ──────────────────────────────────────── */
+  .objection-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 24px; margin-bottom: 12px;
+  }
+  .objection-q {
+    font-size: 14px; font-weight: 600; color: var(--red);
+    margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px;
+  }
+  .objection-a {
+    font-size: 13px; color: var(--text); line-height: 1.6;
+    padding-left: 24px; font-style: italic;
+  }
+
+  /* ── Helpers ────────────────────────────────────────────────── */
+  .text-center { text-align: center; }
+  .mb-8 { margin-bottom: 8px; }
+  .mb-12 { margin-bottom: 12px; }
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .mb-32 { margin-bottom: 32px; }
+  .mb-40 { margin-bottom: 40px; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+  .small-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ── Scroll Animations ─────────────────────────────────────── */
+  .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+  .stagger > *:nth-child(1) { transition-delay: 0ms; }
+  .stagger > *:nth-child(2) { transition-delay: 80ms; }
+  .stagger > *:nth-child(3) { transition-delay: 160ms; }
+  .stagger > *:nth-child(4) { transition-delay: 240ms; }
+  .stagger > *:nth-child(5) { transition-delay: 320ms; }
+  .stagger > *:nth-child(6) { transition-delay: 400ms; }
+  .stagger > *:nth-child(7) { transition-delay: 480ms; }
+
+  /* ── Responsive ────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    h1 { font-size: 38px; }
+    h2 { font-size: 30px; }
+    .do-dont { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .section { padding: 50px 20px; }
+    .section:first-of-type { padding-top: 110px; }
+    .top-nav { padding: 0 20px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    h1 { font-size: 30px; }
+    h2 { font-size: 26px; }
+    .subtitle { font-size: 15px; }
+    .do-dont { grid-template-columns: 1fr; }
+  }
+
+  .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     STICKY NAV
+     ══════════════════════════════════════════════════════════════════ -->
+<nav class="top-nav" id="topNav">
+  <div class="nav-logo">
+    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+    <span>Sales Framework</span>
+  </div>
+  <div class="nav-links">
+    <a href="#principio">Principio</a>
+    <a href="#diagnostico">Diagnostico</a>
+    <a href="#estructura-calls">Calls</a>
+    <a href="#objeciones">Objeciones</a>
+    <a href="#pipeline-14">Pipeline 14d</a>
+    <a href="#kpis">KPIs</a>
+    <a href="#clasificacion">Leads</a>
+    <a href="#tracking">Tracking</a>
+    <a href="#reglas">Reglas</a>
+    <a href="#rituales">Rituales</a>
+    <a href="#dia-ideal">Dia Ideal</a>
+    <a href="#presion">Presion</a>
+    <a href="#sprint">Sprint</a>
+    <a href="#senales">Senales</a>
+    <a href="#ceo">CEO</a>
+    <a href="#recursos">Recursos</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     PORTADA
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="hero" style="min-height:90vh; justify-content:center;">
+  <div class="section-inner text-center fade-in-up" style="display:flex; flex-direction:column; align-items:center;">
+    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant" style="height:50px; margin-bottom:24px; object-fit:contain;">
+    <h1><span class="gradient-text">Framework de Ventas</span></h1>
+    <p class="subtitle" style="max-width:720px; margin: 0 auto 12px; text-align:center;">
+      Sprint de 2 semanas — estructura completa de calls, pipeline con presion estructurada, KPIs por etapa, rituales operativos diarios y semanales, y sistema de cierre para duplicar conversion.
+    </p>
+    <p style="font-size:14px; color:var(--text-secondary); margin-bottom:32px; max-width:600px;">
+      Este documento es la guia operativa del equipo comercial. Cada seccion tiene un proposito concreto. No es teoria — es el sistema que se ejecuta desde el dia 1.
+    </p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom: 36px;">
+      <div class="tag tag-purple">Sprint 2 Semanas</div>
+      <div class="tag tag-emerald">Pipeline de 14 Dias</div>
+      <div class="tag tag-amber">Rituales Diarios</div>
+      <div class="tag tag-pink">KPIs por Etapa</div>
+      <div class="tag tag-blue">Recursos de Aprendizaje</div>
+    </div>
+    <div style="display:flex; gap:24px; justify-content:center; flex-wrap:wrap;">
+      <div class="metric-card" style="min-width:150px;">
+        <div class="metric-value purple">2-3</div>
+        <div class="metric-label">Cierres / semana (meta)</div>
+      </div>
+      <div class="metric-card" style="min-width:150px;">
+        <div class="metric-value emerald">&lt;14</div>
+        <div class="metric-label">Dias max por deal</div>
+      </div>
+      <div class="metric-card" style="min-width:150px;">
+        <div class="metric-value amber">3</div>
+        <div class="metric-label">Calls para cerrar</div>
+      </div>
+      <div class="metric-card" style="min-width:150px;">
+        <div class="metric-value red">x2</div>
+        <div class="metric-label">Objetivo de conversion</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     01 — PRINCIPIO RECTOR
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="principio">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">01 — Principio Rector</div>
+      <h2>Las <span class="gradient-text">reglas de oro</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Todo el framework se construye sobre estos dos principios. Si no se cumplen, nada mas funciona.</p>
+    </div>
+
+    <div class="fade-in-up" style="max-width:800px; margin:0 auto;">
+      <div class="highlight-box" style="padding:32px; text-align:center; margin-top:0;">
+        <p style="font-size:22px; font-weight:700; color:var(--text); margin-bottom:16px;">No se cierra Fase 0 si el cliente no entiende claramente donde esta perdiendo dinero.</p>
+        <div style="width:60px; height:2px; background:var(--purple); margin:16px auto;"></div>
+        <p style="font-size:18px; font-weight:600; color:var(--purple-light);">Todo lead debe morir o avanzar en maximo 14 dias.</p>
+        <p style="font-size:14px; color:var(--text-muted); margin-top:12px;">No hay "tal vez". No hay "luego vemos". No hay "te escribo". Hay decision o hay muerte del deal.</p>
+      </div>
+
+      <div class="grid-2 mt-24">
+        <div class="card" style="border-top:3px solid var(--purple);">
+          <div class="card-icon purple">&#9889;</div>
+          <h3>Velocidad del pipeline</h3>
+          <p>El ciclo hoy es lento porque no se fuerzan decisiones en cada etapa. Hay deals abiertos hace semanas sin movimiento, follow-ups sin respuesta y pipeline inflado con leads que no van a cerrar.</p>
+          <p style="margin-top:8px;"><strong style="color:var(--text);">La solucion:</strong> presion estructurada en cada paso. Cada call tiene deadline, cada lead tiene fecha de muerte.</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--emerald);">
+          <div class="card-icon emerald">&#127919;</div>
+          <h3>Claridad de decision</h3>
+          <p>Cada call tiene un objetivo unico, un output obligatorio y un siguiente paso concreto. Sin improvisacion, sin ambiguedad.</p>
+          <p style="margin-top:8px;"><strong style="color:var(--text);">La regla:</strong> si al terminar una call no hay calendario cerrado para el siguiente paso, algo salio mal.</p>
+        </div>
+      </div>
+
+      <div class="highlight-box red mt-24" style="text-align:center;">
+        <p style="font-size:16px; font-weight:700; color:var(--text);">El problema de fondo</p>
+        <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">Tu problema no es generacion de leads. <strong style="color:var(--red);">Es velocidad + presion comercial.</strong> El equipo deja deals abiertos, no fuerza decisiones y no controla timing. Resultado: pipeline inflado, baja conversion, ciclos largos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     02 — DIAGNOSTICO DEL EQUIPO
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="diagnostico">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">02 — Diagnostico</div>
+      <h2>Donde estamos <span class="gradient-text">hoy vs. donde vamos</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Antes de ejecutar, hay que tener claro que se esta haciendo mal y por que este framework lo resuelve.</p>
+    </div>
+
+    <div class="grid-2 fade-in-up stagger">
+      <div class="card" style="border-top:3px solid var(--red);">
+        <h4 style="color:var(--red); margin-bottom:16px;">Estado Actual (Problemas)</h4>
+        <ul class="feature-list">
+          <li><span class="dot red"></span>Deals abiertos sin fecha de cierre</li>
+          <li><span class="dot red"></span>No se fuerzan decisiones en las calls</li>
+          <li><span class="dot red"></span>No se controla el timing entre etapas</li>
+          <li><span class="dot red"></span>Conversaciones pasivas — se escucha pero no se guia</li>
+          <li><span class="dot red"></span>Fase 0 se envia por correo sin presentarla</li>
+          <li><span class="dot red"></span>Discovery sin metricas concretas</li>
+          <li><span class="dot red"></span>Follow-ups eternos sin cerrar loop</li>
+          <li><span class="dot red"></span>Pipeline inflado con leads que no van a cerrar</li>
+          <li><span class="dot red"></span>~1 cierre por semana</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--emerald);">
+        <h4 style="color:var(--emerald); margin-bottom:16px;">Estado Objetivo (2 semanas)</h4>
+        <ul class="feature-list">
+          <li><span class="dot emerald"></span>Todo deal tiene fecha de muerte a 14 dias</li>
+          <li><span class="dot emerald"></span>Cada call termina con siguiente paso agendado</li>
+          <li><span class="dot emerald"></span>Maximo 72h entre etapas</li>
+          <li><span class="dot emerald"></span>Calls con estructura consultiva — guiar al cliente</li>
+          <li><span class="dot emerald"></span>Fase 0 siempre presentada en vivo</li>
+          <li><span class="dot emerald"></span>Discovery con metricas de conversion, tiempo y costo</li>
+          <li><span class="dot emerald"></span>Maximo 2-3 follow-ups, luego cerrar</li>
+          <li><span class="dot emerald"></span>Pipeline limpio cada viernes</li>
+          <li><span class="dot emerald"></span>2-3 cierres por semana (equipo)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fade-in-up mt-24" style="max-width:700px; margin:24px auto 0;">
+      <div class="highlight-box" style="text-align:center; padding:24px;">
+        <p style="font-size:14px; color:var(--text);">Este framework: <strong>elimina improvisacion</strong>, <strong>sube el nivel del equipo</strong>, <strong>aumenta conversion</strong> y <strong>reduce la dependencia del CEO</strong> para cerrar deals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     03 — ESTRUCTURA DE CALLS
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="estructura-calls">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">03 — Estructura de Calls</div>
+      <h2>3 calls, estructura <span class="gradient-text">simple y estricta</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Cada llamada tiene un objetivo unico. No se mezclan. No se improvisan. Cada una tiene reglas de entrada, estructura y regla de salida.</p>
+    </div>
+
+    <!-- CALL 1 ──────────────────────────────────────────────── -->
+    <div class="call-block fade-in-up">
+      <div class="call-header">
+        <div class="call-number" style="background:var(--purple-bg); color:var(--purple-light);">C1</div>
+        <div class="call-header-text">
+          <h3>Approach / Calificacion</h3>
+          <p>Responsable: Sara / Agustin &nbsp;&bull;&nbsp; 15-20 min &nbsp;&bull;&nbsp; Dia 0 del pipeline</p>
+        </div>
+        <div class="tag tag-purple" style="margin-left:auto;">Dia 0</div>
+      </div>
+      <div class="call-body">
+        <div class="call-section">
+          <div class="call-section-title">Objetivo</div>
+          <p style="font-size:15px; color:var(--text); font-weight:600;">Validar si hay problema real, generar interes y abrir dolor.</p>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Esta call es solo de escucha activa y preguntas. El unico objetivo es entender si hay un problema que vale la pena explorar y generar suficiente curiosidad para que el cliente quiera profundizar.</p>
+        </div>
+
+        <div class="call-section">
+          <div class="call-section-title">Estructura de la conversacion</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div class="num-step">
+              <span class="num-step-n">1.</span>
+              <div>
+                <strong style="color:var(--text);">Contexto del cliente</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:2px;">Que hace la empresa, como opera, cual es su modelo. Entender el terreno antes de preguntar sobre problemas.</p>
+              </div>
+            </div>
+            <div class="num-step">
+              <span class="num-step-n">2.</span>
+              <div>
+                <strong style="color:var(--text);">Como operan hoy</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:2px;">Procesos actuales, herramientas, equipo. No juzgar — solo entender.</p>
+              </div>
+            </div>
+            <div class="num-step">
+              <span class="num-step-n">3.</span>
+              <div>
+                <strong style="color:var(--text);">Problema general</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:2px;">Que les duele? Que quisieran que fuera diferente? Preguntas abiertas que dejen hablar al cliente.</p>
+              </div>
+            </div>
+            <div class="num-step">
+              <span class="num-step-n">4.</span>
+              <div>
+                <strong style="color:var(--text);">Senales de friccion</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:2px;">Donde hay ruido, donde se pierde tiempo, que es manual, que se cae. Estas senales son la materia prima para discovery.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="call-section">
+          <div class="call-section-title">Preguntas clave para abrir dolor</div>
+          <div style="background:rgba(124,58,237,0.04); border-radius:10px; padding:16px 20px;">
+            <ul class="feature-list" style="margin:0;">
+              <li><span class="dot"></span><em>"Contame como funciona hoy tu proceso de ___"</em></li>
+              <li><span class="dot"></span><em>"Que pasa cuando un lead entra? Quien lo atiende?"</em></li>
+              <li><span class="dot"></span><em>"Que es lo que mas tiempo les toma?"</em></li>
+              <li><span class="dot"></span><em>"Hay algo que hoy hagan manual y quisieran automatizar?"</em></li>
+              <li><span class="dot"></span><em>"Si pudieras cambiar una sola cosa del proceso, cual seria?"</em></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="do-dont">
+          <div class="dont-box">
+            <h4>No hacer (critico)</h4>
+            <ul>
+              <li>&#10060; No vender — no es el momento</li>
+              <li>&#10060; No proponer solucion</li>
+              <li>&#10060; No hablar de Fase 0</li>
+              <li>&#10060; No hablar de precios</li>
+              <li>&#10060; No interrumpir cuando el cliente habla de sus problemas</li>
+              <li>&#10060; No decir "nosotros hacemos X" prematuramente</li>
+            </ul>
+          </div>
+          <div class="do-box">
+            <h4>Si hacer</h4>
+            <ul>
+              <li>&#9989; Escuchar activamente — dejar silencios</li>
+              <li>&#9989; Hacer preguntas de profundidad</li>
+              <li>&#9989; Tomar notas de cada senal de dolor</li>
+              <li>&#9989; Validar lo que dice el cliente ("o sea que hoy X es un problema?")</li>
+              <li>&#9989; Generar curiosidad sin dar respuesta</li>
+              <li>&#9989; Cerrar con siguiente paso en vivo</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="next-step">
+          <div class="next-step-label">Siguiente paso obligatorio — decir esto textual</div>
+          <p>"Tiene sentido profundizar esto porque hay varias cosas interesantes. Agendamos un espacio para analizarlo a fondo?"</p>
+          <p style="font-style:normal; font-size:13px; color:var(--emerald); margin-top:8px; font-weight:600;">&#8594; Agendar Discovery en vivo. Si no se agenda, el lead entra en riesgo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALL 2 ──────────────────────────────────────────────── -->
+    <div class="call-block fade-in-up">
+      <div class="call-header">
+        <div class="call-number" style="background:var(--emerald-bg); color:var(--emerald);">C2</div>
+        <div class="call-header-text">
+          <h3>Discovery</h3>
+          <p>Responsable: Sara / Agustin (CEO en deals clave) &nbsp;&bull;&nbsp; 30-40 min &nbsp;&bull;&nbsp; Dia 1-2</p>
+        </div>
+        <div class="tag tag-emerald" style="margin-left:auto;">Dia 1-2</div>
+      </div>
+      <div class="call-body">
+        <div class="call-section">
+          <div class="call-section-title">Objetivo</div>
+          <p style="font-size:15px; color:var(--text); font-weight:600;">Entender el sistema completo, encontrar el problema real y cuantificar el impacto en dinero.</p>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Esta es LA call mas importante. Si el discovery es debil, la call 3 no va a cerrar. El objetivo es salir con numeros concretos que demuestren cuanto dinero esta perdiendo el cliente.</p>
+        </div>
+
+        <div class="call-section">
+          <div class="call-section-title">Los 4 bloques del Discovery</div>
+          <div class="grid-2">
+            <div class="card" style="border-left:3px solid var(--purple);">
+              <h4 style="color:var(--purple-light);">1. Funnel</h4>
+              <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Entender de donde vienen los clientes y que pasa con ellos.</p>
+              <ul class="feature-list">
+                <li><span class="dot"></span><em>"Como llegan los leads hoy?"</em></li>
+                <li><span class="dot"></span><em>"Cuantos leads entran por mes?"</em></li>
+                <li><span class="dot"></span><em>"De esos, cuantos terminan comprando?"</em></li>
+                <li><span class="dot"></span><em>"Cual es el % de conversion?"</em></li>
+              </ul>
+            </div>
+            <div class="card" style="border-left:3px solid var(--emerald);">
+              <h4 style="color:var(--emerald);">2. Proceso</h4>
+              <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Mapear el camino del lead hasta convertirse en cliente.</p>
+              <ul class="feature-list">
+                <li><span class="dot emerald"></span><em>"Que pasa despues de que entra un lead?"</em></li>
+                <li><span class="dot emerald"></span><em>"Quien lo atiende? En cuanto tiempo?"</em></li>
+                <li><span class="dot emerald"></span><em>"Donde se caen los leads?"</em></li>
+                <li><span class="dot emerald"></span><em>"Cuantos pasos tiene el proceso?"</em></li>
+              </ul>
+            </div>
+            <div class="card" style="border-left:3px solid var(--amber);">
+              <h4 style="color:var(--amber);">3. Friccion</h4>
+              <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Encontrar donde duele — que es lento, caro o ineficiente.</p>
+              <ul class="feature-list">
+                <li><span class="dot amber"></span><em>"Que parte del proceso es la mas lenta?"</em></li>
+                <li><span class="dot amber"></span><em>"Que hacen manual que podria ser automatico?"</em></li>
+                <li><span class="dot amber"></span><em>"Donde sienten que pierden mas tiempo?"</em></li>
+                <li><span class="dot amber"></span><em>"Que les gustaria que fuera diferente?"</em></li>
+              </ul>
+            </div>
+            <div class="card" style="border-left:3px solid var(--red);">
+              <h4 style="color:var(--red);">4. Impacto (CLAVE)</h4>
+              <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Ponerle numero al dolor. Sin esto, no hay Fase 0.</p>
+              <ul class="feature-list">
+                <li><span class="dot red"></span><em>"Cuanto vale un cliente promedio?"</em></li>
+                <li><span class="dot red"></span><em>"Cuanto les cuesta adquirir un cliente (CAC)?"</em></li>
+                <li><span class="dot red"></span><em>"Cuanto tiempo toma cerrar un deal?"</em></li>
+                <li><span class="dot red"></span><em>"Si pierden 10 leads al mes, cuanto es eso en plata?"</em></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="call-section">
+          <div class="call-section-title">Como generar urgencia en discovery</div>
+          <div style="background:rgba(248,113,113,0.06); border:1px solid rgba(248,113,113,0.15); border-radius:10px; padding:16px 20px;">
+            <p style="font-size:13px; color:var(--text); margin-bottom:8px;"><strong>Si no generas urgencia en discovery, no vas a cerrar en la tercera call.</strong></p>
+            <ul class="feature-list">
+              <li><span class="dot red"></span><em>"O sea que cada mes que pasa sin resolver esto, estan dejando $X en la mesa?"</em></li>
+              <li><span class="dot red"></span><em>"Y eso lleva cuanto tiempo asi?"</em></li>
+              <li><span class="dot red"></span><em>"Si no cambia nada en los proximos 3 meses, que pasa?"</em></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="highlight-box red" style="margin-top:20px;">
+          <p style="font-weight:700; color:var(--red); margin-bottom:8px;">Regla de salida (NO NEGOCIABLE)</p>
+          <p style="color:var(--text);">NO puedes avanzar a Call 3 si no tienes estas 3 metricas:</p>
+          <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap;">
+            <span class="tag tag-red" style="font-size:13px; padding:6px 14px;">1 metrica de conversion</span>
+            <span class="tag tag-red" style="font-size:13px; padding:6px 14px;">1 metrica de tiempo</span>
+            <span class="tag tag-red" style="font-size:13px; padding:6px 14px;">1 metrica de costo</span>
+          </div>
+          <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">Ejemplo: "convierten 5% de leads, toma 45 dias cerrar un deal, y el CAC es $300". Con eso puedes construir el caso de negocio.</p>
+        </div>
+
+        <div class="next-step">
+          <div class="next-step-label">Siguiente paso obligatorio — decir esto textual</div>
+          <p>"Con esto que vimos, tiene sentido mostrarte como lo atacariamos. Te propongo un espacio donde te muestro exactamente por donde empezar."</p>
+          <p style="font-style:normal; font-size:13px; color:var(--emerald); margin-top:8px; font-weight:600;">&#8594; Agendar Solution + Fase 0 Call en maximo 72h</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALL 3 ──────────────────────────────────────────────── -->
+    <div class="call-block fade-in-up">
+      <div class="call-header">
+        <div class="call-number" style="background:var(--amber-bg); color:var(--amber);">C3</div>
+        <div class="call-header-text">
+          <h3>Solution + Fase 0 (CRITICA)</h3>
+          <p>Responsable: Sara / Agustin (CEO en deals grandes) &nbsp;&bull;&nbsp; 30 min &nbsp;&bull;&nbsp; Dia 3-5</p>
+        </div>
+        <div class="tag tag-amber" style="margin-left:auto;">Dia 3-5</div>
+      </div>
+      <div class="call-body">
+        <div class="call-section">
+          <div class="call-section-title">Objetivo</div>
+          <p style="font-size:15px; color:var(--text); font-weight:600;">Presentar el diagnostico, mostrar el impacto en dinero, proponer Fase 0 y cerrar en vivo.</p>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Esta call tiene una estructura exacta de 8 pasos. No se improvisa. Cada paso construye sobre el anterior para llevar al cliente a una decision.</p>
+        </div>
+
+        <div class="call-section">
+          <div class="call-section-title">Los 8 pasos (estructura exacta)</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+
+            <div class="num-step">
+              <span class="num-step-n">1.</span>
+              <div>
+                <strong style="color:var(--text);">Reframe (autoridad)</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Demostrar que entendiste su mundo mejor que ellos. Posicionarte como experto.</p>
+                <p style="font-size:13px; color:var(--purple-light); margin-top:4px; font-style:italic;">"Lo que vimos es que tienen 3 problemas: (1) ___, (2) ___, (3) ___"</p>
+              </div>
+            </div>
+
+            <div class="num-step">
+              <span class="num-step-n">2.</span>
+              <div>
+                <strong style="color:var(--text);">Impacto (dinero)</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Traducir cada problema a impacto economico concreto. Usar las metricas del discovery.</p>
+                <p style="font-size:13px; color:var(--purple-light); margin-top:4px; font-style:italic;">"Esto esta impactando en ___ porque ___. Estimamos que estan dejando $X al mes en la mesa."</p>
+              </div>
+            </div>
+
+            <div class="num-step">
+              <span class="num-step-n">3.</span>
+              <div>
+                <strong style="color:var(--text);">Prioridad</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">No atacar todo — elegir el problema mas critico y explicar por que.</p>
+                <p style="font-size:13px; color:var(--purple-light); margin-top:4px; font-style:italic;">"El mas critico es ___ porque ahi es donde se pierde mas valor. Si resolvemos esto primero, el impacto es inmediato."</p>
+              </div>
+            </div>
+
+            <div class="num-step">
+              <span class="num-step-n">4.</span>
+              <div>
+                <strong style="color:var(--text);">Enfoque de solucion</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Mostrar el camino — no los detalles tecnicos, sino la logica de por que este enfoque resuelve el problema.</p>
+                <p style="font-size:13px; color:var(--purple-light); margin-top:4px; font-style:italic;">"La forma correcta de atacarlo es ___ porque ___"</p>
+              </div>
+            </div>
+
+            <div class="num-step highlight">
+              <span class="num-step-n">5.</span>
+              <div>
+                <strong style="color:var(--text);">Presentacion Fase 0</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Explicar exactamente que van a recibir, en cuanto tiempo y que queda listo al final.</p>
+                <p style="font-size:13px; color:var(--amber); margin-top:4px; font-style:italic;">"Para aterrizar esto, hacemos una Fase 0 donde: entendemos el problema a fondo, disenamos la solucion y dejamos todo listo para ejecutar."</p>
+              </div>
+            </div>
+
+            <div class="num-step highlight">
+              <span class="num-step-n">6.</span>
+              <div>
+                <strong style="color:var(--text);">Precio + cierre</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Directo, sin miedo, sin pedir disculpas por el precio. El valor ya esta claro por los pasos anteriores.</p>
+                <p style="font-size:13px; color:var(--amber); margin-top:4px; font-style:italic;">"La inversion de la Fase 0 es $X. Esto incluye ___. Lo podemos arrancar la proxima semana."</p>
+              </div>
+            </div>
+
+            <div class="num-step highlight">
+              <span class="num-step-n">7.</span>
+              <div>
+                <strong style="color:var(--text);">Manejo de objeciones (en vivo)</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Las objeciones se resuelven en el momento. No se "envian y esperan". Si el cliente tiene dudas, se abordan ahi mismo.</p>
+              </div>
+            </div>
+
+            <div class="num-step success">
+              <span class="num-step-n">8.</span>
+              <div>
+                <strong style="color:var(--text);">Cierre</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Pregunta directa de cierre. Sin rodeos.</p>
+                <p style="font-size:13px; color:var(--emerald); margin-top:4px; font-style:italic;">"Te hace sentido avanzar con esto?"</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="highlight-box red">
+          <p style="font-weight:700; color:var(--red); margin-bottom:4px;">Regla absoluta</p>
+          <p>Fase 0 SIEMPRE se presenta en call, nunca solo se envia. El cliente debe reaccionar en vivo. Si no reacciona, no hay cierre.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     04 — MANEJO DE OBJECIONES
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="objeciones">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">04 — Manejo de Objeciones</div>
+      <h2>Respuestas preparadas para <span class="gradient-text">las objeciones comunes</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Estas objeciones van a aparecer. La diferencia entre cerrar y perder esta en como respondes en el momento.</p>
+    </div>
+
+    <div class="fade-in-up" style="max-width:800px; margin:0 auto; display:flex; flex-direction:column; gap:12px;">
+      <div class="objection-card">
+        <div class="objection-q">&#128308; "Esta muy caro"</div>
+        <div class="objection-a">"Entiendo. Dejame preguntarte algo: cuanto estan perdiendo al mes por el problema que vimos? Si la Fase 0 les ayuda a recuperar aunque sea una fraccion de eso, la inversion se paga sola en el primer mes."</div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q">&#128308; "Necesito pensarlo"</div>
+        <div class="objection-a">"Totalmente. Que es especificamente lo que necesitas evaluar? Asi te puedo dar la informacion que necesitas para tomar la decision."</div>
+        <p style="font-size:12px; color:var(--text-secondary); padding-left:24px; margin-top:4px;">Objetivo: descubrir la objecion real detras del "necesito pensarlo".</p>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q">&#128308; "Tengo que consultarlo con mi socio/equipo"</div>
+        <div class="objection-a">"Claro. Que te parece si agendamos una call con tu socio/equipo? Asi puedo resolver sus dudas directamente y no depende solo de lo que vos les transmitas."</div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q">&#128308; "No es el momento"</div>
+        <div class="objection-a">"Entiendo que hay muchas prioridades. Pero dejame preguntarte: si el problema que vimos les esta costando $X por mes, cada mes que pasa es $X mas que pierden. Cuando seria el momento correcto?"</div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q">&#128308; "Ya tenemos algo parecido / lo hacemos interno"</div>
+        <div class="objection-a">"Genial. Y los resultados que estan teniendo con eso, son los que esperaban? Porque lo que vimos en el discovery sugiere que hay una brecha entre lo que tienen y lo que necesitan."</div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q">&#128308; "Mandame la propuesta por correo"</div>
+        <div class="objection-a">"Prefiero mostrartela en vivo porque hay cosas que se entienden mejor conversando. Son 30 minutos y asi puedo resolver cualquier duda en el momento. Que dia te funciona?"</div>
+        <p style="font-size:12px; color:var(--red); padding-left:24px; margin-top:4px; font-weight:600;">NUNCA enviar Fase 0 sin call. Esta es una trampa comun.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     05 — PIPELINE DE 14 DIAS
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="pipeline-14">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">05 — Pipeline de 14 Dias</div>
+      <h2>Timeline con <span class="gradient-text">presion estructurada</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Cada lead tiene 14 dias desde el primer approach. Despues de eso: cierre o muerte. Sin excepciones.</p>
+    </div>
+
+    <div class="fade-in-up" style="max-width:800px; margin:0 auto;">
+      <div class="pipeline-timeline">
+
+        <div class="pipeline-step">
+          <div class="pipeline-dot active"></div>
+          <div class="pipeline-day">Dia 0</div>
+          <div class="pipeline-title">Approach Call</div>
+          <div class="pipeline-desc">Calificar + generar interes. El objetivo es abrir dolor y agendar discovery.</div>
+          <div class="highlight-box" style="margin-top:8px; padding:10px 16px;">
+            <p style="font-size:12px;"><strong>Output obligatorio:</strong> Discovery agendado en vivo. Si no se agenda, el lead entra en riesgo inmediato.</p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-dot emerald active"></div>
+          <div class="pipeline-day">Dia 1-2</div>
+          <div class="pipeline-title">Discovery Call</div>
+          <div class="pipeline-desc">Entender el sistema, encontrar el problema real y cuantificar impacto. Salir con 3 metricas.</div>
+          <div class="highlight-box emerald" style="margin-top:8px; padding:10px 16px;">
+            <p style="font-size:12px;"><strong>Output obligatorio:</strong> Metricas de conversion + tiempo + costo. Solution Call agendada para maximo dia 5.</p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-dot amber active"></div>
+          <div class="pipeline-day">Dia 3-5</div>
+          <div class="pipeline-title">Solution + Fase 0</div>
+          <div class="pipeline-desc">Presentar diagnostico, impacto, solucion y Fase 0. Manejar objeciones en vivo. Buscar cierre.</div>
+          <div class="highlight-box amber" style="margin-top:8px; padding:10px 16px;">
+            <p style="font-size:12px;"><strong>Output obligatorio:</strong> El cliente reacciona en vivo. Se cierra o se define un follow-up con fecha.</p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-dot blue"></div>
+          <div class="pipeline-day">Dia 6-7</div>
+          <div class="pipeline-title">Follow-up Estructurado</div>
+          <div class="pipeline-desc">Si no cerro: resolver objeciones, aclarar dudas, volver a presionar decision. Maximo 2-3 intentos.</div>
+          <div style="background:rgba(96,165,250,0.06); border:1px solid rgba(96,165,250,0.15); border-radius:10px; padding:10px 16px; margin-top:8px;">
+            <p style="font-size:12px; color:var(--text);"><strong>Copy:</strong> <em>"Queria ver como estas viendo esto. Desde lo que hablamos, hay una oportunidad clara en ___, pero depende de si esto es prioridad ahora."</em></p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-dot"></div>
+          <div class="pipeline-day">Dia 10</div>
+          <div class="pipeline-title">Ultimo Empuje</div>
+          <div class="pipeline-desc">Mensaje directo y transparente. Forzar una decision clara: si o no.</div>
+          <div style="background:rgba(248,113,113,0.06); border:1px solid rgba(248,113,113,0.15); border-radius:10px; padding:10px 16px; margin-top:8px;">
+            <p style="font-size:12px; color:var(--text);"><strong>Copy:</strong> <em>"Para ser transparentes, esto hace sentido priorizarlo ahora o prefieres que lo dejemos mas adelante?"</em></p>
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-dot red active"></div>
+          <div class="pipeline-day">Dia 14</div>
+          <div class="pipeline-title">Cierre o Muerte</div>
+          <div class="pipeline-desc">Estado final. No hay excepcion. El deal se cierra, se pierde, o sale del pipeline.</div>
+          <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+            <span class="tag tag-emerald" style="font-size:12px; padding:4px 12px;">Cerrado</span>
+            <span class="tag tag-red" style="font-size:12px; padding:4px 12px;">Perdido</span>
+            <span class="tag" style="font-size:12px; padding:4px 12px; background:rgba(107,104,148,0.15); color:var(--text-muted);">No prioridad (fuera)</span>
+          </div>
+          <div style="background:rgba(107,104,148,0.06); border:1px solid rgba(107,104,148,0.15); border-radius:10px; padding:10px 16px; margin-top:8px;">
+            <p style="font-size:12px; color:var(--text);"><strong>Copy:</strong> <em>"Creo que lo mejor es cerrar este proceso por ahora y retomarlo cuando haga mas sentido. Si quieres, lo vemos mas adelante."</em></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="highlight-box emerald mt-24" style="text-align:center;">
+        <p style="color:var(--emerald); font-weight:600; font-size:15px;">Esto limpia pipeline, sube respeto y libera tiempo para deals que si van a cerrar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     06 — KPIs DEL SPRINT
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="kpis">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">06 — KPIs del Sprint</div>
+      <h2>Las metricas que <span class="gradient-text">realmente importan</span></h2>
+      <p class="subtitle" style="margin:0 auto;">No medir todo — medir lo que indica donde esta el problema. Cada KPI tiene un "que indica" para saber como actuar.</p>
+    </div>
+
+    <!-- Funnel objetivo -->
+    <h3 class="fade-in-up mb-16" style="text-align:center;">Funnel Objetivo</h3>
+    <div class="fade-in-up mb-32">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>Meta</th>
+            <th>Que indica</th>
+            <th>Si no se cumple</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--text); font-weight:600;">Calls (approach)</td>
+            <td><span style="color:var(--purple-light); font-weight:700;">10 / persona / semana</span></td>
+            <td>Volumen de pipeline</td>
+            <td style="font-size:12px;">Problema de prospeccion — no hay suficientes contactos</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text); font-weight:600;">Approach &#8594; Discovery</td>
+            <td><span style="color:var(--emerald); font-weight:700;">60%</span></td>
+            <td>Calidad del lead + pitch</td>
+            <td style="font-size:12px;">Leads no calificados o pitch de approach debil</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text); font-weight:600;">Discovery &#8594; Solution</td>
+            <td><span style="color:var(--emerald); font-weight:700;">70%</span></td>
+            <td>Calidad del discovery</td>
+            <td style="font-size:12px;">No se esta encontrando dolor real o no se cuantifica</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text); font-weight:600;">Solution &#8594; Fase 0 presentada</td>
+            <td><span style="color:var(--amber); font-weight:700;">80%</span></td>
+            <td>Calidad del framing</td>
+            <td style="font-size:12px;">El reframe no es convincente o falta autoridad</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text); font-weight:600;">Fase 0 &#8594; Cierre</td>
+            <td><span style="color:var(--red); font-weight:700;">30%</span></td>
+            <td>Valor percibido</td>
+            <td style="font-size:12px;">El cliente no ve suficiente valor — revisar la presentacion</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- KPIs de velocidad -->
+    <h3 class="fade-in-up mb-16" style="text-align:center;">KPIs de Velocidad</h3>
+    <div class="grid-4 fade-in-up stagger mb-32">
+      <div class="metric-card">
+        <div class="metric-value purple">&lt;10d</div>
+        <div class="metric-label">Tiempo promedio de cierre</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value amber">&lt;48h</div>
+        <div class="metric-label">Approach &#8594; Discovery</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value amber">&lt;72h</div>
+        <div class="metric-label">Discovery &#8594; Solution</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value red">&lt;20%</div>
+        <div class="metric-label">Deals &gt;14 dias</div>
+      </div>
+    </div>
+
+    <!-- KPI critico -->
+    <div class="grid-2 fade-in-up">
+      <div class="highlight-box red" style="text-align:center; padding:24px; margin:0;">
+        <p style="font-size:12px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;">KPI Critico</p>
+        <p style="font-size:20px; font-weight:700; color:var(--text);">% Fase 0 &#8594; Cierre</p>
+        <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">Si es &lt;20% hay un problema grave de valor percibido. Revisar como se presenta la Fase 0 y la calidad del discovery.</p>
+      </div>
+      <div class="highlight-box emerald" style="text-align:center; padding:24px; margin:0;">
+        <p style="font-size:12px; font-weight:700; color:var(--emerald); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;">Meta Final</p>
+        <p style="font-size:20px; font-weight:800; color:var(--text);">2-3 cierres / semana</p>
+        <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">Hoy estan en ~1. El objetivo minimo es duplicar. Leads estancados: meta &lt;15% del pipeline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     07 — CLASIFICACION DE LEADS
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="clasificacion">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">07 — Clasificacion de Leads</div>
+      <h2>Priorizar para <span class="gradient-text">cerrar mas rapido</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Despues de Discovery, cada lead se clasifica. Los HOT reciben 100% del esfuerzo. Los COLD se matan rapido.</p>
+    </div>
+
+    <div class="grid-3 fade-in-up stagger">
+      <div class="lead-card hot">
+        <div class="lead-badge">HOT — Prioridad Maxima</div>
+        <ul class="feature-list">
+          <li><span class="dot emerald"></span>Dolor claro y verbalizado</li>
+          <li><span class="dot emerald"></span>Impacto cuantificado en dinero</li>
+          <li><span class="dot emerald"></span>Interes alto — pregunta por precio/tiempos</li>
+          <li><span class="dot emerald"></span>Decision maker en la call</li>
+        </ul>
+        <div style="margin-top:12px; padding:10px 14px; background:rgba(52,211,153,0.08); border-radius:8px;">
+          <p style="font-size:13px; color:var(--emerald); font-weight:600;">Timeline: 5-7 dias para cerrar</p>
+          <p style="font-size:12px; color:var(--text-muted);">Accion: prioridad absoluta, solution call lo antes posible</p>
+        </div>
+      </div>
+
+      <div class="lead-card warm">
+        <div class="lead-badge">WARM</div>
+        <ul class="feature-list">
+          <li><span class="dot amber"></span>Problema existe y es real</li>
+          <li><span class="dot amber"></span>Pero no es urgente para ellos</li>
+          <li><span class="dot amber"></span>Interes moderado</li>
+          <li><span class="dot amber"></span>Puede necesitar mas stakeholders</li>
+        </ul>
+        <div style="margin-top:12px; padding:10px 14px; background:rgba(251,191,36,0.08); border-radius:8px;">
+          <p style="font-size:13px; color:var(--amber); font-weight:600;">Timeline: 7-14 dias</p>
+          <p style="font-size:12px; color:var(--text-muted);">Accion: generar urgencia, involucrar decision maker</p>
+        </div>
+      </div>
+
+      <div class="lead-card cold">
+        <div class="lead-badge">COLD</div>
+        <ul class="feature-list">
+          <li><span class="dot red"></span>No hay dolor real</li>
+          <li><span class="dot red"></span>No hay prioridad ni presupuesto</li>
+          <li><span class="dot red"></span>"Solo estamos explorando"</li>
+          <li><span class="dot red"></span>No hay decision maker accesible</li>
+        </ul>
+        <div style="margin-top:12px; padding:10px 14px; background:rgba(248,113,113,0.08); border-radius:8px;">
+          <p style="font-size:13px; color:var(--red); font-weight:600;">Accion: matar rapido</p>
+          <p style="font-size:12px; color:var(--text-muted);">No perder tiempo. Agradecer y cerrar. Liberar pipeline.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerta de movimiento -->
+    <h3 class="fade-in-up mb-16 mt-32" style="text-align:center;">Sistema de Alertas por Inactividad</h3>
+    <div class="fade-in-up" style="max-width:700px; margin:0 auto;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Dias sin movimiento</th>
+            <th>Estado</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--amber); font-weight:700;">3 dias</td>
+            <td><span class="tag tag-amber">Alerta</span></td>
+            <td>Follow-up inmediato — revisar que paso</td>
+          </tr>
+          <tr>
+            <td style="color:var(--red); font-weight:700;">7 dias</td>
+            <td><span class="tag tag-red">Riesgo</span></td>
+            <td>Ultimo empuje — "esto sigue siendo prioridad?"</td>
+          </tr>
+          <tr>
+            <td style="color:var(--red); font-weight:700;">14 dias</td>
+            <td><span class="tag tag-red">Muerte</span></td>
+            <td>Cerrar el deal — "cerramos por ahora, retomamos despues"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     08 — TRACKING
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="tracking">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">08 — Formato de Tracking</div>
+      <h2>Simple, usable y <span class="gradient-text">actualizado diario</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Dos tablas en Google Sheets. Se llenan todos los dias al final de la jornada. Sin excepcion.</p>
+    </div>
+
+    <!-- Tabla principal -->
+    <h3 class="fade-in-up mb-16">Tabla Principal de Pipeline</h3>
+    <div class="fade-in-up mb-24" style="overflow-x:auto;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Lead</th>
+            <th>Empresa</th>
+            <th>Comercial</th>
+            <th>Call 1</th>
+            <th>Call 2</th>
+            <th>Call 3</th>
+            <th>Califico?</th>
+            <th>Metricas?</th>
+            <th>F0?</th>
+            <th>Resultado</th>
+            <th>Monto</th>
+            <th>Obs.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--text);">Juan Lopez</td>
+            <td>TechCo</td>
+            <td>Sara</td>
+            <td>17/03</td>
+            <td>19/03</td>
+            <td>21/03</td>
+            <td><span class="tag tag-emerald">Si</span></td>
+            <td><span class="tag tag-emerald">Si</span></td>
+            <td><span class="tag tag-emerald">Si</span></td>
+            <td><span class="tag tag-purple">Cerrado</span></td>
+            <td style="color:var(--emerald); font-weight:600;">$5,000</td>
+            <td style="font-size:11px;">Muy interesado</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text);">Maria Ruiz</td>
+            <td>RetailX</td>
+            <td>Agustin</td>
+            <td>18/03</td>
+            <td>20/03</td>
+            <td>—</td>
+            <td><span class="tag tag-emerald">Si</span></td>
+            <td><span class="tag tag-red">No</span></td>
+            <td>—</td>
+            <td><span class="tag tag-amber">En proceso</span></td>
+            <td>—</td>
+            <td style="font-size:11px;">Falta CAC</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2 fade-in-up mb-24">
+      <div class="card">
+        <h4 style="color:var(--purple-light); margin-bottom:12px;">Como llenar cada campo</h4>
+        <ul class="feature-list">
+          <li><span class="dot"></span><strong style="color:var(--text);">Call 1/2/3:</strong> fecha exacta de la llamada</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Califico?:</strong> si/no — hubo dolor real?</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Metricas?:</strong> si/no — tienes conversion + tiempo + costo?</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">F0?:</strong> si/no — se presento Fase 0 en call?</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Resultado:</strong> Cerrado / Perdido / En proceso</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Observaciones:</strong> nota breve de contexto</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 style="color:var(--purple-light); margin-bottom:12px;">Tabla Resumen Semanal</h4>
+        <table class="data-table" style="border-radius:10px;">
+          <thead>
+            <tr><th>Comercial</th><th>Calls</th><th>Disc.</th><th>Sol.</th><th>F0</th><th>Cierres</th><th>%</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="color:var(--text);">Sara</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td style="color:var(--text);">Agustin</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:10px;">Se llena cada viernes en el Pipeline Review.</p>
+      </div>
+    </div>
+
+    <!-- Campo de velocidad -->
+    <h3 class="fade-in-up mb-16">Control de Velocidad (campo nuevo)</h3>
+    <div class="fade-in-up" style="overflow-x:auto;">
+      <table class="data-table">
+        <thead>
+          <tr><th>Lead</th><th>Etapa actual</th><th>Ultimo contacto</th><th>Dias sin movimiento</th><th>Estado</th><th>Accion</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--text);">Carlos Diaz</td><td>Post-Discovery</td><td>14/03</td>
+            <td style="color:var(--amber); font-weight:600;">5 dias</td>
+            <td><span class="tag tag-amber">Alerta</span></td>
+            <td style="font-size:12px;">Enviar follow-up de dia 6-7</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text);">Ana Torres</td><td>Post-Solution</td><td>10/03</td>
+            <td style="color:var(--red); font-weight:600;">9 dias</td>
+            <td><span class="tag tag-red">Riesgo</span></td>
+            <td style="font-size:12px;">Ultimo empuje o cerrar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     09 — REGLAS OPERATIVAS
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="reglas">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">09 — Reglas Operativas</div>
+      <h2>No negociables — <span class="gradient-text">se cumplen siempre</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Estas reglas son la columna vertebral del sistema. Si alguna se rompe, todo el framework pierde eficacia.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:16px; max-width:800px; margin:0 auto;" class="fade-in-up stagger">
+      <div class="rule-card">
+        <div class="rule-number">1</div>
+        <div class="rule-content">
+          <h4>No Fase 0 sin call de presentacion</h4>
+          <p>La Fase 0 nunca se envia sola por correo. Siempre se presenta en vivo, con el cliente reaccionando en tiempo real. Si el cliente pide "mandamela", agendar call.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-number">2</div>
+        <div class="rule-content">
+          <h4>No Fase 0 sin cuantificacion</h4>
+          <p>Si no hay al menos 1 metrica de conversion, 1 de tiempo y 1 de costo, no se avanza a Call 3. Volver a discovery si es necesario.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-number">3</div>
+        <div class="rule-content">
+          <h4>Toda call termina con siguiente paso agendado</h4>
+          <p>Nunca "te escribo", "lo vemos luego", "dejame pensarlo y te aviso". Siempre: calendario cerrado en vivo antes de colgar.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-number">4</div>
+        <div class="rule-content">
+          <h4>No mas de 72h entre calls</h4>
+          <p>Si pasa mas: el deal se enfria y baja conversion. Approach &#8594; Discovery: &lt;48h. Discovery &#8594; Solution: &lt;72h.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-number">5</div>
+        <div class="rule-content">
+          <h4>Si no hay problema claro &#8594; descalificar</h4>
+          <p>No perder tiempo con leads que no tienen dolor real ni prioridad. Matar rapido y liberar pipeline para deals que si van a cerrar.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-number">6</div>
+        <div class="rule-content">
+          <h4>Pipeline limpio cada viernes</h4>
+          <p>Todos los viernes se revisa el pipeline completo. Todo lead estancado se decide: avanzar, empujar o matar. No hay leads en limbo.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-number">7</div>
+        <div class="rule-content">
+          <h4>No follow-ups eternos</h4>
+          <p>Maximo 2-3 follow-ups despues de la Solution Call. Si no hay respuesta o movimiento, cerrar el loop y liberar. Perseguir no cierra deals.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-number">8</div>
+        <div class="rule-content">
+          <h4>Todo aprendizaje se documenta</h4>
+          <p>Cada call genera un analisis (AI Feedback). Cada semana genera insights en el Pipeline Review. Sin documentacion no hay mejora.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     10 — RITUALES OPERATIVOS
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="rituales">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">10 — Rituales Operativos</div>
+      <h2>Rituales <span class="gradient-text">diarios y semanales</span></h2>
+      <p class="subtitle" style="margin:0 auto;">La mejora no viene de mas calls — viene de mejores loops de feedback + consistencia diaria. Estos rituales son el motor del sprint.</p>
+    </div>
+
+    <!-- ── DIARIOS ─────────────────────────────────────────── -->
+    <h3 class="fade-in-up mb-24" style="text-align:center; font-size:24px;">
+      <span style="color:var(--purple-light);">Rituales Diarios</span>
+      <span style="font-size:14px; color:var(--text-muted); display:block; margin-top:4px;">No negociables — todos los dias sin excepcion</span>
+    </h3>
+
+    <div class="grid-2 fade-in-up stagger mb-32">
+      <!-- Daily Standup -->
+      <div class="card" style="border-top:3px solid var(--purple);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <span style="font-size:28px;">&#128227;</span>
+          <div>
+            <h4 style="margin-bottom:0; font-size:17px;">Daily Standup de Ventas</h4>
+            <span style="font-size:12px; color:var(--purple-light); font-weight:600;">15 min &bull; 8:00 AM &bull; Todo el equipo</span>
+          </div>
+          <span class="tag tag-red" style="margin-left:auto;">MAS IMPORTANTE</span>
+        </div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Cada persona responde estas 4 preguntas. Sin excepcion, sin saltarse, sin extenderse.</p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="background:rgba(124,58,237,0.04); border-radius:8px; padding:10px 14px;">
+            <p style="font-size:13px; color:var(--text);"><strong style="color:var(--purple-light);">1.</strong> Cuantas calls tuve ayer?</p>
+          </div>
+          <div style="background:rgba(124,58,237,0.04); border-radius:8px; padding:10px 14px;">
+            <p style="font-size:13px; color:var(--text);"><strong style="color:var(--purple-light);">2.</strong> Que aprendi?</p>
+          </div>
+          <div style="background:rgba(124,58,237,0.04); border-radius:8px; padding:10px 14px;">
+            <p style="font-size:13px; color:var(--text);"><strong style="color:var(--purple-light);">3.</strong> Donde estaba el dinero en mi mejor call?</p>
+          </div>
+          <div style="background:rgba(124,58,237,0.04); border-radius:8px; padding:10px 14px;">
+            <p style="font-size:13px; color:var(--text);"><strong style="color:var(--purple-light);">4.</strong> Que voy a hacer hoy para cerrar?</p>
+          </div>
+        </div>
+        <div class="highlight-box" style="padding:10px 16px; margin-top:12px;">
+          <p style="font-size:12px;"><strong>Resultado:</strong> foco, accountability y presion positiva</p>
+        </div>
+      </div>
+
+      <!-- Bloque de Prospeccion -->
+      <div class="card" style="border-top:3px solid var(--emerald);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <span style="font-size:28px;">&#128640;</span>
+          <div>
+            <h4 style="margin-bottom:0; font-size:17px;">Bloque de Prospeccion</h4>
+            <span style="font-size:12px; color:var(--emerald); font-weight:600;">2 horas &bull; 8:15-10:15 AM &bull; Sara + Agustin</span>
+          </div>
+        </div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">2 horas dedicadas SOLO a llenar pipeline. Sin calls, sin distracciones, sin Slack.</p>
+        <ul class="feature-list">
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">20-30 contactos diarios:</strong> LinkedIn, WhatsApp, email</li>
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">5-10 follow-ups activos</strong> a leads existentes</li>
+        </ul>
+        <div style="margin-top:12px; background:rgba(52,211,153,0.06); border-radius:8px; padding:10px 14px;">
+          <p style="font-size:12px; color:var(--text-muted);"><strong style="color:var(--emerald);">KPIs diarios:</strong> contactos enviados, respuestas recibidas, calls agendadas</p>
+        </div>
+        <div class="highlight-box red" style="padding:10px 16px; margin-top:12px;">
+          <p style="font-size:12px; color:var(--red);">Sin distracciones. Sin calls. Solo generacion. Si no se protege este bloque, no hay pipeline.</p>
+        </div>
+      </div>
+
+      <!-- Post-Call AI Feedback -->
+      <div class="card" style="border-top:3px solid var(--amber);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <span style="font-size:28px;">&#129302;</span>
+          <div>
+            <h4 style="margin-bottom:0; font-size:17px;">Post-Call AI Feedback</h4>
+            <span style="font-size:12px; color:var(--amber); font-weight:600;">Despues de CADA call &bull; No se acumula</span>
+          </div>
+        </div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Acelerar aprendizaje x10 con analisis inmediato de cada conversacion.</p>
+        <div style="margin-bottom:12px;">
+          <p style="font-size:12px; font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Flujo</p>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span class="tag tag-amber">Subir transcript (Fireflies)</span>
+            <span style="color:var(--text-muted);">&#8594;</span>
+            <span class="tag tag-purple">Pasar por prompt de sales coach</span>
+            <span style="color:var(--text-muted);">&#8594;</span>
+            <span class="tag tag-emerald">5 bullets de mejora</span>
+          </div>
+        </div>
+        <table class="data-table" style="border-radius:10px;">
+          <thead><tr><th>Campo obligatorio</th><th>Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--text);">Problema detectado</td><td>El cliente tiene 200 leads/mes pero convierte solo 3%</td></tr>
+            <tr><td style="color:var(--text);">Donde estaba el dinero?</td><td>$15K/mes en leads no atendidos a tiempo</td></tr>
+            <tr><td style="color:var(--text);">Error principal</td><td>No cuantifique el costo del tiempo de respuesta</td></tr>
+            <tr><td style="color:var(--text);">Mejora concreta</td><td>Preguntar "cuanto tardan en responder un lead?"</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight-box red" style="padding:10px 16px; margin-top:12px;">
+          <p style="font-size:12px; color:var(--red);">No pasar a la siguiente call sin este analisis. Si no se hace, se repiten los mismos errores.</p>
+        </div>
+      </div>
+
+      <!-- Pipeline Update -->
+      <div class="card" style="border-top:3px solid var(--pink);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <span style="font-size:28px;">&#128202;</span>
+          <div>
+            <h4 style="margin-bottom:0; font-size:17px;">Pipeline Update + Follow-ups</h4>
+            <span style="font-size:12px; color:var(--pink); font-weight:600;">45 min &bull; 4:00-4:45 PM &bull; Final del dia</span>
+          </div>
+        </div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Control total del pipeline + avanzar deals activos.</p>
+        <ul class="feature-list">
+          <li><span class="dot pink"></span><strong style="color:var(--text);">Actualizar tabla</strong> de cada lead con estado actual</li>
+          <li><span class="dot pink"></span><strong style="color:var(--text);">Clasificar:</strong> HOT / WARM / COLD</li>
+          <li><span class="dot pink"></span><strong style="color:var(--text);">Revisar leads activos</strong> — quien necesita follow-up?</li>
+          <li><span class="dot pink"></span><strong style="color:var(--text);">Enviar mensajes</strong> de avance / presion</li>
+          <li><span class="dot pink"></span><strong style="color:var(--text);">Verificar:</strong> algun lead &gt;3 dias sin movimiento?</li>
+        </ul>
+        <div class="highlight-box red" style="padding:10px 16px; margin-top:12px;">
+          <p style="font-size:12px; color:var(--red);">Ningun lead sin siguiente paso definido. Si no hay movimiento en 3 dias &#8594; actuar.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learning Log -->
+    <div class="fade-in-up mb-40" style="max-width:700px; margin:0 auto;">
+      <div class="card" style="border:1px solid rgba(124,58,237,0.3); text-align:center;">
+        <span style="font-size:32px;">&#128218;</span>
+        <h3 class="mt-16" style="margin-bottom:8px;">Learning Log (Diario)</h3>
+        <p style="font-size:14px; color:var(--text-muted); margin-bottom:16px;">Esto es lo que realmente acelera crecimiento. Cada persona escribe al final del dia — no se necesitan mas de 2 minutos.</p>
+        <div class="grid-3" style="gap:12px;">
+          <div style="background:var(--red-bg); border-radius:10px; padding:16px;">
+            <p style="font-size:14px; color:var(--text); font-weight:600;">1 error que cometi</p>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Ej: "No pregunte por el CAC"</p>
+          </div>
+          <div style="background:var(--emerald-bg); border-radius:10px; padding:16px;">
+            <p style="font-size:14px; color:var(--text); font-weight:600;">1 cosa que hice bien</p>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Ej: "Cerre siguiente paso en vivo"</p>
+          </div>
+          <div style="background:var(--purple-bg); border-radius:10px; padding:16px;">
+            <p style="font-size:14px; color:var(--text); font-weight:600;">1 cosa que cambio manana</p>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Ej: "Voy a cuantificar impacto"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEMANALES ───────────────────────────────────────── -->
+    <h3 class="fade-in-up mb-24" style="text-align:center; font-size:24px;">
+      <span style="color:var(--emerald);">Rituales Semanales</span>
+      <span style="font-size:14px; color:var(--text-muted); display:block; margin-top:4px;">Clave para mejorar rapido — donde se transfiere el criterio del CEO</span>
+    </h3>
+
+    <div class="grid-3 fade-in-up stagger">
+      <div class="card" style="border-top:3px solid var(--purple);">
+        <div class="card-icon purple">&#127911;</div>
+        <h4>Call Review</h4>
+        <p style="font-size:12px; color:var(--purple-light); margin-bottom:12px;">2x/semana &bull; 60 min &bull; CEO + equipo</p>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">El ritual mas poderoso para transferir criterio. Escoger 2-3 calls y analizarlas juntos.</p>
+        <div style="background:rgba(124,58,237,0.04); border-radius:8px; padding:10px 14px;">
+          <p style="font-size:12px; color:var(--text-muted);"><strong style="color:var(--text);">Preguntas del analisis:</strong></p>
+          <ul class="feature-list" style="margin-top:6px;">
+            <li><span class="dot"></span>Donde estaba el dinero?</li>
+            <li><span class="dot"></span>Cual era el problema real?</li>
+            <li><span class="dot"></span>Por que compraria o no?</li>
+            <li><span class="dot"></span>Que haria diferente?</li>
+          </ul>
+        </div>
+        <div class="highlight-box" style="padding:8px 14px; margin-top:8px;">
+          <p style="font-size:11px;">Nadie se va sin insight claro.</p>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--emerald);">
+        <div class="card-icon emerald">&#9876;&#65039;</div>
+        <h4>Roleplay de Alto Nivel</h4>
+        <p style="font-size:12px; color:var(--emerald); margin-bottom:12px;">2x/semana &bull; 45 min</p>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Practicar sin riesgo. Simular situaciones reales y recibir feedback inmediato.</p>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+          <div style="background:rgba(52,211,153,0.06); border-radius:8px; padding:10px 14px;">
+            <p style="font-size:13px;"><strong style="color:var(--emerald);">Dia 1:</strong> <span style="color:var(--text-muted);">Discovery — practicar preguntas de impacto</span></p>
+          </div>
+          <div style="background:rgba(52,211,153,0.06); border-radius:8px; padding:10px 14px;">
+            <p style="font-size:13px;"><strong style="color:var(--emerald);">Dia 2:</strong> <span style="color:var(--text-muted);">Presion consultiva — practicar cierre y objeciones</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--amber);">
+        <div class="card-icon amber">&#128269;</div>
+        <h4>Pipeline Review</h4>
+        <p style="font-size:12px; color:var(--amber); margin-bottom:12px;">Viernes &bull; 45 min &bull; Decisiones duras</p>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Revision completa del pipeline. Tomar decisiones, no solo reportar.</p>
+        <ul class="feature-list">
+          <li><span class="dot amber"></span>Leads &gt;7 dias sin movimiento</li>
+          <li><span class="dot amber"></span>Leads sin metricas aun</li>
+          <li><span class="dot amber"></span>Deals bloqueados</li>
+          <li><span class="dot amber"></span>Llenar tabla resumen semanal</li>
+        </ul>
+        <div class="highlight-box red" style="padding:8px 14px; margin-top:8px;">
+          <p style="font-size:11px; color:var(--red);">Cada lead se decide: avanzar, empujar o matar. No hay "lo vemos la proxima".</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     11 — DIA IDEAL
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="dia-ideal">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">11 — Dia Ideal</div>
+      <h2>Estructura del <span class="gradient-text">dia perfecto</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Este es el dia tipo de un comercial del equipo. Se sigue todos los dias hasta que sea automatico.</p>
+    </div>
+
+    <div class="fade-in-up" style="max-width:750px; margin:0 auto;">
+      <div class="card" style="padding:0; overflow:hidden;">
+        <div style="padding:16px 24px; background:rgba(124,58,237,0.06); border-bottom:1px solid var(--border);">
+          <h4 style="margin:0; color:var(--purple-light);">Horario Tipo — Dia de un Comercial</h4>
+        </div>
+        <div style="padding:20px 24px;">
+          <div class="schedule-row">
+            <div class="schedule-time" style="color:var(--purple-light);">8:00 – 8:15</div>
+            <div class="schedule-activity"><strong style="color:var(--text);">Daily Standup</strong> — 4 preguntas por persona. 15 min maximo.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time" style="color:var(--emerald);">8:15 – 10:15</div>
+            <div class="schedule-activity"><strong style="color:var(--emerald);">Prospeccion</strong> — 2 horas de generacion pura. 20-30 contactos. Sin distracciones.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time">10:30 – 1:00</div>
+            <div class="schedule-activity"><strong style="color:var(--text);">Calls (manana)</strong> — Approach, Discovery o Solution. Maximo enfoque.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time">1:00 – 2:00</div>
+            <div class="schedule-activity" style="color:var(--text-secondary);">Almuerzo + descanso</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time">2:00 – 4:00</div>
+            <div class="schedule-activity"><strong style="color:var(--text);">Calls (tarde)</strong> — Approach, Discovery o Solution.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time" style="color:var(--amber);">4:00 – 4:30</div>
+            <div class="schedule-activity"><strong style="color:var(--amber);">Follow-ups</strong> — Mensajes de avance y presion a deals activos.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time" style="color:var(--pink);">4:30 – 5:00</div>
+            <div class="schedule-activity"><strong style="color:var(--pink);">AI Feedback + Pipeline</strong> — Analisis de calls + actualizar tabla + Learning Log.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scoreboard -->
+    <div class="fade-in-up mt-24" style="max-width:800px; margin:24px auto 0;">
+      <div class="scoreboard">
+        <div class="scoreboard-header">Scoreboard Diario — Visible para todos, actualizado cada dia</div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" style="border:none;">
+            <thead>
+              <tr>
+                <th>Comercial</th><th>Calls</th><th>Discoveries</th><th>Solutions</th><th>Fase 0</th>
+                <th>Cierres</th><th>Prospecting</th><th>Follow-ups</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--text); font-weight:600;">Sara</td>
+                <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text); font-weight:600;">Agustin</td>
+                <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:12px; text-align:center;">Se actualiza TODOS los dias. La visibilidad crea accountability.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     12 — SISTEMA DE PRESION
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="presion">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">12 — Sistema de Presion</div>
+      <h2>Copy real para <span class="gradient-text">cada momento del follow-up</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Mensajes listos para copiar y pegar. Presion con respeto. Cada uno tiene un objetivo especifico.</p>
+    </div>
+
+    <div class="fade-in-up" style="max-width:750px; margin:0 auto; display:flex; flex-direction:column; gap:20px;">
+
+      <div class="copy-block" style="border-left-color:var(--emerald);">
+        <div class="copy-label" style="color:var(--emerald);">Post-call inmediato (mismo dia)</div>
+        <div class="copy-text">"Gracias por el espacio de hoy. Resumen rapido de lo que hablamos: [2-3 bullets]. El proximo paso es [X] el [fecha]. Te llega la invitacion."</div>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:6px; font-style:normal;">Objetivo: confirmar que hubo siguiente paso y anclar la fecha.</p>
+      </div>
+
+      <div class="copy-block" style="border-left-color:var(--amber);">
+        <div class="copy-label" style="color:var(--amber);">Follow-up dia 6-7</div>
+        <div class="copy-text">"Queria ver como estas viendo esto. Desde lo que hablamos, hay una oportunidad clara en ___, pero depende de si esto es prioridad ahora."</div>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:6px; font-style:normal;">Objetivo: re-enganchar y forzar una respuesta de prioridad.</p>
+      </div>
+
+      <div class="copy-block" style="border-left-color:var(--red);">
+        <div class="copy-label" style="color:var(--red);">Dia 10 — Directo</div>
+        <div class="copy-text">"Para ser transparentes, esto hace sentido priorizarlo ahora o prefieres que lo dejemos mas adelante?"</div>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:6px; font-style:normal;">Objetivo: forzar decision binaria. Si o no. Sin zona gris.</p>
+      </div>
+
+      <div class="copy-block" style="border-left-color:var(--text-secondary);">
+        <div class="copy-label" style="color:var(--text-secondary);">Dia 14 — Cierre del proceso</div>
+        <div class="copy-text">"Creo que lo mejor es cerrar este proceso por ahora y retomarlo cuando haga mas sentido. Si quieres, lo vemos mas adelante."</div>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:6px; font-style:normal;">Objetivo: cerrar el loop con dignidad. Esto genera respeto y a veces reactiva el deal.</p>
+      </div>
+
+      <div class="highlight-box emerald" style="text-align:center;">
+        <p style="color:var(--emerald); font-weight:600; font-size:15px;">Esto limpia pipeline, sube respeto y libera tiempo para deals reales.</p>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Muchas veces el mensaje de dia 14 reactiva al cliente. La presion con respeto funciona.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     13 — PLAN DE EJECUCION
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="sprint">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">13 — Plan de Ejecucion</div>
+      <h2>Sprint de <span class="gradient-text">2 semanas</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Semana 1 es montar el sistema. Semana 2 es iterar segun datos. No se necesita mas.</p>
+    </div>
+
+    <div class="grid-2 fade-in-up stagger" style="max-width:900px; margin:0 auto;">
+      <div class="card" style="border-top:3px solid var(--purple);">
+        <div class="tag tag-purple mb-16">Semana 1 — Montar el Sistema</div>
+        <h4 style="margin-bottom:16px;">Implementar estructura completa</h4>
+        <ul class="feature-list">
+          <li><span class="dot"></span><strong style="color:var(--text);">Dia 1:</strong> Kickoff — presentar este framework al equipo completo</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Dia 1:</strong> Crear Google Sheet con las 3 tablas de tracking</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Dia 1:</strong> Activar primer Daily Standup</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Dia 2-5:</strong> Ejecutar estructura de 3 calls en todos los deals</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Dia 2-5:</strong> Implementar AI feedback post-call</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Dia 3:</strong> Primer Call Review (CEO + equipo)</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Dia 4:</strong> Primer Roleplay</li>
+          <li><span class="dot"></span><strong style="color:var(--text);">Dia 5:</strong> Primer Pipeline Review (viernes)</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--emerald);">
+        <div class="tag tag-emerald mb-16">Semana 2 — Iterar segun Datos</div>
+        <h4 style="margin-bottom:16px;">Ajustar lo que no funciona</h4>
+        <ul class="feature-list">
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">Analizar:</strong> donde se cae el funnel? Que etapa tiene peor conversion?</li>
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">Identificar:</strong> quien tiene gaps? Discovery debil? Cierre debil?</li>
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">Ajustar:</strong> refinar scripts y approach segun lo que funciono</li>
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">Reforzar:</strong> mas roleplay en areas debiles</li>
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">Evaluar:</strong> se esta duplicando conversion?</li>
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">Pipeline review profundo</strong> — limpieza total</li>
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">Decidir:</strong> que rituales se mantienen, cuales se ajustan</li>
+          <li><span class="dot emerald"></span><strong style="color:var(--text);">Documentar:</strong> aprendizajes clave del sprint</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     14 — SENALES
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="senales">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">14 — Senales</div>
+      <h2>Como saber si <span class="gradient-text">esta funcionando</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Revisa estas senales al final de cada semana. Si ves las de exito, vas bien. Si ves las de alerta, ajusta inmediatamente.</p>
+    </div>
+
+    <div class="grid-2 fade-in-up stagger" style="max-width:900px; margin:0 auto;">
+      <div class="card" style="border-top:3px solid var(--emerald);">
+        <h4 style="color:var(--emerald); margin-bottom:16px;">Senales de Exito</h4>
+        <ul class="feature-list">
+          <li><span class="dot emerald"></span>Menos ghosting — clientes responden mas rapido</li>
+          <li><span class="dot emerald"></span>Mas claridad en calls — estructura evidente</li>
+          <li><span class="dot emerald"></span>Clientes diciendo: <em>"esto hace mucho sentido"</em></li>
+          <li><span class="dot emerald"></span>Calls mas cortas pero mas efectivas</li>
+          <li><span class="dot emerald"></span>Menos ruido en pipeline — solo deals reales</li>
+          <li><span class="dot emerald"></span>Mas cierres — minimo x2 vs. antes</li>
+          <li><span class="dot emerald"></span>Equipo usa AI feedback sin que se lo pidan</li>
+          <li><span class="dot emerald"></span>Siguiente paso se agenda en vivo siempre</li>
+          <li><span class="dot emerald"></span>Scoreboard se actualiza solo — el equipo lo "siente"</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--red);">
+        <h4 style="color:var(--red); margin-bottom:16px;">Senales de Alerta</h4>
+        <ul class="feature-list">
+          <li><span class="dot red"></span>Muchas Fase 0 presentadas pero sin cierre</li>
+          <li><span class="dot red"></span>Calls largas sin direccion clara</li>
+          <li><span class="dot red"></span>No hay metricas en discovery</li>
+          <li><span class="dot red"></span>No hacen el AI feedback</li>
+          <li><span class="dot red"></span>No actualizan pipeline — tabla vacia</li>
+          <li><span class="dot red"></span>No hacen follow-ups a tiempo</li>
+          <li><span class="dot red"></span>Calls siguen siendo superficiales y pasivas</li>
+          <li><span class="dot red"></span>El standup se vuelve un reporte sin sustancia</li>
+          <li><span class="dot red"></span>Leads &gt;14 dias siguen en el pipeline</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     15 — ROL DEL CEO
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="ceo">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">15 — Tu Rol como CEO</div>
+      <h2>No solo lider — <span class="gradient-text">coach activo</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Durante estas 2 semanas tu rol no es vender. Es entrenar al equipo a pensar como vos. Transferir criterio, no scripts.</p>
+    </div>
+
+    <div class="fade-in-up" style="max-width:800px; margin:0 auto;">
+      <div class="grid-3 mb-24">
+        <div class="metric-card">
+          <div class="metric-value purple">3-5</div>
+          <div class="metric-label">Calls revisadas / semana</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value emerald">2x</div>
+          <div class="metric-label">Debriefs semanales</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value amber">100%</div>
+          <div class="metric-label">Pipeline reviews asistidos</div>
+        </div>
+      </div>
+
+      <div class="card mb-24">
+        <h4 style="margin-bottom:16px; color:var(--purple-light);">Que hacer en cada debrief</h4>
+        <div class="grid-2" style="gap:12px;">
+          <div style="background:var(--purple-bg); border-radius:10px; padding:16px;">
+            <p style="font-size:14px; color:var(--text); font-weight:600; margin-bottom:4px;">Donde esta el dinero?</p>
+            <p style="font-size:12px; color:var(--text-muted);">Identificar en la call del comercial donde estaba la oportunidad real — a veces es diferente de lo que ellos creen.</p>
+          </div>
+          <div style="background:var(--emerald-bg); border-radius:10px; padding:16px;">
+            <p style="font-size:14px; color:var(--text); font-weight:600; margin-bottom:4px;">Por que compraria?</p>
+            <p style="font-size:12px; color:var(--text-muted);">Forzar al equipo a articular la razon de compra. Si no la pueden decir en 1 oracion, no entienden al cliente.</p>
+          </div>
+          <div style="background:var(--amber-bg); border-radius:10px; padding:16px;">
+            <p style="font-size:14px; color:var(--text); font-weight:600; margin-bottom:4px;">Que haria diferente?</p>
+            <p style="font-size:12px; color:var(--text-muted);">No dar la respuesta — preguntar primero "tu que harias?" y luego complementar. Entrenar pensamiento.</p>
+          </div>
+          <div style="background:var(--pink-bg); border-radius:10px; padding:16px;">
+            <p style="font-size:14px; color:var(--text); font-weight:600; margin-bottom:4px;">Corregir en caliente</p>
+            <p style="font-size:12px; color:var(--text-muted);">Si algo no esta funcionando, no esperar al viernes. Feedback inmediato, concreto y sin rodeos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="text-align:center; padding:24px;">
+        <p style="font-size:15px; font-weight:600; color:var(--text);">Tu objetivo como CEO en este sprint:</p>
+        <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">Entrenar <strong style="color:var(--purple-light);">pensamiento</strong>, no scripts. Que el equipo sepa <strong style="color:var(--emerald);">pensar</strong> donde esta el dinero, no que repita frases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     16 — RECURSOS DE APRENDIZAJE
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="recursos">
+  <div class="section-inner">
+    <div class="section-header fade-in-up">
+      <div class="section-number">16 — Recursos de Aprendizaje</div>
+      <h2>Material para <span class="gradient-text">subir el nivel</span></h2>
+      <p class="subtitle" style="margin:0 auto;">Videos y podcasts seleccionados para reforzar cada area del framework. El equipo deberia consumir al menos 1-2 de estos por semana durante el sprint.</p>
+    </div>
+
+    <!-- Videos -->
+    <h3 class="fade-in-up mb-24" style="text-align:center; font-size:22px;">
+      <span style="color:var(--purple-light);">Videos Esenciales</span>
+      <span style="font-size:14px; color:var(--text-muted); display:block; margin-top:4px;">Ver estos durante las 2 semanas del sprint</span>
+    </h3>
+
+    <div class="grid-2 fade-in-up stagger mb-40">
+
+      <!-- Video 1 -->
+      <a href="https://www.youtube.com/watch?v=StVqS0jD7Ls" target="_blank" class="video-card">
+        <img class="video-thumb" src="https://img.youtube.com/vi/StVqS0jD7Ls/maxresdefault.jpg" alt="Video thumbnail"
+             onerror="this.src='https://img.youtube.com/vi/StVqS0jD7Ls/hqdefault.jpg'">
+        <div class="video-info">
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span class="tag tag-red">TOP RECOMENDADO</span>
+          </div>
+          <h4>Video Esencial de Ventas B2B</h4>
+          <p>El video mas importante de la seleccion. Verlo primero.</p>
+          <div class="video-play">&#9654; Ver en YouTube</div>
+        </div>
+      </a>
+
+      <!-- Video 2 -->
+      <a href="https://www.youtube.com/watch?v=QU8F01yfcfU" target="_blank" class="video-card">
+        <img class="video-thumb" src="https://img.youtube.com/vi/QU8F01yfcfU/maxresdefault.jpg" alt="Video thumbnail"
+             onerror="this.src='https://img.youtube.com/vi/QU8F01yfcfU/hqdefault.jpg'">
+        <div class="video-info">
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span class="tag tag-purple">Venta consultiva</span>
+          </div>
+          <h4>How to Sell Without Selling: Consultative Sales Strategies That Win Trust</h4>
+          <p>Estrategias consultivas que construyen confianza. Perfecto para mejorar el approach y discovery.</p>
+          <div class="video-play">&#9654; Ver en YouTube</div>
+        </div>
+      </a>
+
+      <!-- Video 3 -->
+      <a href="https://www.youtube.com/watch?v=1aZ3sa5HQrw" target="_blank" class="video-card">
+        <img class="video-thumb" src="https://img.youtube.com/vi/1aZ3sa5HQrw/maxresdefault.jpg" alt="Video thumbnail"
+             onerror="this.src='https://img.youtube.com/vi/1aZ3sa5HQrw/hqdefault.jpg'">
+        <div class="video-info">
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span class="tag tag-emerald">Training</span>
+          </div>
+          <h4>Consultative Sales Training</h4>
+          <p>Entrenamiento completo en ventas consultivas. Ideal para el equipo antes de arrancar el sprint.</p>
+          <div class="video-play">&#9654; Ver en YouTube</div>
+        </div>
+      </a>
+
+      <!-- Video 4 -->
+      <a href="https://www.youtube.com/watch?v=RsY-OceAMIg" target="_blank" class="video-card">
+        <img class="video-thumb" src="https://img.youtube.com/vi/RsY-OceAMIg/maxresdefault.jpg" alt="Video thumbnail"
+             onerror="this.src='https://img.youtube.com/vi/RsY-OceAMIg/hqdefault.jpg'">
+        <div class="video-info">
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span class="tag tag-amber">Discovery</span>
+            <span class="tag tag-blue">En espanol</span>
+          </div>
+          <h4>Ventas Consultivas B2B: Que Preguntas Hacer para Vender Bien</h4>
+          <p>Preguntas especificas para discovery B2B. Directamente aplicable al bloque 2 de las calls.</p>
+          <div class="video-play">&#9654; Ver en YouTube</div>
+        </div>
+      </a>
+
+      <!-- Video 5 -->
+      <a href="https://www.youtube.com/watch?v=ACUCJ4fcw1g" target="_blank" class="video-card">
+        <img class="video-thumb" src="https://img.youtube.com/vi/ACUCJ4fcw1g/maxresdefault.jpg" alt="Video thumbnail"
+             onerror="this.src='https://img.youtube.com/vi/ACUCJ4fcw1g/hqdefault.jpg'">
+        <div class="video-info">
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span class="tag tag-red">Cierre</span>
+          </div>
+          <h4>How to Close B2B Sales Deals with MEDDPICC</h4>
+          <p>Framework MEDDPICC para calificacion y cierre de deals B2B. Complementa la estructura de Call 3.</p>
+          <div class="video-play">&#9654; Ver en YouTube</div>
+        </div>
+      </a>
+
+      <!-- Video 6 -->
+      <a href="https://www.youtube.com/watch?v=PVOHI5dsRoY" target="_blank" class="video-card">
+        <img class="video-thumb" src="https://img.youtube.com/vi/PVOHI5dsRoY/maxresdefault.jpg" alt="Video thumbnail"
+             onerror="this.src='https://img.youtube.com/vi/PVOHI5dsRoY/hqdefault.jpg'">
+        <div class="video-info">
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span class="tag tag-purple">Proceso completo</span>
+          </div>
+          <h4>Mastering B2B Sales: Sales Process, Training, Deal Qualification & Management</h4>
+          <p>Vision completa del proceso de ventas B2B. Desde calificacion hasta manejo de deals. Muy completo.</p>
+          <div class="video-play">&#9654; Ver en YouTube</div>
+        </div>
+      </a>
+
+      <!-- Video 7 -->
+      <a href="https://www.youtube.com/watch?v=vBWBq0W2PR8" target="_blank" class="video-card" style="grid-column: 1 / -1; max-width:540px; margin:0 auto; width:100%;">
+        <img class="video-thumb" src="https://img.youtube.com/vi/vBWBq0W2PR8/maxresdefault.jpg" alt="Video thumbnail"
+             onerror="this.src='https://img.youtube.com/vi/vBWBq0W2PR8/hqdefault.jpg'">
+        <div class="video-info">
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span class="tag tag-emerald">Blueprint</span>
+          </div>
+          <h4>B2B Sales: Ultimate 5-Step Deal-Closing Blueprint</h4>
+          <p>Blueprint de 5 pasos para cerrar deals B2B. Muy alineado con la estructura de este framework.</p>
+          <div class="video-play">&#9654; Ver en YouTube</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Podcasts -->
+    <h3 class="fade-in-up mb-24" style="text-align:center; font-size:22px;">
+      <span style="color:var(--emerald);">Podcasts Recomendados</span>
+      <span style="font-size:14px; color:var(--text-muted); display:block; margin-top:4px;">Escuchar durante prospeccion o traslados — aprendizaje continuo</span>
+    </h3>
+
+    <div class="grid-2 fade-in-up stagger">
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:var(--purple-bg);">&#127911;</div>
+        <h4 style="color:var(--text);">The Salesman Podcast</h4>
+        <div class="tag tag-purple mb-8">Conversaciones reales</div>
+        <ul class="feature-list" style="margin-top:8px;">
+          <li><span class="dot"></span>Muy practico — casos reales de B2B</li>
+          <li><span class="dot"></span>Enfocado en closing y discovery</li>
+        </ul>
+        <div class="highlight-box" style="padding:10px 14px; margin-top:12px;">
+          <p style="font-size:12px;"><strong>Ideal para:</strong> mejorar conversaciones reales. Escuchar antes de las calls.</p>
+        </div>
+      </div>
+
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:var(--red-bg);">&#9876;&#65039;</div>
+        <h4 style="color:var(--text);">Winning the Challenger Sale</h4>
+        <div class="tag tag-red mb-8">Control de la conversacion</div>
+        <ul class="feature-list" style="margin-top:8px;">
+          <li><span class="dot red"></span>Ensena a retar al cliente, no solo escuchar</li>
+          <li><span class="dot red"></span>Guiar en vez de ser pasivo</li>
+        </ul>
+        <div class="highlight-box red" style="padding:10px 14px; margin-top:12px;">
+          <p style="font-size:12px;"><strong>Perfecto para:</strong> resolver el problema de conversaciones pasivas y falta de control.</p>
+        </div>
+      </div>
+
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:var(--amber-bg);">&#128165;</div>
+        <h4 style="color:var(--text);">The Brutal Truth About Sales</h4>
+        <div class="tag tag-amber mb-8">Mindset B2B</div>
+        <ul class="feature-list" style="margin-top:8px;">
+          <li><span class="dot amber"></span>Enfocado en ventas complejas B2B</li>
+          <li><span class="dot amber"></span>Muy realista — sin humo ni teoria vacia</li>
+        </ul>
+        <div class="highlight-box amber" style="padding:10px 14px; margin-top:12px;">
+          <p style="font-size:12px;"><strong>Ideal para:</strong> construir mindset consultivo. Perfecto para el equipo.</p>
+        </div>
+      </div>
+
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:var(--blue-bg);">&#128640;</div>
+        <h4 style="color:var(--text);">Sales Hacker Podcast</h4>
+        <div class="tag tag-blue mb-8">Estrategia moderna</div>
+        <ul class="feature-list" style="margin-top:8px;">
+          <li><span class="dot blue"></span>Estrategia moderna de ventas</li>
+          <li><span class="dot blue"></span>Casos reales de empresas tech</li>
+        </ul>
+        <div class="highlight-box blue" style="padding:10px 14px; margin-top:12px;">
+          <p style="font-size:12px;"><strong>Ideal para:</strong> subir el nivel estrategico. Pensar como las mejores empresas tech.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recomendacion de consumo -->
+    <div class="fade-in-up mt-24" style="max-width:700px; margin:24px auto 0;">
+      <div class="highlight-box" style="padding:24px; text-align:center;">
+        <p style="font-size:12px; font-weight:700; color:var(--purple-light); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;">Plan de consumo sugerido</p>
+        <div class="grid-2" style="gap:12px; margin-top:12px;">
+          <div style="background:rgba(124,58,237,0.06); border-radius:10px; padding:14px;">
+            <p style="font-size:13px; font-weight:600; color:var(--text);">Semana 1</p>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">Ver los 3 videos principales (TOP, Consultative Sales, Discovery B2B). Empezar podcast The Salesman.</p>
+          </div>
+          <div style="background:rgba(52,211,153,0.06); border-radius:10px; padding:14px;">
+            <p style="font-size:13px; font-weight:600; color:var(--text);">Semana 2</p>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">Ver videos de MEDDPICC y Blueprint. Escuchar Challenger Sale y Brutal Truth para reforzar cierre.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     CONCLUSION / CIERRE
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="conclusion">
+  <div class="section-inner">
+    <div class="fade-in-up" style="max-width:800px; margin:0 auto; text-align:center;">
+      <h2 style="margin-bottom:32px;">Las <span class="gradient-text">3 claves</span> del exito</h2>
+
+      <div class="grid-3 mb-32">
+        <div class="card" style="border-top:3px solid var(--purple); text-align:center;">
+          <div style="font-size:36px; margin-bottom:12px;">&#9997;&#65039;</div>
+          <h4 style="color:var(--purple-light); margin-bottom:8px;">Separar momentos</h4>
+          <p>Approach, Discovery y Cierre son conversaciones distintas con objetivos distintos. No se mezclan. Cada una tiene reglas.</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--emerald); text-align:center;">
+          <div style="font-size:36px; margin-bottom:12px;">&#128222;</div>
+          <h4 style="color:var(--emerald); margin-bottom:8px;">Fase 0 en call</h4>
+          <p>Siempre se presenta en vivo. Nunca solo se envia. El cliente reacciona en el momento y las objeciones se resuelven ahi.</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--amber); text-align:center;">
+          <div style="font-size:36px; margin-bottom:12px;">&#128200;</div>
+          <h4 style="color:var(--amber); margin-bottom:8px;">Medir por etapa</h4>
+          <p>Conversion por etapa, no solo cierres totales. Asi sabes exactamente donde esta el problema y donde mejorar.</p>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="padding:32px;">
+        <h3 style="margin-bottom:16px; color:var(--text);">Este framework convierte al equipo en:</h3>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <span class="tag tag-purple" style="font-size:15px; padding:8px 20px;">Disciplinado</span>
+          <span class="tag tag-emerald" style="font-size:15px; padding:8px 20px;">Medible</span>
+          <span class="tag tag-amber" style="font-size:15px; padding:8px 20px;">Iterativo</span>
+          <span class="tag tag-pink" style="font-size:15px; padding:8px 20px;">Peligroso comercialmente</span>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;">
+        <h3 style="color:var(--emerald); margin-bottom:16px;">3 decisiones inmediatas</h3>
+        <div style="display:flex; flex-direction:column; gap:10px; align-items:center;">
+          <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 28px; display:inline-block; border-left:4px solid var(--emerald);">
+            <p style="font-size:15px; color:var(--text);"><strong style="color:var(--emerald);">1.</strong> Implementar regla de 14 dias — kill or close</p>
+          </div>
+          <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 28px; display:inline-block; border-left:4px solid var(--emerald);">
+            <p style="font-size:15px; color:var(--text);"><strong style="color:var(--emerald);">2.</strong> No mas de 72h entre etapas</p>
+          </div>
+          <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 28px; display:inline-block; border-left:4px solid var(--emerald);">
+            <p style="font-size:15px; color:var(--text);"><strong style="color:var(--emerald);">3.</strong> Obligar siguiente paso agendado en cada call</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-32" style="padding:24px; background:linear-gradient(135deg, rgba(124,58,237,0.1), rgba(52,211,153,0.08)); border-radius:16px; border:1px solid rgba(124,58,237,0.2);">
+        <p style="font-size:18px; font-weight:700; color:var(--text); margin-bottom:4px;">A ejecutar.</p>
+        <p style="font-size:14px; color:var(--text-muted);">Este documento no vale nada si no se ejecuta desde el dia 1. Imprimir, leer en equipo, y arrancar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  Irrelevant &bull; Framework de Ventas &bull; Sprint 2 Semanas &bull; 2025
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCROLL ANIMATIONS + NAV
+     ══════════════════════════════════════════════════════════════════ -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('topNav');
+  const curr = window.pageYOffset;
+  nav.classList.toggle('hidden', curr > lastScroll && curr > 100);
+  lastScroll = curr;
+});
+</script>
+
+</body>
+</html>

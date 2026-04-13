@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Quote &mdash; AI Setup &mdash; Ops Layer | {{EMPRESA}} | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== COVER ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px; object-fit: contain;
+    opacity: 0.95;
+    
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page h4:first-child { margin-top: 0; }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== EXEC SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul { margin-left: 14px; }
+
+  /* ===================== COST BLOCK ===================== */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== SIGNATURE BLOCK ===================== */
+  .signature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 20px;
+  }
+
+  .signature-side {
+    text-align: center;
+  }
+
+  .signature-side .sig-line {
+    width: 100%;
+    height: 1px;
+    background: var(--gris-claro);
+    margin-bottom: 10px;
+    margin-top: 60px;
+  }
+
+  .signature-side .sig-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 2px;
+  }
+
+  .signature-side .sig-role {
+    font-size: 9px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px; left: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 80px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .back-cover-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-cover-content .back-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .cover-title { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- COVER                                                          -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Service Quote</div>
+      <div class="cover-title">AI Setup<br>Ops Layer</div>
+      <div class="cover-subtitle">{{EMPRESA}}</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>{{FECHA}} | CONFIDENTIAL</span>
+        <span>Prepared by Irrelevant</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 01 - SUMMARY                                              -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Summary</span>
+    </div>
+    <span class="page-header-num">PAGE 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>What is the AI Setup</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Today your team does many tasks manually: writing follow-ups, building reports, searching for information across 5 different platforms, summarizing meetings, creating proposals from scratch. <strong>The AI Setup changes that.</strong></p>
+      <p style="margin-top:8px;">What we do is install an <strong>&ldquo;AI brain&rdquo;</strong> inside your operation &mdash; think of it as having an assistant that understands your business, is connected to your tools, and can execute complex tasks in seconds. It&rsquo;s not a new app your team has to learn. It&rsquo;s an intelligent layer that connects to what they already use.</p>
+    </div>
+
+    <h3>Specifically, what we deliver:</h3>
+
+    <div class="pain-grid" style="margin-top:16px;">
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">1. A diagnosis of your operation</div>
+        <p style="color: var(--gris-texto);">We understand how your team works today, where time is lost, and what can be improved. You receive a document with the complete picture.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">2. The AI brain configured</div>
+        <p style="color: var(--gris-texto);">We set up Claude &mdash; the most advanced AI engine on the market &mdash; and connect it to the platforms your team already uses (email, calendar, documents, etc.)</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">3. Your tool stack designed</div>
+        <p style="color: var(--gris-texto);">We select the right tools for your case (meetings, documents, CRM, communication) and leave them integrated with each other.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">4. Five intelligent processes running</div>
+        <p style="color: var(--gris-texto);">Specific tasks in your operation that today take hours and with AI execute in minutes. Ready to use from day one.</p>
+      </div>
+    </div>
+
+    <div class="metric-row" style="margin-top: 24px;">
+      <div class="metric-card">
+        <div class="metric-value">1 sem</div>
+        <div class="metric-label">To implement</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">5</div>
+        <div class="metric-label">Intelligent processes delivered</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">Day 1</div>
+        <div class="metric-label">Everything running</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 02 - WHAT'S INCLUDED                                      -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span class="page-header-title">What&rsquo;s Included</span>
+    </div>
+    <span class="page-header-num">PAGE 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>What are &ldquo;intelligent processes&rdquo;</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Think about the tasks your team repeats every week: summarizing a meeting, writing a client follow-up, building a report, creating a proposal. Today someone does them by hand. With the AI Setup, <strong>those tasks become processes that execute in seconds</strong> &mdash; your team just gives the instruction and the system does the rest.</p>
+    </div>
+
+    <h3>Examples of processes we deliver</h3>
+    <p style="margin-bottom:16px;">These are real examples. The specific 5 processes for {{EMPRESA}} are defined during the diagnosis, based on what generates the most impact in your operation.</p>
+
+    <div class="card-grid single-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Example</span>
+          <h5>Meeting &rarr; Notes + automatic tasks</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Before</div>
+          <p>Someone takes notes during the meeting, cleans them up, sends them by email. Takes 30-45 min. Sometimes nobody does it.</p>
+          <div class="label" style="color: #166534;">After</div>
+          <p>The meeting is recorded, the system generates notes with decisions, assigned tasks, and deadlines. Published automatically. <strong>Takes 0 minutes from your team.</strong></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Example</span>
+          <h5>Client data &rarr; Proposal ready to send</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Before</div>
+          <p>The sales rep opens an old template, copies data, adjusts pricing, checks for errors, asks for approval. Takes 2-3 days.</p>
+          <div class="label" style="color: #166534;">After</div>
+          <p>The system takes client information and generates a professional proposal with pricing, scope, and terms. <strong>Ready in 30 seconds.</strong></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Example</span>
+          <h5>Sales call &rarr; Personalized follow-up</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Before</div>
+          <p>The salesperson finishes the call and has to write the follow-up manually. Sometimes they forget or send it 3 days later.</p>
+          <div class="label" style="color: #166534;">After</div>
+          <p>The system listens to the call, identifies key points, and generates a personalized follow-up message for WhatsApp or email. <strong>Ready in 2 minutes.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 20px;">
+      <p><strong>Important:</strong> These are just examples. The 5 processes we implement for {{EMPRESA}} are chosen during the diagnosis, prioritizing those that generate the greatest impact in time recovered and execution quality. They are 100% adapted to your operation, your team, and your tools.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 03 - INVESTMENT                                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Investment</span>
+    </div>
+    <span class="page-header-num">PAGE 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Total Investment</h4>
+    <div class="gradient-line"></div>
+
+    <div class="cost-block">
+      <div class="cost-label">AI Setup &mdash; Ops Layer</div>
+      <div class="cost-value">$3,500 USD</div>
+      <div class="cost-desc">Full implementation &mdash; 1 week</div>
+    </div>
+
+    <h4>Payment Terms</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Upfront to start</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">On delivery</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 days</div>
+        <div class="metric-label">Quote validity</div>
+      </div>
+    </div>
+
+    <h4>What&rsquo;s NOT Included</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Third-party hosting or infrastructure costs</li>
+      <li>AI tool subscriptions (Claude, ChatGPT, etc.)</li>
+      <li>Additional development outside the setup scope</li>
+      <li>Ongoing maintenance after the support period</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Important:</strong> This quote is valid for <strong>15 days</strong> from the date of issue. Prices may be subject to change after this period.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 04 - TERMS                                                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="page-header-title">Terms</span>
+    </div>
+    <span class="page-header-num">PAGE 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Implementation Timeline</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>The setup is completed in <strong>1 to 2 business days</strong>, depending on the complexity of the operation and team availability. The start date is coordinated once the upfront payment is confirmed.</p>
+    </div>
+
+    <h4>Client Requirements</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Access to the team&rsquo;s current tools and platforms</li>
+      <li>Availability of at least one key person for the discovery session</li>
+      <li>Admin permissions on platforms where the AI engine will be configured</li>
+      <li>Availability for a delivery and knowledge transfer session</li>
+    </ul>
+
+    <h4>Post-Setup Support</h4>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box">
+      <p>Includes <strong>1 week of support</strong> after implementation for minor adjustments, questions, and fine-tuning of configured processes.</p>
+    </div>
+
+    <h4>Acceptance</h4>
+    <div class="gradient-line"></div>
+
+    <p>By signing this document, both parties agree to the terms and conditions described in this quote.</p>
+
+    <div class="signature-block">
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">{{CONTACTO}}</div>
+        <div class="sig-role">{{CARGO}} &mdash; {{EMPRESA}}</div>
+      </div>
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">{{COMERCIAL_NOMBRE}}</div>
+        <div class="sig-role">{{COMERCIAL_CARGO}} &mdash; Irrelevant</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top:32px;">Sales contact</h4>
+    <div class="gradient-line"></div>
+    <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:8px; padding:18px 22px;">
+      <p style="margin-bottom:4px;"><strong>{{COMERCIAL_NOMBRE}}</strong> &mdash; {{COMERCIAL_CARGO}}</p>
+      <p style="margin-bottom:2px;">&#9993; {{COMERCIAL_EMAIL}}</p>
+      <p style="margin-bottom:2px;">&#128172; {{COMERCIAL_TELEFONO}}</p>
+      <p>&#127760; stayirrelevant.com</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BACK COVER                                                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+      <p class="back-sub">{{EMPRESA}} &mdash; AI Setup &mdash; Ops Layer &mdash; {{FECHA}}</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

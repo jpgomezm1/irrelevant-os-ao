@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizaci&oacute;n Workshop Think AI &mdash; Edu Layer | Escuela Colombiana de Ingeniería Julio Garavito | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px; object-fit: contain;
+    opacity: 0.95;
+    
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page h4:first-child { margin-top: 0; }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== EXEC SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card-grid.single-col {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul { margin-left: 14px; }
+
+  /* ===================== COST BLOCK ===================== */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== SIGNATURE BLOCK ===================== */
+  .signature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 20px;
+  }
+
+  .signature-side {
+    text-align: center;
+  }
+
+  .signature-side .sig-line {
+    width: 100%;
+    height: 1px;
+    background: var(--gris-claro);
+    margin-bottom: 10px;
+    margin-top: 60px;
+  }
+
+  .signature-side .sig-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 2px;
+  }
+
+  .signature-side .sig-role {
+    font-size: 9px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px; left: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 80px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .back-cover-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-cover-content .back-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .cover-title { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Cotizaci&oacute;n de Servicios</div>
+      <div class="cover-title">Workshop: Think AI<br>Edu Layer</div>
+      <div class="cover-subtitle">Escuela Colombiana de Ingeniería Julio Garavito</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>Marzo 2026 | CONFIDENCIAL</span>
+        <span>Preparado por Irrelevant</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 01 - RESUMEN                                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>Qu&eacute; es Think AI</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Un <strong>workshop de 3 horas</strong> donde tu equipo pasa de no entender IA a pensar y resolver problemas con ella. No es una charla motivacional ni una clase te&oacute;rica &mdash; es una sesi&oacute;n pr&aacute;ctica donde cada participante termina usando herramientas de IA aplicadas a su trabajo real.</p>
+    </div>
+
+    <h4>Por qu&eacute; este workshop</h4>
+    <div class="gradient-line"></div>
+
+    <p>La mayor&iacute;a de equipos saben que la IA existe, pero no saben c&oacute;mo usarla en su d&iacute;a a d&iacute;a. El problema no es la tecnolog&iacute;a &mdash; es la forma de pensar. Este workshop cambia eso.</p>
+
+    <div class="highlight-box">
+      <p>Tu equipo no necesita volverse experto en IA. Necesita aprender a <strong>pensar con IA</strong> para resolver los problemas que ya enfrenta todos los d&iacute;as.</p>
+    </div>
+
+    <div class="metric-row" style="margin-top: 30px;">
+      <div class="metric-card">
+        <div class="metric-value">3h</div>
+        <div class="metric-label">Duraci&oacute;n del workshop</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Pr&aacute;ctico y aplicado</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">D&iacute;a 1</div>
+        <div class="metric-label">Resultados inmediatos</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 02 - CONTENIDO DEL WORKSHOP                                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      <span class="page-header-title">Contenido del Workshop</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Pensum del Workshop</h4>
+    <div class="gradient-line"></div>
+
+    <p>El workshop se estructura en dos bloques progresivos: primero el equipo entiende qu&eacute; hay detr&aacute;s de IA y c&oacute;mo cambia la forma de pensar los problemas, y luego pasa a la pr&aacute;ctica con herramientas reales.</p>
+
+    <div class="card-grid single-col" style="margin-top:16px;">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Bloque 1 &mdash; 45 minutos</span>
+          <h5>Pensar diferente</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Contenido</div>
+          <ul>
+            <li><strong>Qu&eacute; es realmente la IA</strong> &mdash; Sin t&eacute;rminos t&eacute;cnicos. C&oacute;mo funciona, qu&eacute; puede y qu&eacute; no puede hacer.</li>
+            <li><strong>C&oacute;mo cambia la forma de ver problemas</strong> &mdash; De &ldquo;necesitamos m&aacute;s gente&rdquo; a &ldquo;&iquest;un sistema puede hacer esto?&rdquo;</li>
+            <li><strong>Mapa de oportunidades</strong> &mdash; D&oacute;nde est&aacute; el valor real de IA en una empresa como Escuela Colombiana de Ingeniería Julio Garavito.</li>
+            <li><strong>Casos reales</strong> &mdash; Ejemplos concretos de empresas de la regi&oacute;n que ya operan diferente.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Resultado</div>
+          <p>El equipo entiende qu&eacute; es IA y empieza a ver los problemas de su d&iacute;a a d&iacute;a con otros ojos.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Bloque 2 &mdash; 2 horas 15 minutos</span>
+          <h5>Hacer diferente</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Herramienta central: Suite de Claude (Anthropic)</div>
+          <ul>
+            <li><strong>Claude</strong> &mdash; Conversaci&oacute;n inteligente para analizar, resumir, redactar y resolver problemas complejos.</li>
+            <li><strong>Claude Code</strong> &mdash; Ejecuci&oacute;n de tareas avanzadas: automatizar procesos, conectar herramientas, generar reportes.</li>
+            <li><strong>Claude Cowork</strong> &mdash; Colaboraci&oacute;n en tiempo real con IA dentro del flujo de trabajo del equipo.</li>
+          </ul>
+          <div class="label" style="margin-top:12px;">Habilidades que se desarrollan</div>
+          <ul>
+            <li><strong>Prompting efectivo</strong> &mdash; C&oacute;mo comunicarse con IA para obtener resultados &uacute;tiles. Estructuras, t&eacute;cnicas y errores comunes.</li>
+            <li><strong>An&aacute;lisis con IA</strong> &mdash; Convertir datos, documentos e informaci&oacute;n dispersa en decisiones claras en minutos.</li>
+            <li><strong>Generaci&oacute;n de contenido y documentos</strong> &mdash; Propuestas, reportes, comunicaciones, actas &mdash; todo en segundos.</li>
+            <li><strong>Ejercicios con casos reales de Escuela Colombiana de Ingeniería Julio Garavito</strong> &mdash; Cada persona resuelve un problema real de su d&iacute;a a d&iacute;a usando IA.</li>
+            <li><strong>Integraci&oacute;n al flujo de trabajo</strong> &mdash; C&oacute;mo incorporar IA en la rutina diaria para que se vuelva h&aacute;bito, no experimento.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Resultado</div>
+          <p>Cada participante sale con herramientas reales que puede usar desde el d&iacute;a siguiente, con ejercicios resueltos y la confianza de que puede hacerlo solo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Importante:</strong> El contenido se adapta a la particularidad de cada empresa y a las herramientas que ya usan. Antes del workshop realizamos una breve sesi&oacute;n de contexto para personalizar los ejercicios y ejemplos al sector y operaci&oacute;n del equipo. La base es prompting + la suite de Claude, complementada con las plataformas espec&iacute;ficas de Escuela Colombiana de Ingeniería Julio Garavito.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 03 - INVERSION                                             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Inversi&oacute;n</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Inversi&oacute;n total</h4>
+    <div class="gradient-line"></div>
+
+    <div class="cost-block">
+      <div class="cost-label">Workshop Think AI &mdash; Edu Layer</div>
+      <div class="cost-value">$4.500.000 COP + IVA</div>
+      <div class="cost-desc">Workshop completo &mdash; 3 horas</div>
+    </div>
+
+    <h4>Condiciones de pago</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Anticipo para agendar</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Al finalizar</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 d&iacute;as</div>
+        <div class="metric-label">Validez de la cotizaci&oacute;n</div>
+      </div>
+    </div>
+
+    <h4>Qu&eacute; incluye</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Workshop completo de 3 horas (presencial o virtual)</li>
+      <li>Material digital para todos los participantes</li>
+      <li>Acceso a recursos post-workshop</li>
+      <li>Sesi&oacute;n previa de contexto para personalizar contenido</li>
+    </ul>
+
+    <h4>Modalidad</h4>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box">
+      <p><strong>Presencial o virtual.</strong> El workshop puede realizarse en las instalaciones de la empresa o de forma remota v&iacute;a Zoom. Ambas modalidades incluyen los mismos entregables y din&aacute;mica.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 04 - CONDICIONES                                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="page-header-title">Condiciones</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Duraci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>El workshop tiene una duraci&oacute;n de <strong>3 horas</strong>, divididas en 2 bloques con un breve descanso intermedio. La fecha y hora se coordinan una vez confirmado el anticipo.</p>
+    </div>
+
+    <h4>Participantes</h4>
+    <div class="gradient-line"></div>
+
+    <p>N&uacute;mero m&aacute;ximo de participantes: <strong>A definir</strong> seg&uacute;n las necesidades de la empresa. Se recomienda un grupo entre 8 y 25 personas para maximizar la interacci&oacute;n y el aprendizaje pr&aacute;ctico.</p>
+
+    <h4>Requisitos</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Sala con proyector y conexi&oacute;n a internet (presencial) o acceso a Zoom (virtual)</li>
+      <li>Cada participante debe contar con un computador port&aacute;til</li>
+      <li>Acceso a navegador web actualizado (Chrome, Firefox o Edge)</li>
+      <li>Disponibilidad de 15 minutos previos para una breve sesi&oacute;n de contexto con el l&iacute;der del equipo</li>
+    </ul>
+
+    <h4>Aceptaci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <p>Al firmar este documento, ambas partes aceptan los t&eacute;rminos y condiciones descritos en esta cotizaci&oacute;n.</p>
+
+    <div class="signature-block">
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">María González</div>
+        <div class="sig-role">Directora Comercial &mdash; Escuela Colombiana de Ingeniería Julio Garavito</div>
+      </div>
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">Juan Pablo Gomez</div>
+        <div class="sig-role">Founder &mdash; Irrelevant</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top:32px;">Contacto comercial</h4>
+    <div class="gradient-line"></div>
+    <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:8px; padding:18px 22px;">
+      <p style="margin-bottom:4px;"><strong>Juan Pablo Gomez</strong> &mdash; Founder</p>
+      <p style="margin-bottom:2px;">&#9993; jpgomez@stayirrelevant.com</p>
+      <p style="margin-bottom:2px;">&#128172; +57 318 335 1733</p>
+      <p>&#127760; stayirrelevant.com</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+      <p class="back-sub">Escuela Colombiana de Ingeniería Julio Garavito &mdash; Workshop Think AI &mdash; Edu Layer &mdash; Marzo 2026</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

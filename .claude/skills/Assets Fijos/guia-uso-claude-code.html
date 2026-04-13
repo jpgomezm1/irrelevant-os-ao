@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Uso — Claude Code Skills | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+    --verde: #22C55E;
+    --verde-bg: #F0FDF4;
+    --verde-dark: #166534;
+    --amber: #F59E0B;
+    --amber-bg: #FFFBEB;
+    --amber-dark: #92400E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 70px;
+    opacity: 0.95;
+    margin-left: -8px;
+    object-fit: contain;
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h2.small { font-size: 21px; }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page h4:first-child { margin-top: 0; }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== SECTION DIVIDER ===================== */
+  .section-divider {
+    display: flex;
+    min-height: 100vh;
+    max-height: 297mm;
+  }
+
+  .section-divider-left {
+    flex: 1;
+    background: var(--lavanda);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+  }
+
+  .section-divider-left .section-icon {
+    font-size: 80px;
+    margin-bottom: 16px;
+  }
+
+  .section-divider-right {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-divider-right::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%);
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+
+  .section-number {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.08);
+    position: absolute;
+    top: 40px;
+    right: 50px;
+  }
+
+  .section-divider-right h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.25;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 14px;
+  }
+
+  .section-divider-right p {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+  }
+
+  .section-divider-right .section-line {
+    width: 40px;
+    height: 2px;
+    background: var(--morado-claro);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===================== EXEC SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  .highlight-box.success {
+    border-left-color: var(--verde);
+    background: var(--verde-bg);
+  }
+
+  .highlight-box.warning {
+    border-left-color: var(--amber);
+    background: var(--amber-bg);
+  }
+
+  .highlight-box.warning p { color: var(--amber-dark); }
+
+  /* ===================== FLOW DIAGRAM ===================== */
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+
+  .flow-step {
+    background: var(--lavanda);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .flow-step .flow-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .flow-step .flow-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gris-texto);
+  }
+
+  .flow-step .flow-sub {
+    font-size: 8px;
+    font-weight: 300;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  .flow-step.active {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    border-color: var(--morado);
+  }
+
+  .flow-step.active .flow-text { color: white; }
+  .flow-step.active .flow-sub { color: rgba(255,255,255,0.6); }
+
+  .flow-connector {
+    font-size: 16px;
+    color: var(--morado);
+    padding: 0 8px;
+  }
+
+  /* ===================== STEP CARDS (NUEVO) ===================== */
+  .step-card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 18px 20px;
+    background: var(--blanco);
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    transition: all 0.2s;
+  }
+
+  .step-card:hover {
+    border-color: rgba(139,92,246,0.3);
+    box-shadow: 0 2px 12px rgba(139,92,246,0.08);
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--morado), var(--morado-oscuro));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-content h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 4px;
+  }
+
+  .step-content p {
+    font-size: 10.5px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+    margin: 0;
+  }
+
+  .step-tip {
+    background: var(--lavanda);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--morado-deep);
+    line-height: 1.6;
+  }
+
+  .step-tip::before {
+    content: 'TIP: ';
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== COMPARISON CARDS (NUEVO) ===================== */
+  .choice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .choice-card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .choice-card.recommended {
+    border-color: var(--verde);
+    border-width: 2px;
+  }
+
+  .choice-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--verde);
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .choice-header {
+    padding: 24px 20px 16px;
+    text-align: center;
+  }
+
+  .choice-header .choice-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .choice-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gris-texto);
+    margin-bottom: 4px;
+  }
+
+  .choice-header .choice-sub {
+    font-size: 9px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  .choice-body {
+    padding: 0 20px 20px;
+  }
+
+  .choice-body .choice-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 10px;
+    font-weight: 300;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  .choice-body .choice-check {
+    color: var(--verde);
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ===================== COMMAND ANATOMY (NUEVO) ===================== */
+  .cmd-anatomy {
+    background: var(--negro);
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .cmd-anatomy .cmd-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .cmd-anatomy .cmd-display .cmd-slash {
+    color: var(--morado-claro);
+  }
+
+  .cmd-anatomy .cmd-display .cmd-name {
+    color: var(--verde);
+  }
+
+  .cmd-anatomy .cmd-display .cmd-arg {
+    color: var(--amber);
+  }
+
+  .cmd-labels {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .cmd-label-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cmd-label-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .cmd-label-dot.slash { background: var(--morado-claro); }
+  .cmd-label-dot.name { background: var(--verde); }
+  .cmd-label-dot.arg { background: var(--amber); }
+
+  .cmd-label-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== FAQ CARDS (NUEVO) ===================== */
+  .faq-card {
+    border-left: 3px solid var(--morado);
+    padding: 14px 20px;
+    margin-bottom: 14px;
+    background: var(--lavanda);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .faq-card .faq-q {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 6px;
+  }
+
+  .faq-card .faq-a {
+    font-size: 10px;
+    font-weight: 300;
+    color: #444;
+    line-height: 1.7;
+  }
+
+  .faq-card .faq-a code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: rgba(139,92,246,0.1);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--morado-deep);
+  }
+
+  /* ===================== QUICK REF TABLE (NUEVO) ===================== */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 9.5px;
+  }
+
+  .ref-table th {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 10px 14px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+
+  .ref-table th:first-child { border-radius: 6px 0 0 0; }
+  .ref-table th:last-child { border-radius: 0 6px 0 0; }
+
+  .ref-table td {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--gris-claro);
+    font-weight: 300;
+    color: #333;
+    vertical-align: top;
+  }
+
+  .ref-table tr:nth-child(even) td {
+    background: var(--lavanda);
+  }
+
+  .ref-table .cmd-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-deep);
+    white-space: nowrap;
+  }
+
+  .ref-table .cat-row td {
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+  }
+
+  /* ===================== CODE INLINE ===================== */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: rgba(139,92,246,0.08);
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: var(--morado-deep);
+  }
+
+  .code-block {
+    background: var(--negro);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #E2E8F0;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+
+  .code-block .comment { color: #6B7280; }
+  .code-block .cmd { color: var(--verde); }
+
+  /* ===================== PAGE FOOTER ===================== */
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 65px;
+    border-top: 1px solid var(--gris-claro);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 8px;
+    color: #999;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ===================== TOC ===================== */
+  .toc-section {
+    margin-bottom: 22px;
+  }
+
+  .toc-section-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    text-decoration: none;
+    color: #333;
+    font-size: 11px;
+    font-weight: 400;
+    border-bottom: 1px dotted var(--gris-claro);
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover { color: var(--morado); }
+
+  .toc-item .toc-page {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--morado);
+    font-weight: 500;
+  }
+
+  /* ===================== VERDICT BOX ===================== */
+  .verdict-box {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .verdict-box p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .verdict-box strong {
+    color: var(--morado-claro);
+  }
+
+  /* ===================== CONTRAPORTADA ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob1 {
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.25), transparent 60%);
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .back-cover .blob2 {
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .back-cover img {
+    height: 60px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 24px;
+    object-fit: contain;
+  }
+
+  .back-cover .back-url {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 3px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 8px;
+  }
+
+  .back-cover .back-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.3);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===================== MISC ===================== */
+  .no-break { page-break-inside: avoid; }
+  .mt-0 { margin-top: 0 !important; }
+  .mb-0 { margin-bottom: 0 !important; }
+  .text-center { text-align: center; }
+
+  .icon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .icon-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--lavanda);
+    border-radius: 8px;
+  }
+
+  .icon-item .ii-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .icon-item .ii-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .icon-item .ii-text {
+    font-size: 10px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  .icon-item .ii-text strong {
+    display: block;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 2px;
+  }
+
+  /* ===================== APP MOCKUP ===================== */
+  .app-mockup {
+    background: #1a1a2e;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 18px 0;
+    border: 1px solid rgba(139,92,246,0.2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  .app-mockup-bar {
+    background: #12122a;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .app-mockup-dots {
+    display: flex;
+    gap: 5px;
+  }
+
+  .app-mockup-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .app-mockup-dots span:nth-child(1) { background: #ff5f57; }
+  .app-mockup-dots span:nth-child(2) { background: #ffbd2e; }
+  .app-mockup-dots span:nth-child(3) { background: #28c840; }
+
+  .app-mockup-tabs {
+    display: flex;
+    gap: 0;
+    margin-left: auto;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+  }
+
+  .app-mockup-tabs span {
+    padding: 4px 14px;
+    color: rgba(255,255,255,0.3);
+    border-radius: 4px;
+    cursor: default;
+  }
+
+  .app-mockup-tabs span.active {
+    color: white;
+    background: var(--morado-oscuro);
+  }
+
+  .app-mockup-body {
+    padding: 16px 18px;
+  }
+
+  .app-mockup-chat {
+    margin-bottom: 12px;
+  }
+
+  .app-mockup-msg {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .app-mockup-msg .msg-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .app-mockup-msg .msg-avatar.user { background: var(--morado); }
+  .app-mockup-msg .msg-avatar.claude { background: #D97706; }
+
+  .app-mockup-msg .msg-bubble {
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 9px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    max-width: 85%;
+  }
+
+  .app-mockup-msg .msg-bubble code {
+    background: rgba(139,92,246,0.2);
+    color: var(--morado-claro);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+  }
+
+  .app-mockup-input {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .app-mockup-input .input-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--morado-claro);
+  }
+
+  .app-mockup-input .input-hint {
+    font-size: 8px;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ===================== CALLOUT NUMBERED ===================== */
+  .callout-num {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .callout-num .cn-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--lavanda);
+    border: 2px solid var(--morado);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--morado);
+  }
+
+  .callout-num .cn-text {
+    font-size: 10.5px;
+    font-weight: 300;
+    color: #333;
+    line-height: 1.7;
+    padding-top: 4px;
+  }
+
+  .callout-num .cn-text strong {
+    font-weight: 600;
+    color: var(--gris-texto);
+  }
+
+  /* ===================== VISUAL POINTER ===================== */
+  .pointer-box {
+    background: var(--negro);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .pointer-box .pointer-arrow {
+    font-size: 18px;
+    color: var(--morado-claro);
+    flex-shrink: 0;
+  }
+
+  .pointer-box .pointer-text {
+    font-size: 10px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+  .pointer-box .pointer-text strong {
+    color: white;
+  }
+
+  .pointer-box .pointer-text code {
+    background: rgba(139,92,246,0.2);
+    color: var(--morado-claro);
+    font-size: 10px;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================== -->
+<!-- PAGINA 1: PORTADA                              -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="Irrelevant">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">AI Ops Layer</div>
+      <h1 class="cover-title">Tu Asistente de IA<br>Guia de Uso</h1>
+      <p class="cover-subtitle">Todo lo que necesitas para usar tus skills de IA en el dia a dia. Sin tecnicismos, paso a paso.</p>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>{{EMPRESA}}</span>
+        <span>{{FECHA}}</span>
+      </div>
+      <div class="cover-meta" style="text-align:right;">
+        <span>CONFIDENCIAL</span>
+        <span>IRRELEVANT CLUB S.A.S.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 2: INDICE                               -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <span class="page-header-title">Indice</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h2>Contenido</h2>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Esta guia te ensena todo lo que necesitas saber para usar tus skills de IA.</strong> Esta disenada para que la sigas paso a paso la primera vez, y luego la uses como referencia rapida cuando necesites recordar algo.</p>
+    </div>
+
+    <div class="toc-section">
+      <div class="toc-section-title">Entender</div>
+      <a class="toc-item" href="#que-es"><span>Que son los Skills (y por que te importan)</span><span class="toc-page">04</span></a>
+      <a class="toc-item" href="#cual-app"><span>Cual aplicacion usar: Desktop App vs Terminal</span><span class="toc-page">06</span></a>
+    </div>
+
+    <div class="toc-section">
+      <div class="toc-section-title">Configurar (solo una vez)</div>
+      <a class="toc-item" href="#setup-desktop"><span>Paso a paso: Claude Desktop App (recomendado)</span><span class="toc-page">08</span></a>
+      <a class="toc-item" href="#setup-cli"><span>Paso a paso: Claude Code en Terminal (avanzado)</span><span class="toc-page">10</span></a>
+    </div>
+
+    <div class="toc-section">
+      <div class="toc-section-title">Usar todos los dias</div>
+      <a class="toc-item" href="#como-usar"><span>Como ejecutar un skill (con ejemplo real)</span><span class="toc-page">12</span></a>
+      <a class="toc-item" href="#tips"><span>Tips para sacarle el maximo provecho</span><span class="toc-page">13</span></a>
+    </div>
+
+    <div class="toc-section">
+      <div class="toc-section-title">Consulta rapida</div>
+      <a class="toc-item" href="#ref"><span>Todos tus skills en una sola tabla</span><span class="toc-page">15</span></a>
+      <a class="toc-item" href="#faq"><span>Preguntas frecuentes y soluciones</span><span class="toc-page">17</span></a>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 3: SECTION DIVIDER — QUE ES ESTO       -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" stroke-width="1.5" style="margin-bottom:12px;">
+        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <span class="section-number">01</span>
+      <div class="section-line"></div>
+      <h2>Que Son<br>los Skills?</h2>
+      <p>Piensa en ellos como recetas automaticas: tu dices que necesitas y Claude lo prepara.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 4: QUE SON LOS SKILLS                   -->
+<!-- ============================================== -->
+<div class="page" id="que-es">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+      </svg>
+      <span class="page-header-title">Que son los Skills</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h2>Imagina esto</h2>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Necesitas una cotizacion para un cliente. En vez de abrir un template, buscar precios, llenar datos y formatear el documento... simplemente escribes <code>/cotizacion</code> en un chat, respondes un par de preguntas, y en segundos tienes un documento profesional listo para enviar.</p>
+      <p style="margin-top:8px;"><strong>Eso es un skill.</strong> Una instruccion inteligente que le dice a Claude (tu asistente de IA) exactamente como hacer una tarea especifica de tu negocio.</p>
+    </div>
+
+    <h4>Asi de simple es el proceso</h4>
+
+    <div class="flow-diagram">
+      <div class="flow-step" style="min-width:140px;">
+        <div class="flow-icon" style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--morado-deep);">/cotizacion</div>
+        <div class="flow-text">Tu escribes esto</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step active" style="min-width:140px;">
+        <div class="flow-icon" style="font-size:16px;">&#9881;</div>
+        <div class="flow-text">Claude lo hace</div>
+        <div class="flow-sub">busca datos, arma documento</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step" style="min-width:140px;">
+        <div class="flow-icon" style="font-size:16px;">&#10004;</div>
+        <div class="flow-text">Resultado listo</div>
+        <div class="flow-sub">en tu chat + archivo guardado</div>
+      </div>
+    </div>
+
+    <!-- MOCKUP: Asi se ve en la app -->
+    <h4>Asi se ve en la app</h4>
+    <div class="app-mockup">
+      <div class="app-mockup-bar">
+        <div class="app-mockup-dots"><span></span><span></span><span></span></div>
+        <div class="app-mockup-tabs">
+          <span>Chat</span>
+          <span>Cowork</span>
+          <span class="active">Code</span>
+        </div>
+      </div>
+      <div class="app-mockup-body">
+        <div class="app-mockup-chat">
+          <div class="app-mockup-msg">
+            <div class="msg-avatar user">Tu</div>
+            <div class="msg-bubble"><code>/cotizacion</code> Acme Corp</div>
+          </div>
+          <div class="app-mockup-msg">
+            <div class="msg-avatar claude">C</div>
+            <div class="msg-bubble">Perfecto, voy a generar la cotizacion para Acme Corp. Es para el AI Ops Layer ($7.000.000 COP)? En que moneda la necesitas?</div>
+          </div>
+          <div class="app-mockup-msg">
+            <div class="msg-avatar user">Tu</div>
+            <div class="msg-bubble">Si, Ops Layer, en pesos colombianos</div>
+          </div>
+          <div class="app-mockup-msg">
+            <div class="msg-avatar claude">C</div>
+            <div class="msg-bubble">Listo! Aqui esta tu cotizacion. El archivo se guardo en Clientes/acme-corp/comercial/</div>
+          </div>
+        </div>
+        <div class="app-mockup-input">
+          <span class="input-text">/ escribe un comando...</span>
+          <span class="input-hint">Enter para enviar</span>
+        </div>
+      </div>
+    </div>
+
+    <h4>No necesitas saber nada tecnico</h4>
+    <div class="icon-grid">
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+        <div class="ii-text"><strong>No necesitas programar</strong>Escribes en lenguaje normal, como un chat</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+        <div class="ii-text"><strong>No necesitas memorizar nada</strong>Siempre puedes consultar esta guia</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="ii-text"><strong>Solo necesitas la app instalada</strong>Y una suscripcion de Claude ($20 USD/mes)</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="ii-text"><strong>Tu carpeta de proyecto</strong>Te la entrego el equipo de Irrelevant</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 5: SECTION DIVIDER — CUAL APP USAR      -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" stroke-width="1.5" style="margin-bottom:12px;">
+        <rect x="2" y="3" width="20" height="14" rx="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <span class="section-number">02</span>
+      <div class="section-line"></div>
+      <h2>Cual Aplicacion<br>Uso?</h2>
+      <p>Hay dos opciones. Te ayudamos a elegir la correcta para ti.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 6: COMPARATIVA DESKTOP vs CLI            -->
+<!-- ============================================== -->
+<div class="page" id="cual-app">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+      <span class="page-header-title">Elige tu aplicacion</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h2>Dos opciones, mismo resultado</h2>
+    <div class="gradient-line"></div>
+    <p>Ambas aplicaciones hacen <strong>exactamente lo mismo</strong>. La unica diferencia es como se ven. Elige la que te resulte mas comoda.</p>
+
+    <div class="choice-grid">
+      <!-- DESKTOP APP -->
+      <div class="choice-card recommended">
+        <div class="choice-badge">Recomendado</div>
+        <div class="choice-header">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="1.5" style="margin-bottom:6px;"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <h5>Claude Desktop App</h5>
+          <div class="choice-sub">App visual de escritorio — como usar WhatsApp</div>
+        </div>
+        <div class="choice-body">
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Interfaz visual</strong> — haces clic, arrastras archivos</div>
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Ves los cambios</strong> en archivos lado a lado</div>
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>No necesitas saber</strong> que es una "terminal"</div>
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Mac y Windows</strong></div>
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Se instala</strong> como cualquier otra app</div>
+        </div>
+      </div>
+
+      <!-- CLI -->
+      <div class="choice-card">
+        <div class="choice-header">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="1.5" style="margin-bottom:6px;"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          <h5>Claude Code (Terminal)</h5>
+          <div class="choice-sub">Linea de comandos — para perfiles tecnicos</div>
+        </div>
+        <div class="choice-body">
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Para quienes</strong> ya usan la terminal</div>
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Mayor control</strong> y automatizacion</div>
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Mac, Windows</strong> y Linux</div>
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Mismos skills</strong>, misma calidad</div>
+          <div class="choice-item"><span class="choice-check">&#10003;</span><strong>Preferida</strong> por desarrolladores</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict-box">
+      <p>No sabes cual elegir? <strong>Usa Claude Desktop App.</strong><br>Es la mas facil y funciona exactamente igual. Si en algun momento quieres cambiar a la terminal, puedes hacerlo sin perder nada.</p>
+    </div>
+
+    <div class="highlight-box warning">
+      <p><strong>Sobre la suscripcion:</strong> Ambas opciones requieren una suscripcion de pago en claude.ai. El plan gratuito NO incluye esta funcionalidad. El plan minimo es <strong>Pro ($20 USD/mes)</strong>. La suscripcion se paga directo a Anthropic (la empresa que hace Claude), no a Irrelevant.</p>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 7: SECTION DIVIDER — CONFIGURACION      -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" stroke-width="1.5" style="margin-bottom:12px;">
+        <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+      </svg>
+      <p style="font-family:'Quicksand',sans-serif; font-size:12px; color:var(--morado-deep); font-weight:700;">Solo una vez</p>
+    </div>
+    <div class="section-divider-right">
+      <span class="section-number">03</span>
+      <div class="section-line"></div>
+      <h2>Configuracion<br>Inicial</h2>
+      <p>Estos pasos se hacen una sola vez. Despues, solo abres la app y listo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 8: SETUP DESKTOP APP (parte 1)           -->
+<!-- ============================================== -->
+<div class="page" id="setup-desktop">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+      <span class="page-header-title">Setup — Desktop App</span>
+    </div>
+    <span class="page-header-num">PAG 08</span>
+  </div>
+  <div class="inner-page">
+    <h2>Instalar Claude Desktop App</h2>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box success">
+      <p><strong>Esta es la opcion recomendada para la mayoria de usuarios.</strong> Se instala como cualquier otra aplicacion en tu computador. No necesitas saber nada tecnico.</p>
+    </div>
+
+    <h4>Antes de empezar, necesitas</h4>
+    <div class="icon-grid">
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="ii-text"><strong>Cuenta en claude.ai</strong>Con plan Pro ($20 USD/mes) o superior. Creala en claude.ai si no la tienes.</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="ii-text"><strong>Computador</strong>Mac (macOS 13 o superior) o Windows (10 o superior)</div>
+      </div>
+    </div>
+
+    <h4>Paso a paso</h4>
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h5>Descarga la app Claude</h5>
+        <p>Abre tu navegador (Chrome, Safari, etc.) y ve a <strong>claude.ai</strong>. Ahi veras la opcion para descargar la app de escritorio. Haz clic en el boton de descarga para tu sistema (Mac o Windows).</p>
+        <div class="step-tip">En Mac el archivo descargado termina en .dmg — haz doble clic y arrastra Claude a tu carpeta de Aplicaciones. En Windows termina en .exe — haz doble clic y sigue el instalador.</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h5>Abre Claude e inicia sesion</h5>
+        <p>Busca "Claude" en tus aplicaciones y abrela. La app te va a pedir que inicies sesion con tu correo y contrasena de claude.ai. Usa las <strong>mismas credenciales</strong> que usas en la pagina web.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h5>Haz clic en la pestana "Code"</h5>
+        <p>Arriba de la app vas a ver tres pestanas. Haz clic en la que dice <strong>"Code"</strong>. Esa es la que activa los skills.</p>
+        <!-- Mockup visual de las pestañas -->
+        <div class="app-mockup" style="margin-top:10px;">
+          <div class="app-mockup-bar">
+            <div class="app-mockup-dots"><span></span><span></span><span></span></div>
+            <div class="app-mockup-tabs">
+              <span>Chat</span>
+              <span>Cowork</span>
+              <span class="active">Code &larr; esta!</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-tip">Si te pide actualizar tu plan o pagar, significa que necesitas activar tu suscripcion Pro en claude.ai primero.</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 9: SETUP DESKTOP APP (parte 2)           -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+      <span class="page-header-title">Setup — Desktop App</span>
+    </div>
+    <span class="page-header-num">PAG 09</span>
+  </div>
+  <div class="inner-page">
+
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h5>Selecciona "Local" y luego tu carpeta</h5>
+        <p>Dentro de la pestana Code, vas a ver la opcion de entorno. Selecciona <strong>"Local"</strong> (significa que Claude trabaja en tu computador). Luego haz clic en <strong>"Select folder"</strong> y busca la carpeta de tu proyecto.</p>
+        <div class="pointer-box">
+          <div class="pointer-arrow">&rarr;</div>
+          <div class="pointer-text"><strong>Tu carpeta de proyecto</strong> es la que te entrego el equipo de Irrelevant. Usualmente esta en tu <strong>Escritorio</strong> o en <strong>Documentos</strong>. Si no la encuentras, preguntale a tu contacto en Irrelevant.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h5>Elige el modelo</h5>
+        <p>Junto al boton de enviar vas a ver un selector de modelo. Nuestras recomendaciones:</p>
+        <ul style="margin-top:8px; margin-left:16px;">
+          <li style="font-size:10px; color:#444; margin-bottom:4px;"><strong>Claude Sonnet</strong> — Rapido. Ideal para el dia a dia.</li>
+          <li style="font-size:10px; color:#444; margin-bottom:4px;"><strong>Claude Opus</strong> — Mas lento pero mas potente. Para tareas complejas.</li>
+        </ul>
+        <div class="step-tip">Si no sabes cual elegir, usa Sonnet. Es excelente para la gran mayoria de los skills.</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h5>Escribe tu primer comando!</h5>
+        <p>En el chat de abajo, escribe <code>/que-sigue</code> y presiona Enter. Claude te va a decir exactamente que hacer primero. Asi confirmas que todo funciona.</p>
+        <!-- Mockup del primer comando -->
+        <div class="app-mockup" style="margin-top:10px;">
+          <div class="app-mockup-bar">
+            <div class="app-mockup-dots"><span></span><span></span><span></span></div>
+            <div class="app-mockup-tabs"><span>Chat</span><span>Cowork</span><span class="active">Code</span></div>
+          </div>
+          <div class="app-mockup-body" style="padding:12px 16px;">
+            <div class="app-mockup-input">
+              <span class="input-text">/que-sigue</span>
+              <span class="input-hint">Enter &crarr;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box success">
+      <p><strong>Listo! La configuracion esta hecha.</strong> La proxima vez solo necesitas abrir la app, hacer clic en "Code", seleccionar tu carpeta, y empezar a trabajar. Todo lo demas ya esta configurado.</p>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 10: SETUP CLI                            -->
+<!-- ============================================== -->
+<div class="page" id="setup-cli">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="4 17 10 11 4 5"/>
+        <line x1="12" y1="19" x2="20" y2="19"/>
+      </svg>
+      <span class="page-header-title">Setup — Terminal (avanzado)</span>
+    </div>
+    <span class="page-header-num">PAG 10</span>
+  </div>
+  <div class="inner-page">
+    <h2>Instalar Claude Code en Terminal</h2>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box warning">
+      <p><strong>Esta seccion es para perfiles tecnicos.</strong> Si ya instalaste la Desktop App en la pagina anterior, puedes saltarte esta pagina completamente. Esta opcion es identica en funcionalidad, solo cambia la interfaz (texto en vez de visual).</p>
+    </div>
+
+    <h4>Instalacion rapida</h4>
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h5>Ejecuta el instalador</h5>
+        <p>Abre tu terminal y copia este comando:</p>
+        <div class="code-block">
+<span class="comment"># Mac, Linux o WSL</span>
+<span class="cmd">curl -fsSL https://claude.ai/install.sh | bash</span>
+
+<span class="comment"># Windows (PowerShell)</span>
+<span class="cmd">irm https://claude.ai/install.ps1 | iex</span>
+        </div>
+        <div class="step-tip">En Windows se requiere Git for Windows. Instalalo desde git-scm.com si no lo tienes.</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h5>Navega a tu proyecto e inicia</h5>
+        <div class="code-block">
+<span class="cmd">cd /ruta/a/tu/carpeta-de-proyecto</span>
+<span class="cmd">claude</span>
+        </div>
+        <p style="margin-top:8px;">La primera vez se abre tu navegador para autenticarte con tu cuenta de claude.ai. Despues de eso, ya puedes usar todos los skills con <code>/nombre-del-skill</code>.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h5>Verifica que funciona</h5>
+        <p>Escribe <code>/que-sigue</code> en la sesion de Claude Code. Si ves una respuesta de Claude, todo esta listo. Claude Code se actualiza automaticamente.</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 11: SECTION DIVIDER — USO DIARIO        -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" stroke-width="1.5" style="margin-bottom:12px;">
+        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <span class="section-number">04</span>
+      <div class="section-line"></div>
+      <h2>Uso Diario</h2>
+      <p>Lo que vas a hacer todos los dias. Es tan simple como enviar un mensaje de chat.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 12: COMO USAR UN SKILL                   -->
+<!-- ============================================== -->
+<div class="page" id="como-usar">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+      <span class="page-header-title">Como Usar un Skill</span>
+    </div>
+    <span class="page-header-num">PAG 12</span>
+  </div>
+  <div class="inner-page">
+    <h2>Un comando = un resultado</h2>
+    <div class="gradient-line"></div>
+
+    <p>Todos los skills funcionan igual: escribes un comando que empieza con <strong>/</strong> y Claude hace el resto. Veamos las partes:</p>
+
+    <div class="cmd-anatomy">
+      <div class="cmd-display">
+        <span class="cmd-slash">/</span><span class="cmd-name">cotizacion</span> <span class="cmd-arg">acme-corp</span>
+      </div>
+      <div class="cmd-labels">
+        <div class="cmd-label-item">
+          <div class="cmd-label-dot slash"></div>
+          <div class="cmd-label-text">La barra activa el skill</div>
+        </div>
+        <div class="cmd-label-item">
+          <div class="cmd-label-dot name"></div>
+          <div class="cmd-label-text">Nombre del skill</div>
+        </div>
+        <div class="cmd-label-item">
+          <div class="cmd-label-dot arg"></div>
+          <div class="cmd-label-text">Para quien (opcional)</div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Ejemplo real: generar una cotizacion</h4>
+
+    <div class="callout-num">
+      <div class="cn-num">1</div>
+      <div class="cn-text"><strong>Abre Claude</strong> y asegurate de estar en la pestana Code con tu carpeta de proyecto seleccionada.</div>
+    </div>
+
+    <div class="callout-num">
+      <div class="cn-num">2</div>
+      <div class="cn-text"><strong>Escribe</strong> <code>/cotizacion</code> en el chat y presiona Enter.</div>
+    </div>
+
+    <div class="callout-num">
+      <div class="cn-num">3</div>
+      <div class="cn-text"><strong>Responde</strong> las preguntas de Claude en lenguaje natural. Te va a preguntar cosas como "para que empresa?" y "que servicio?". Responde como le hablas a un companero: <em>"Es para Acme Corp, AI Ops Layer, en pesos"</em>.</div>
+    </div>
+
+    <div class="callout-num">
+      <div class="cn-num">4</div>
+      <div class="cn-text"><strong>Revisa</strong> el resultado en el chat. Si algo no te gusta, simplemente dilo: <em>"cambia el precio a dolares"</em> o <em>"agrega 10% de descuento"</em>. Claude ajusta al instante.</div>
+    </div>
+
+    <div class="callout-num">
+      <div class="cn-num">5</div>
+      <div class="cn-text"><strong>El archivo se guarda automaticamente</strong> en la carpeta del cliente dentro de tu proyecto. No tienes que hacer nada mas.</div>
+    </div>
+
+    <!-- Mockup del resultado -->
+    <div class="app-mockup">
+      <div class="app-mockup-bar">
+        <div class="app-mockup-dots"><span></span><span></span><span></span></div>
+        <div class="app-mockup-tabs"><span>Chat</span><span>Cowork</span><span class="active">Code</span></div>
+      </div>
+      <div class="app-mockup-body">
+        <div class="app-mockup-chat">
+          <div class="app-mockup-msg">
+            <div class="msg-avatar user">Tu</div>
+            <div class="msg-bubble">cambia el precio a dolares y agrega un 10% de descuento</div>
+          </div>
+          <div class="app-mockup-msg">
+            <div class="msg-avatar claude">C</div>
+            <div class="msg-bubble">Listo! Actualice la cotizacion a USD $3,150 (con 10% de descuento aplicado). El archivo actualizado esta en Clientes/acme-corp/comercial/</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 13: TIPS Y TRUCOS                        -->
+<!-- ============================================== -->
+<div class="page" id="tips">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <span class="page-header-title">Tips</span>
+    </div>
+    <span class="page-header-num">PAG 13</span>
+  </div>
+  <div class="inner-page">
+    <h2>Tips para sacarle provecho</h2>
+    <div class="gradient-line"></div>
+
+    <div class="icon-grid">
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="ii-text"><strong>Arrastra archivos al chat</strong>Puedes arrastrar PDFs, notas, transcripts, o cualquier archivo para darle contexto a Claude. Esto es muy util antes de ejecutar un skill.</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="ii-text"><strong>Usa /que-sigue cuando estes perdido</strong>Este es tu GPS. Te dice exactamente donde estas en el proceso y que skill ejecutar ahora.</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div class="ii-text"><strong>Habla normal</strong>No necesitas usar lenguaje especial. Di "hazlo mas corto", "cambia el tono", "ponlo en ingles" — Claude entiende perfectamente.</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></div>
+        <div class="ii-text"><strong>Usa @archivo para dar contexto</strong>Escribe <code>@nombre-archivo</code> en el chat para que Claude lea un archivo especifico sin tener que arrastrarlo.</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        <div class="ii-text"><strong>Los archivos se organizan solos</strong>Cada skill guarda sus resultados en la carpeta correcta del cliente automaticamente. No tienes que mover nada.</div>
+      </div>
+      <div class="icon-item">
+        <div class="ii-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--morado)" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        <div class="ii-text"><strong>Interrumpe si va por mal camino</strong>Si Claude no va bien, escribe tu correccion y presiona Enter. No necesitas esperar a que termine.</div>
+      </div>
+    </div>
+
+    <h4>Flujo tipico de trabajo</h4>
+    <p>Este es el orden recomendado cuando trabajas con un cliente, pero cada skill funciona de forma independiente:</p>
+
+    <div class="flow-diagram">
+      <div class="flow-step">
+        <div class="flow-icon" style="font-size:14px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72"/></svg></div>
+        <div class="flow-text">Prepara</div>
+        <div class="flow-sub">/prep-call</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="font-size:14px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg></div>
+        <div class="flow-text">Procesa</div>
+        <div class="flow-sub">/procesar-call</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="font-size:14px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div>
+        <div class="flow-text">Cotiza</div>
+        <div class="flow-sub">/cotizacion</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="font-size:14px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="flow-text">Contrata</div>
+        <div class="flow-sub">/contrato</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="font-size:14px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="flow-text">Entrega</div>
+        <div class="flow-sub">/entregable</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Importante:</strong> No necesitas seguir este flujo exacto. Cada skill funciona de forma independiente. Usa el que necesites, cuando lo necesites. Y si no sabes cual, escribe <code>/que-sigue</code>.</p>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 14: SECTION DIVIDER — REFERENCIA         -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" stroke-width="1.5" style="margin-bottom:12px;">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <span class="section-number">05</span>
+      <div class="section-line"></div>
+      <h2>Referencia<br>Rapida</h2>
+      <p>Imprime esta seccion y tenla a la mano. Aqui estan todos tus skills.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 15: TARJETA DE REFERENCIA RAPIDA         -->
+<!-- ============================================== -->
+<div class="page" id="ref">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+      </svg>
+      <span class="page-header-title">Referencia Rapida</span>
+    </div>
+    <span class="page-header-num">PAG 15</span>
+  </div>
+  <div class="inner-page">
+    <h2>Todos tus Skills</h2>
+    <div class="gradient-line"></div>
+
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th style="width:25%;">Comando</th>
+          <th style="width:35%;">Que hace</th>
+          <th style="width:40%;">Cuando usarlo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- NAVEGACION -->
+        <tr class="cat-row"><td colspan="3">Navegacion</td></tr>
+        <tr>
+          <td class="cmd-cell">/que-sigue</td>
+          <td>Te dice que hacer ahora</td>
+          <td>Cuando no sabes por donde empezar o que sigue</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/cliente</td>
+          <td>Crea o consulta carpeta de cliente</td>
+          <td>Al empezar a trabajar con un cliente nuevo</td>
+        </tr>
+
+        <!-- DOCUMENTOS -->
+        <tr class="cat-row"><td colspan="3">Documentos</td></tr>
+        <tr>
+          <td class="cmd-cell">/cotizacion</td>
+          <td>Genera cotizacion HTML</td>
+          <td>Cuando necesitas enviar precio a un prospecto</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/contrato</td>
+          <td>Genera paquete de contratos</td>
+          <td>Cuando el cliente acepta y quieres formalizar</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/fase0</td>
+          <td>Genera diagnostico Fase 0</td>
+          <td>Para clientes de Core Layer, post-firma</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/entregable</td>
+          <td>Genera entregable post-setup</td>
+          <td>Cuando terminas el setup del Ops Layer</td>
+        </tr>
+
+        <!-- CALLS Y REUNIONES -->
+        <tr class="cat-row"><td colspan="3">Calls y Reuniones</td></tr>
+        <tr>
+          <td class="cmd-cell">/procesar-call</td>
+          <td>Procesa llamada de Fireflies</td>
+          <td>Despues de cada call de ventas</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/discovery-notes</td>
+          <td>Extrae brief del discovery</td>
+          <td>Despues de la primera call con un prospecto</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/resumen-reunion</td>
+          <td>Genera acta de reunion</td>
+          <td>Despues de cualquier reunion importante</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/email-post-reunion</td>
+          <td>Genera email de seguimiento</td>
+          <td>Para enviar recap profesional post-reunion</td>
+        </tr>
+
+        <!-- VENTAS -->
+        <tr class="cat-row"><td colspan="3">Ventas y Coaching</td></tr>
+        <tr>
+          <td class="cmd-cell">/prep-call</td>
+          <td>Investiga y prepara la call</td>
+          <td>Antes de cada reunion con un prospecto</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/calcular-roi</td>
+          <td>Calcula ROI personalizado</td>
+          <td>Cuando necesitas justificar la inversion</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/slides-propuesta-ops</td>
+          <td>Genera slides de propuesta</td>
+          <td>Para presentar propuesta del Ops Layer</td>
+        </tr>
+
+        <!-- DISENO -->
+        <tr class="cat-row"><td colspan="3">Diseno de Solucion</td></tr>
+        <tr>
+          <td class="cmd-cell">/disenar-skills</td>
+          <td>Define que skills construir</td>
+          <td>Post-discovery, para definir el Ops Layer</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/disenar-solucion</td>
+          <td>Define solucion Core Layer</td>
+          <td>Para clientes que necesitan transformacion completa</td>
+        </tr>
+        <tr>
+          <td class="cmd-cell">/disenar-stack</td>
+          <td>Selecciona herramientas</td>
+          <td>Para elegir el stack de IA del cliente</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <p><strong>Recuerda:</strong> Escribe <code>/que-sigue</code> en cualquier momento para que Claude te diga exactamente que skill usar segun donde estes en el proceso.</p>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 16: SECTION DIVIDER — FAQ               -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" stroke-width="1.5" style="margin-bottom:12px;">
+        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <span class="section-number">06</span>
+      <div class="section-line"></div>
+      <h2>Preguntas<br>Frecuentes</h2>
+      <p>Si algo no funciona o tienes dudas, busca tu respuesta aqui.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 17: FAQ                                  -->
+<!-- ============================================== -->
+<div class="page" id="faq">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <span class="page-header-title">Preguntas Frecuentes</span>
+    </div>
+    <span class="page-header-num">PAG 17</span>
+  </div>
+  <div class="inner-page">
+    <h2>FAQ</h2>
+    <div class="gradient-line"></div>
+
+    <div class="faq-card">
+      <div class="faq-q">"Escribi un comando con / pero no me reconoce el skill"</div>
+      <div class="faq-a">Verifica que estas en la carpeta correcta del proyecto. Los skills solo funcionan cuando Claude tiene acceso a la carpeta que te entrego Irrelevant. En la Desktop App, revisa que seleccionaste la carpeta correcta en "Select folder".</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">"Claude me dice que no tiene acceso o me pide autorizacion"</div>
+      <div class="faq-a">Claude te pide permiso antes de hacer cambios en tus archivos. Esto es una medida de seguridad. Revisa lo que propone hacer y dale permiso si estas de acuerdo. Si dice que tu plan no tiene acceso, verifica que tu suscripcion de Claude este activa.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">"El resultado no es lo que esperaba"</div>
+      <div class="faq-a">Simplemente pidele cambios en lenguaje natural. Claude entiende instrucciones como "hazlo mas corto", "cambia el tono a mas formal", "agrega una seccion sobre X", "usa dolares en vez de pesos". No necesitas empezar de cero.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">"No se cual skill usar para lo que necesito"</div>
+      <div class="faq-a">Escribe <code>/que-sigue</code> y Claude analiza en que punto estas del proceso y te recomienda el skill adecuado. Tambien puedes consultar la tarjeta de referencia rapida en la pagina 15 de esta guia.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">"Quiero hacer algo para lo que no hay un skill"</div>
+      <div class="faq-a">Claude puede ayudarte con muchas tareas aunque no haya un skill especifico. Escribele lo que necesitas en lenguaje natural (sin usar /) y Claude hara su mejor esfuerzo. Si es algo que necesitas frecuentemente, contacta a Irrelevant para crear un skill personalizado.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">"Cuanto cuesta la suscripcion de Claude?"</div>
+      <div class="faq-a">Los planes se pagan directamente a Anthropic (la empresa que hace Claude). <strong>Pro:</strong> $20 USD/mes — suficiente para la mayoria de usuarios. <strong>Max:</strong> $100-200 USD/mes — para uso intensivo. La suscripcion es independiente del servicio de Irrelevant.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">"Se me cerro la sesion o la app"</div>
+      <div class="faq-a">Vuelve a abrir la app, inicia sesion, selecciona la pestana Code y tu carpeta de proyecto. Todos tus archivos y skills siguen intactos — nada se pierde.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">"Puedo usar esto desde el celular?"</div>
+      <div class="faq-a">Actualmente Claude Code (los skills) solo funciona en computador (Mac o Windows). Puedes usar claude.ai desde el celular para chat normal, pero los skills requieren la Desktop App o el CLI en un computador.</div>
+    </div>
+
+    <h4 style="margin-top:28px;">Soporte</h4>
+    <div class="highlight-box">
+      <p>Si tienes una pregunta que no esta aqui, contacta al equipo de Irrelevant:<br>
+      <strong>Email:</strong> jpgomez@stayirrelevant.com<br>
+      <strong>WhatsApp:</strong> +57 318 335 1733</p>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Irrelevant</span>
+    <span>Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- PAGINA 18: CONTRAPORTADA                        -->
+<!-- ============================================== -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+    <img src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="Irrelevant">
+    <div class="back-url">stayirrelevant.com</div>
+    <div class="back-tagline">Hecho con IA, para humanos que quieren hacer mas.</div>
+  </div>
+</div>
+
+</body>
+</html>

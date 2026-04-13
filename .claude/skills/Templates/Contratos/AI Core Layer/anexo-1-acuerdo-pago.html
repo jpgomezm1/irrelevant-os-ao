@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexo 1 – Acuerdo de Pago</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 25mm 30mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: white;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 25mm 30mm;
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #7C3AED;
+            margin-bottom: 30px;
+        }
+
+        .document-header img {
+            height: 30px;
+        }
+
+        .document-header .doc-title {
+            font-size: 10px;
+            color: #6b7280;
+            text-align: right;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contract-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contract-subtitle {
+            text-align: center;
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 6px;
+        }
+
+        h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .sub-clause {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .sub-clause p {
+            margin-bottom: 6px;
+        }
+
+        .bold {
+            font-weight: 600;
+        }
+
+        .placeholder {
+            background-color: #f3f0ff;
+            color: #7C3AED;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+            font-family: 'Inter', monospace;
+            font-size: 10px;
+        }
+
+        .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10px;
+        }
+
+        .payment-table th,
+        .payment-table td {
+            border: 1px solid #e5e7eb;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .payment-table th {
+            background-color: #f9f7ff;
+            color: #7C3AED;
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .payment-table td {
+            vertical-align: top;
+        }
+
+        .payment-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .payment-table .total-row {
+            background-color: #f9f7ff;
+            font-weight: 600;
+        }
+
+        .detail-box {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-left: 3px solid #7C3AED;
+            padding: 15px 18px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .detail-box p {
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+
+        .detail-box .label {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .signature-block {
+            margin-top: 50px;
+            page-break-inside: avoid;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        .signature-party {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 10px;
+        }
+
+        .signature-party p {
+            text-align: left;
+            margin-bottom: 3px;
+            font-size: 10px;
+        }
+
+        .signature-party .party-name {
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .signature-line {
+            margin-top: 50px;
+            border-bottom: 1px solid #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .document-footer { margin-top:40px;
+            
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .document-footer img { display:block; margin:0 auto;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .document-footer .page-number {
+            font-size: 9px;
+            color: #9ca3af;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .bullet-list {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 4px;
+            list-style-type: disc;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                max-width: none;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+
+            .signature-block {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-header">
+        <div style="font-family:'Inter',sans-serif; font-size:14px; font-weight:800; color:#7C3AED; letter-spacing:1px; text-transform:lowercase;">irrelevant club sas</div>
+        <div class="doc-title">Anexo 1 – Acuerdo de Pago</div>
+    </div>
+
+    <div class="contract-title">Anexo 1 – Acuerdo de Pago</div>
+    <div class="contract-subtitle">Contrato de Prestación de Servicios Tecnológicos y Licenciamiento de Software</div>
+
+    <p>El presente Anexo 1 – Acuerdo de Pago hace parte integral del Contrato de Prestación de Servicios Tecnológicos y Licenciamiento de Software celebrado entre <strong>IRRELEVANT CLUB S.A.S.</strong> y <strong><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></strong> (en adelante, el "Contrato"), y regula de manera expresa las condiciones económicas, forma de pago, facturación y tiempos asociados a la ejecución de los Servicios.</p>
+
+    <!-- SECCIÓN 1 -->
+    <h2>1. Valor del Contrato</h2>
+
+    <p>LAS PARTES acuerdan que el valor del Contrato se compone de los siguientes conceptos:</p>
+
+    <div class="sub-clause">
+        <p><strong>a) Implementación Inicial:</strong> Valor total de <span class="placeholder">{{PRECIO_IMPLEMENTACION}}</span>, correspondiente a las actividades de diseño, configuración, desarrollo, integración, pruebas y puesta en marcha del Software, con una duración estimada de <span class="placeholder">{{DURACION_IMPLEMENTACION}}</span>.</p>
+
+        <p><strong>b) Fee mensual recurrente:</strong> Valor mensual de <span class="placeholder">{{FEE_MENSUAL}}</span>, correspondiente al uso del Software y a la prestación continua de servicios de operación, soporte y desarrollo tecnológico en la nube.</p>
+    </div>
+
+    <!-- SECCIÓN 2 -->
+    <h2>2. Timeline de Implementación</h2>
+
+    <p>LAS PARTES acuerdan que la Implementación Inicial tendrá un timeline estimado de <span class="placeholder">{{DURACION_IMPLEMENTACION}}</span>, contadas a partir del inicio formal del proyecto, el cual se entenderá ocurrido una vez IRRELEVANT haya recibido efectivamente el anticipo inicial.</p>
+
+    <p>El presente timeline se establece como una referencia de planificación para la ejecución del proyecto y la programación de los pagos, y se encuentra directamente asociado a los hitos y entregables definidos en el Anexo 3 – Alcance y Propuesta Técnica (Fase 0).</p>
+
+    <p>En consecuencia, las semanas 4, 8 y 12 corresponden de manera referencial a los Hitos 1, 2 y 3, respectivamente, conforme a los entregables y criterios de aceptación allí descritos, sin perjuicio de que la ejecución de dichos hitos pueda completarse antes o después de las semanas estimadas, dependiendo del avance real del proyecto y de la colaboración del CLIENTE.</p>
+
+    <p>LAS PARTES reconocen que el timeline estimado no constituye una obligación de resultado estrictamente sujeta al paso del tiempo, sino un marco de referencia para la ejecución ordenada del proyecto, cuyos avances y entregables se rigen por lo establecido en el Anexo 3.</p>
+
+    <!-- SECCIÓN 3 -->
+    <h2>3. Forma de Pago – Implementación Inicial (<span class="placeholder">{{PRECIO_IMPLEMENTACION_NUMERO}}</span>)</h2>
+
+    <p>Las PARTES acuerdan que el valor total de la Implementación Inicial se facturará como servicio de computación en la nube para evitar la responsabilidad de IVA y que el tratamiento de los pagos anticipados y parciales se realizará conforme a las reglas de causación y facturación establecidas en la normatividad tributaria vigente.</p>
+
+    <p>Con el fin de facilitar el flujo de pagos del proyecto, los anticipos y pagos parciales asociados a la Implementación Inicial se documentarán mediante cuentas de cobro, las cuales no constituyen facturación, sino documentos de soporte de pagos a cuenta del valor total del servicio.</p>
+
+    <p>El IVA correspondiente a la Implementación Inicial será causado y facturado por IRRELEVANT mediante la(s) factura(s) respectiva(s), momento en el cual se liquidará el IVA sobre el valor total del servicio, descontando los valores previamente pagados por el CLIENTE a título de anticipo o pagos parciales.</p>
+
+    <!-- 3.1 -->
+    <h3>3.1 Anticipo inicial – Semana 0</h3>
+
+    <p>El CLIENTE pagará a IRRELEVANT un anticipo equivalente al <span class="placeholder">{{ANTICIPO_PORCENTAJE}}</span> del valor de la Implementación Inicial, esto es:</p>
+
+    <div class="detail-box">
+        <p><span class="label">Valor:</span> <span class="placeholder">{{ANTICIPO_VALOR}}</span></p>
+        <p><span class="label">Momento de pago:</span> Contra firma del Contrato (Semana 0).</p>
+        <p><span class="label">Documento de respaldo:</span> Cuenta de cobro, emitida como soporte del pago anticipado.</p>
+        <p><span class="label">Tratamiento tributario:</span> El presente anticipo corresponde a un pago a cuenta del valor total de la Implementación Inicial. El IVA no se liquida en la cuenta de cobro, sino que será causado y facturado en la factura correspondiente, conforme a la normatividad tributaria vigente.</p>
+        <p><span class="label">Finalidad:</span> Habilitar el inicio formal del proyecto y la asignación de recursos técnicos y operativos.</p>
+    </div>
+
+    <p><strong>El proyecto no iniciará hasta tanto este valor haya sido efectivamente recibido por IRRELEVANT.</strong></p>
+
+    <!-- 3.2 -->
+    <h3>3.2 Pagos parciales restantes – Implementación Inicial</h3>
+
+    <p>El setenta por ciento (70%) restante del valor de la Implementación Inicial será pagado en <span class="placeholder">{{PAGOS_PARCIALES_NUM}}</span> pagos parciales, cada uno por valor de <span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span>, conforme al siguiente esquema:</p>
+
+    <table class="payment-table">
+        <thead>
+            <tr>
+                <th>Concepto</th>
+                <th>Hito / Semana</th>
+                <th>Valor</th>
+                <th>Documento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Anticipo Inicial</strong></td>
+                <td>Semana 0 – Firma del Contrato</td>
+                <td><span class="placeholder">{{ANTICIPO_VALOR}}</span></td>
+                <td>Cuenta de cobro</td>
+            </tr>
+            <tr>
+                <td><strong>Pago parcial 1</strong></td>
+                <td><span class="placeholder">{{HITO_1_SEMANA}}</span> – Hito 1: <span class="placeholder">{{HITO_1_DESC}}</span></td>
+                <td><span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></td>
+                <td>Cuenta de cobro</td>
+            </tr>
+            <tr>
+                <td><strong>Pago parcial 2</strong></td>
+                <td><span class="placeholder">{{HITO_2_SEMANA}}</span> – Hito 2: <span class="placeholder">{{HITO_2_DESC}}</span></td>
+                <td><span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></td>
+                <td>Cuenta de cobro</td>
+            </tr>
+            <tr>
+                <td><strong>Pago parcial 3</strong></td>
+                <td><span class="placeholder">{{HITO_3_SEMANA}}</span> – Hito 3: <span class="placeholder">{{HITO_3_DESC}}</span></td>
+                <td><span class="placeholder">{{PAGO_PARCIAL_VALOR}}</span></td>
+                <td>Cuenta de cobro</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="2"><strong>TOTAL IMPLEMENTACIÓN INICIAL</strong></td>
+                <td><strong><span class="placeholder">{{PRECIO_IMPLEMENTACION_NUMERO}}</span></strong></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Tratamiento tributario de los pagos parciales:</strong> El valor pagado será imputado al valor total de la Implementación Inicial y descontado en la(s) factura(s) donde se cause el IVA correspondiente.</p>
+
+    <div class="page-break"></div>
+
+    <!-- SECCIÓN 4 -->
+    <h2>4. Finalización Anticipada y Ajustes al Cronograma de la Implementación</h2>
+
+    <p>En caso de que IRRELEVANT finalice la Implementación Inicial antes de las <span class="placeholder">{{DURACION_IMPLEMENTACION}}</span> estimadas, LAS PARTES acuerdan expresamente que:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> La finalización anticipada implica que los hitos y entregables definidos para la Fase 0 en el Anexo 3 – Alcance y Propuesta Técnica (Fase 0) han sido cumplidos conforme a los criterios de aceptación allí establecidos.</p>
+
+        <p><strong>b)</strong> El cronograma de pagos de la Implementación Inicial se mantendrá conforme a las semanas 4, 8 y 12 originalmente pactadas, salvo que LAS PARTES acuerden expresamente por escrito un ajuste distinto.</p>
+
+        <p><strong>c)</strong> La finalización anticipada no habilita al CLIENTE a diferir, reducir o eliminar pagos, ni constituye causal de descuento, toda vez que los pagos se encuentran asociados al cumplimiento de los hitos y entregables acordados y no al tiempo exacto de ejecución.</p>
+    </div>
+
+    <p>De igual manera, LAS PARTES acuerdan que cualquier eventual retraso, prórroga o ajuste razonable en el tiempo de ejecución de la Implementación Inicial, siempre que no implique una modificación del alcance, no dará lugar al cobro de valores adicionales, ni a incrementos en el precio pactado para la Implementación Inicial.</p>
+
+    <p>Únicamente en el evento en que LAS PARTES acuerden de manera expresa una modificación del alcance, funcionalidades o entregables originalmente definidos, podrá generarse un ajuste económico, el cual deberá constar por escrito y ser aceptado previamente por ambas PARTES.</p>
+
+    <!-- SECCIÓN 5 -->
+    <h2>5. Facturación de la Implementación Inicial</h2>
+
+    <p>Una vez completada la totalidad de la Implementación Inicial, IRRELEVANT emitirá una única factura correspondiente al valor total de la Implementación (<span class="placeholder">{{PRECIO_IMPLEMENTACION_NUMERO}}</span>), conforme a la normatividad tributaria vigente.</p>
+
+    <p>En dicha factura:</p>
+
+    <ul class="bullet-list">
+        <li>Se discriminará el valor total del servicio de implementación.</li>
+        <li>Se descontarán los valores previamente recibidos a título de anticipo y pagos parciales, reflejando únicamente el saldo correspondiente, si lo hubiere.</li>
+    </ul>
+
+    <p>LAS PARTES reconocen que este mecanismo corresponde a una correcta causación y facturación del servicio y no constituye doble cobro.</p>
+
+    <!-- SECCIÓN 6 -->
+    <h2>6. Fee Mensual Recurrente</h2>
+
+    <p>El fee mensual recurrente por el uso del Software y la prestación continua de los Servicios se regirá por las siguientes condiciones:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> El fee mensual tendrá un valor de <span class="placeholder">{{FEE_MENSUAL}}</span> y deberá ser pagado de manera anticipada, antes del inicio de cada período mensual de servicio.</p>
+
+        <p><strong>b)</strong> El cobro del fee mensual únicamente dará inicio una vez finalizada la Implementación Inicial, cuando el Software haya sido puesto en producción y se encuentre operativo, funcional y productivo, conforme al Hito 3 – Puesta en Producción y Estabilización Inicial, definido en el Anexo 3 – Alcance y Propuesta Técnica (Fase 0). En consecuencia, no se causará ni cobrará fee mensual alguno en etapas previas a la puesta en producción del Software.</p>
+
+        <p><strong>c)</strong> A partir del inicio del cobro del fee mensual, se entenderá que el CLIENTE cuenta con acceso operativo al Software en ambiente productivo y a los Servicios asociados, incluyendo, sin limitarse a, operación, mantenimiento, soporte técnico y funcionamiento continuo de la solución tecnológica.</p>
+
+        <p><strong>d)</strong> El pago del fee mensual constituye condición indispensable para:</p>
+        <ul class="bullet-list">
+            <li>La activación y continuidad del acceso al Software en ambiente productivo;</li>
+            <li>La prestación continua de los Servicios de operación, mantenimiento y soporte descritos en el Contrato y en el Anexo 3.</li>
+        </ul>
+
+        <p><strong>e)</strong> El fee mensual se causa y factura de manera anticipada, y no se factura mes vencido. La falta de pago oportuno faculta a IRRELEVANT para suspender temporalmente el acceso al Software y la prestación de los Servicios, hasta tanto el pago correspondiente sea efectuado, sin que dicha suspensión constituya incumplimiento contractual por parte de IRRELEVANT.</p>
+    </div>
+
+    <!-- SECCIÓN 7 -->
+    <h2>7. Facturación del Fee Mensual</h2>
+
+    <p>El fee mensual correspondiente al uso del Software y a la prestación continua de los servicios de operación, administración, mantenimiento, soporte técnico, infraestructura tecnológica y funcionamiento integral de la solución en la nube, tendrá un valor de <span class="placeholder">{{FEE_MENSUAL}}</span>.</p>
+
+    <p>LAS PARTES reconocen que el servicio objeto del fee mensual corresponde a un servicio integral de software en la nube (Software as a Service – SaaS), prestado de manera remota, que se caracteriza por:</p>
+
+    <div class="sub-clause">
+        <p><strong>a)</strong> La ausencia de entrega, instalación o licenciamiento de software local en la infraestructura del CLIENTE;</p>
+        <p><strong>b)</strong> La prestación continua del servicio a través de infraestructura tecnológica, plataformas y recursos en la nube administrados directamente por IRRELEVANT;</p>
+        <p><strong>c)</strong> La integración inseparable de componentes de software, operación, soporte, mantenimiento y administración técnica, los cuales no se prestan ni se facturan de manera independiente; y</p>
+        <p><strong>d)</strong> El acceso del CLIENTE al Software exclusivamente a través de medios remotos, bajo un esquema de uso y no de adquisición de activos tecnológicos.</p>
+    </div>
+
+    <p>En atención a la naturaleza del servicio descrito, el fee mensual será facturado sin Impuesto sobre las Ventas (IVA), conforme a la normativa tributaria vigente y a los criterios de interpretación emitidos por la Dirección de Impuestos y Aduanas Nacionales (DIAN), en particular lo señalado en el Oficio No. 100208192-190 del 18 de marzo de 2024, en el cual se establece que los servicios de software en la nube prestados como soluciones tecnológicas integrales, y facturados como una unidad indivisible, no se encuentran gravados con IVA.</p>
+
+    <p>LAS PARTES reconocen igualmente que, de conformidad con el Concepto DIAN 32620 de 2018, cuando un contrato involucra licencias locales, servicios de soporte, administración técnica o servicios profesionales prestados de manera independiente en territorio colombiano, dichos servicios pueden encontrarse gravados con IVA. En consecuencia, si el alcance del servicio fuese modificado, segregado o facturado de manera independiente, o si por requerimiento expreso del CLIENTE se solicita la facturación del fee mensual con IVA, IRRELEVANT procederá a aplicar el tratamiento tributario que legalmente corresponda.</p>
+
+    <p>La factura correspondiente al fee mensual se emitirá de manera anticipada al inicio de cada período mensual, conforme al cronograma de pagos acordado entre LAS PARTES y a la normativa fiscal aplicable.</p>
+
+    <!-- SECCIÓN 8 -->
+    <h2>8. Incumplimiento y Suspensión</h2>
+
+    <p>El incumplimiento en el pago de cualquiera de las obligaciones económicas aquí establecidas faculta a IRRELEVANT para:</p>
+
+    <ul class="bullet-list">
+        <li>Suspender la ejecución de los Servicios y el acceso al Software.</li>
+        <li>Reanudar los Servicios únicamente una vez se encuentren saldadas las sumas adeudadas.</li>
+    </ul>
+
+    <p>La suspensión no implica la terminación automática del Contrato ni exonera al CLIENTE de las obligaciones de pago causadas.</p>
+
+    <!-- SECCIÓN 9 -->
+    <h2>9. Carácter Vinculante</h2>
+
+    <p>LAS PARTES reconocen que el presente Anexo constituye una condición esencial del Contrato y que su incumplimiento afecta directamente la ejecución de los Servicios.</p>
+
+    <!-- SECCIÓN 10 -->
+    <h2>10. Firma Digital y Aceptación</h2>
+
+    <p>LAS PARTES acuerdan que el presente Anexo 1 – Acuerdo de Pago será suscrito mediante firma electrónica o firma digital, y reconocen que dicha firma tendrá plena validez jurídica, probatoria y fuerza obligatoria, de conformidad con la legislación colombiana vigente, produciendo los mismos efectos que una firma manuscrita.</p>
+
+    <p>El presente Anexo podrá ser firmado de manera electrónica en uno o varios ejemplares, los cuales, en conjunto, constituirán un solo y mismo documento y harán parte integral del Contrato.</p>
+
+    <p>En constancia de aceptación, LAS PARTES firman electrónicamente el presente Anexo 1 – Acuerdo de Pago en la fecha que conste en el mecanismo de firma utilizado.</p>
+
+    <!-- FIRMAS -->
+    <div class="signature-block">
+        <div class="signature-grid">
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name">IRRELEVANT CLUB S.A.S.</p>
+                <p>NIT: 901.935.642-1</p>
+                <p>Representante Legal: Juan Pablo Gómez Mejía</p>
+                <p>C.C. 1006972309</p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+            <div class="signature-party">
+                <div class="signature-line"></div>
+                <p class="party-name"><span class="placeholder">{{CLIENTE_RAZON_SOCIAL}}</span></p>
+                <p>NIT: <span class="placeholder">{{CLIENTE_NIT}}</span></p>
+                <p>Representante Legal: <span class="placeholder">{{CLIENTE_REPRESENTANTE}}</span></p>
+                <p>C.C. <span class="placeholder">{{CLIENTE_CEDULA}}</span></p>
+                <p style="margin-top: 10px;"><em>Firma: ________________________</em></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <img src="https://storage.googleapis.com/cluvi/Audios_Cata/profile_irrelevant.jpeg" alt="Irrelevant">
+        <div class="page-number">Anexo 1 – Acuerdo de Pago — IRRELEVANT CLUB S.A.S.</div>
+    </div>
+
+</body>
+</html>

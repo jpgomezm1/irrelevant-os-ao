@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Showcase de Skills — Irrelevant AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0812;
+  --surface: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.06);
+  --purple: #8B5CF6;
+  --purple-light: #A78BFA;
+  --purple-dark: #7C3AED;
+  --emerald: #34d399;
+  --amber: #fbbf24;
+  --blue: #60a5fa;
+  --red: #ef4444;
+  --pink: #f472b6;
+  --cyan: #22d3ee;
+  --orange: #fb923c;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Inter',sans-serif; background:var(--bg); color:#fff; line-height:1.6; overflow-x:hidden; }
+
+/* NAV */
+.nav {
+  position:fixed; top:0; left:0; right:0; height:56px; z-index:100;
+  background:rgba(10,8,18,0.92); backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; padding:0 32px;
+}
+.nav-logo { display:flex; align-items:center; gap:12px; }
+.nav-logo img { height:24px; object-fit:contain; opacity:0.85; }
+.nav-logo span { font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:1.5px; text-transform:uppercase; }
+.nav-cta {
+  background:var(--purple); color:#fff; border:none;
+  padding:8px 20px; border-radius:8px; font-size:12px; font-weight:600;
+  text-decoration:none; font-family:inherit; cursor:pointer; transition:all 0.3s;
+}
+.nav-cta:hover { background:var(--purple-dark); box-shadow:0 0 30px rgba(139,92,246,0.3); }
+
+.container { max-width:1000px; margin:0 auto; padding:0 24px; }
+
+/* ANIMATIONS */
+.fade-in { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+/* HERO */
+.hero { text-align:center; padding:100px 24px 48px; }
+.hero h1 { font-size:52px; font-weight:900; letter-spacing:-3px; line-height:1.05; margin-bottom:16px; }
+.hero .tagline { font-size:18px; color:rgba(255,255,255,0.45); max-width:600px; margin:0 auto 40px; font-weight:400; line-height:1.7; }
+.purple { color:var(--purple-light); }
+.emerald { color:var(--emerald); }
+.amber { color:var(--amber); }
+.blue { color:var(--blue); }
+
+/* STATS ROW */
+.stat-row { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:48px; }
+.stat-card {
+  padding:20px 28px; border-radius:14px; text-align:center;
+  background:var(--surface); border:1px solid var(--border); min-width:130px;
+}
+.stat-card .num { font-size:36px; font-weight:900; }
+.stat-card .label { font-size:10px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1.5px; margin-top:4px; }
+
+.divider { width:48px; height:2px; background:linear-gradient(90deg,var(--purple),var(--purple-light)); margin:56px auto; border-radius:2px; }
+
+/* COMBO NAV */
+.combo-nav {
+  display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
+  padding:16px 24px; margin-bottom:48px;
+}
+.combo-nav a {
+  font-size:12px; font-weight:600; color:rgba(255,255,255,0.45);
+  text-decoration:none; padding:8px 16px; border-radius:10px;
+  background:var(--surface); border:1px solid var(--border);
+  transition:all 0.25s; white-space:nowrap;
+}
+.combo-nav a:hover {
+  color:#fff; background:rgba(139,92,246,0.15); border-color:rgba(139,92,246,0.3);
+}
+
+/* COMBO SECTIONS */
+.combo-section { margin-bottom:72px; scroll-margin-top:80px; }
+.combo-header { margin-bottom:28px; }
+.combo-num {
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;
+}
+.combo-header h2 { font-size:32px; font-weight:800; letter-spacing:-1.5px; line-height:1.15; margin-bottom:8px; }
+.combo-desc { font-size:14px; color:rgba(255,255,255,0.4); max-width:600px; line-height:1.7; }
+
+/* SKILL CARDS */
+.skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+.skill-card {
+  padding:24px; border-radius:14px;
+  background:var(--surface); border:1px solid var(--border);
+  border-left:3px solid var(--purple);
+  transition:all 0.3s; cursor:default;
+  position:relative;
+}
+.skill-card:hover { background:var(--surface-hover); transform:translateY(-2px); }
+
+.skill-number {
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;
+  color:rgba(255,255,255,0.2); margin-bottom:8px;
+}
+.skill-card h3 { font-size:16px; font-weight:700; margin-bottom:6px; line-height:1.3; }
+.skill-area {
+  font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px;
+  margin-bottom:10px; opacity:0.6;
+}
+.skill-problem { font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:14px; line-height:1.6; }
+
+.skill-flow { margin-top:auto; }
+.skill-flow .step {
+  font-size:12px; color:rgba(255,255,255,0.4); padding:3px 0; display:flex; align-items:flex-start; gap:8px;
+}
+.skill-flow .step-icon { color:var(--purple-light); font-size:11px; flex-shrink:0; margin-top:2px; }
+
+/* COLOR VARIANTS */
+.skill-card.c-emerald { border-left-color:var(--emerald); }
+.skill-card.c-emerald h3 { color:var(--emerald); }
+.skill-card.c-emerald .step-icon { color:var(--emerald); }
+
+.skill-card.c-amber { border-left-color:var(--amber); }
+.skill-card.c-amber h3 { color:var(--amber); }
+.skill-card.c-amber .step-icon { color:var(--amber); }
+
+.skill-card.c-blue { border-left-color:var(--blue); }
+.skill-card.c-blue h3 { color:var(--blue); }
+.skill-card.c-blue .step-icon { color:var(--blue); }
+
+.skill-card.c-pink { border-left-color:var(--pink); }
+.skill-card.c-pink h3 { color:var(--pink); }
+.skill-card.c-pink .step-icon { color:var(--pink); }
+
+.skill-card.c-cyan { border-left-color:var(--cyan); }
+.skill-card.c-cyan h3 { color:var(--cyan); }
+.skill-card.c-cyan .step-icon { color:var(--cyan); }
+
+.skill-card.c-orange { border-left-color:var(--orange); }
+.skill-card.c-orange h3 { color:var(--orange); }
+.skill-card.c-orange .step-icon { color:var(--orange); }
+
+.skill-card.c-red { border-left-color:var(--red); }
+.skill-card.c-red h3 { color:var(--red); }
+.skill-card.c-red .step-icon { color:var(--red); }
+
+.skill-card.c-purple { border-left-color:var(--purple-light); }
+.skill-card.c-purple h3 { color:var(--purple-light); }
+
+/* FULL WIDTH CARD */
+.skill-card.full { grid-column:1 / -1; }
+
+/* OUTPUT BADGE */
+.output-badge {
+  display:inline-block; font-size:10px; font-weight:700; letter-spacing:1px;
+  text-transform:uppercase; padding:3px 10px; border-radius:6px; margin-top:10px;
+  background:rgba(139,92,246,0.12); color:var(--purple-light);
+}
+.output-badge.ob-emerald { background:rgba(52,211,153,0.12); color:var(--emerald); }
+.output-badge.ob-amber { background:rgba(251,191,36,0.12); color:var(--amber); }
+.output-badge.ob-blue { background:rgba(96,165,250,0.12); color:var(--blue); }
+.output-badge.ob-pink { background:rgba(244,114,182,0.12); color:var(--pink); }
+.output-badge.ob-cyan { background:rgba(34,211,238,0.12); color:var(--cyan); }
+.output-badge.ob-orange { background:rgba(251,146,60,0.12); color:var(--orange); }
+
+/* FOOTER */
+.footer {
+  text-align:center; padding:64px 24px 48px;
+  border-top:1px solid var(--border);
+}
+.footer p { font-size:13px; color:rgba(255,255,255,0.25); }
+.footer a { color:var(--purple-light); text-decoration:none; }
+.footer a:hover { text-decoration:underline; }
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+  .hero h1 { font-size:36px; letter-spacing:-2px; }
+  .skills-grid { grid-template-columns:1fr; }
+  .stat-row { gap:10px; }
+  .stat-card { min-width:100px; padding:16px 20px; }
+  .stat-card .num { font-size:28px; }
+  .combo-header h2 { font-size:26px; }
+  .combo-nav a { font-size:11px; padding:6px 12px; }
+}
+@media (max-width:480px) {
+  .hero h1 { font-size:28px; }
+  .nav { padding:0 16px; }
+  .container { padding:0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+    <span>Showcase de Skills</span>
+  </div>
+  <a href="https://cal.com/juan-irrelevant/discovery" class="nav-cta" target="_blank">Agendar Discovery</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1 class="fade-in"><span class="purple">+85 Skills</span> de IA<br>para tu operacion</h1>
+    <p class="tagline fade-in">Cada skill es un proceso inteligente que resuelve un problema real de tu empresa. Combinados, transforman tu operacion completa.</p>
+
+    <div class="stat-row fade-in">
+      <div class="stat-card">
+        <div class="num purple">88</div>
+        <div class="label">Skills totales</div>
+      </div>
+      <div class="stat-card">
+        <div class="num emerald">14</div>
+        <div class="label">Combos</div>
+      </div>
+      <div class="stat-card">
+        <div class="num amber">12</div>
+        <div class="label">Areas de impacto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMBO NAV -->
+<div class="container">
+  <div class="combo-nav fade-in">
+    <a href="#combo-1">01 Excel & Data</a>
+    <a href="#combo-2">02 Comercial & Ventas</a>
+    <a href="#combo-3">03 Documentos & Legal</a>
+    <a href="#combo-4">04 Contabilidad & Finanzas</a>
+    <a href="#combo-5">05 Marketing & Contenido</a>
+    <a href="#combo-6">06 Reportes & Gerencia</a>
+    <a href="#combo-7">07 Reuniones & Ejecucion</a>
+    <a href="#combo-8">08 Organizacion Interna</a>
+    <a href="#combo-9">09 Operaciones</a>
+    <a href="#combo-10">10 Productividad & Comunicacion</a>
+    <a href="#combo-11" style="border-color:rgba(139,92,246,0.25);color:var(--purple-light)">11 Prospecting & Pre-Call</a>
+    <a href="#combo-12" style="border-color:rgba(139,92,246,0.25);color:var(--purple-light)">12 Coaching de Ventas</a>
+    <a href="#combo-13" style="border-color:rgba(139,92,246,0.25);color:var(--purple-light)">13 Post-Call & Seguimiento</a>
+    <a href="#combo-14" style="border-color:rgba(139,92,246,0.25);color:var(--purple-light)">14 Diseno & Entrega</a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 1: EXCEL & DATA -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-1">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--purple-light)">Combo 01 — 7 Skills</div>
+    <h2>Excel & Data</h2>
+    <p class="combo-desc">Transforma datos caoticos en informacion clara, limpia y accionable. Desde limpiar un Excel hasta generar dashboards automaticos.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 1 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#01</div>
+      <h3>Estructuracion Inteligente de Excel</h3>
+      <div class="skill-area">Operaciones / Administracion</div>
+      <p class="skill-problem">Las empresas manejan informacion critica en Excel desordenados, con errores, duplicados y sin estructura clara.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: un Excel caotico (ventas, clientes, inventario)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: limpia, organiza, detecta errores, estandariza campos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: Excel estructurado + resumen de insights clave</div>
+      </div>
+      <span class="output-badge">Output: Excel limpio + Insights</span>
+    </div>
+
+    <!-- 2 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#02</div>
+      <h3>Generador Automatico de Reportes</h3>
+      <div class="skill-area">Gerencia / Operaciones</div>
+      <p class="skill-problem">La generacion de reportes toma horas y depende de interpretacion manual.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: Excel o base de datos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: analiza metricas relevantes</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: reporte ejecutivo (PDF/texto) con conclusiones claras</div>
+      </div>
+      <span class="output-badge">Output: Reporte PDF</span>
+    </div>
+
+    <!-- 3 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#03</div>
+      <h3>Analisis de Datos Operativos</h3>
+      <div class="skill-area">Estrategia / Operaciones</div>
+      <p class="skill-problem">Las empresas tienen datos pero no saben que significan ni que decisiones tomar.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: datos historicos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: identifica patrones, anomalias y oportunidades</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: recomendaciones accionables</div>
+      </div>
+      <span class="output-badge">Output: Recomendaciones</span>
+    </div>
+
+    <!-- 4 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#04</div>
+      <h3>Consolidacion de Multiples Excel</h3>
+      <div class="skill-area">Operaciones / Administracion</div>
+      <p class="skill-problem">La informacion esta fragmentada en multiples archivos, dificultando la vision integral del negocio.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: varios Excel de diferentes fuentes</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: unifica estructura, cruza informacion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: un solo archivo consolidado y limpio</div>
+      </div>
+      <span class="output-badge">Output: Excel consolidado</span>
+    </div>
+
+    <!-- 5 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#05</div>
+      <h3>Deteccion de Errores en Bases de Datos</h3>
+      <div class="skill-area">Operaciones / Calidad de datos</div>
+      <p class="skill-problem">Errores en bases generan decisiones equivocadas.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: base de datos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: identifica inconsistencias, duplicados, outliers</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: reporte de errores + base corregida</div>
+      </div>
+      <span class="output-badge">Output: Base corregida + Reporte</span>
+    </div>
+
+    <!-- 6 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#06</div>
+      <h3>Generador de Dashboards</h3>
+      <div class="skill-area">Gerencia / Operaciones</div>
+      <p class="skill-problem">Las empresas no tienen dashboards claros ni tiempo para construirlos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: Excel con datos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: define KPIs y visualizaciones</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: dashboard listo (estructura + interpretacion)</div>
+      </div>
+      <span class="output-badge">Output: Dashboard</span>
+    </div>
+
+    <!-- 7 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#07</div>
+      <h3>Traduccion de Excel a Lenguaje Gerencial</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Los lideres no entienden los datos tecnicos ni saben que hacer con ellos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: Excel con metricas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: interpreta resultados</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: explicacion clara en lenguaje ejecutivo</div>
+      </div>
+      <span class="output-badge">Output: Resumen ejecutivo</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 2: COMERCIAL & VENTAS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-2">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--emerald)">Combo 02 — 9 Skills</div>
+    <h2>Comercial & Ventas</h2>
+    <p class="combo-desc">Desde generar cotizaciones hasta hacer follow-up automatico. Todo el ciclo comercial potenciado con IA.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 8 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#08</div>
+      <h3>Generador Inteligente de Cotizaciones</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">Las cotizaciones se hacen manualmente, son inconsistentes y consumen tiempo.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: descripcion del servicio/producto + datos del cliente</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: arma cotizacion con estructura, precios y condiciones</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: PDF listo para enviar al cliente</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: PDF cotizacion</span>
+    </div>
+
+    <!-- 9 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#09</div>
+      <h3>Estandarizacion de Propuestas Comerciales</h3>
+      <div class="skill-area">Comercial / Gerencia</div>
+      <p class="skill-problem">Cada vendedor presenta diferente, lo que afecta percepcion y cierre.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: contexto del cliente</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: construye propuesta alineada a lineamientos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: propuesta profesional y consistente</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Propuesta PDF</span>
+    </div>
+
+    <!-- 10 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#10</div>
+      <h3>Comparador de Cotizaciones</h3>
+      <div class="skill-area">Compras / Gerencia</div>
+      <p class="skill-problem">Evaluar proveedores manualmente es lento e ineficiente.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: multiples cotizaciones de proveedores</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: compara variables clave</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: recomendacion clara</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Comparativo + Recomendacion</span>
+    </div>
+
+    <!-- 11 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#11</div>
+      <h3>Ajuste Inteligente de Precios</h3>
+      <div class="skill-area">Comercial / Finanzas</div>
+      <p class="skill-problem">Los precios no reflejan costos reales ni mercado.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: costos + precios actuales</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: analiza margenes</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: recomendaciones de pricing</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Recomendaciones pricing</span>
+    </div>
+
+    <!-- 12 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#12</div>
+      <h3>Generador de Listas de Precios</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">No hay estructura clara de precios para presentar a clientes.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: productos/servicios</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: organiza estructura de precios</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: lista de precios profesional</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Lista de precios</span>
+    </div>
+
+    <!-- 13 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#13</div>
+      <h3>Generador de Follow-ups Comerciales</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">Los leads se enfrian por falta de seguimiento oportuno.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: contexto del cliente + historial</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: genera mensaje y timing de seguimiento</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: follow-up listo para enviar</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Mensaje follow-up</span>
+    </div>
+
+    <!-- 14 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#14</div>
+      <h3>Recordatorio Inteligente de Leads</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">Se olvidan oportunidades activas por falta de sistema.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: base de leads</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: detecta leads sin contacto reciente</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: lista priorizada para contactar</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Lista priorizada</span>
+    </div>
+
+    <!-- 15 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#15</div>
+      <h3>Feedback de Llamadas Comerciales</h3>
+      <div class="skill-area">Comercial / Formacion</div>
+      <p class="skill-problem">El equipo comercial no recibe feedback estructurado sobre su desempeno.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: grabacion o transcripcion de llamada</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: evalua claridad, objeciones, cierre</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: feedback accionable</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Reporte de feedback</span>
+    </div>
+
+    <!-- 16 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#16</div>
+      <h3>Identificador de Objeciones de Clientes</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">No se sistematizan las objeciones del mercado para mejorar el pitch.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: conversaciones comerciales</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: detecta patrones de objecion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: lista estructurada de objeciones + respuestas</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Mapa de objeciones</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 3: DOCUMENTOS & LEGAL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-3">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--amber)">Combo 03 — 5 Skills</div>
+    <h2>Documentos & Legal</h2>
+    <p class="combo-desc">Genera contratos, politicas y documentos formales en minutos. De notas informales a documentos listos para firma.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 17 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#17</div>
+      <h3>Generador de Contratos Automatizado</h3>
+      <div class="skill-area">Legal / Administrativo</div>
+      <p class="skill-problem">La creacion de contratos es lenta, manual y propensa a errores.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: tipo de contrato + datos clave</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: genera documento estructurado con clausulas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: contrato editable listo para firma</div>
+      </div>
+      <span class="output-badge ob-amber">Output: Contrato Word/PDF</span>
+    </div>
+
+    <!-- 18 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#18</div>
+      <h3>Analisis y Resumen de Contratos</h3>
+      <div class="skill-area">Legal / Gerencia</div>
+      <p class="skill-problem">Leer contratos largos consume tiempo y genera riesgo de omitir puntos clave.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: contrato completo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: identifica clausulas criticas y riesgos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: resumen ejecutivo claro</div>
+      </div>
+      <span class="output-badge ob-amber">Output: Resumen ejecutivo</span>
+    </div>
+
+    <!-- 19 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#19</div>
+      <h3>Generador de Politicas Internas</h3>
+      <div class="skill-area">Administrativo / RRHH</div>
+      <p class="skill-problem">Las empresas no tienen documentacion formal de procesos o normas.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: contexto de la empresa y area</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura politicas formales</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: documento formal listo para implementar</div>
+      </div>
+      <span class="output-badge ob-amber">Output: Documento de politicas</span>
+    </div>
+
+    <!-- 20 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#20</div>
+      <h3>Conversion de Notas a Documento Formal</h3>
+      <div class="skill-area">Administrativo</div>
+      <p class="skill-problem">La informacion se pierde en notas informales, audios y mensajes.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: ideas, notas, audios transcritos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura y formaliza</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: archivo profesional y estructurado</div>
+      </div>
+      <span class="output-badge ob-amber">Output: Documento formal</span>
+    </div>
+
+    <!-- 21 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#21</div>
+      <h3>Manual de Procesos (SOP)</h3>
+      <div class="skill-area">Operaciones</div>
+      <p class="skill-problem">El conocimiento operativo no esta documentado y depende de personas.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: como operan hoy (notas, descripcion)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: formaliza el proceso</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: manual estructurado del proceso</div>
+      </div>
+      <span class="output-badge ob-amber">Output: SOP formal</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 4: CONTABILIDAD & FINANZAS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-4">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--blue)">Combo 04 — 10 Skills</div>
+    <h2>Contabilidad & Finanzas</h2>
+    <p class="combo-desc">Desde facturacion automatica hasta simulacion financiera. Control total del dinero con IA.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 22 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#22</div>
+      <h3>Generador de Facturas</h3>
+      <div class="skill-area">Administrativo / Contable</div>
+      <p class="skill-problem">La facturacion manual genera errores y retrasa procesos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: datos del cliente + servicio</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: genera factura estructurada</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: documento listo para emision</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Factura</span>
+    </div>
+
+    <!-- 23 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#23</div>
+      <h3>Clasificacion Automatica de Movimientos</h3>
+      <div class="skill-area">Contabilidad</div>
+      <p class="skill-problem">Clasificar ingresos y gastos manualmente es lento y propenso a errores.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: extractos o registros financieros</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: clasifica por categoria automaticamente</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: base organizada para contabilidad</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Base clasificada</span>
+    </div>
+
+    <!-- 24 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#24</div>
+      <h3>Conciliacion Financiera Inteligente</h3>
+      <div class="skill-area">Finanzas</div>
+      <p class="skill-problem">Las conciliaciones toman tiempo y generan inconsistencias.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: movimientos bancarios + registros internos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: cruza informacion automaticamente</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: inconsistencias detectadas</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Reporte de conciliacion</span>
+    </div>
+
+    <!-- 25 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#25</div>
+      <h3>Analisis de Rentabilidad</h3>
+      <div class="skill-area">Finanzas / Gerencia</div>
+      <p class="skill-problem">Las empresas no saben si realmente estan ganando dinero ni en que productos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: ingresos, costos y ventas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: calcula margenes reales por producto</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: analisis claro de rentabilidad</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Reporte de rentabilidad</span>
+    </div>
+
+    <!-- 26 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#26</div>
+      <h3>Simulacion Financiera</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Las decisiones se toman sin entender su impacto financiero.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: escenario (subir precios, contratar, invertir)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: modela impacto financiero</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: proyeccion clara con numeros</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Proyeccion financiera</span>
+    </div>
+
+    <!-- 27 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#27</div>
+      <h3>Estados Financieros Simplificados</h3>
+      <div class="skill-area">Finanzas</div>
+      <p class="skill-problem">Las empresas no tienen claridad sobre su estado financiero real.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: ingresos y gastos del periodo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura estado financiero</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: documento claro tipo estado financiero</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Estado financiero</span>
+    </div>
+
+    <!-- 28 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#28</div>
+      <h3>Control de Cuentas por Cobrar</h3>
+      <div class="skill-area">Finanzas / Administracion</div>
+      <p class="skill-problem">Falta de seguimiento a cartera genera perdida de ingresos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: cartera de clientes</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: identifica vencidos y prioriza</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: priorizacion de cobro</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Plan de cobro</span>
+    </div>
+
+    <!-- 29 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#29</div>
+      <h3>Control de Cuentas por Pagar</h3>
+      <div class="skill-area">Finanzas</div>
+      <p class="skill-problem">Desorden en pagos afecta flujo de caja y relaciones con proveedores.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: obligaciones y fechas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: organiza calendario de pagos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: plan de pagos priorizado</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Plan de pagos</span>
+    </div>
+
+    <!-- 30 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#30</div>
+      <h3>Excel de Control Financiero</h3>
+      <div class="skill-area">Finanzas</div>
+      <p class="skill-problem">No hay control claro de ingresos, gastos y flujo de caja.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: datos financieros</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura modelo financiero</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: Excel con flujo de caja automatizado</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Excel financiero</span>
+    </div>
+
+    <!-- 30A -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#30A</div>
+      <h3>Legalizador de Cajas Menores y Viaticos</h3>
+      <div class="skill-area">Contabilidad / Administrativo</div>
+      <p class="skill-problem">La legalizacion de recibos de caja menor y viaticos es completamente manual: un documento soporte por cada recibito.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: paquete de recibos escaneados (PDF/imagenes)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: extrae datos, clasifica gastos, genera documentos soporte DIAN</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: archivo de carga para el sistema contable + resumen</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Batch de documentos soporte</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 5: MARKETING & CONTENIDO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-5">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--pink)">Combo 05 — 7 Skills</div>
+    <h2>Marketing & Contenido</h2>
+    <p class="combo-desc">Planifica, crea y optimiza contenido para redes sociales. De la idea al guion listo para grabar.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 31 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#31</div>
+      <h3>Generador de Guiones para Redes</h3>
+      <div class="skill-area">Marketing</div>
+      <p class="skill-problem">Crear contenido constante es dificil y poco estructurado.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: negocio + objetivo de comunicacion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: genera guiones por formato</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: scripts listos para grabar</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Scripts</span>
+    </div>
+
+    <!-- 32 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#32</div>
+      <h3>Generador de Parrilla de Contenido</h3>
+      <div class="skill-area">Marketing</div>
+      <p class="skill-problem">No hay planificacion estructurada de contenido mes a mes.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: tipo de negocio y objetivos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: disena calendario editorial</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: parrilla mensual organizada</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Calendario editorial</span>
+    </div>
+
+    <!-- 33 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#33</div>
+      <h3>Analisis de Metricas de Redes</h3>
+      <div class="skill-area">Marketing / Gerencia</div>
+      <p class="skill-problem">Se ven metricas pero no se entienden ni se toman decisiones.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: metricas (views, engagement, alcance)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: analiza desempeno real</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: insights + recomendaciones claras</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Reporte de metricas</span>
+    </div>
+
+    <!-- 34 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#34</div>
+      <h3>Generador de Ideas por Nicho</h3>
+      <div class="skill-area">Marketing</div>
+      <p class="skill-problem">Falta de ideas relevantes y diferenciadas para el mercado.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: nicho y audiencia objetivo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: investiga tendencias y genera ideas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: banco de ideas organizado</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Ideas de contenido</span>
+    </div>
+
+    <!-- 35 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#35</div>
+      <h3>Reescritura para Mejor Desempeno</h3>
+      <div class="skill-area">Marketing</div>
+      <p class="skill-problem">Contenido publicado con bajo engagement y sin mejoras.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: contenido existente</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: optimiza para engagement</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: version mejorada lista</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Contenido optimizado</span>
+    </div>
+
+    <!-- 36 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#36</div>
+      <h3>Analisis de Competidores en Redes</h3>
+      <div class="skill-area">Marketing</div>
+      <p class="skill-problem">No se entiende que funciona en el mercado ni que hacen otros.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: competidores o nicho</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: analiza patrones ganadores</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: benchmark competitivo</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Benchmark</span>
+    </div>
+
+    <!-- 37 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#37</div>
+      <h3>Generador de Copies para Ventas</h3>
+      <div class="skill-area">Marketing / Comercial</div>
+      <p class="skill-problem">Mensajes poco efectivos que no convierten.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: producto/servicio + audiencia</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: genera copies por canal</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: textos listos para publicar</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Copies listos</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 6: REPORTES & GERENCIA -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-6">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--cyan)">Combo 06 — 7 Skills</div>
+    <h2>Reportes & Gerencia</h2>
+    <p class="combo-desc">Reportes ejecutivos, diagnosticos de negocio y seguimiento de KPIs. Informacion clara para tomar decisiones.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 38 -->
+    <div class="skill-card c-cyan">
+      <div class="skill-number">#38</div>
+      <h3>Generador de Reportes Gerenciales</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Los gerentes necesitan informacion clara sin revisar multiples fuentes.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: data operativa/financiera</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: sintetiza informacion clave</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: reporte ejecutivo con conclusiones</div>
+      </div>
+      <span class="output-badge ob-cyan">Output: Reporte PDF</span>
+    </div>
+
+    <!-- 39 -->
+    <div class="skill-card c-cyan">
+      <div class="skill-number">#39</div>
+      <h3>Reporte de Gestion por Area</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Falta de visibilidad del desempeno por area.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: datos por departamento</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: analiza rendimiento</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: reporte segmentado por area</div>
+      </div>
+      <span class="output-badge ob-cyan">Output: Reporte por area</span>
+    </div>
+
+    <!-- 40 -->
+    <div class="skill-card c-cyan">
+      <div class="skill-number">#40</div>
+      <h3>Diagnostico General del Negocio</h3>
+      <div class="skill-area">Gerencia / Estrategia</div>
+      <p class="skill-problem">No hay claridad del estado real del negocio.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: informacion general de la empresa</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: evalua areas criticas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: diagnostico con hallazgos y prioridades</div>
+      </div>
+      <span class="output-badge ob-cyan">Output: Diagnostico</span>
+    </div>
+
+    <!-- 41 -->
+    <div class="skill-card c-cyan">
+      <div class="skill-number">#41</div>
+      <h3>Generador de Plan de Accion</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Las decisiones no se traducen en acciones concretas y ejecutables.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: objetivos y decisiones</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura plan con responsables</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: plan de accion ejecutable</div>
+      </div>
+      <span class="output-badge ob-cyan">Output: Plan de accion</span>
+    </div>
+
+    <!-- 42 -->
+    <div class="skill-card c-cyan">
+      <div class="skill-number">#42</div>
+      <h3>Seguimiento de KPIs</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">No se hace seguimiento constante a indicadores clave.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: metricas del periodo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: compara vs objetivos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: dashboard de KPIs con alertas</div>
+      </div>
+      <span class="output-badge ob-cyan">Output: Dashboard KPIs</span>
+    </div>
+
+    <!-- 43 -->
+    <div class="skill-card c-cyan">
+      <div class="skill-number">#43</div>
+      <h3>Presentacion Ejecutiva Automatica</h3>
+      <div class="skill-area">Gerencia / Comercial</div>
+      <p class="skill-problem">Crear presentaciones toma tiempo y no siempre son claras.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: contexto y datos clave</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura narrativa + slides</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: presentacion tipo pitch lista</div>
+      </div>
+      <span class="output-badge ob-cyan">Output: Presentacion</span>
+    </div>
+
+    <!-- 44 -->
+    <div class="skill-card c-cyan">
+      <div class="skill-number">#44</div>
+      <h3>Reporte Ejecutivo para Socios</h3>
+      <div class="skill-area">Gerencia / Finanzas</div>
+      <p class="skill-problem">Los reportes a socios toman tiempo y la informacion esta dispersa.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: Excel de ventas, gastos y notas del periodo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: analiza e identifica insights</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: reporte PDF con KPIs, conclusiones y plan</div>
+      </div>
+      <span class="output-badge ob-cyan">Output: Reporte para socios</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 7: REUNIONES & EJECUCION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-7">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--orange)">Combo 07 — 5 Skills</div>
+    <h2>Reuniones & Ejecucion</h2>
+    <p class="combo-desc">Convierte cada reunion en tareas claras, decisiones documentadas y follow-ups automaticos.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 45 -->
+    <div class="skill-card c-orange">
+      <div class="skill-number">#45</div>
+      <h3>Generador de Tareas desde Reuniones</h3>
+      <div class="skill-area">Operaciones / Gerencia</div>
+      <p class="skill-problem">Las reuniones no se traducen en acciones claras ni responsables definidos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: notas o transcripcion de reunion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: identifica tareas, responsables y prioridades</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: lista de tareas clara y estructurada</div>
+      </div>
+      <span class="output-badge ob-orange">Output: Lista de tareas</span>
+    </div>
+
+    <!-- 46 -->
+    <div class="skill-card c-orange">
+      <div class="skill-number">#46</div>
+      <h3>Seguimiento Post-Reunion</h3>
+      <div class="skill-area">Comercial / Gerencia</div>
+      <p class="skill-problem">No hay seguimiento estructurado despues de reuniones importantes.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: resumen de reunion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: define proximos pasos y puntos de seguimiento</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: checklist de seguimiento</div>
+      </div>
+      <span class="output-badge ob-orange">Output: Checklist</span>
+    </div>
+
+    <!-- 47 -->
+    <div class="skill-card c-orange">
+      <div class="skill-number">#47</div>
+      <h3>Identificador de Decisiones Clave</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Las decisiones se diluyen en conversaciones largas y se pierden.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: transcripcion o notas de reunion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: detecta decisiones tomadas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: resumen de decisiones</div>
+      </div>
+      <span class="output-badge ob-orange">Output: Resumen de decisiones</span>
+    </div>
+
+    <!-- 48 -->
+    <div class="skill-card c-orange">
+      <div class="skill-number">#48</div>
+      <h3>Acta de Reunion Formal</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Las reuniones no quedan documentadas correctamente.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: notas de la reunion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: organiza decisiones y tareas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: acta formal con responsables y fechas</div>
+      </div>
+      <span class="output-badge ob-orange">Output: Acta formal</span>
+    </div>
+
+    <!-- 49 -->
+    <div class="skill-card c-orange">
+      <div class="skill-number">#49</div>
+      <h3>Presentacion de Resultados Mensual</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Dificil comunicar resultados al equipo o stakeholders de forma clara.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: metricas del mes</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: arma slides con narrativa</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: deck listo para presentar</div>
+      </div>
+      <span class="output-badge ob-orange">Output: Deck mensual</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 8: ORGANIZACION INTERNA -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-8">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--red)">Combo 08 — 6 Skills</div>
+    <h2>Organizacion Interna</h2>
+    <p class="combo-desc">Prioriza tareas, asigna responsables y estandariza procesos. Orden interno con inteligencia artificial.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 50 -->
+    <div class="skill-card c-red">
+      <div class="skill-number">#50</div>
+      <h3>Clasificador de Tareas Internas</h3>
+      <div class="skill-area">Operaciones</div>
+      <p class="skill-problem">Las tareas llegan desordenadas y sin prioridad clara.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: lista de tareas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: prioriza y clasifica</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: backlog organizado</div>
+      </div>
+      <span class="output-badge">Output: Backlog</span>
+    </div>
+
+    <!-- 51 -->
+    <div class="skill-card c-red">
+      <div class="skill-number">#51</div>
+      <h3>Generador de Checklist Operativo</h3>
+      <div class="skill-area">Operaciones</div>
+      <p class="skill-problem">Procesos no estandarizados generan inconsistencias.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: proceso a estandarizar</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: lo divide en pasos claros</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: checklist ejecutable</div>
+      </div>
+      <span class="output-badge">Output: Checklist</span>
+    </div>
+
+    <!-- 52 -->
+    <div class="skill-card c-red">
+      <div class="skill-number">#52</div>
+      <h3>Asignador Inteligente de Responsables</h3>
+      <div class="skill-area">Operaciones</div>
+      <p class="skill-problem">No esta claro quien debe ejecutar que tarea.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: tareas + equipo disponible</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: asigna responsables por carga y perfil</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: distribucion clara de responsabilidades</div>
+      </div>
+      <span class="output-badge">Output: Asignacion</span>
+    </div>
+
+    <!-- 53 -->
+    <div class="skill-card c-red">
+      <div class="skill-number">#53</div>
+      <h3>Planificador Diario Inteligente</h3>
+      <div class="skill-area">Personal / Ejecutivo</div>
+      <p class="skill-problem">Dias desorganizados y reactivos sin foco claro.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: tareas pendientes del dia</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: organiza por prioridad y bloques</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: plan del dia estructurado</div>
+      </div>
+      <span class="output-badge">Output: Plan diario</span>
+    </div>
+
+    <!-- 54 -->
+    <div class="skill-card c-red">
+      <div class="skill-number">#54</div>
+      <h3>Resumen Diario de Actividades</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Falta de visibilidad del trabajo diario del equipo.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: actividades del equipo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: resume y categoriza</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: reporte diario</div>
+      </div>
+      <span class="output-badge">Output: Reporte diario</span>
+    </div>
+
+    <!-- 55 -->
+    <div class="skill-card c-red">
+      <div class="skill-number">#55</div>
+      <h3>Generador de Prioridades Semanales</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">No hay foco en lo importante semana a semana.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: objetivos y pendientes</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: prioriza por impacto</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: foco semanal claro</div>
+      </div>
+      <span class="output-badge">Output: Prioridades semanales</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 9: OPERACIONES -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-9">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--emerald)">Combo 09 — 7 Skills</div>
+    <h2>Operaciones</h2>
+    <p class="combo-desc">Inventario, compras, costeo y optimizacion de procesos. La operacion del dia a dia, inteligente.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 56 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#56</div>
+      <h3>Control de Inventario Inteligente</h3>
+      <div class="skill-area">Operaciones</div>
+      <p class="skill-problem">Errores en inventario generan perdidas y desabastecimiento.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: inventario actual</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: detecta inconsistencias y alertas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: Excel con alertas de stock</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Excel inventario</span>
+    </div>
+
+    <!-- 57 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#57</div>
+      <h3>Planeacion de Compras</h3>
+      <div class="skill-area">Operaciones / Compras</div>
+      <p class="skill-problem">Compras reactivas y desorganizadas que generan sobrecostos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: consumo historico</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: proyecta necesidades</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: plan de compras estructurado</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Plan de compras</span>
+    </div>
+
+    <!-- 58 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#58</div>
+      <h3>Optimizacion de Procesos Operativos</h3>
+      <div class="skill-area">Operaciones</div>
+      <p class="skill-problem">Procesos ineficientes que consumen tiempo y recursos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: flujo actual del proceso</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: analiza pasos y cuellos de botella</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: mejoras propuestas con impacto</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Propuesta de mejoras</span>
+    </div>
+
+    <!-- 59 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#59</div>
+      <h3>Excel de Costeo de Productos</h3>
+      <div class="skill-area">Operaciones / Finanzas</div>
+      <p class="skill-problem">No se sabe el costo real de lo que se vende.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: costos de produccion/servicio</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: arma estructura de costeo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: Excel con calculo automatico de margenes</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Excel de costeo</span>
+    </div>
+
+    <!-- 60A -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#60A</div>
+      <h3>Creador Masivo de Terceros</h3>
+      <div class="skill-area">Contabilidad / Compras</div>
+      <p class="skill-problem">Crear clientes, proveedores y asesores en el sistema contable es manual y uno por uno. 10 clientes nuevos pueden tomar 1 hora.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: datos de terceros en cualquier formato (correo, WhatsApp, Excel)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura, valida, infiere campos tributarios, genera plantilla de carga</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: archivo listo para subir al sistema contable/ERP</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Plantilla de carga</span>
+    </div>
+
+    <!-- 60B -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#60B</div>
+      <h3>Registro Inteligente de Compras</h3>
+      <div class="skill-area">Compras / Operaciones</div>
+      <p class="skill-problem">Los requerimientos llegan en formatos distintos y se copian manualmente a Excel y al ERP. Puro copy/paste.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: requerimientos en cualquier formato (email, PDF, Excel)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura, agrupa por insumo, sugiere proveedor</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: registro estructurado + borradores de cotizacion por proveedor</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Registro + Correos</span>
+    </div>
+
+    <!-- 60C -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#60C</div>
+      <h3>Auto-llenador de Formularios</h3>
+      <div class="skill-area">Compras / Administrativo</div>
+      <p class="skill-problem">Los mismos datos de la empresa se llenan una y otra vez en formularios de proveedores y clientes.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: formulario en blanco (PDF, Word, imagen)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: identifica campos, matchea con base de datos maestra</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: formulario diligenciado listo para firma</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Formulario llenado</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 10: PRODUCTIVIDAD & COMUNICACION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-10">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--purple-light)">Combo 10 — 4 Skills</div>
+    <h2>Productividad & Comunicacion</h2>
+    <p class="combo-desc">Micro-skills que resuelven problemas del dia a dia: correos, mensajes, hilos y cobros.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 60 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#60</div>
+      <h3>Generador de Correos Profesionales</h3>
+      <div class="skill-area">Administrativo / Comercial</div>
+      <p class="skill-problem">Correos poco claros o mal redactados que afectan la imagen.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: contexto y objetivo del correo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: redacta mensaje profesional</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: correo listo para enviar</div>
+      </div>
+      <span class="output-badge">Output: Email</span>
+    </div>
+
+    <!-- 61 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#61</div>
+      <h3>Reescritura de Mensajes Importantes</h3>
+      <div class="skill-area">Gerencia</div>
+      <p class="skill-problem">Comunicacion poco efectiva en mensajes criticos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: mensaje original</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: mejora tono, claridad y estructura</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: version mejorada</div>
+      </div>
+      <span class="output-badge">Output: Mensaje mejorado</span>
+    </div>
+
+    <!-- 62 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#62</div>
+      <h3>Resumen de Hilos de Correo</h3>
+      <div class="skill-area">Administrativo</div>
+      <p class="skill-problem">Demasiada informacion en cadenas de email largas.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: hilo de correos</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: extrae lo esencial</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: resumen con decisiones y pendientes</div>
+      </div>
+      <span class="output-badge">Output: Resumen</span>
+    </div>
+
+    <!-- 63 -->
+    <div class="skill-card c-purple">
+      <div class="skill-number">#63</div>
+      <h3>CRM Basico en Excel</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">No hay control sobre leads y oportunidades de venta.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le cargo: lista de clientes y oportunidades</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: organiza pipeline comercial</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: Excel tipo CRM listo para usar</div>
+      </div>
+      <span class="output-badge">Output: Excel CRM</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- SEPARADOR: SALES ENGINE                                         -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<div style="margin:80px 0 64px; text-align:center; position:relative;">
+  <div style="position:absolute; left:0; right:0; top:50%; height:1px; background:linear-gradient(90deg, transparent, var(--purple), transparent);"></div>
+  <div style="position:relative; display:inline-block; background:var(--bg); padding:0 32px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--purple-light); margin-bottom:8px;">Sales Engine</div>
+    <div style="font-size:28px; font-weight:800; letter-spacing:-1px;">Skills de Venta Irrelevant</div>
+    <div style="font-size:14px; color:rgba(255,255,255,0.35); margin-top:8px; max-width:500px; margin-left:auto; margin-right:auto;">Skills que potencian todo el ciclo de ventas B2B: desde la investigacion del prospect hasta la entrega final al cliente.</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 11: PROSPECTING & PRE-CALL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-11">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--emerald)">Combo 11 — 3 Skills</div>
+    <h2>Prospecting & Pre-Call</h2>
+    <p class="combo-desc">Investiga al prospect, prepara la call con un plan claro, genera secuencias de outreach y calcula el ROI antes de la reunion.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 64 -->
+    <div class="skill-card c-emerald full">
+      <div class="skill-number">#64 &middot; /prep-call</div>
+      <h3>Preparacion Completa Pre-Call</h3>
+      <div class="skill-area">Comercial / Estrategia</div>
+      <p class="skill-problem">Los comerciales llegan a calls sin preparacion, sin conocer al prospect, sin preguntas clave ni plan para la reunion.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: nombre de empresa + tipo de call (C1/C2/C3)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: investiga la empresa (web, LinkedIn, mercado), analiza contexto, identifica pain points probables</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: research completo + agenda de call + preguntas clave + objeciones anticipadas + outreach message</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Research + Plan de call</span>
+    </div>
+
+    <!-- 65 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#65 &middot; /email-sequence</div>
+      <h3>Secuencia de Prospecting Multicanal</h3>
+      <div class="skill-area">Comercial / Outbound</div>
+      <p class="skill-problem">Los mensajes de prospeccion son genericos y no generan respuestas. No hay cadencia estructurada.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: info del prospect (empresa, contacto, canal)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: genera 5 touchpoints en 18 dias (LinkedIn, email, WhatsApp)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: secuencia completa con mensajes listos para copiar</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: 5 mensajes multicanal</span>
+    </div>
+
+    <!-- 66 -->
+    <div class="skill-card c-emerald">
+      <div class="skill-number">#66 &middot; /calcular-roi</div>
+      <h3>Calculadora de ROI Personalizada</h3>
+      <div class="skill-area">Comercial / Finanzas</div>
+      <p class="skill-problem">No se puede demostrar con numeros el retorno de inversion del servicio antes de cerrar.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: datos del equipo (tamano, horas manuales, salarios)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: calcula ahorro mensual, payback period, ROI anualizado</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: tabla de ROI lista para presentar en reunion</div>
+      </div>
+      <span class="output-badge ob-emerald">Output: Tabla ROI</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 12: COACHING & SIMULACION DE VENTAS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-12">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--amber)">Combo 12 — 4 Skills</div>
+    <h2>Coaching & Simulacion de Ventas</h2>
+    <p class="combo-desc">Entrena al equipo comercial con simulaciones reales, practica de objeciones, quizzes del framework y analisis forense de calls.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 67 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#67 &middot; /call-simulator</div>
+      <h3>Simulador de Calls de Venta</h3>
+      <div class="skill-area">Coaching / Formacion</div>
+      <p class="skill-problem">No hay forma de practicar calls sin quemar leads reales. Los reps llegan sin experiencia a reuniones importantes.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Elijo: tipo de call (C1/C2/C3), escenario (aleatorio, real, o desde research), dificultad</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: actua como prospect realista con personalidad, objeciones y contexto</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Al terminar: evaluacion completa con score, fortalezas, debilidades y coaching</div>
+      </div>
+      <span class="output-badge ob-amber">Output: Simulacion + Evaluacion</span>
+    </div>
+
+    <!-- 68 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#68 &middot; /objection-gym</div>
+      <h3>Gimnasio de Objeciones</h3>
+      <div class="skill-area">Coaching / Formacion</div>
+      <p class="skill-problem">Los reps se paralizan ante objeciones porque no han practicado respuestas en un entorno seguro.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Elijo: objecion especifica o modo aleatorio (10+ objeciones disponibles)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: lanza objeciones como prospect real, evalua cada respuesta con scoring</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: score por ronda + coaching con la respuesta ideal del framework</div>
+      </div>
+      <span class="output-badge ob-amber">Output: Scoring + Coaching</span>
+    </div>
+
+    <!-- 69 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#69 &middot; /framework-quiz</div>
+      <h3>Quiz del Framework de Ventas</h3>
+      <div class="skill-area">Coaching / Formacion</div>
+      <p class="skill-problem">El equipo no internaliza la metodologia de ventas — la lee pero no la aplica bajo presion.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Elijo: tema (C1, C2, C3, pipeline, objeciones) o modo examen completo</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: hace preguntas de conocimiento + escenarios de aplicacion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: score final + areas debiles + recomendaciones de estudio</div>
+      </div>
+      <span class="output-badge ob-amber">Output: Score + Diagnostico</span>
+    </div>
+
+    <!-- 70 -->
+    <div class="skill-card c-amber">
+      <div class="skill-number">#70 &middot; /call-review</div>
+      <h3>Analisis Forense de Llamadas</h3>
+      <div class="skill-area">Coaching / Gerencia Comercial</div>
+      <p class="skill-problem">No hay feedback estructurado sobre calls reales. Los errores se repiten sin correccion.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: transcript de una call real + tipo (C1/C2/C3)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: evalua contra el framework — apertura, preguntas, objeciones, cierre, next steps</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: scorecard detallado + momentos criticos + coaching personalizado</div>
+      </div>
+      <span class="output-badge ob-amber">Output: Scorecard + Coaching</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 13: POST-CALL & SEGUIMIENTO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-13">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--blue)">Combo 13 — 6 Skills</div>
+    <h2>Post-Call & Seguimiento</h2>
+    <p class="combo-desc">Todo lo que pasa despues de una llamada: procesar el transcript, extraer decisiones, enviar follow-ups y generar reportes semanales.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 71 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#71 &middot; /procesar-call</div>
+      <h3>Procesador Automatico de Llamadas</h3>
+      <div class="skill-area">Comercial / Operaciones</div>
+      <p class="skill-problem">Las llamadas grabadas quedan sin procesar. La informacion valiosa se pierde en transcripts largos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: jala automaticamente la llamada desde Fireflies</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Detecta tipo de call y genera el output apropiado</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: discovery notes, deal summary, acta o follow-up segun corresponda</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Auto-detectado</span>
+    </div>
+
+    <!-- 72 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#72 &middot; /discovery-notes</div>
+      <h3>Extractor de Brief de Discovery</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">La informacion del discovery no se estructura para tomar decisiones sobre que servicio ofrecer.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: transcript de discovery call (o lo jala de Fireflies)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: extrae empresa, pain points, metricas, decision makers, urgencia</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: brief estructurado para decidir servicio y posicionar propuesta</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Brief comercial</span>
+    </div>
+
+    <!-- 73 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#73 &middot; /resumen-reunion</div>
+      <h3>Generador de Actas de Reunion</h3>
+      <div class="skill-area">Gerencia / Operaciones</div>
+      <p class="skill-problem">Las reuniones no quedan documentadas. Las decisiones y action items se pierden.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: transcript o notas (o lo jala de Fireflies)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: identifica decisiones, tareas, responsables y deadlines</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: acta formal estructurada</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Acta de reunion</span>
+    </div>
+
+    <!-- 74 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#74 &middot; /follow-up-writer</div>
+      <h3>Follow-Up Post-Call (WhatsApp/Email)</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">Los follow-ups se envian tarde, son genericos y no refuerzan el valor discutido en la call.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: tipo de call + transcript o resumen + canal preferido</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: extrae puntos clave y personaliza el mensaje segun la etapa</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: mensaje listo para copiar (WhatsApp, email, o ambos)</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Mensaje follow-up</span>
+    </div>
+
+    <!-- 75 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#75 &middot; /email-post-reunion</div>
+      <h3>Email Profesional Post-Reunion</h3>
+      <div class="skill-area">Comercial / Gerencia</div>
+      <p class="skill-problem">El email formal post-reunion toma tiempo, no siempre incluye los next steps claros ni los documentos correctos.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: tipo de reunion + participantes + transcript o notas</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura summary, next steps y adjuntos segun la etapa</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: email profesional listo para enviar</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Email profesional</span>
+    </div>
+
+    <!-- 76 -->
+    <div class="skill-card c-blue">
+      <div class="skill-number">#76 &middot; /weekly-sales-report</div>
+      <h3>Reporte Semanal de Ventas</h3>
+      <div class="skill-area">Gerencia Comercial</div>
+      <p class="skill-problem">Los reportes semanales se hacen a mano, sin consistencia, y no evaluan la calidad de las calls.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: actividad de la semana + transcripts de calls</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: evalua calls contra el framework, calcula metricas, identifica tendencias</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: reporte HTML con KPIs, evaluaciones y recomendaciones</div>
+      </div>
+      <span class="output-badge ob-blue">Output: Reporte HTML semanal</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- COMBO 14: DISENO & ENTREGA DE SOLUCIONES -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="combo-section fade-in" id="combo-14">
+  <div class="combo-header">
+    <div class="combo-num" style="color:var(--pink)">Combo 14 — 8 Skills</div>
+    <h2>Diseno & Entrega de Soluciones</h2>
+    <p class="combo-desc">El ciclo completo post-venta: disenar la solucion, seleccionar herramientas, cotizar, generar contratos, hacer el diagnostico y entregar el resultado.</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- 77 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#77 &middot; /disenar-skills</div>
+      <h3>Disenador de Procesos Inteligentes</h3>
+      <div class="skill-area">Diseno / Ops Layer</div>
+      <p class="skill-problem">Despues del discovery no esta claro que procesos automatizar ni como presentarlo al cliente.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: contexto del cliente (discovery, operacion, pain points)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: analiza operacion y define 5 procesos inteligentes a construir</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: propuesta para el cliente (negocio) + spec tecnico para el equipo</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Propuesta + Spec tecnico</span>
+    </div>
+
+    <!-- 78 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#78 &middot; /disenar-solucion</div>
+      <h3>Disenador de Solucion Core Layer</h3>
+      <div class="skill-area">Diseno / Core Layer</div>
+      <p class="skill-problem">Para Core Layer se necesita un diseno profundo de la solucion antes de hacer la Fase 0.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: contexto completo del cliente + discovery + operacion actual</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: identifica proceso core, define como AI lo amplifica, disena arquitectura</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: propuesta tecnico-estrategica (input para /fase0)</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Diseno de solucion</span>
+    </div>
+
+    <!-- 79 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#79 &middot; /disenar-stack</div>
+      <h3>Selector de Stack Tecnologico</h3>
+      <div class="skill-area">Diseno / Tecnologia</div>
+      <p class="skill-problem">Elegir las herramientas correctas para cada cliente requiere conocer el catalogo completo y las compatibilidades.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: contexto del cliente + necesidades</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: consulta catalogo de herramientas en Supabase en tiempo real</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: recomendacion de stack + spec de implementacion</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Stack recomendado</span>
+    </div>
+
+    <!-- 80 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#80 &middot; /cotizacion</div>
+      <h3>Generador de Cotizacion Profesional</h3>
+      <div class="skill-area">Comercial</div>
+      <p class="skill-problem">Generar cotizaciones profesionales y consistentes toma tiempo y requiere seguir el formato exacto.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: empresa + servicio (Ops/Edu Layer) + datos del cliente</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: personaliza template con pricing, terminos y contexto del cliente</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: cotizacion HTML profesional lista para enviar</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Cotizacion HTML</span>
+    </div>
+
+    <!-- 81 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#81 &middot; /contrato</div>
+      <h3>Generador de Paquete de Contratos</h3>
+      <div class="skill-area">Legal / Comercial</div>
+      <p class="skill-problem">Los paquetes de contratos (principal + anexos) son complejos y cada servicio requiere documentos diferentes.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: empresa + servicio (Ops/Edu/Core) + datos legales</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: genera contrato principal + anexos (pago, NDA, alcance)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: paquete completo de contratos HTML listos para firma</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Paquete de contratos</span>
+    </div>
+
+    <!-- 82 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#82 &middot; /fase0</div>
+      <h3>Generador de Fase 0 (Diagnostico)</h3>
+      <div class="skill-area">Core Layer / Estrategia</div>
+      <p class="skill-problem">El documento de diagnostico estrategico (Fase 0) es el mas importante del ciclo y requiere profundidad analitica.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: contexto del cliente + output de /disenar-solucion + transcripts</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: genera documento completo (problema, impacto, tesis, solucion) + slides</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: documento Fase 0 HTML + presentacion en slides</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Fase 0 + Slides</span>
+    </div>
+
+    <!-- 83 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#83 &middot; /entregable</div>
+      <h3>Generador de Entregable Post-Setup</h3>
+      <div class="skill-area">Ops Layer / Entrega</div>
+      <p class="skill-problem">Documentar todo lo implementado y mostrar el impacto al cliente requiere un formato profesional y detallado.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: empresa + lo que se implemento + metricas de impacto</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: estructura documento completo + slides de presentacion</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: entregable HTML + deck de presentacion</div>
+      </div>
+      <span class="output-badge ob-pink">Output: Entregable + Slides</span>
+    </div>
+
+    <!-- 84 -->
+    <div class="skill-card c-pink">
+      <div class="skill-number">#84 &middot; /cliente</div>
+      <h3>Gestor de Pipeline de Clientes</h3>
+      <div class="skill-area">Comercial / CRM</div>
+      <p class="skill-problem">La informacion de cada cliente esta dispersa. No hay un lugar centralizado con todo el historial.</p>
+      <div class="skill-flow">
+        <div class="step"><span class="step-icon">&#9654;</span> Le doy: crear, ver, o listar + nombre de empresa</div>
+        <div class="step"><span class="step-icon">&#9654;</span> El sistema: gestiona carpetas con todo el historial (transcripts, notas, propuestas, contratos)</div>
+        <div class="step"><span class="step-icon">&#9654;</span> Me devuelve: carpeta organizada o vista del estado actual del cliente</div>
+      </div>
+      <span class="output-badge ob-pink">Output: CRM de cliente</span>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Irrelevant &mdash; Think AI or stay irrelevant.</p>
+  <p style="margin-top:8px;"><a href="https://cal.com/juan-irrelevant/discovery">Agendar Discovery Call</a> &middot; <a href="https://stayirrelevant.com">stayirrelevant.com</a></p>
+</footer>
+
+<!-- ANIMATIONS -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
