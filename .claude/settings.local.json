@@ -20,7 +20,9 @@
       "Bash(open:*)",
       "WebFetch(domain:sebasjimenez.com)",
       "Bash(git commit:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git stash pop:*)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []
