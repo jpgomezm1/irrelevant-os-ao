@@ -9,10 +9,16 @@
       "Bash(python3 -c \"from docx import Document; d=Document\\('/Users/saragarcest/Downloads/Posts linkedin.docx'\\); [print\\(p.text\\) for p in d.paragraphs]\")",
       "Read(//private/tmp/posts_lk/word/**)",
       "Bash(python3)",
-      "WebFetch(domain:www.escuelaing.edu.co)",
-      "Bash(python3 -c ':*)",
-      "Skill(pipeline-dashboard)",
-      "Bash(echo \"EXIT:$?\")"
+      "WebFetch(domain:joyeriamercurio.co)",
+      "WebFetch(domain:maririo.vercel.app)",
+      "WebFetch(domain:expogerenciar.com)",
+      "Skill(fase0)",
+      "Bash(open \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/conaltura/fase0/fase0-documento.html\")",
+      "Bash(open \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/conaltura/fase0/fase0-slides.html\")",
+      "WebFetch(domain:www.instagram.com)",
+      "Skill(slides-propuesta-ops)",
+      "Bash(open:*)",
+      "WebFetch(domain:sebasjimenez.com)"
     ],
     "deny": [],
     "ask": []

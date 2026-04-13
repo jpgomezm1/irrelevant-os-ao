@@ -46,3 +46,19 @@ Memoria viva del skill. Se actualiza cada semana con métricas reales y cada vez
 ## Cosas que probamos y SÍ funcionaron
 
 (vacío — se llena con el tiempo)
+
+---
+
+## Referencias externas que viralizaron (para inspirarse, no copiar)
+
+### Penélope Portillo — "ChatGPT vs Gemini vs Claude vs Grok vs Perplexity" (abril 2026)
+- **Métricas:** 676 reacciones, 12 comentarios, **113 shares** (viral real, los shares son la métrica más fuerte de LinkedIn).
+- **Formato:** texto + imagen-matriz comparativa de 5 herramientas con columnas: Mejor para / Casos de uso / Fortalezas / Consejo Pro.
+- **Hook ganador:** "No se trata de elegir la mejor herramienta… Se trata de saber **cuándo usar cada una**."
+- **Cierre ganador:** "La IA no reemplaza el criterio. Lo expone."
+- **Por qué funcionó:**
+  1. Reframe contraintuitivo (todos comparan "cuál gana", ella dice "esa es la pregunta equivocada").
+  2. Imagen-matriz es altísimo valor visual → dispara saves+sends → algoritmo lo amplifica.
+  3. Educativo accionable + opinión fuerte combinados.
+  4. Cierre tipo aforismo (frases cortas, "X. Y.") muy citables.
+- **Idea para Sara — Lunes educativo futuro:** carrusel "El error no es usar IA. El error es usar la misma IA para todo" — matriz propia con las herramientas que Sara realmente usa en Irrelevant (Claude, ChatGPT, Sora, ClickUp, Perplexity, etc.) con criterio honesto de cuándo cambiar de una a otra. Diferenciador vs Penélope: Sara puede sumar herramientas no-LLM del stack real (no solo modelos).
