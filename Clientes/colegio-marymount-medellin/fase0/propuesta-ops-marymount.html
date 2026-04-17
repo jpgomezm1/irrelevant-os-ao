@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta AI Ops Layer &mdash; Colegio Marymount Medell&iacute;n | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+    --emerald: #10B981;
+    --emerald-light: #D1FAE5;
+    --amber: #F59E0B;
+    --amber-light: #FEF3C7;
+    --red: #EF4444;
+    --red-light: #FEE2E2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-bg-shapes { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; overflow: hidden; }
+  .cover-bg-shapes .blob1 {
+    position: absolute; top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%; opacity: 0.7; filter: blur(80px);
+  }
+  .cover-bg-shapes .blob2 {
+    position: absolute; top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%; opacity: 0.35; filter: blur(85px);
+  }
+  .cover-bg-shapes .blob3 {
+    position: absolute; bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%; opacity: 0.55; filter: blur(110px);
+  }
+  .cover-bg-shapes .blob4 {
+    position: absolute; bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%; opacity: 0.4; filter: blur(90px);
+  }
+  .cover-top { position: relative; z-index: 1; padding: 30px 55px; }
+  .cover-logo img { height: 50px; object-fit: contain; opacity: 0.95; }
+  .cover-center {
+    position: relative; z-index: 1; padding: 0 55px;
+    flex: 1; display: flex; flex-direction: column; justify-content: center; margin-top: -60px;
+  }
+  .cover-label {
+    font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 4px; text-transform: uppercase; color: var(--morado-claro); margin-bottom: 18px;
+  }
+  .cover-title {
+    font-family: 'Quicksand', sans-serif; font-size: 52px; font-weight: 700;
+    color: var(--blanco); line-height: 1.15; margin-bottom: 16px;
+  }
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif; font-size: 19px; font-weight: 400;
+    color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 600px;
+  }
+  .cover-line {
+    width: 50px; height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-top: 28px;
+  }
+  .cover-bottom {
+    position: relative; z-index: 1; padding: 40px 55px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .cover-meta { font-family: 'Quicksand', sans-serif; font-size: 10px; color: rgba(255,255,255,0.45); letter-spacing: 1px; }
+  .cover-meta span { display: block; margin-bottom: 3px; }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 65px 18px; border-bottom: 1px solid var(--gris-claro);
+  }
+  .page-header-left { display: flex; align-items: center; gap: 14px; }
+  .page-header-icon { width: 24px; height: 24px; color: var(--morado); }
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600;
+    color: var(--gris-texto); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 500;
+    color: var(--morado); letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page { padding: 50px 65px; min-height: 100vh; }
+  .inner-page h2 { font-family: 'Quicksand', sans-serif; font-size: 26px; font-weight: 600; color: var(--gris-texto); margin-bottom: 8px; line-height: 1.3; }
+  .inner-page h3 { font-family: 'Quicksand', sans-serif; font-size: 18px; font-weight: 600; color: var(--gris-texto); margin-bottom: 10px; margin-top: 28px; }
+  .inner-page h4 { font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--morado); margin-bottom: 14px; margin-top: 24px; }
+  .inner-page p { font-size: 11px; font-weight: 400; line-height: 1.75; margin-bottom: 14px; color: #333; }
+  .inner-page ul, .inner-page ol { margin-left: 18px; margin-bottom: 14px; }
+  .inner-page li { font-size: 11px; font-weight: 400; line-height: 1.7; margin-bottom: 6px; color: #333; }
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line { width: 40px; height: 2px; background: linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom: 22px; }
+
+  /* ===================== SECTION DIVIDER ===================== */
+  .section-divider { display: flex; min-height: 100vh; max-height: 297mm; }
+  .section-divider-left { flex: 1; background: var(--lavanda); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 40px; position: relative; }
+  .section-divider-left .section-icon { width: 80px; height: 80px; color: var(--morado); margin-bottom: 20px; }
+  .section-divider-right { flex: 1.2; background: linear-gradient(135deg, var(--morado-oscuro), var(--negro)); display: flex; flex-direction: column; justify-content: center; padding: 60px 50px; position: relative; overflow: hidden; }
+  .section-divider-right::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%); border-radius: 50%; filter: blur(60px); }
+  .section-number { font-family: 'Quicksand', sans-serif; font-size: 72px; font-weight: 700; color: rgba(255,255,255,0.08); position: absolute; top: 40px; right: 50px; }
+  .section-divider-right h2 { font-family: 'Quicksand', sans-serif; font-size: 34px; font-weight: 700; color: var(--blanco); line-height: 1.25; position: relative; z-index: 1; margin-bottom: 14px; }
+  .section-divider-right p { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.7; position: relative; z-index: 1; max-width: 360px; }
+  .section-divider-right .section-line { width: 40px; height: 2px; background: var(--morado-claro); margin-bottom: 20px; position: relative; z-index: 1; }
+  .deco-circles { width: 120px; height: 120px; opacity: 0.15; }
+
+  /* ===================== HIGHLIGHT / EXEC BOXES ===================== */
+  .exec-summary { background: var(--lavanda); border-top: 3px solid; border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1; border-radius: 0 0 10px 10px; padding: 26px 30px; margin-bottom: 28px; border-left: 1px solid rgba(139,92,246,0.15); border-right: 1px solid rgba(139,92,246,0.15); border-bottom: 1px solid rgba(139,92,246,0.15); }
+  .exec-summary p { font-size: 11px; font-weight: 400; line-height: 1.75; color: #222; }
+
+  .highlight-box { background: var(--lavanda); border-left: 3px solid var(--morado); border-radius: 0 6px 6px 0; padding: 18px 22px; margin: 18px 0; }
+  .highlight-box p { font-size: 11px; font-weight: 400; color: #222; margin: 0; line-height: 1.7; }
+  .highlight-box.warning { border-left-color: var(--amber); background: var(--amber-light); }
+  .highlight-box.success { border-left-color: var(--emerald); background: var(--emerald-light); }
+
+  .quote-box { background: #FAF7FF; border-left: 3px solid var(--morado-claro); border-radius: 0 6px 6px 0; padding: 16px 22px; margin: 16px 0; position: relative; }
+  .quote-box::before { content: '\201C'; font-family: Georgia, serif; position: absolute; top: 0px; left: 8px; font-size: 38px; color: var(--morado-claro); opacity: 0.4; line-height: 1; }
+  .quote-box p { font-size: 11px; font-style: italic; color: #333; padding-left: 22px; margin-bottom: 6px; line-height: 1.7; }
+  .quote-box .quote-attr { font-size: 9px; font-weight: 600; color: var(--morado-oscuro); padding-left: 22px; font-style: normal; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* ===================== PAIN GRID ===================== */
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .pain-item { background: var(--red-light); border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; padding: 14px 18px; }
+  .pain-item .pain-title { font-family: 'Quicksand', sans-serif; font-size: 12px; font-weight: 600; color: #991B1B; margin-bottom: 5px; }
+  .pain-item p { font-size: 11px; font-weight: 400; color: #7F1D1D; line-height: 1.6; margin: 0; }
+
+  /* ===================== SOLUTION GRID ===================== */
+  .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .solution-item { background: #F0FDF4; border-left: 3px solid var(--emerald); border-radius: 0 6px 6px 0; padding: 14px 18px; }
+  .solution-item .solution-title { font-family: 'Quicksand', sans-serif; font-size: 12px; font-weight: 600; color: #065F46; margin-bottom: 5px; }
+  .solution-item p { font-size: 11px; font-weight: 400; color: #065F46; line-height: 1.6; margin: 0; }
+
+  /* ===================== PROCESS CARDS ===================== */
+  .process-card-header { background: linear-gradient(135deg, var(--morado-oscuro), var(--negro)); padding: 22px 28px; border-radius: 10px 10px 0 0; display: flex; align-items: center; gap: 18px; }
+  .process-card-header .process-num { font-family: 'Quicksand', sans-serif; font-size: 40px; font-weight: 700; color: rgba(255,255,255,0.25); line-height: 1; }
+  .process-card-header .process-title-block .process-label { font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 600; color: var(--morado-claro); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .process-card-header .process-title-block h5 { font-family: 'Quicksand', sans-serif; font-size: 18px; font-weight: 700; color: white; line-height: 1.2; }
+  .process-card-body { border: 1px solid var(--gris-claro); border-top: none; border-radius: 0 0 10px 10px; padding: 20px 26px; }
+  .process-card-body .process-resolve { font-size: 11px; color: #444; line-height: 1.7; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--gris-claro); }
+  .process-card-body .process-resolve strong { color: var(--morado-oscuro); }
+
+  /* ===================== PROCESS STEPS ===================== */
+  .proc-steps { margin: 14px 0; }
+  .proc-step { display: grid; grid-template-columns: 28px 1fr; gap: 12px; margin-bottom: 10px; align-items: start; }
+  .proc-step-num { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--morado), var(--morado-oscuro)); color: white; font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .proc-step-body { font-size: 11px; color: #333; line-height: 1.65; padding-top: 2px; }
+
+  /* ===================== CONNECT + RESULT INLINE ===================== */
+  .connect-result { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .cr-card { padding: 10px 14px; border-radius: 6px; font-size: 10px; line-height: 1.55; }
+  .cr-connect { background: #ECFDF5; border: 1px solid rgba(16,185,129,0.2); color: #065F46; }
+  .cr-connect strong { display: block; font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #047857; margin-bottom: 3px; }
+  .cr-result { background: var(--lavanda); border: 1px solid rgba(139,92,246,0.2); border-left: 2px solid var(--morado-claro); color: #312E81; }
+  .cr-result strong { display: block; font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--morado-oscuro); margin-bottom: 3px; }
+
+  /* ===================== ECOSYSTEM ===================== */
+  .ecosystem { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 22px 0; }
+  .eco-node { background: var(--blanco); border: 1.5px solid var(--gris-claro); border-radius: 10px; padding: 14px 12px; text-align: center; position: relative; }
+  .eco-node .eco-name { font-family: 'Quicksand', sans-serif; font-size: 13px; font-weight: 700; color: var(--gris-texto); margin-bottom: 4px; }
+  .eco-node .eco-role { font-size: 10px; font-weight: 400; color: #666; line-height: 1.5; }
+  .eco-node .eco-tag { display: inline-block; font-size: 8px; font-weight: 600; color: #991B1B; background: var(--red-light); border: 1px solid #FECACA; border-radius: 4px; padding: 2px 6px; margin-top: 6px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .metric-card { background: var(--lavanda); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid rgba(139,92,246,0.12); }
+  .metric-card .metric-value { font-family: 'Quicksand', sans-serif; font-size: 22px; font-weight: 700; color: var(--morado-oscuro); margin-bottom: 4px; line-height: 1.15; }
+  .metric-card .metric-label { font-size: 9px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+
+  /* ===================== TIMELINE ===================== */
+  .phase-row { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--gris-claro); }
+  .phase-row:last-child { border-bottom: none; }
+  .phase-week { font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 700; color: var(--morado-oscuro); }
+  .phase-week .phase-week-label { display: block; font-size: 8px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .phase-desc h6 { font-family: 'Quicksand', sans-serif; font-size: 12px; font-weight: 600; color: var(--gris-texto); margin-bottom: 4px; }
+  .phase-desc p { font-size: 11px; color: #555; line-height: 1.65; margin: 0; }
+
+  /* ===================== INVESTMENT BOX ===================== */
+  .invest-block { background: linear-gradient(135deg, var(--negro), var(--morado-oscuro)); border-radius: 12px; padding: 30px 34px; margin: 22px 0; color: white; }
+  .invest-label { font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 600; color: var(--morado-claro); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .invest-value { font-family: 'Quicksand', sans-serif; font-size: 40px; font-weight: 700; color: white; margin-bottom: 4px; letter-spacing: -1px; line-height: 1; }
+  .invest-sub { font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 22px; }
+  .invest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); }
+  .invest-grid-col h6 { font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 700; color: var(--morado-claro); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .invest-grid-col ul { list-style: none; padding: 0; margin: 0; }
+  .invest-grid-col li { font-size: 11px; color: rgba(255,255,255,0.78); line-height: 1.8; padding-left: 14px; position: relative; }
+  .invest-grid-col li::before { content: '\2022'; position: absolute; left: 0; color: var(--morado-claro); }
+
+  /* ===================== NEEDS GRID ===================== */
+  .needs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+  .need-card { padding: 14px 16px; background: var(--lavanda); border: 1px solid rgba(139,92,246,0.15); border-radius: 8px; }
+  .need-card .need-tag { font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 700; color: var(--morado); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .need-card h6 { font-family: 'Quicksand', sans-serif; font-size: 12px; font-weight: 600; color: var(--gris-texto); margin-bottom: 4px; }
+  .need-card p { font-size: 10px; color: #555; line-height: 1.55; margin: 0; }
+
+  /* ===================== FUTURE VISION BOX ===================== */
+  .future-box { background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(139,92,246,0.08)); border: 1px solid rgba(139,92,246,0.2); border-radius: 10px; padding: 24px 28px; margin: 18px 0; }
+  .future-box .future-label { font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 700; color: var(--emerald); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .future-box h5 { font-family: 'Quicksand', sans-serif; font-size: 17px; font-weight: 700; color: var(--gris-texto); margin-bottom: 10px; line-height: 1.3; }
+  .future-box p { font-size: 11px; color: #333; line-height: 1.7; }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px; display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--gris-claro); position: absolute; bottom: 0; left: 0; right: 0;
+  }
+  .page-footer-brand { font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 500; color: #999; letter-spacing: 1px; }
+  .page-footer-conf { font-size: 8px; color: #bbb; letter-spacing: 0.5px; }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; max-height: 297mm; background: var(--negro); position: relative; overflow: hidden; }
+  .back-cover .blob-back1 { position: absolute; top: -200px; left: -100px; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%); border-radius: 50%; filter: blur(80px); }
+  .back-cover .blob-back2 { position: absolute; bottom: -200px; right: -100px; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(167,139,250,0.15), transparent 60%); border-radius: 50%; filter: blur(80px); }
+  .back-cover-content { position: relative; z-index: 1; text-align: center; }
+  .back-cover-content img { height: 60px; margin-bottom: 30px; opacity: 0.9; }
+  .back-cover-line { width: 50px; height: 2px; background: linear-gradient(90deg, var(--morado), var(--morado-claro)); margin: 0 auto 20px; }
+  .back-cover-content p { font-family: 'Quicksand', sans-serif; font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 2px; margin-bottom: 4px; }
+
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .pain-grid, .solution-grid, .metric-row, .needs-grid, .invest-grid, .ecosystem { grid-template-columns: 1fr; }
+    .cover-title { font-size: 36px; }
+    .section-divider { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Propuesta AI Ops Layer</div>
+      <div class="cover-title">Colegio Marymount<br>Medell&iacute;n</div>
+      <div class="cover-subtitle">Tres procesos financieros asistidos por inteligencia artificial &mdash; seteados en Claude, operando en dos semanas.</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>CONFIDENCIAL</span>
+        <span>16 de abril de 2026</span>
+        <span>Preparado por Sara Garc&eacute;s Tob&oacute;n &mdash; Irrelevant</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 1 - RESUMEN EJECUTIVO (Divider)                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="14" y="10" width="52" height="60" rx="4"/>
+        <line x1="24" y1="26" x2="56" y2="26"/>
+        <line x1="24" y1="36" x2="50" y2="36"/>
+        <line x1="24" y1="46" x2="44" y2="46"/>
+        <line x1="24" y1="56" x2="38" y2="56"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">01</div>
+      <div class="section-line"></div>
+      <h2>Resumen Ejecutivo</h2>
+      <p>Lo que escuchamos en el discovery, el momento que convergi&oacute; en Marymount y por d&oacute;nde proponemos empezar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGINA 01 - PROBLEMA Y MOMENTO ------------------------------ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen Ejecutivo</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>El momento de Marymount</h4>
+    <div class="gradient-line"></div>
+    <div class="exec-summary">
+      <p>Marymount Medell&iacute;n compite por algo que no se compra en un software: <strong>reputaci&oacute;n, cercan&iacute;a con las familias y calidad educativa</strong>. Sin embargo, el equipo administrativo del colegio gasta una parte significativa de su tiempo en trabajo manual de contabilidad, conciliaciones bancarias, aprobaci&oacute;n de facturas y cobro de cartera. Ese tiempo no se est&aacute; invirtiendo en lo que s&iacute; diferencia al colegio: la relaci&oacute;n con las familias.</p>
+    </div>
+
+    <p>Hoy el ciclo financiero del colegio es <strong>un conjunto de sistemas que no se hablan entre s&iacute;</strong> &mdash;Loggro, Phidias, los bancos, Excel, Adobe Acrobat y el correo&mdash; pegados entre s&iacute; por tiempo humano repetitivo. La informaci&oacute;n se mueve a punta de descargas de archivos, cruces manuales y revisiones una por una.</p>
+
+    <h3>Tres se&ntilde;ales que convergen al mismo lugar</h3>
+    <div class="pain-grid">
+      <div class="pain-item">
+        <div class="pain-title">Loggro recién migrado</div>
+        <p>La transici&oacute;n est&aacute; exponiendo ineficiencias que antes se toler aban. Las conciliaciones ahora toman m&aacute;s de un d&iacute;a por cuenta porque los archivos no salen con t&iacute;tulos.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-title">Dora se pensiona el pr&oacute;ximo a&ntilde;o</div>
+        <p>Treinta a&ntilde;os de conocimiento t&aacute;cito contable se van con ella si no se preserva de forma estructurada antes de que salga.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-title">Comit&eacute; financiero pidi&oacute; la cartera</div>
+        <p>Ya hay mandato interno: un agente que env&iacute;e los correos de cobro con el tono de Olga, desde su dominio, sin perder cercan&iacute;a.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-title">100% de facturas aprobadas a mano</div>
+        <p>Incluso las recurrentes con el mismo monto mes a mes pasan por todo el flujo. No hay criterio inteligente que separe lo rutinario de lo excepcional.</p>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <p>&laquo;Esta vez me demor&eacute; m&aacute;s de un d&iacute;a cuadrando la informaci&oacute;n porque no sale con t&iacute;tulos... Dora ya lleva 30 a&ntilde;os aqu&iacute; en el colegio, se pensiona el otro a&ntilde;o. Yo tambi&eacute;n quiero aprovechar, dejar eso s&uacute;per organizado.&raquo;</p>
+      <div class="quote-attr">Mar&iacute;a Luisa Mu&ntilde;oz &middot; Gerente Administrativa</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- PAGINA 02 - LA OPORTUNIDAD + PROMESA -------------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen Ejecutivo</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>La oportunidad y nuestra promesa</h4>
+    <div class="gradient-line"></div>
+
+    <p>La oportunidad no es instalar una herramienta nueva ni construir software custom. Es introducir una <strong>capa operativa asistida por inteligencia artificial</strong> sobre los procesos que hoy m&aacute;s duelen. Tres procesos, tres frentes de impacto inmediato:</p>
+
+    <div class="solution-grid">
+      <div class="solution-item">
+        <div class="solution-title">Conciliaci&oacute;n bancaria</div>
+        <p>De m&aacute;s de una jornada a ~30 min por cuenta. El equipo contable revisa solo las diferencias.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Aprobaci&oacute;n contextual de facturas</div>
+        <p>Auto-aprobaci&oacute;n de recurrentes, escalamiento inteligente solo cuando cambia algo.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Cobro de cartera con el tono de Olga</div>
+        <p>Correos personalizados generados a partir de sus correos hist&oacute;ricos, enviados con ella en copia.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Preservaci&oacute;n del conocimiento</div>
+        <p>Las reglas t&aacute;citas de Dora quedan documentadas en el proceso antes de que se pensione.</p>
+      </div>
+    </div>
+
+    <h3>El impacto se mide en horas, no en millones</h3>
+    <p>El valor de esta intervenci&oacute;n no est&aacute; en ingresos adicionales. Est&aacute; en <strong>capacidad operativa liberada, riesgo mitigado y relaci&oacute;n con las familias protegida</strong>. Si hoy una conciliaci&oacute;n de 6 cuentas toma m&aacute;s de una jornada completa al mes, con estos procesos baja a aproximadamente 30 minutos de revisi&oacute;n por cuenta. Si hoy Mar&iacute;a Luisa aprueba manualmente el 100% de las facturas, con este sistema pasa solo las excepcionales. Si hoy la comunicaci&oacute;n de cartera se siente gen&eacute;rica, con este sistema se siente escrita a mano.</p>
+
+    <div class="highlight-box">
+      <p><strong>Nuestra promesa:</strong> en dos semanas el equipo administrativo est&aacute; operando distinto. No hay desarrollo custom, no hay espera de dos meses, no hay recurrencia. Es una puerta de entrada dise&ntilde;ada para que Marymount empiece a generar valor ya &mdash; y cuando la nueva din&aacute;mica est&eacute; corriendo, construimos lo que venga despu&eacute;s.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 2 - NUESTRO ENFOQUE (Divider)                         -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top:16px;">
+        <path d="M20 40 L35 55 L60 25"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">02</div>
+      <div class="section-line"></div>
+      <h2>Nuestro Enfoque</h2>
+      <p>Por qu&eacute; proponemos arrancar con Claude y no con software a la medida. Qu&eacute; significa trabajar asistido por IA.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGINA 03 - POR QUÉ CLAUDE ----------------------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2 L2 22 L22 22 Z"/><line x1="12" y1="10" x2="12" y2="17"/></svg>
+      <span class="page-header-title">Nuestro Enfoque</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Claude seteado con sus procesos &mdash; no software a la medida</h4>
+    <div class="gradient-line"></div>
+
+    <p>Podr&iacute;amos construir agentes a la medida para Marymount. Nos tomar&iacute;a dos meses, ser&iacute;a mucho m&aacute;s caro y requerir&iacute;a un fee mensual recurrente para mantenerlo vivo. <strong>Ese es el modelo de negocio m&aacute;s rentable para nosotros</strong> &mdash; porque dejar&iacute;a a Marymount atada a Irrelevant por a&ntilde;os.</p>
+
+    <p>Pero no es lo que m&aacute;s valor genera para el colegio hoy. La forma m&aacute;s r&aacute;pida y valiosa de empezar es otra: <strong>setear Claude con los tres procesos financieros que duelen y ense&ntilde;arles a trabajar con &eacute;l</strong>. El equipo gu&iacute;a el proceso, Claude ejecuta, y el valor empieza la primera semana.</p>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">2 semanas</div>
+        <div class="metric-label">vs. dos meses de desarrollo</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">Pago &uacute;nico</div>
+        <div class="metric-label">sin fee mensual recurrente</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">de autonom&iacute;a del equipo</div>
+      </div>
+    </div>
+
+    <h3>Qu&eacute; significa &laquo;trabajo asistido por IA&raquo;</h3>
+    <p>Claude no reemplaza al equipo administrativo. <strong>Lo amplifica</strong>. El equipo entra a Claude, le muestra el archivo (extracto bancario, factura, reporte de deudores) y Claude ejecuta el proceso: cruza, clasifica, redacta, propone. El equipo valida, corrige, decide.</p>
+
+    <ul>
+      <li><strong>Velocidad.</strong> El equipo opera distinto la primera semana de uso.</li>
+      <li><strong>Control.</strong> El juicio contable y administrativo se queda donde importa: en las excepciones, no en la carpinter&iacute;a.</li>
+      <li><strong>Aprendizaje.</strong> Cada ajuste que hace el equipo, Claude lo retoma. Los procesos mejoran mes a mes sin intervenci&oacute;n nuestra.</li>
+      <li><strong>Descubrimiento.</strong> Una vez dentro de la herramienta, al equipo le empiezan a ocurrir nuevos usos que ni nosotros pod&iacute;amos prever.</li>
+    </ul>
+
+    <h3>Consideraciones de seguridad y confidencialidad</h3>
+    <p>Claude Pro se contrata directamente por Marymount (USD 100/mes). Al hacerlo, el colegio firma el acuerdo con Anthropic donde se estipula expl&iacute;citamente que <strong>la informaci&oacute;n procesada no se usa para entrenar el modelo</strong>. Los datos no salen del control del colegio. Desde Irrelevant firmamos NDA previo al inicio del trabajo.</p>
+
+    <div class="highlight-box success">
+      <p><strong>La puerta de entrada.</strong> Cuando los tres procesos est&eacute;n corriendo y el equipo calibrado, evaluamos qu&eacute; construir a medida. El tablero financiero visual es el primer candidato natural &mdash; lo vemos en la Secci&oacute;n 4.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 3 - LOS TRES PROCESOS (Divider)                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="20" opacity="0.3"/>
+        <circle cx="60" cy="60" r="35" opacity="0.2"/>
+        <circle cx="60" cy="60" r="50" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top:16px;">
+        <circle cx="40" cy="40" r="22"/>
+        <path d="M28 40 L36 48 L52 32"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">03</div>
+      <div class="section-line"></div>
+      <h2>Los Tres Procesos</h2>
+      <p>C&oacute;mo funciona cada uno en Claude, paso a paso. A qu&eacute; se conecta y qu&eacute; resultado genera.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGINA 04 - PROCESO 1 CONCILIACION --------------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="8" height="16" rx="1"/><rect x="13" y="4" width="8" height="16" rx="1"/><line x1="11" y1="8" x2="13" y2="8"/><line x1="11" y1="12" x2="13" y2="12"/></svg>
+      <span class="page-header-title">Proceso 01 &middot; Conciliaci&oacute;n Bancaria</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Conciliaci&oacute;n bancaria en Claude</h4>
+    <div class="gradient-line"></div>
+
+    <div class="process-card-header">
+      <div class="process-num">01</div>
+      <div class="process-title-block">
+        <div class="process-label">Proceso 01 &mdash; Conciliaci&oacute;n</div>
+        <h5>Cruce mensual entre Loggro y extractos bancarios</h5>
+      </div>
+    </div>
+    <div class="process-card-body">
+      <div class="process-resolve">
+        <strong>Resuelve:</strong> las seis conciliaciones de cuentas mensuales, que hoy consumen m&aacute;s de una jornada por cuenta cuando los archivos no salen con t&iacute;tulos o las descripciones no coinciden.
+      </div>
+      <div class="proc-steps">
+        <div class="proc-step"><div class="proc-step-num">1</div><div class="proc-step-body">El equipo descarga el extracto del banco (Bancolombia, otros) en Excel a una carpeta del colegio.</div></div>
+        <div class="proc-step"><div class="proc-step-num">2</div><div class="proc-step-body">Descarga los movimientos de la cuenta correspondiente desde Loggro (Excel).</div></div>
+        <div class="proc-step"><div class="proc-step-num">3</div><div class="proc-step-body">Claude lee ambos archivos y los cruza por fecha, monto y descripci&oacute;n sem&aacute;ntica.</div></div>
+        <div class="proc-step"><div class="proc-step-num">4</div><div class="proc-step-body">Separa los movimientos en tres grupos: <em>match perfecto</em>, <em>match con ajuste menor</em>, <em>sin match</em>.</div></div>
+        <div class="proc-step"><div class="proc-step-num">5</div><div class="proc-step-body">El equipo contable valida las diferencias o las corrige (&laquo;este pago no corresponde a este cliente&raquo;).</div></div>
+        <div class="proc-step"><div class="proc-step-num">6</div><div class="proc-step-body">Claude aprende del ajuste y lo aplica autom&aacute;ticamente en la siguiente conciliaci&oacute;n.</div></div>
+      </div>
+      <div class="connect-result">
+        <div class="cr-card cr-connect">
+          <strong>A qu&eacute; se conecta</strong>
+          Extractos bancarios (Excel) &middot; Loggro (Excel) &middot; carpeta de trabajo del colegio.
+        </div>
+        <div class="cr-card cr-result">
+          <strong>Resultado</strong>
+          De m&aacute;s de una jornada a ~30 min por cuenta. El juicio contable se queda donde importa: en las diferencias.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:20px;">
+      <p><strong>Preservaci&oacute;n del conocimiento de Dora.</strong> Cada regla que aplica Dora al resolver una diferencia queda registrada como contexto de Claude. Cuando ella se pensione, esas reglas no se van con ella: quedan documentadas en el proceso.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- PAGINA 05 - PROCESO 2 APROBACION FACTURAS -------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 3 L17 3 L20 7 L20 21 L4 21 L4 7 Z"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="14" y2="16"/></svg>
+      <span class="page-header-title">Proceso 02 &middot; Aprobaci&oacute;n de Facturas</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>Aprobaci&oacute;n contextual de facturas en Claude</h4>
+    <div class="gradient-line"></div>
+
+    <div class="process-card-header">
+      <div class="process-num">02</div>
+      <div class="process-title-block">
+        <div class="process-label">Proceso 02 &mdash; Aprobaci&oacute;n</div>
+        <h5>Lectura del correo + decisi&oacute;n contextual + firma digital</h5>
+      </div>
+    </div>
+    <div class="process-card-body">
+      <div class="process-resolve">
+        <strong>Resuelve:</strong> el 100% de las facturas pasan por el mismo flujo manual de aprobaci&oacute;n, incluso las recurrentes con el mismo monto mes a mes. No hay criterio inteligente que separe lo rutinario de lo excepcional.
+      </div>
+      <div class="proc-steps">
+        <div class="proc-step"><div class="proc-step-num">1</div><div class="proc-step-body">Claude lee el correo administrativo donde llegan las facturas de los proveedores.</div></div>
+        <div class="proc-step"><div class="proc-step-num">2</div><div class="proc-step-body">Extrae de cada factura: proveedor, NIT, concepto, monto, fecha.</div></div>
+        <div class="proc-step"><div class="proc-step-num">3</div><div class="proc-step-body">Compara contra el hist&oacute;rico del colegio: si el proveedor es recurrente y si el monto coincide con meses anteriores.</div></div>
+        <div class="proc-step"><div class="proc-step-num">4</div><div class="proc-step-body">Compara contra el presupuesto en Excel: si cae dentro del centro de costo correspondiente.</div></div>
+        <div class="proc-step"><div class="proc-step-num">5</div><div class="proc-step-body">Decide entre tres caminos (detalle abajo).</div></div>
+        <div class="proc-step"><div class="proc-step-num">6</div><div class="proc-step-body">En las auto-aprobadas, aplica la firma digital preautorizada y deja el archivo listo para causaci&oacute;n en Loggro.</div></div>
+      </div>
+
+      <h6 style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--morado); margin:20px 0 12px;">Los 3 caminos posibles</h6>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:18px;">
+        <div style="padding:14px 16px; background:#ECFDF5; border:1px solid rgba(16,185,129,0.25); border-left:3px solid var(--emerald); border-radius:0 8px 8px 0;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:9px; font-weight:700; color:#047857; letter-spacing:1.2px; text-transform:uppercase; margin-bottom:5px;">Caso 1 &middot; Auto-aprueba</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#065F46; margin-bottom:6px; line-height:1.35;">Recurrente, mismo monto, en presupuesto</div>
+          <div style="font-size:10px; color:#065F46; line-height:1.6;">Claude aplica la firma preautorizada, deja el PDF firmado en la carpeta para causar. <strong>Mar&iacute;a Luisa no la vuelve a ver.</strong></div>
+        </div>
+        <div style="padding:14px 16px; background:#FEF3C7; border:1px solid rgba(245,158,11,0.25); border-left:3px solid var(--amber); border-radius:0 8px 8px 0;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:9px; font-weight:700; color:#92400E; letter-spacing:1.2px; text-transform:uppercase; margin-bottom:5px;">Caso 2 &middot; Notifica</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#78350F; margin-bottom:6px; line-height:1.35;">Recurrente pero cambi&oacute; el monto</div>
+          <div style="font-size:10px; color:#78350F; line-height:1.6;">Claude pregunta: &laquo;vigilancia pas&oacute; de $4.2M a $4.5M, &iquest;apruebo?&raquo;. Mar&iacute;a Luisa decide. Si s&iacute;, Claude firma y causa.</div>
+        </div>
+        <div style="padding:14px 16px; background:#FEE2E2; border:1px solid rgba(239,68,68,0.25); border-left:3px solid var(--red); border-radius:0 8px 8px 0;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:9px; font-weight:700; color:#991B1B; letter-spacing:1.2px; text-transform:uppercase; margin-bottom:5px;">Caso 3 &middot; Escala</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#7F1D1D; margin-bottom:6px; line-height:1.35;">No recurrente o fuera de presupuesto</div>
+          <div style="font-size:10px; color:#7F1D1D; line-height:1.6;">Flujo manual de siempre: revisi&oacute;n &rarr; firma Sara &rarr; firma Mar&iacute;a Luisa &rarr; causaci&oacute;n en Loggro.</div>
+        </div>
+      </div>
+
+      <div class="connect-result">
+        <div class="cr-card cr-connect">
+          <strong>A qu&eacute; se conecta</strong>
+          Gmail (correo admin) &middot; Excel del presupuesto &middot; Adobe Acrobat (firma) &middot; Loggro v&iacute;a descarga.
+        </div>
+        <div class="cr-card cr-result">
+          <strong>Resultado</strong>
+          De 100% a menos del 20% de facturas pasando por Mar&iacute;a Luisa. Juicio humano solo en excepciones.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Firmas preautorizadas.</strong> Sara y Mar&iacute;a Luisa firman una &uacute;nica vez un documento donde autorizan que, para ciertos proveedores recurrentes y dentro de rangos de monto definidos, Claude pueda aplicar sus firmas sin pedir permiso cada vez. Ese consentimiento previo es lo que habilita el Caso 1.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- PAGINA 06 - PROCESO 3 CARTERA OLGA --------------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 6 L20 6 L20 18 L4 18 Z"/><path d="M4 6 L12 13 L20 6"/></svg>
+      <span class="page-header-title">Proceso 03 &middot; Cobro de Cartera</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>Cobro personalizado &mdash; el tono de Olga, escrito por Claude</h4>
+    <div class="gradient-line"></div>
+
+    <div class="process-card-header">
+      <div class="process-num">03</div>
+      <div class="process-title-block">
+        <div class="process-label">Proceso 03 &mdash; Cartera</div>
+        <h5>Correos personalizados de cobro con el tono de Olga</h5>
+      </div>
+    </div>
+    <div class="process-card-body">
+      <div class="process-resolve">
+        <strong>Resuelve:</strong> los recordatorios autom&aacute;ticos de Phidias no generan impacto en las familias. Cuando Olga escribe personalmente, los pap&aacute;s responden &mdash; pero eso no escala a los 30+ correos mensuales.
+      </div>
+      <div class="proc-steps">
+        <div class="proc-step"><div class="proc-step-num">1</div><div class="proc-step-body">El equipo descarga el reporte de deudores de Phidias cada mes en Excel.</div></div>
+        <div class="proc-step"><div class="proc-step-num">2</div><div class="proc-step-body">Claude lee qui&eacute;n debe, cu&aacute;nto y desde cu&aacute;ndo.</div></div>
+        <div class="proc-step"><div class="proc-step-num">3</div><div class="proc-step-body">Aprende el tono y estilo de Olga a partir de 50-100 correos hist&oacute;ricos suyos.</div></div>
+        <div class="proc-step"><div class="proc-step-num">4</div><div class="proc-step-body">Para cada familia en mora genera un correo personalizado: nombre del pap&aacute;, de la mam&aacute;, de la alumna, monto espec&iacute;fico, mes adeudado.</div></div>
+        <div class="proc-step"><div class="proc-step-num">5</div><div class="proc-step-body">Las primeras semanas, Olga revisa cada correo antes de enviar: aprueba, edita o rechaza. Claude aprende de cada edici&oacute;n.</div></div>
+        <div class="proc-step"><div class="proc-step-num">6</div><div class="proc-step-body">Una vez calibrado, pasa a env&iacute;o autom&aacute;tico con Olga siempre en copia. Si una familia no paga tras los recordatorios, escala a Olga para llamada personal.</div></div>
+      </div>
+      <div class="connect-result">
+        <div class="cr-card cr-connect">
+          <strong>A qu&eacute; se conecta</strong>
+          Reporte de Phidias (Excel) &middot; Gmail (dominio del colegio) &middot; correos hist&oacute;ricos de Olga.
+        </div>
+        <div class="cr-card cr-result">
+          <strong>Resultado</strong>
+          ~360 correos al a&ntilde;o dejan de escribirse uno por uno. Escala y cercan&iacute;a al mismo tiempo.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Dominio de env&iacute;o.</strong> Los correos se env&iacute;an desde el dominio del colegio (por ejemplo <em>notificaciones@marymount.edu.co</em>) con el nombre de Olga visible como remitente. El receptor ve &laquo;Olga Mar&iacute;a &middot; notificaciones@marymount&raquo; como firma, lo cual preserva la cercan&iacute;a del remitente humano sin comprometer infraestructura.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 4 - VISION A FUTURO (Divider)                         -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top:16px;">
+        <rect x="14" y="18" width="52" height="44" rx="3"/>
+        <line x1="14" y1="30" x2="66" y2="30"/>
+        <circle cx="22" cy="24" r="1"/>
+        <circle cx="28" cy="24" r="1"/>
+        <line x1="24" y1="44" x2="40" y2="38"/>
+        <line x1="40" y1="38" x2="56" y2="48"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">04</div>
+      <div class="section-line"></div>
+      <h2>Visi&oacute;n a Futuro</h2>
+      <p>El tablero financiero conversable: el siguiente paso natural cuando los tres procesos est&eacute;n estabilizados.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGINA 07 - DASHBOARD FUTURO --------------------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+      <span class="page-header-title">Visi&oacute;n a Futuro &middot; Core Layer</span>
+    </div>
+    <span class="page-header-num">PAG 07</span>
+  </div>
+  <div class="inner-page">
+    <h4>El tablero financiero conversable</h4>
+    <div class="gradient-line"></div>
+
+    <p>Cuando los tres procesos est&eacute;n corriendo y el equipo est&eacute; calibrado en la nueva din&aacute;mica de trabajo, el siguiente paso natural es construir un <strong>tablero financiero visual y conversable</strong>. Esto s&iacute; es un desarrollo a la medida &mdash; no se hace con Claude directamente, sino como una aplicaci&oacute;n web propia del colegio.</p>
+
+    <div class="future-box">
+      <div class="future-label">Visi&oacute;n a futuro &middot; Core Layer</div>
+      <h5>Mar&iacute;a Luisa entra al tablero y pregunta en espa&ntilde;ol: &laquo;&iquest;Por qu&eacute; subi&oacute; mantenimiento este mes?&raquo;</h5>
+      <p>El tablero consulta la base de datos, encuentra las facturas del mes, compara con el mes anterior y explica la variaci&oacute;n. Sin reportes manuales, sin descargar Excel, sin reconstruir n&uacute;meros cada vez que alguien pregunta.</p>
+    </div>
+
+    <h3>Qu&eacute; tendr&iacute;a el tablero</h3>
+    <ul>
+      <li><strong>Ingesta del presupuesto anual</strong> desde el Excel que Mar&iacute;a Luisa ya construye por &aacute;rea, proyecto y centro de costo.</li>
+      <li><strong>Sincronizaci&oacute;n autom&aacute;tica con Loggro</strong> cada noche para traer la ejecuci&oacute;n real.</li>
+      <li><strong>Interfaz visual</strong> con pie charts, gr&aacute;ficos de barras y tablas por centro de costo.</li>
+      <li><strong>Calendario dual</strong>: a&ntilde;o acad&eacute;mico (junio&ndash;mayo) vs. a&ntilde;o fiscal (enero&ndash;diciembre) resuelto en paralelo.</li>
+      <li><strong>Comparativos</strong>: ejecuci&oacute;n vs. presupuesto vs. a&ntilde;o anterior, con alertas de variaciones importantes.</li>
+      <li><strong>Preguntas en lenguaje natural</strong> para la direcci&oacute;n administrativa.</li>
+    </ul>
+
+    <h3>Por qu&eacute; despu&eacute;s, no ahora</h3>
+    <p>El tablero requiere desarrollo custom, integraci&oacute;n por API con Loggro y una arquitectura que justifica su propio proyecto. <strong>Construirlo hoy duplicar&iacute;a el esfuerzo y el costo</strong>, cuando lo que m&aacute;s valor genera en el corto plazo es liberar tiempo del equipo con los tres procesos en Claude.</p>
+
+    <p>Una vez esos procesos est&eacute;n estabilizados, la informaci&oacute;n que alimentar&aacute; el tablero (facturas clasificadas, conciliaciones cerradas, cartera escalada) ya estar&aacute; fluyendo. El tablero toma esa informaci&oacute;n y la visualiza. Se construye <strong>sobre un ciclo financiero que ya est&aacute; trabajando distinto</strong>.</p>
+
+    <div class="highlight-box success">
+      <p><strong>C&oacute;mo lo cotizaremos.</strong> El tablero se propone como un proyecto Core Layer aparte, con su propio alcance, timeline y presupuesto. Lo evaluamos cuando los tres procesos en Claude est&eacute;n corriendo y Marymount tenga claridad sobre el uso real.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 5 - ENTREGA Y NECESIDADES (Divider)                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="18" opacity="0.4"/>
+        <circle cx="60" cy="60" r="32" opacity="0.3"/>
+        <circle cx="60" cy="60" r="46" opacity="0.2"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top:16px;">
+        <circle cx="40" cy="40" r="26"/>
+        <path d="M40 20 L40 40 L54 50"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">05</div>
+      <div class="section-line"></div>
+      <h2>Entrega y Necesidades</h2>
+      <p>Timeline de dos semanas, qu&eacute; necesitamos de Marymount, m&eacute;tricas de &eacute;xito y consideraciones.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGINA 08 - TIMELINE + NECESIDADES --------------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7 L12 12 L16 14"/></svg>
+      <span class="page-header-title">Timeline y Necesidades</span>
+    </div>
+    <span class="page-header-num">PAG 08</span>
+  </div>
+  <div class="inner-page">
+    <h4>C&oacute;mo lo entregamos &mdash; dos semanas</h4>
+    <div class="gradient-line"></div>
+
+    <div style="background: var(--lavanda); border-radius: 10px; padding: 22px 26px; margin: 18px 0;">
+      <div class="phase-row">
+        <div class="phase-week">Semana 1 <span class="phase-week-label">Setup + acceso</span></div>
+        <div class="phase-desc">
+          <h6>Conexi&oacute;n a sistemas y carga de contexto</h6>
+          <p>Setup de Claude en las cuentas del colegio. Conexi&oacute;n al correo administrativo, a la carpeta de trabajo y al dominio de env&iacute;o. Carga de correos hist&oacute;ricos de Olga, del presupuesto vigente y de las reglas del &aacute;rea (proveedores recurrentes, umbrales, firmantes).</p>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-week">Semana 2 <span class="phase-week-label">Configuraci&oacute;n</span></div>
+        <div class="phase-desc">
+          <h6>Los tres procesos quedan seteados y probados</h6>
+          <p>Configuraci&oacute;n de cada proceso en Claude. Pruebas con casos reales del colegio: conciliaci&oacute;n del mes anterior, facturas recurrentes y excepcionales, lote inicial de correos de cartera. Ajustes hasta que el output sea confiable.</p>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-week">D&iacute;a 15 <span class="phase-week-label">Capacitaci&oacute;n</span></div>
+        <div class="phase-desc">
+          <h6>Tres horas de entrenamiento al equipo</h6>
+          <p>Capacitaci&oacute;n hands-on al equipo administrativo y contable. C&oacute;mo trabajar cada proceso en Claude, c&oacute;mo corregir cuando se equivoca, c&oacute;mo aprovechar la herramienta para nuevos usos. Arranque en producci&oacute;n.</p>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-week">Mes siguiente <span class="phase-week-label">Soporte</span></div>
+        <div class="phase-desc">
+          <h6>Soporte incluido un mes post-entrega</h6>
+          <p>Acompa&ntilde;amiento durante el primer mes en producci&oacute;n. Ajustes, dudas del equipo, afinamiento de los procesos conforme aparezcan casos reales. Despu&eacute;s del mes, Marymount opera de forma aut&oacute;noma.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Qu&eacute; necesitamos del colegio</h3>
+    <div class="needs-grid">
+      <div class="need-card">
+        <div class="need-tag">Accesos</div>
+        <h6>Responsable interno</h6>
+        <p>Una persona del colegio que nos acompa&ntilde;e durante las dos semanas.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-tag">Accesos</div>
+        <h6>Correo administrativo</h6>
+        <p>Autorizaci&oacute;n para que Claude lea el correo donde llegan las facturas.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-tag">Accesos</div>
+        <h6>Dominio de env&iacute;o</h6>
+        <p>Dominio del colegio desde el cual se env&iacute;an los correos de cartera.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-tag">Datos</div>
+        <h6>Reporte de Phidias</h6>
+        <p>Export en Excel del reporte de deudores, mensual.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-tag">Datos</div>
+        <h6>Presupuesto vigente</h6>
+        <p>El Excel que Mar&iacute;a Luisa ya construye por centro de costo.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-tag">Datos</div>
+        <h6>Correos de Olga</h6>
+        <p>50&ndash;100 correos hist&oacute;ricos para aprender su tono y estilo.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-tag">Reglas</div>
+        <h6>Proveedores recurrentes</h6>
+        <p>Listado de los proveedores fijos del colegio con sus montos habituales.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-tag">Reglas</div>
+        <h6>Umbrales y firmantes</h6>
+        <p>A partir de qu&eacute; monto una factura escala a Mar&iacute;a Luisa o requiere otra firma.</p>
+      </div>
+      <div class="need-card">
+        <div class="need-tag">Reglas</div>
+        <h6>Escalamiento de cartera</h6>
+        <p>Cu&aacute;ndo una familia deja de recibir correo y pasa a llamada de Olga.</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- PAGINA 09 - METRICAS + CONSIDERACIONES ----------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 19 L8 13 L12 15 L16 9 L20 11"/><circle cx="8" cy="13" r="1.5"/><circle cx="12" cy="15" r="1.5"/><circle cx="16" cy="9" r="1.5"/></svg>
+      <span class="page-header-title">M&eacute;tricas y Consideraciones</span>
+    </div>
+    <span class="page-header-num">PAG 09</span>
+  </div>
+  <div class="inner-page">
+    <h4>C&oacute;mo sabremos que est&aacute; funcionando</h4>
+    <div class="gradient-line"></div>
+
+    <p>El &eacute;xito de esta intervenci&oacute;n no se mide en millones recuperados ni en tecnolog&iacute;a implementada. Se mide en el cambio concreto de los n&uacute;meros operativos del d&iacute;a a d&iacute;a. Las seguimos mes a mes despu&eacute;s de la entrega.</p>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">&gt;1 jornada &rarr; ~30 min</div>
+        <div class="metric-label">Tiempo de conciliaci&oacute;n por cuenta</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">100% &rarr; &lt;20%</div>
+        <div class="metric-label">Facturas pasando por Mar&iacute;a Luisa</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">~360</div>
+        <div class="metric-label">Correos personalizados/a&ntilde;o de cartera</div>
+      </div>
+    </div>
+
+    <h3>Cosas a tener en cuenta</h3>
+    <div class="pain-grid">
+      <div class="pain-item" style="background: var(--amber-light); border-left-color: var(--amber);">
+        <div class="pain-title" style="color: #92400E;">Acceso a sistemas de terceros</div>
+        <p style="color: #78350F;">El cruce con Loggro y Phidias se hace a trav&eacute;s de descargas de Excel, no por API. Esto requiere que alguien del equipo descargue los archivos cuando se va a trabajar el proceso. Es el mismo flujo que hoy existe &mdash; pero ahora el resto del trabajo lo hace Claude.</p>
+      </div>
+      <div class="pain-item" style="background: var(--amber-light); border-left-color: var(--amber);">
+        <div class="pain-title" style="color: #92400E;">Confidencialidad de datos</div>
+        <p style="color: #78350F;">Marymount contrata Claude Pro directamente. Al hacerlo firma el acuerdo con Anthropic donde se estipula que los datos no se usan para entrenar el modelo. Irrelevant firma NDA adicional antes del inicio.</p>
+      </div>
+      <div class="pain-item" style="background: var(--amber-light); border-left-color: var(--amber);">
+        <div class="pain-title" style="color: #92400E;">Dependencia de la herramienta</div>
+        <p style="color: #78350F;">Claude es un SaaS externo. Si Marymount decide cambiar de herramienta en el futuro, el trabajo no es port&aacute;til 1:1 &mdash; habr&iacute;a que reconfigurar los procesos. La contraparte es que no hay dependencia de Irrelevant: el equipo opera de forma aut&oacute;noma.</p>
+      </div>
+      <div class="pain-item" style="background: var(--amber-light); border-left-color: var(--amber);">
+        <div class="pain-title" style="color: #92400E;">Curva de aprendizaje del equipo</div>
+        <p style="color: #78350F;">La capacitaci&oacute;n de 3 horas cubre lo esencial, pero la verdadera curva ocurre en el primer mes de uso. El soporte incluido cubre ese mes &mdash; despu&eacute;s el equipo ya habr&aacute; internalizado la forma de trabajo.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box success">
+      <p><strong>Valor que aparece despu&eacute;s.</strong> Una vez el equipo internaliza la forma de trabajar con Claude, empiezan a aparecer usos nuevos que ni nosotros pod&iacute;amos prever: reportes, resumenes de reuniones, redacci&oacute;n de comunicados, consultas sobre pol&iacute;ticas internas. La inversi&oacute;n paga mucho m&aacute;s all&aacute; de los tres procesos iniciales.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 6 - INVERSION (Divider)                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top:16px;">
+        <circle cx="40" cy="40" r="26"/>
+        <text x="40" y="50" font-family="Quicksand, sans-serif" font-size="28" font-weight="700" fill="currentColor" text-anchor="middle">$</text>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">06</div>
+      <div class="section-line"></div>
+      <h2>Inversi&oacute;n y Condiciones</h2>
+      <p>Cu&aacute;nto cuesta, qu&eacute; incluye, qu&eacute; no incluye y forma de pago.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGINA 10 - INVERSION ---------------------------------------- -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><line x1="6" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="18" y2="12"/></svg>
+      <span class="page-header-title">Inversi&oacute;n y Condiciones Comerciales</span>
+    </div>
+    <span class="page-header-num">PAG 10</span>
+  </div>
+  <div class="inner-page">
+    <h4>Inversi&oacute;n AI Ops Layer</h4>
+    <div class="gradient-line"></div>
+
+    <div class="invest-block">
+      <div class="invest-label">Implementaci&oacute;n &uacute;nica &middot; sin fee recurrente</div>
+      <div class="invest-value">$12.000.000 COP + IVA</div>
+      <div class="invest-sub">Pago &uacute;nico. Dos semanas de setup. Equipo operando distinto al d&iacute;a 15.</div>
+      <div class="invest-grid">
+        <div class="invest-grid-col">
+          <h6>Incluye</h6>
+          <ul>
+            <li>Setup de los 3 procesos en Claude</li>
+            <li>Configuraci&oacute;n y conexiones</li>
+            <li>Carga de contexto, reglas y correos hist&oacute;ricos</li>
+            <li>2 semanas de implementaci&oacute;n</li>
+            <li>Capacitaci&oacute;n de 3 horas al equipo</li>
+            <li>1 mes de soporte post-entrega</li>
+            <li>NDA y acompa&ntilde;amiento</li>
+          </ul>
+        </div>
+        <div class="invest-grid-col">
+          <h6>No incluye</h6>
+          <ul>
+            <li>Licencia de Claude Pro (USD 100/mes)</li>
+            <li>Soporte despu&eacute;s del primer mes</li>
+            <li>Desarrollo del tablero financiero (Core Layer)</li>
+            <li>Integraciones por API con Loggro o Phidias</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>Sobre Claude Pro</h3>
+    <p>La licencia de Claude la contrata Marymount directamente por USD 100/mes (aprox. $400.000 COP), pagada a Anthropic. Irrelevant no intermedia este pago. Se puede arrancar con el plan b&aacute;sico y escalar al plan superior (USD 200/mes) si el volumen lo requiere.</p>
+
+    <h3>Condiciones comerciales</h3>
+    <ul>
+      <li><strong>Forma de pago:</strong> 50% anticipo al firmar + 50% contra entrega (d&iacute;a de capacitaci&oacute;n).</li>
+      <li><strong>Moneda:</strong> COP. Facturaci&oacute;n desde IRRELEVANT CLUB S.A.S., NIT 901.935.642-1.</li>
+      <li><strong>IVA:</strong> 19% sobre el valor de la implementaci&oacute;n.</li>
+      <li><strong>Vigencia de esta propuesta:</strong> 15 d&iacute;as calendario desde el 16 de abril de 2026.</li>
+      <li><strong>Timeline:</strong> el arranque formal ocurre al recibir el anticipo. Dos semanas despu&eacute;s, entrega.</li>
+      <li><strong>Soporte post-entrega:</strong> 1 mes incluido. Tiempo de respuesta h&aacute;bil en 24 horas.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Siguiente paso.</strong> Si Marymount decide avanzar, firmamos contrato esta semana. Enviamos la primera cuenta de cobro (50%), arrancamos el setup el lunes siguiente. Al d&iacute;a 15 el equipo est&aacute; operando con los tres procesos.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRATAPA                                                    -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+      <p style="margin-top:24px; font-size:10px; color:rgba(255,255,255,0.35); letter-spacing:1px;">stayirrelevant.com</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
