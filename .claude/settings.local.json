@@ -65,7 +65,10 @@
       "Skill(que-sigue)",
       "Bash(cp \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Templates/Comercial/Fase 0 Core Layer/fase0-core-layer-es.html\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/nivel/fase0/fase0-documento.html\")",
       "Bash(cp \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Templates/Comercial/Slides Fase 0/slides-fase0-es.html\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/nivel/fase0/fase0-slides.html\")",
-      "WebFetch(domain:api.loggro.com)"
+      "WebFetch(domain:api.loggro.com)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git push *)"
     ],
     "deny": [],
     "ask": []
