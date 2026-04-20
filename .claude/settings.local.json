@@ -60,7 +60,12 @@
       "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\('Has Linkedin:', 'Linkedin' in l\\); console.log\\('Has LinkedIn:', 'LinkedIn' in l\\); console.log\\('Has Instagram:', 'Instagram' in l\\); console.log\\(Object.keys\\(l\\).filter\\(k => k.toLowerCase\\(\\).includes\\('linked'\\) || k.toLowerCase\\(\\).includes\\('instagr'\\)\\)\\)\")",
       "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => /mail|send|link|share|user|contact|external/i.test\\(k\\)\\).slice\\(0,30\\)\\)\")",
       "Read(//mnt/c/Users/JuanPablo/Desktop/irrelevant core/Catalogo/catalogo/src/**)",
-      "Read(//mnt/c/Users/JuanPablo/Desktop/irrelevant core/Catalogo/catalogo/**)"
+      "Read(//mnt/c/Users/JuanPablo/Desktop/irrelevant core/Catalogo/catalogo/**)",
+      "WebFetch(domain:nivel.co)",
+      "Skill(que-sigue)",
+      "Bash(cp \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Templates/Comercial/Fase 0 Core Layer/fase0-core-layer-es.html\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/nivel/fase0/fase0-documento.html\")",
+      "Bash(cp \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Templates/Comercial/Slides Fase 0/slides-fase0-es.html\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/nivel/fase0/fase0-slides.html\")",
+      "WebFetch(domain:api.loggro.com)"
     ],
     "deny": [],
     "ask": []

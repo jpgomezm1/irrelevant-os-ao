@@ -1,0 +1,2400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fase 0 — Nivel | Irrelevant Core Layer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px;
+    right: -100px;
+    width: 750px;
+    height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px;
+    left: -150px;
+    width: 500px;
+    height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px;
+    right: -80px;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px;
+    left: -80px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px;
+    object-fit: contain;
+    opacity: 0.95;
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .cover-bottom-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cover-bottom-logos img {
+    height: 35px;
+    opacity: 0.7;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+  }
+
+  @media print {
+    .inner-page { min-height: 100vh; }
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h2.small {
+    font-size: 21px;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong {
+    font-weight: 600;
+  }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== SECTION DIVIDER ===================== */
+  .section-divider {
+    display: flex;
+    min-height: 100vh;
+    max-height: 297mm;
+  }
+
+  .section-divider-left {
+    flex: 1;
+    background: var(--lavanda);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+  }
+
+  .section-divider-left .deco-circles {
+    opacity: 0.15;
+  }
+
+  .section-divider-left .section-icon {
+    width: 80px;
+    height: 80px;
+    color: var(--morado);
+    margin-bottom: 20px;
+  }
+
+  .section-divider-right {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-divider-right::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%);
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+
+  .section-number {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.08);
+    position: absolute;
+    top: 40px;
+    right: 50px;
+  }
+
+  .section-divider-right h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.25;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 14px;
+  }
+
+  .section-divider-right p {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+  }
+
+  .section-divider-right .section-line {
+    width: 40px;
+    height: 2px;
+    background: var(--morado-claro);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===================== EXECUTIVE SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  .highlight-box.warning {
+    border-left-color: #F59E0B;
+    background: #FFFBEB;
+  }
+
+  .highlight-box.danger {
+    border-left-color: #EF4444;
+    background: #FEF2F2;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul {
+    margin-left: 14px;
+  }
+
+  .card-body .label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--morado);
+    margin-bottom: 6px;
+    margin-top: 10px;
+  }
+
+  .card-body .label:first-child {
+    margin-top: 0;
+  }
+
+  /* ===================== FUNNEL GRAPHIC ===================== */
+  .funnel-container {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .funnel-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .funnel-bar {
+    height: 44px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .funnel-bar .funnel-num {
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 10px;
+    opacity: 0.8;
+  }
+
+  .funnel-label-right {
+    font-size: 10px;
+    font-weight: 400;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .funnel-arrow {
+    text-align: center;
+    color: var(--morado);
+    font-size: 16px;
+    margin: 2px 0 2px 20px;
+  }
+
+  /* ===================== IMPACT TABLE ===================== */
+  .impact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 10px;
+  }
+
+  .impact-table th {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+
+  .impact-table th:first-child {
+    border-radius: 6px 0 0 0;
+  }
+
+  .impact-table th:last-child {
+    border-radius: 0 6px 0 0;
+  }
+
+  .impact-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gris-claro);
+    font-weight: 300;
+    color: #333;
+  }
+
+  .impact-table tr:nth-child(even) td {
+    background: var(--lavanda);
+  }
+
+  .impact-table .highlight-cell {
+    font-weight: 600;
+    color: var(--morado-oscuro);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== FLOW DIAGRAM ===================== */
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+
+  .flow-step {
+    background: var(--lavanda);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .flow-step .flow-icon {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .flow-step .flow-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--gris-texto);
+  }
+
+  .flow-step.active {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    border-color: var(--morado);
+  }
+
+  .flow-step.active .flow-text {
+    color: white;
+  }
+
+  .flow-connector {
+    font-size: 14px;
+    color: var(--morado);
+    padding: 0 6px;
+  }
+
+  /* ===================== LAYER CARDS ===================== */
+  .layer-card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .layer-card-header {
+    background: linear-gradient(135deg, var(--morado), var(--morado-oscuro));
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .layer-card-header .layer-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .layer-card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .layer-card-body {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .layer-card-body .layer-section h6 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--morado);
+    margin-bottom: 8px;
+  }
+
+  .layer-card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    color: #444;
+    margin-bottom: 3px;
+    line-height: 1.6;
+  }
+
+  /* ===================== TIMELINE / LEVELS ===================== */
+  .level-timeline {
+    position: relative;
+    margin: 24px 0;
+    padding-left: 30px;
+  }
+
+  .level-timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--morado), var(--morado-claro), rgba(139,92,246,0.2));
+  }
+
+  .level-item {
+    position: relative;
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+
+  .level-item::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--morado);
+    border: 2px solid var(--blanco);
+    box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+  }
+
+  .level-item h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 6px;
+  }
+
+  .level-item p {
+    font-size: 10px;
+    font-weight: 300;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .level-item .level-tag {
+    display: inline-block;
+    background: var(--lavanda);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--morado);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+  }
+
+  /* ===================== PAIN POINT GRAPHIC ===================== */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .pain-item {
+    background: #FEF2F2;
+    border-left: 3px solid #EF4444;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+  }
+
+  .pain-item .pain-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #991B1B;
+    margin-bottom: 3px;
+  }
+
+  .pain-item p {
+    font-size: 9px;
+    font-weight: 300;
+    color: #7F1D1D;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== SOLUTION GRAPHIC ===================== */
+  .solution-item {
+    background: #F0FDF4;
+    border-left: 3px solid #22C55E;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+  }
+
+  .solution-item .solution-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #166534;
+    margin-bottom: 3px;
+  }
+
+  .solution-item p {
+    font-size: 9px;
+    font-weight: 300;
+    color: #14532D;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== COMPARISON ===================== */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .comparison-col {
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .comparison-col.before {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+  }
+
+  .comparison-col.after {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+  }
+
+  .comparison-col h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .comparison-col.before h5 { color: #991B1B; }
+  .comparison-col.after h5 { color: #166534; }
+
+  .comparison-col li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 3px;
+  }
+
+  .comparison-col.before li { color: #7F1D1D; }
+  .comparison-col.after li { color: #14532D; }
+
+  .comparison-arrow {
+    text-align: center;
+    font-size: 20px;
+    color: var(--morado);
+  }
+
+  /* ===================== PYRAMID GRAPHIC ===================== */
+  .pyramid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 24px 0;
+    gap: 4px;
+  }
+
+  .pyramid-level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    border-radius: 6px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    position: relative;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px;
+    left: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(167,139,250,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 60px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+
+  .back-cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-logos {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .back-logos img {
+    height: 45px;
+    opacity: 0.7;
+  }
+
+  .back-logos .divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .layer-card-body { grid-template-columns: 1fr; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .comparison { grid-template-columns: 1fr; }
+    .comparison-arrow { transform: rotate(90deg); }
+    .cover-title { font-size: 36px; }
+    .section-divider { flex-direction: column; }
+  }
+
+  /* ===================== SVG DECO ===================== */
+  .deco-circles {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* DONUT / GAUGE */
+  .donut-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+  }
+
+  .donut-chart {
+    text-align: center;
+  }
+
+  .donut-chart svg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .donut-chart .donut-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #444;
+    margin-top: 6px;
+  }
+
+  /* Bottleneck diagram */
+  .bottleneck-container {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    margin: 20px 0;
+  }
+
+  .bottleneck-item {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    border-radius: 6px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .bottleneck-item .bottleneck-icon {
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+
+  /* COST BLOCK */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* STAT INLINE */
+  .stat-inline {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 16px 0;
+    padding: 14px 20px;
+    background: var(--lavanda);
+    border-radius: 8px;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .stat-inline .stat-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+  }
+
+  .stat-inline .stat-text {
+    font-size: 11px;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  /* Three column metric */
+  .three-col-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .tcm-card {
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+
+  .tcm-card .tcm-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .tcm-card .tcm-label {
+    font-size: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .tcm-card .tcm-detail {
+    font-size: 9px;
+    font-weight: 300;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Documento de Bases Formales</div>
+      <div class="cover-title">Fase 0</div>
+      <div class="cover-subtitle">Nivel &mdash; Diagn&oacute;stico Estrat&eacute;gico e Intervenci&oacute;n con Inteligencia Artificial</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>CONFIDENCIAL</span>
+        <span>Abril 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 1 - RESUMEN EJECUTIVO (Divider)                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="14" y="10" width="52" height="60" rx="4"/>
+        <line x1="24" y1="26" x2="56" y2="26"/>
+        <line x1="24" y1="36" x2="50" y2="36"/>
+        <line x1="24" y1="46" x2="44" y2="46"/>
+        <line x1="24" y1="56" x2="38" y2="56"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">01</div>
+      <div class="section-line"></div>
+      <h2>Resumen Ejecutivo</h2>
+      <p>Visi&oacute;n estrat&eacute;gica del problema, la oportunidad y la intervenci&oacute;n propuesta.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 01 - RESUMEN EJECUTIVO                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen Ejecutivo</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>El problema central</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Nivel es una gerencia de proyectos inmobiliarios madura, con m&aacute;s de 30 a&ntilde;os de operaci&oacute;n y un portafolio simult&aacute;neo de 15 a 20 proyectos activos en Colombia y Estados Unidos. La operaci&oacute;n funciona, los equipos saben lo que hacen y Paco &mdash; el ERP inmobiliario que act&uacute;a como columna vertebral &mdash; captura cada orden de compra, cada factura, cada pago. El problema no es de capacidad ni de infraestructura. El problema es que la informaci&oacute;n que Paco ya almacena <strong>solo se vuelve accionable cuando alguien del equipo entra al sistema, aplica filtros, exporta a Excel y cruza datos manualmente</strong>. Cada pregunta gerencial se convierte en una operaci&oacute;n manual de 15 a 30 minutos; cada desviaci&oacute;n presupuestal se detecta despu&eacute;s de ejecutada. El ERP funciona como sistema de registro, no como motor de decisi&oacute;n.</p>
+    </div>
+
+    <h3>La oportunidad estrat&eacute;gica</h3>
+
+    <p>La oportunidad no est&aacute; en reemplazar Paco ni en migrar a otro sistema. Est&aacute; en construir una <strong>capa de inteligencia sobre Paco</strong> que transforme el ERP de sistema de registro a motor de decisi&oacute;n, a trav&eacute;s de cuatro capacidades clave:</p>
+
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">Consulta conversacional a Paco</div>
+        <p>Cualquier persona del equipo puede preguntarle al ERP en lenguaje natural &mdash; sin filtros, sin exports, sin Excel.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Comparador inteligente de cotizaciones</div>
+        <p>Sube tres PDFs y el sistema extrae &iacute;tems, normaliza alcances y flagea discrepancias l&iacute;nea por l&iacute;nea.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Alertas proactivas de desviaci&oacute;n</div>
+        <p>Monitoreo continuo de costos reales vs. presupuesto con alertas autom&aacute;ticas cuando algo requiere atenci&oacute;n.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">An&aacute;lisis cross-proyecto</div>
+        <p>Comparaci&oacute;n hist&oacute;rica de precios, proveedores y rendimientos entre todos los proyectos activos en un solo lugar.</p>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 36px;">Irrelevant &mdash; Amplificando Propuestas de Valor</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Irrelevant no es un proveedor de automatizaci&oacute;n ni una agencia de implementaci&oacute;n tecnol&oacute;gica. Somos un equipo que dise&ntilde;a <strong>sistemas basados en inteligencia artificial para intervenir procesos cr&iacute;ticos</strong> dentro de las organizaciones y amplificar su propuesta de valor.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 02 - IRRELEVANT: QUIENES SOMOS                         -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span class="page-header-title">Irrelevant</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Nuestra tesis</h4>
+    <div class="gradient-line"></div>
+    <div class="highlight-box">
+      <p><strong>Muchas compa&ntilde;&iacute;as no tienen un problema de producto, ni de marca, ni siquiera de demanda.</strong> Tienen un problema en c&oacute;mo su sistema interno procesa esa demanda. Cuando los procesos dependen exclusivamente de disponibilidad humana, priorizaci&oacute;n manual o fricci&oacute;n operativa, incluso las propuestas de valor m&aacute;s s&oacute;lidas pierden impacto en los momentos m&aacute;s decisivos.</p>
+    </div>
+
+    <h3>Nuestro enfoque</h3>
+    <p>La tecnolog&iacute;a, en este contexto, no debe utilizarse para reemplazar personas. Debe utilizarse para:</p>
+
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">Eliminar fricci&oacute;n estructural</div>
+        <p>Remover los obst&aacute;culos operativos que ralentizan la conversi&oacute;n.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Priorizar estrat&eacute;gicamente</div>
+        <p>Enfocar recursos donde generan mayor retorno medible.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Enfocar talento humano</div>
+        <p>Liberar al equipo para que se concentre donde genera mayor impacto.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Convertir procesos reactivos</div>
+        <p>Transformar flujos manuales en sistemas optimizables y medibles.</p>
+      </div>
+    </div>
+
+    <h3>C&oacute;mo trabajamos</h3>
+    <p>Nuestro enfoque no comienza con herramientas. Comienza con entender el proceso interno de la organizaci&oacute;n:</p>
+
+    <div class="pain-grid">
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">D&oacute;nde se pierde valor</div>
+        <p style="color: var(--gris-texto);">Identificamos los puntos donde la demanda se enfr&iacute;a o se desperdicia.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">D&oacute;nde se enfr&iacute;a la intenci&oacute;n</div>
+        <p style="color: var(--gris-texto);">Mapeamos los momentos cr&iacute;ticos donde se pierde momentum.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">D&oacute;nde el talento est&aacute; mal asignado</div>
+        <p style="color: var(--gris-texto);">Detectamos tareas repetitivas que consumen capacidad estrat&eacute;gica.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">D&oacute;nde el sistema limita el crecimiento</div>
+        <p style="color: var(--gris-texto);">Encontramos techos estructurales que impiden escalar.</p>
+      </div>
+    </div>
+
+    <p>Luego dise&ntilde;amos una capa de inteligencia que se integra con los sistemas existentes desde el d&iacute;a uno, estructura informaci&oacute;n en tiempo real, prioriza autom&aacute;ticamente seg&uacute;n se&ntilde;ales reales, permite medici&oacute;n y optimizaci&oacute;n continua, y escala sin crecer linealmente en headcount.</p>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 2 - SITUACION ACTUAL (Divider)                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M20 15 L60 15 L55 30 L65 30 L35 65 L40 45 L25 45 Z"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">02</div>
+      <div class="section-line"></div>
+      <h2>Situaci&oacute;n Actual</h2>
+      <p>Radiograf&iacute;a del flujo vigente y los dolores identificados en cada etapa del proceso.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 03 - SITUACION ACTUAL                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="4,2 20,2 17,22 7,22"/></svg>
+      <span class="page-header-title">Situaci&oacute;n Actual</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Estado actual del proceso</h4>
+    <div class="gradient-line"></div>
+
+    <p>El ciclo de compras en Nivel atraviesa diez etapas desde que alguien &mdash; en obra, en sala de ventas o en la oficina &mdash; necesita adquirir algo hasta que la compra queda conciliada contablemente. El flujo arranca con una requisici&oacute;n, se piden tres cotizaciones, se construye un cuadro comparativo manual, se valida que los alcances de las tres propuestas sean equivalentes, se aprueba y se genera la orden de compra en Paco. Paco est&aacute; conectado a la DIAN y al correo de facturaci&oacute;n electr&oacute;nica, lo que permite recibir la factura autom&aacute;ticamente con su XML y PDF. La causaci&oacute;n y el pago se ejecutan dentro de Paco, que exporta un archivo plano a World Office para cerrar el registro contable. En paralelo, la tesorer&iacute;a concilia m&uacute;ltiples fideicomisos y cuentas bancarias de forma manual. Cada etapa funciona, pero cada una depende de que una persona haga el cruce entre sistemas.</p>
+
+    <h3 style="margin-top: 24px;">Las diez etapas del ciclo</h3>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 18px 0;">
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--lavanda); border-left: 3px solid var(--morado); border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: var(--morado-oscuro); min-width: 26px;">01</span>
+        <div><strong style="font-size: 11px; color: var(--gris-texto);">Requisici&oacute;n</strong><p style="font-size: 10px; margin: 2px 0 0; color: #666;">Obra, sala de ventas u oficina solicita la compra.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--lavanda); border-left: 3px solid var(--morado); border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: var(--morado-oscuro); min-width: 26px;">02</span>
+        <div><strong style="font-size: 11px; color: var(--gris-texto);">Cotizaciones</strong><p style="font-size: 10px; margin: 2px 0 0; color: #666;">Se solicitan tres proponentes en paralelo.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #FEF2F2; border-left: 3px solid #EF4444; border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: #991B1B; min-width: 26px;">03</span>
+        <div><strong style="font-size: 11px; color: #991B1B;">Cuadro comparativo manual</strong><p style="font-size: 10px; margin: 2px 0 0; color: #7F1D1D;">Construcci&oacute;n en Excel, &iacute;tem por &iacute;tem.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #FEF2F2; border-left: 3px solid #EF4444; border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: #991B1B; min-width: 26px;">04</span>
+        <div><strong style="font-size: 11px; color: #991B1B;">Validaci&oacute;n de alcance</strong><p style="font-size: 10px; margin: 2px 0 0; color: #7F1D1D;">&iquest;Qu&eacute; incluye cada propuesta? Manual.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #FEF2F2; border-left: 3px solid #EF4444; border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: #991B1B; min-width: 26px;">05</span>
+        <div><strong style="font-size: 11px; color: #991B1B;">Orden de compra en Paco</strong><p style="font-size: 10px; margin: 2px 0 0; color: #7F1D1D;">Flujos de aprobaci&oacute;n largos y burocr&aacute;ticos.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--lavanda); border-left: 3px solid var(--morado); border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: var(--morado-oscuro); min-width: 26px;">06</span>
+        <div><strong style="font-size: 11px; color: var(--gris-texto);">Factura electr&oacute;nica DIAN</strong><p style="font-size: 10px; margin: 2px 0 0; color: #666;">Paco recibe XML + PDF autom&aacute;ticamente.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--lavanda); border-left: 3px solid var(--morado); border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: var(--morado-oscuro); min-width: 26px;">07</span>
+        <div><strong style="font-size: 11px; color: var(--gris-texto);">Causaci&oacute;n</strong><p style="font-size: 10px; margin: 2px 0 0; color: #666;">Registro contable dentro de Paco.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--lavanda); border-left: 3px solid var(--morado); border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: var(--morado-oscuro); min-width: 26px;">08</span>
+        <div><strong style="font-size: 11px; color: var(--gris-texto);">Pago</strong><p style="font-size: 10px; margin: 2px 0 0; color: #666;">Ejecuci&oacute;n del pago desde Paco.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #FEF2F2; border-left: 3px solid #EF4444; border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: #991B1B; min-width: 26px;">09</span>
+        <div><strong style="font-size: 11px; color: #991B1B;">Archivo plano a World Office</strong><p style="font-size: 10px; margin: 2px 0 0; color: #7F1D1D;">&Uacute;nico puente entre ERP y contabilidad.</p></div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #FEF2F2; border-left: 3px solid #EF4444; border-radius: 6px;">
+        <span style="font-family:'Quicksand',sans-serif; font-size: 18px; font-weight: 700; color: #991B1B; min-width: 26px;">10</span>
+        <div><strong style="font-size: 11px; color: #991B1B;">Conciliaci&oacute;n bancaria</strong><p style="font-size: 10px; margin: 2px 0 0; color: #7F1D1D;">Manual sobre m&uacute;ltiples fideicomisos y cuentas.</p></div>
+      </div>
+    </div>
+
+    <div class="highlight-box warning">
+      <p><strong>Problema transversal:</strong> Paco captura todo, pero consultarlo requiere conocer filtros espec&iacute;ficos, exportar a Excel y cruzar informaci&oacute;n entre m&oacute;dulos. El ERP funciona como sistema de registro &mdash; no como motor de priorizaci&oacute;n ni como fuente de alertas proactivas. Esto convierte cada pregunta gerencial en una operaci&oacute;n manual de 15 a 30 minutos, y cada desviaci&oacute;n presupuestal en un hallazgo posterior a la ejecuci&oacute;n.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 04 - DOLORES POR ETAPA                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span class="page-header-title">Dolores por Etapa</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Dolores identificados en cada etapa</h4>
+    <div class="gradient-line"></div>
+
+    <p>El ciclo de compras y control de costos tiene cinco puntos de fricci&oacute;n estructural. Ninguno es un problema puntual: todos son s&iacute;ntomas de la misma ra&iacute;z &mdash; informaci&oacute;n atrapada en un sistema al que solo se accede manualmente.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 1</span>
+          <h5>Cuadros comparativos</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>Cotizaciones con alcances distintos, dif&iacute;cil de normalizar</li>
+            <li>Comparaci&oacute;n manual l&iacute;nea por l&iacute;nea entre PDFs</li>
+            <li>Criterios subjetivos sin scoring consistente de proveedores</li>
+            <li>Diferencias que pasan inadvertidas ("l&iacute;nea 17, este incluye, este no")</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">Decisiones de compra con informaci&oacute;n asim&eacute;trica y sobrecostos ocultos en el alcance.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 2</span>
+          <h5>Control presupuestal</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>Sin alertas autom&aacute;ticas cuando un &iacute;tem se desv&iacute;a del presupuesto</li>
+            <li>Detecci&oacute;n tard&iacute;a de sobrecostos (despu&eacute;s de ejecutar)</li>
+            <li>Revisi&oacute;n requiere entrar a Paco y filtrar manualmente</li>
+            <li>Sin comparaci&oacute;n hist&oacute;rica entre proyectos equivalentes</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">Desviaciones invisibles hasta que ya afectaron el P&amp;L del proyecto.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 3</span>
+          <h5>Consulta a datos operativos</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>Equipo gerencial no puede consultar Paco en lenguaje natural</li>
+            <li>Dependencia de reportes manuales construidos por el equipo</li>
+            <li>Cruce entre Paco, HubSpot y Sico requiere Excel intermedio</li>
+            <li>World Office (contabilidad) opera en servidor virtual cerrado</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">Decisiones gerenciales lentas, sin contexto hist&oacute;rico accesible en tiempo real.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 4</span>
+          <h5>&Oacute;rdenes de compra y aprobaciones</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>Flujos de aprobaci&oacute;n descritos como "largos y muy burocr&aacute;ticos"</li>
+            <li>Sin visibilidad de d&oacute;nde est&aacute; detenida una orden de compra</li>
+            <li>Sin priorizaci&oacute;n autom&aacute;tica por criticidad del &iacute;tem</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">Tiempos muertos en obra, retrabajos y presi&oacute;n sobre el cronograma.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 5</span>
+          <h5>Conciliaci&oacute;n bancaria</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>M&uacute;ltiples fideicomisos y cuentas bancarias por proyecto</li>
+            <li>Causaci&oacute;n manual de facturas entre Paco y World Office</li>
+            <li>Archivo plano como &uacute;nico puente entre ERP y contabilidad</li>
+            <li>Sin trazabilidad en tiempo real del cierre financiero</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">Cierre financiero lento, exposici&oacute;n a errores y dificultad para auditar.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 6</span>
+          <h5>Visi&oacute;n gerencial consolidada</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>No existe una vista &uacute;nica del portafolio de proyectos activos</li>
+            <li>Benchmarking entre proyectos depende de trabajo anal&iacute;tico puntual</li>
+            <li>An&aacute;lisis de performance de proveedores construido a mano</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">La gerencia decide con informaci&oacute;n parcial en vez de con el conjunto completo del portafolio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 3 - IMPACTO ECONOMICO (Divider)                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="26"/>
+        <path d="M40 22v36"/>
+        <path d="M48 32c0-4-3.5-6-8-6s-8 2-8 6 3.5 5 8 5 8 1 8 5-3.5 6-8 6-8-2-8-6"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">03</div>
+      <div class="section-line"></div>
+      <h2>Impacto Econ&oacute;mico del Problema</h2>
+      <p>Cuantificaci&oacute;n financiera del estado actual y sensibilidad marginal de la mejora.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 05 - IMPACTO ECONOMICO                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Impacto Econ&oacute;mico</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>Dimensi&oacute;n real del impacto</h4>
+    <div class="gradient-line"></div>
+
+    <p>Nivel opera un portafolio de 15 a 20 proyectos simult&aacute;neos entre Colombia y Estados Unidos, con un volumen de compras y facturaci&oacute;n que fluye a trav&eacute;s de Paco. A falta de m&eacute;tricas internas levantadas formalmente, los rangos a continuaci&oacute;n se construyen con benchmarks del sector de constructoras y desarrolladoras inmobiliarias del mismo tama&ntilde;o y complejidad. Son estimaciones de orden de magnitud que buscan dimensionar la oportunidad, no prometer un retorno espec&iacute;fico.</p>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">15-20</div>
+        <div class="metric-label">Proyectos activos simult&aacute;neos</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">2-5%</div>
+        <div class="metric-label">Desviaci&oacute;n t&iacute;pica de presupuesto en el sector</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15-30 min</div>
+        <div class="metric-label">Por consulta gerencial manual a Paco</div>
+      </div>
+    </div>
+
+    <h3>Tres palancas de captura de valor</h3>
+    <p>El impacto no viene de un solo frente. Viene de tres palancas que operan en paralelo sobre la operaci&oacute;n actual:</p>
+
+    <div class="bottleneck-container">
+      <div class="bottleneck-item" style="background: linear-gradient(135deg, var(--morado), var(--morado-oscuro));">
+        <div class="bottleneck-icon">&#128200;</div>
+        Reducir desviaciones presupuestales detectadas a tiempo
+      </div>
+      <div class="bottleneck-item" style="background: linear-gradient(135deg, var(--morado-oscuro), #5B21B6);">
+        <div class="bottleneck-icon">&#9201;</div>
+        Acelerar el ciclo de decisi&oacute;n de compras
+      </div>
+      <div class="bottleneck-item" style="background: linear-gradient(135deg, #5B21B6, var(--negro));">
+        <div class="bottleneck-icon">&#128101;</div>
+        Liberar horas gerenciales de consulta y cruce manual
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Principio de captura:</strong> La oportunidad no est&aacute; en comprar m&aacute;s herramientas, ni en contratar m&aacute;s personas. Est&aacute; en convertir la informaci&oacute;n que ya existe en decisiones oportunas.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 05B - ESCENARIOS DE IMPACTO                            -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Escenarios de Impacto</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>Sensibilidad a la adopci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <p>La captura de valor depende de qu&eacute; tanto adopta el sistema la organizaci&oacute;n. Presentamos tres escenarios de intervenci&oacute;n, ordenados de conservador a agresivo, para dimensionar el orden de magnitud del impacto anual.</p>
+
+    <table class="impact-table">
+      <thead>
+        <tr>
+          <th>Escenario</th>
+          <th>Mejora estructural</th>
+          <th>Impacto anual estimado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conservador</td>
+          <td>0.5% reducci&oacute;n de desviaciones + 30% menos tiempo en consultas</td>
+          <td class="highlight-cell">$100M &mdash; $150M COP</td>
+        </tr>
+        <tr>
+          <td>Moderado</td>
+          <td>1% reducci&oacute;n de desviaciones + decisi&oacute;n de compras 50% m&aacute;s r&aacute;pida</td>
+          <td class="highlight-cell">$200M &mdash; $300M COP</td>
+        </tr>
+        <tr>
+          <td>Agresivo</td>
+          <td>2% reducci&oacute;n + decisi&oacute;n 80% m&aacute;s r&aacute;pida + benchmark cross-proyecto</td>
+          <td class="highlight-cell">$400M &mdash; $600M COP</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cost-block">
+      <div class="cost-label">Orden de magnitud del impacto</div>
+      <div class="cost-value">$100M &mdash; $600M COP</div>
+      <div class="cost-desc">anuales capturables con la intervenci&oacute;n completa, dependiendo del escenario de adopci&oacute;n</div>
+    </div>
+
+    <div class="highlight-box warning">
+      <p><strong>Nota metodol&oacute;gica:</strong> Los rangos son estimaciones construidas sobre benchmarks del sector de constructoras y desarrolladoras inmobiliarias del mismo tama&ntilde;o. La cuantificaci&oacute;n precisa requiere una fase de discovery t&eacute;cnico donde se midan desviaciones hist&oacute;ricas reales de Nivel, volumen de cotizaciones procesadas y horas dedicadas a consulta manual.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 4 - CUELLO DOMINANTE (Divider)                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="25" r="12"/>
+        <circle cx="40" cy="55" r="12"/>
+        <line x1="40" y1="37" x2="40" y2="43"/>
+        <line x1="30" y1="30" x2="24" y2="48"/>
+        <line x1="50" y1="30" x2="56" y2="48"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">04</div>
+      <div class="section-line"></div>
+      <h2>Cuello Dominante y Prioridad Estrat&eacute;gica</h2>
+      <p>Identificaci&oacute;n del punto de mayor fricci&oacute;n y la estrategia recomendada de intervenci&oacute;n.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 06 - CUELLO DOMINANTE                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2v20M2 12h20"/></svg>
+      <span class="page-header-title">Cuello Dominante</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>El cuello de botella principal</h4>
+    <div class="gradient-line"></div>
+
+    <p>El cuello dominante no es Paco y no es el equipo humano. Es la <strong>interfaz entre ambos</strong>. Paco almacena informaci&oacute;n rica y estructurada de todos los proyectos &mdash; presupuestos, cotizaciones, costos reales, proveedores, hist&oacute;rico &mdash; pero esa informaci&oacute;n solo se vuelve accionable cuando alguien del equipo entra al sistema, aplica filtros, exporta a Excel y cruza datos entre m&oacute;dulos. Cada consulta gerencial toma 15-30 minutos; cada desviaci&oacute;n se detecta tarde; cada cuadro comparativo se construye a mano. El equipo tiene la experiencia, el ERP tiene la data, pero el costo cognitivo de cruzar ambos es demasiado alto para hacerlo en tiempo real.</p>
+
+    <!-- BEFORE VS AFTER -->
+    <div class="comparison">
+      <div class="comparison-col before">
+        <h5>&#10060; Modelo Actual</h5>
+        <ul>
+          <li>Consulta a Paco requiere conocer filtros espec&iacute;ficos y exportar a Excel</li>
+          <li>Cuadros comparativos de cotizaciones construidos manualmente desde PDFs</li>
+          <li>Desviaciones presupuestales detectadas despu&eacute;s de la ejecuci&oacute;n</li>
+          <li>Cruce cross-proyecto requiere trabajo de integraci&oacute;n manual</li>
+          <li>Conciliaci&oacute;n bancaria manual con m&uacute;ltiples fideicomisos y cuentas</li>
+        </ul>
+      </div>
+      <div class="comparison-arrow">&#10132;</div>
+      <div class="comparison-col after">
+        <h5>&#10004; Modelo Optimizado</h5>
+        <ul>
+          <li>Consulta conversacional a Paco en lenguaje natural, sin Excel intermedio</li>
+          <li>Cuadros comparativos autom&aacute;ticos con flagging de discrepancias l&iacute;nea por l&iacute;nea</li>
+          <li>Alertas proactivas de desviaci&oacute;n en tiempo real, antes de ejecutar</li>
+          <li>An&aacute;lisis cross-proyecto instant&aacute;neo desde un dashboard &uacute;nico</li>
+          <li>Conciliaci&oacute;n asistida con reconciliaci&oacute;n autom&aacute;tica de movimientos</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Principio de intervenci&oacute;n:</strong> Se debe intervenir primero el punto que tiene el mayor impacto en la cadena de valor completa.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 5 - TESIS DE INTERVENCION (Divider)                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="16" y="24" width="48" height="32" rx="4"/>
+        <circle cx="40" cy="40" r="8"/>
+        <path d="M40 32v-8"/>
+        <path d="M40 48v8"/>
+        <path d="M32 40h-8"/>
+        <path d="M48 40h8"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">05</div>
+      <div class="section-line"></div>
+      <h2>Tesis de Intervenci&oacute;n con Inteligencia Artificial</h2>
+      <p>Arquitectura estrat&eacute;gica de la soluci&oacute;n propuesta.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 07 - TESIS DE INTERVENCION                             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span class="page-header-title">Arquitectura Estrat&eacute;gica</span>
+    </div>
+    <span class="page-header-num">PAG 07</span>
+  </div>
+  <div class="inner-page">
+    <h4>Tesis de intervenci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <p>La intervenci&oacute;n correcta no es reemplazar Paco. Paco hace bien lo que hace: captura datos estructurados, se conecta con la DIAN, maneja flujos contables del sector inmobiliario colombiano. Reemplazarlo ser&iacute;a un proyecto de a&ntilde;os con riesgo operativo alto. La intervenci&oacute;n correcta es construir <strong>una capa de inteligencia conversacional y proactiva sobre Paco</strong>, que permita al equipo interactuar con el ERP como si fuera una persona. La IA no sustituye a Paco ni al equipo; opera como intermediario inteligente entre ambos, abstrayendo la complejidad t&eacute;cnica del sistema para que toda la organizaci&oacute;n &mdash; no solo los power users &mdash; tenga acceso a los datos en tiempo real.</p>
+
+    <div class="highlight-box">
+      <p><strong>La IA no sustituye al equipo humano.</strong> Optimiza el sistema antes y despu&eacute;s de la interacci&oacute;n humana.</p>
+    </div>
+
+    <h3>Soluci&oacute;n propuesta</h3>
+
+    <p>La soluci&oacute;n propuesta es un sistema modular con cuatro componentes integrados, construido sobre la infraestructura actual de Nivel. La arquitectura aprovecha las capacidades existentes de Paco (conexi&oacute;n con DIAN, bancos y software contable) y agrega una capa de inteligencia que opera en conversaci&oacute;n con el equipo. No hay migraci&oacute;n, no hay reemplazo de sistemas, no hay disrupci&oacute;n operativa. Los cuatro componentes se pueden desplegar en paralelo o en secuencia, seg&uacute;n la prioridad estrat&eacute;gica que Nivel defina.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 01</span>
+          <h5>Agente conversacional sobre Paco</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Funcionalidad</div>
+          <ul>
+            <li>Conexi&oacute;n bidireccional con Paco (v&iacute;a API oficial o ingesta de exports programados)</li>
+            <li>Procesamiento de queries en lenguaje natural sobre presupuestos, &oacute;rdenes de compra, facturas, pagos e hist&oacute;rico por proyecto</li>
+            <li>Respuestas con contexto, no solo datos: an&aacute;lisis, comparaciones y tendencias</li>
+          </ul>
+          <div class="label">Impacto</div>
+          <ul>
+            <li>Cualquier persona del equipo consulta el ERP en segundos en lugar de 15-30 minutos</li>
+            <li>Reducci&oacute;n de la dependencia de power users de Paco</li>
+            <li>Decisiones gerenciales con informaci&oacute;n actualizada y disponible 24/7</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 02</span>
+          <h5>Comparador inteligente de cotizaciones</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Funcionalidad</div>
+          <ul>
+            <li>Ingesta de PDFs de cotizaciones de tres o m&aacute;s proponentes</li>
+            <li>Extracci&oacute;n autom&aacute;tica de &iacute;tems, cantidades, precios, plazos y condiciones comerciales</li>
+            <li>Normalizaci&oacute;n de alcances: qu&eacute; incluye cada propuesta, qu&eacute; no, qu&eacute; es opcional</li>
+            <li>Generaci&oacute;n de cuadro comparativo consolidado con flagging de discrepancias</li>
+          </ul>
+          <div class="label">Impacto</div>
+          <ul>
+            <li>Eliminaci&oacute;n de ~80% del tiempo de armado manual del cuadro comparativo</li>
+            <li>Flags autom&aacute;ticos en diferencias de alcance ("l&iacute;nea 17, este incluye, este no")</li>
+            <li>Scoring hist&oacute;rico de proveedores basado en compras pasadas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 03</span>
+          <h5>Motor de alertas proactivas</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Funcionalidad</div>
+          <ul>
+            <li>Monitoreo continuo de costos reales vs. presupuesto por proyecto e &iacute;tem</li>
+            <li>Alertas autom&aacute;ticas cuando un &iacute;tem supera un umbral configurable</li>
+            <li>Contexto de la alerta: &iquest;desviaci&oacute;n en cantidad, precio o proveedor? &iquest;Qu&eacute; dice el hist&oacute;rico?</li>
+            <li>Notificaci&oacute;n a responsables por canal configurado (email, WhatsApp)</li>
+          </ul>
+          <div class="label">Impacto</div>
+          <ul>
+            <li>Detecci&oacute;n temprana de sobrecostos (en d&iacute;as en lugar de semanas o meses)</li>
+            <li>Reducci&oacute;n de desviaciones acumuladas no gestionadas</li>
+            <li>Responsabilidad expl&iacute;cita: cada alerta tiene due&ntilde;o y seguimiento</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 04</span>
+          <h5>Dashboard ejecutivo + an&aacute;lisis cross-proyecto</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Funcionalidad</div>
+          <ul>
+            <li>Vista consolidada del portafolio de proyectos activos en Colombia y Estados Unidos</li>
+            <li>Comparaci&oacute;n hist&oacute;rica de costos unitarios entre proyectos equivalentes</li>
+            <li>An&aacute;lisis de proveedores: cumplimiento, precios, recurrencia</li>
+            <li>Drill-down por &iacute;tem, proyecto o proveedor desde una sola interfaz</li>
+          </ul>
+          <div class="label">Impacto</div>
+          <ul>
+            <li>Mejor posici&oacute;n de negociaci&oacute;n con proveedores usando data hist&oacute;rica real</li>
+            <li>Benchmarking autom&aacute;tico entre proyectos del portafolio</li>
+            <li>Visi&oacute;n gerencial unificada para el equipo directivo y la familia fundadora</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Extensi&oacute;n futura (fase 2):</strong> Conciliaci&oacute;n bancaria asistida sobre m&uacute;ltiples fideicomisos y cuentas, con reconciliaci&oacute;n autom&aacute;tica de movimientos y detecci&oacute;n de inconsistencias. Se habilita una vez estabilizado el core sobre Paco.</p>
+    </div>
+
+    <h3>Qu&eacute; NO es esta intervenci&oacute;n</h3>
+
+    <div class="card-grid">
+      <div class="card" style="border-color: #EF4444;">
+        <div class="card-header" style="background: linear-gradient(135deg, #EF4444, #DC2626);">
+          <h5>No es un chatbot aislado</h5>
+        </div>
+        <div class="card-body">
+          <p>No se trata de instalar un widget gen&eacute;rico. Es un sistema inteligente integrado a los procesos existentes.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color: #EF4444;">
+        <div class="card-header" style="background: linear-gradient(135deg, #DC2626, #B91C1C);">
+          <h5>No es un experimento tecnol&oacute;gico</h5>
+        </div>
+        <div class="card-body">
+          <p>Cada componente est&aacute; dise&ntilde;ado para generar impacto medible desde el primer d&iacute;a, con KPIs claros.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color: #EF4444;">
+        <div class="card-header" style="background: linear-gradient(135deg, #B91C1C, #991B1B);">
+          <h5>No es un reemplazo del equipo</h5>
+        </div>
+        <div class="card-body">
+          <p>El equipo humano sigue siendo el centro de la operaci&oacute;n. La IA optimiza el sistema alrededor del equipo.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color: #EF4444;">
+        <div class="card-header" style="background: linear-gradient(135deg, #991B1B, #7F1D1D);">
+          <h5>No es una automatizaci&oacute;n r&iacute;gida</h5>
+        </div>
+        <div class="card-body">
+          <p>El sistema es progresivo, ajustable y gobernado por la organizaci&oacute;n. Las reglas se iteran con datos reales.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 6 - INVERSION (Divider)                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="26"/>
+        <path d="M40 22v36"/>
+        <path d="M48 32c0-4-3.5-6-8-6s-8 2-8 6 3.5 5 8 5 8 1 8 5-3.5 6-8 6-8-2-8-6"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">06</div>
+      <div class="section-line"></div>
+      <h2>Inversi&oacute;n</h2>
+      <p>Detalle de la inversi&oacute;n requerida para la implementaci&oacute;n de la soluci&oacute;n.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 08 - INVERSION                                         -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Inversi&oacute;n</span>
+    </div>
+    <span class="page-header-num">PAG 08</span>
+  </div>
+  <div class="inner-page">
+    <h4>Inversi&oacute;n total</h4>
+    <div class="gradient-line"></div>
+
+    <div class="cost-block">
+      <div class="cost-label">Implementaci&oacute;n &uacute;nica</div>
+      <div class="cost-value" style="font-size: 24px;">A definir</div>
+      <div class="cost-desc">Dise&ntilde;o, desarrollo, integraci&oacute;n con Paco y puesta en marcha de la soluci&oacute;n. El valor se detalla en la propuesta t&eacute;cnica formal, una vez validado el alcance de integraci&oacute;n y levantadas las m&eacute;tricas baseline.</div>
+    </div>
+
+    <div class="cost-block">
+      <div class="cost-label">Fee mensual recurrente</div>
+      <div class="cost-value" style="font-size: 24px;">A definir</div>
+      <div class="cost-desc">Mantenimiento, soporte, infraestructura y optimizaci&oacute;n continua del sistema. Modelo basado en impacto, alineado con los KPIs estrat&eacute;gicos del documento.</div>
+    </div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Anticipo al inicio</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Contra entrega</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 d&iacute;as</div>
+        <div class="metric-label">Vigencia de la propuesta</div>
+      </div>
+    </div>
+
+    <h4>Qu&eacute; incluye</h4>
+    <div class="gradient-line"></div>
+
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">Diagn&oacute;stico y dise&ntilde;o</div>
+        <p>An&aacute;lisis profundo del proceso actual y dise&ntilde;o de la soluci&oacute;n a medida.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Desarrollo e implementaci&oacute;n</div>
+        <p>Construcci&oacute;n completa de la soluci&oacute;n con tecnolog&iacute;a de punta.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Integraci&oacute;n con sistemas existentes</div>
+        <p>Conexi&oacute;n nativa con CRM, herramientas y plataformas actuales del cliente.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Entrenamiento del equipo</div>
+        <p>Capacitaci&oacute;n al equipo para operar y aprovechar la soluci&oacute;n al m&aacute;ximo.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">1 mes de soporte post-lanzamiento</div>
+        <p>Acompa&ntilde;amiento t&eacute;cnico y estrat&eacute;gico durante el primer mes de operaci&oacute;n.</p>
+      </div>
+    </div>
+
+    <h4>Qu&eacute; NO incluye</h4>
+    <div class="gradient-line"></div>
+
+    <div class="pain-grid">
+      <div class="pain-item">
+        <div class="pain-title">Hosting e infraestructura de terceros</div>
+        <p>Costos de servidores, cloud o servicios externos requeridos.</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-title">Suscripciones a herramientas externas</div>
+        <p>Licencias de software de terceros (CRM, APIs, etc.).</p>
+      </div>
+      <div class="pain-item">
+        <div class="pain-title">Desarrollo adicional fuera del alcance</div>
+        <p>Funcionalidades no contempladas en el dise&ntilde;o inicial de la soluci&oacute;n.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Condiciones de pago:</strong> 50% de anticipo al inicio del proyecto + 50% contra entrega de la soluci&oacute;n funcional. Esta propuesta tiene una vigencia de <strong>15 d&iacute;as calendario</strong> a partir de la fecha de entrega.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 7 - MODELO DE MEDICION (Divider)                      -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="12" y="45" width="12" height="20" rx="2"/>
+        <rect x="34" y="30" width="12" height="35" rx="2"/>
+        <rect x="56" y="18" width="12" height="47" rx="2"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">07</div>
+      <div class="section-line"></div>
+      <h2>Modelo de Medici&oacute;n y Captura de Valor</h2>
+      <p>Lo que no se mide, no se optimiza. M&eacute;tricas estrat&eacute;gicas y gobernanza del proceso.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 09 - METRICAS DE EXITO                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span class="page-header-title">M&eacute;tricas de &Eacute;xito</span>
+    </div>
+    <span class="page-header-num">PAG 09</span>
+  </div>
+  <div class="inner-page">
+    <h4>M&eacute;tricas estrat&eacute;gicas de impacto</h4>
+    <div class="gradient-line"></div>
+
+    <p>La intervenci&oacute;n se mide en cinco KPIs estructurales. Cada uno tiene un baseline por levantar en la fase de discovery t&eacute;cnico y un objetivo alcanzable dentro de los primeros tres meses de operaci&oacute;n estabilizada.</p>
+
+    <table class="impact-table">
+      <thead>
+        <tr>
+          <th>KPI</th>
+          <th>Baseline actual</th>
+          <th>Objetivo</th>
+          <th>M&eacute;todo de medici&oacute;n</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tiempo para consultar informaci&oacute;n gerencial en Paco</td>
+          <td>15-30 min por consulta</td>
+          <td class="highlight-cell">&lt; 1 min</td>
+          <td>Logs de interacci&oacute;n del agente conversacional</td>
+        </tr>
+        <tr>
+          <td>Tiempo para armar cuadro comparativo de cotizaciones</td>
+          <td>2-4 horas</td>
+          <td class="highlight-cell">&lt; 15 min</td>
+          <td>Muestreo mensual sobre casos reales procesados</td>
+        </tr>
+        <tr>
+          <td>Desviaciones presupuestales detectadas proactivamente</td>
+          <td>Detecci&oacute;n reactiva (post-ejecuci&oacute;n)</td>
+          <td class="highlight-cell">&gt; 80% proactivas</td>
+          <td>Trazabilidad del motor de alertas vs. cierre contable</td>
+        </tr>
+        <tr>
+          <td>Visibilidad cross-proyecto de costos unitarios</td>
+          <td>Construcci&oacute;n manual puntual</td>
+          <td class="highlight-cell">100% en tiempo real</td>
+          <td>Cobertura del dashboard ejecutivo sobre portafolio</td>
+        </tr>
+        <tr>
+          <td>Adopci&oacute;n del sistema por equipo gerencial</td>
+          <td>0% (sistema no existe)</td>
+          <td class="highlight-cell">&gt; 70% en 3 meses</td>
+          <td>Usuarios activos semanales en el agente y dashboard</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <p><strong>Principio de medici&oacute;n:</strong> Cada intervenci&oacute;n debe demostrar impacto medible. La decisi&oacute;n de ampliar se basa en resultados, no en percepciones.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 8 - RECOMENDACION ESTRATEGICA (Divider)               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M40 15 L55 35 L50 35 L50 55 L30 55 L30 35 L25 35 Z"/>
+        <line x1="28" y1="62" x2="52" y2="62"/>
+        <line x1="32" y1="68" x2="48" y2="68"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">08</div>
+      <div class="section-line"></div>
+      <h2>Recomendaci&oacute;n Estrat&eacute;gica y Decisi&oacute;n Requerida</h2>
+      <p>La conclusi&oacute;n es estructural. La decisi&oacute;n es estrat&eacute;gica.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 10 - RECOMENDACION FINAL                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span class="page-header-title">Recomendaci&oacute;n Final</span>
+    </div>
+    <span class="page-header-num">PAG 10</span>
+  </div>
+  <div class="inner-page">
+    <h4>Decisi&oacute;n estrat&eacute;gica central</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Nivel no tiene un problema de capacidad. <strong>Tiene una oportunidad de optimizaci&oacute;n estructural que puede generar impacto medible desde el primer mes.</strong></p>
+    </div>
+
+    <div class="comparison">
+      <div class="comparison-col before">
+        <h5>&#10060; Seguir como est&aacute;</h5>
+        <ul>
+          <li>Procesos manuales y dependientes de disponibilidad</li>
+          <li>Sin priorizaci&oacute;n inteligente</li>
+          <li>P&eacute;rdida de oportunidades por fricci&oacute;n operativa</li>
+          <li>Techo estructural de crecimiento</li>
+        </ul>
+      </div>
+      <div class="comparison-arrow">o</div>
+      <div class="comparison-col after">
+        <h5>&#10004; Intervenir con IA</h5>
+        <ul>
+          <li>Sistema optimizable y medible</li>
+          <li>Priorizaci&oacute;n autom&aacute;tica basada en datos</li>
+          <li>Captura de valor en cada etapa del proceso</li>
+          <li>Escalabilidad sin crecimiento lineal de equipo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cost-block">
+      <div class="cost-label">Conclusi&oacute;n</div>
+      <div class="cost-value" style="font-size: 22px; line-height: 1.5;">La decisi&oacute;n no es tecnol&oacute;gica.<br>Es estrat&eacute;gica.</div>
+      <div class="cost-desc" style="margin-top: 12px;">Los sistemas que no se optimizan, se estancan. Los procesos que no se miden, no mejoran.</div>
+    </div>
+
+    <h3 style="margin-top: 36px;">Firmas</h3>
+
+    <div class="card-grid" style="margin-top: 16px;">
+      <div class="card">
+        <div class="card-header">
+          <h5>Por Nivel</h5>
+        </div>
+        <div class="card-body" style="min-height: 80px;">
+          <p><strong>Martin Nicholls</strong><br>Director de Proyectos<br>Nivel</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h5>Por Irrelevant</h5>
+        </div>
+        <div class="card-body" style="min-height: 80px;">
+          <p><strong>Sara Garces</strong><br>Consultora Comercial<br>Irrelevant</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Contacto:</strong><br>
+      Sara Garces &mdash; Consultora Comercial<br>
+      marketing@stayirrelevant.com | +57 318 335 1733<br>
+      <strong>stayirrelevant.com</strong></p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -305,7 +305,7 @@
     <div class="cover-bottom">
       <div class="cover-meta">
         <span>CONFIDENCIAL</span>
-        <span>16 de abril de 2026</span>
+        <span>20 de abril de 2026</span>
         <span>Preparado por Sara Garc&eacute;s Tob&oacute;n &mdash; Irrelevant</span>
       </div>
     </div>
@@ -363,7 +363,7 @@
     <div class="pain-grid">
       <div class="pain-item">
         <div class="pain-title">Loggro recién migrado</div>
-        <p>La transici&oacute;n est&aacute; exponiendo ineficiencias que antes se toler aban. Las conciliaciones ahora toman m&aacute;s de un d&iacute;a por cuenta porque los archivos no salen con t&iacute;tulos.</p>
+        <p>La transici&oacute;n est&aacute; exponiendo ineficiencias que antes se toleraban. Las conciliaciones ahora toman m&aacute;s de un d&iacute;a por cuenta porque los archivos no salen con t&iacute;tulos.</p>
       </div>
       <div class="pain-item">
         <div class="pain-title">Dora se pensiona el pr&oacute;ximo a&ntilde;o</div>
@@ -379,10 +379,6 @@
       </div>
     </div>
 
-    <div class="quote-box">
-      <p>&laquo;Esta vez me demor&eacute; m&aacute;s de un d&iacute;a cuadrando la informaci&oacute;n porque no sale con t&iacute;tulos... Dora ya lleva 30 a&ntilde;os aqu&iacute; en el colegio, se pensiona el otro a&ntilde;o. Yo tambi&eacute;n quiero aprovechar, dejar eso s&uacute;per organizado.&raquo;</p>
-      <div class="quote-attr">Mar&iacute;a Luisa Mu&ntilde;oz &middot; Gerente Administrativa</div>
-    </div>
   </div>
   <div class="page-footer">
     <span class="page-footer-brand">IRRELEVANT</span>
@@ -620,12 +616,13 @@
         <strong>Resuelve:</strong> el 100% de las facturas pasan por el mismo flujo manual de aprobaci&oacute;n, incluso las recurrentes con el mismo monto mes a mes. No hay criterio inteligente que separe lo rutinario de lo excepcional.
       </div>
       <div class="proc-steps">
-        <div class="proc-step"><div class="proc-step-num">1</div><div class="proc-step-body">Claude lee el correo administrativo donde llegan las facturas de los proveedores.</div></div>
-        <div class="proc-step"><div class="proc-step-num">2</div><div class="proc-step-body">Extrae de cada factura: proveedor, NIT, concepto, monto, fecha.</div></div>
-        <div class="proc-step"><div class="proc-step-num">3</div><div class="proc-step-body">Compara contra el hist&oacute;rico del colegio: si el proveedor es recurrente y si el monto coincide con meses anteriores.</div></div>
-        <div class="proc-step"><div class="proc-step-num">4</div><div class="proc-step-body">Compara contra el presupuesto en Excel: si cae dentro del centro de costo correspondiente.</div></div>
-        <div class="proc-step"><div class="proc-step-num">5</div><div class="proc-step-body">Decide entre tres caminos (detalle abajo).</div></div>
-        <div class="proc-step"><div class="proc-step-num">6</div><div class="proc-step-body">En las auto-aprobadas, aplica la firma digital preautorizada y deja el archivo listo para causaci&oacute;n en Loggro.</div></div>
+        <div class="proc-step"><div class="proc-step-num">1</div><div class="proc-step-body">Claude lee el correo administrativo donde llegan las facturas de los proveedores (tambi&eacute;n recibe las facturas electr&oacute;nicas que ya entran por Loggro desde la DIAN).</div></div>
+        <div class="proc-step"><div class="proc-step-num">2</div><div class="proc-step-body">Extrae de cada factura: proveedor, NIT, concepto, &iacute;tems, monto, fecha.</div></div>
+        <div class="proc-step"><div class="proc-step-num">3</div><div class="proc-step-body">Identifica el <strong>centro de costo</strong> seg&uacute;n el tipo de gasto (ej. vendajes m&eacute;dicos &rarr; Salud y Seguridad en el Trabajo &rarr; Andrea).</div></div>
+        <div class="proc-step"><div class="proc-step-num">4</div><div class="proc-step-body">Compara contra el hist&oacute;rico del colegio (si el proveedor es recurrente y si el monto coincide) y contra el presupuesto (si cae dentro del centro de costo correspondiente).</div></div>
+        <div class="proc-step"><div class="proc-step-num">5</div><div class="proc-step-body">Claude tiene <strong>pre-cargadas las firmas</strong> de Compras y de cada l&iacute;der de centro de costo. Selecciona las dos que corresponden al gasto (ej. Mar&iacute;a Camila en Compras + Andrea en Salud y Seguridad) y las deja listas para aplicar.</div></div>
+        <div class="proc-step"><div class="proc-step-num">6</div><div class="proc-step-body">Decide entre tres caminos (detalle abajo).</div></div>
+        <div class="proc-step"><div class="proc-step-num">7</div><div class="proc-step-body">En las auto-aprobadas, aplica las <strong>dos firmas preautorizadas</strong> y <strong>causa autom&aacute;ticamente en Loggro Enterprise v&iacute;a API</strong>: crea el documento de compra con NIT, valor antes de IVA e IVA, y <strong>replica exactamente la cuenta contable a la que se caus&oacute; la &uacute;ltima factura de ese mismo proveedor en Loggro</strong> &mdash;as&iacute; como lo hace hoy el equipo contable cuando revisa el hist&oacute;rico antes de causar&mdash;, asigna el centro de costo y programa el pago al 15 o al 30.</div></div>
       </div>
 
       <h6 style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--morado); margin:20px 0 12px;">Los 3 caminos posibles</h6>
@@ -633,24 +630,24 @@
         <div style="padding:14px 16px; background:#ECFDF5; border:1px solid rgba(16,185,129,0.25); border-left:3px solid var(--emerald); border-radius:0 8px 8px 0;">
           <div style="font-family:'Quicksand',sans-serif; font-size:9px; font-weight:700; color:#047857; letter-spacing:1.2px; text-transform:uppercase; margin-bottom:5px;">Caso 1 &middot; Auto-aprueba</div>
           <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#065F46; margin-bottom:6px; line-height:1.35;">Recurrente, mismo monto, en presupuesto</div>
-          <div style="font-size:10px; color:#065F46; line-height:1.6;">Claude aplica la firma preautorizada, deja el PDF firmado en la carpeta para causar. <strong>Mar&iacute;a Luisa no la vuelve a ver.</strong></div>
+          <div style="font-size:10px; color:#065F46; line-height:1.6;">Claude aplica las <strong>dos firmas preautorizadas</strong> (Compras + l&iacute;der del centro de costo), causa en Loggro v&iacute;a API y programa el pago. <strong>Ninguno de los firmantes la vuelve a ver.</strong></div>
         </div>
         <div style="padding:14px 16px; background:#FEF3C7; border:1px solid rgba(245,158,11,0.25); border-left:3px solid var(--amber); border-radius:0 8px 8px 0;">
           <div style="font-family:'Quicksand',sans-serif; font-size:9px; font-weight:700; color:#92400E; letter-spacing:1.2px; text-transform:uppercase; margin-bottom:5px;">Caso 2 &middot; Notifica</div>
           <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#78350F; margin-bottom:6px; line-height:1.35;">Recurrente pero cambi&oacute; el monto</div>
-          <div style="font-size:10px; color:#78350F; line-height:1.6;">Claude pregunta: &laquo;vigilancia pas&oacute; de $4.2M a $4.5M, &iquest;apruebo?&raquo;. Mar&iacute;a Luisa decide. Si s&iacute;, Claude firma y causa.</div>
+          <div style="font-size:10px; color:#78350F; line-height:1.6;">Claude pregunta: &laquo;vigilancia pas&oacute; de $4.2M a $4.5M, &iquest;apruebo?&raquo;. <strong>El l&iacute;der del centro de costo responde con un solo clic.</strong> Si s&iacute;, Claude aplica las dos firmas, causa en Loggro y programa el pago.</div>
         </div>
         <div style="padding:14px 16px; background:#FEE2E2; border:1px solid rgba(239,68,68,0.25); border-left:3px solid var(--red); border-radius:0 8px 8px 0;">
           <div style="font-family:'Quicksand',sans-serif; font-size:9px; font-weight:700; color:#991B1B; letter-spacing:1.2px; text-transform:uppercase; margin-bottom:5px;">Caso 3 &middot; Escala</div>
           <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#7F1D1D; margin-bottom:6px; line-height:1.35;">No recurrente o fuera de presupuesto</div>
-          <div style="font-size:10px; color:#7F1D1D; line-height:1.6;">Flujo manual de siempre: revisi&oacute;n &rarr; firma Sara &rarr; firma Mar&iacute;a Luisa &rarr; causaci&oacute;n en Loggro.</div>
+          <div style="font-size:10px; color:#7F1D1D; line-height:1.6;">Claude pide validaci&oacute;n a Compras y al l&iacute;der del centro de costo con un clic cada uno. Con las dos aprobaciones, Claude aplica las firmas y causa en Loggro v&iacute;a API.</div>
         </div>
       </div>
 
       <div class="connect-result">
         <div class="cr-card cr-connect">
           <strong>A qu&eacute; se conecta</strong>
-          Gmail (correo admin) &middot; Excel del presupuesto &middot; Adobe Acrobat (firma) &middot; Loggro v&iacute;a descarga.
+          Gmail (correo admin) &middot; Excel del presupuesto &middot; Adobe Acrobat (firma) &middot; Loggro Enterprise v&iacute;a API (causaci&oacute;n + programaci&oacute;n de pago).
         </div>
         <div class="cr-card cr-result">
           <strong>Resultado</strong>
@@ -660,7 +657,11 @@
     </div>
 
     <div class="highlight-box">
-      <p><strong>Firmas preautorizadas.</strong> Sara y Mar&iacute;a Luisa firman una &uacute;nica vez un documento donde autorizan que, para ciertos proveedores recurrentes y dentro de rangos de monto definidos, Claude pueda aplicar sus firmas sin pedir permiso cada vez. Ese consentimiento previo es lo que habilita el Caso 1.</p>
+      <p><strong>Firmas preautorizadas por centro de costo.</strong> Compras y cada l&iacute;der de centro de costo firman una &uacute;nica vez un documento donde autorizan que, para proveedores recurrentes y dentro de rangos de monto definidos, Claude pueda aplicar sus firmas sin pedir permiso cada vez. Ese consentimiento previo es lo que habilita el Caso 1. Cualquier cambio de monto, proveedor nuevo o gasto fuera de presupuesto rompe la autorizaci&oacute;n autom&aacute;tica y vuelve al Caso 2 o 3.</p>
+    </div>
+
+    <div class="highlight-box" style="margin-top:14px; border-left-color: var(--morado);">
+      <p><strong>Loggro hace la mitad del trabajo, Claude orquesta el resto.</strong> Loggro Enterprise ya trae nativamente la carga inteligente de facturas electr&oacute;nicas desde el XML de la DIAN, con memoria por proveedor para inferir la cuenta contable. Lo que Claude a&ntilde;ade es la capa de inteligencia de negocio por encima: ruteo por centro de costo, validaci&oacute;n contra presupuesto, workflow de dos firmas y decisi&oacute;n de auto-aprobaci&oacute;n. Al final, Claude dispara la causaci&oacute;n y la programaci&oacute;n del pago directamente contra la API de Loggro.</p>
     </div>
   </div>
   <div class="page-footer">
@@ -902,17 +903,17 @@
       <div class="need-card">
         <div class="need-tag">Reglas</div>
         <h6>Proveedores recurrentes</h6>
-        <p>Listado de los proveedores fijos del colegio con sus montos habituales.</p>
+        <p>&iquest;Cu&aacute;les son los proveedores fijos del colegio y sus montos habituales?</p>
       </div>
       <div class="need-card">
         <div class="need-tag">Reglas</div>
         <h6>Umbrales y firmantes</h6>
-        <p>A partir de qu&eacute; monto una factura escala a Mar&iacute;a Luisa o requiere otra firma.</p>
+        <p>&iquest;A partir de qu&eacute; monto una factura escala a Mar&iacute;a Luisa o requiere otra firma?</p>
       </div>
       <div class="need-card">
         <div class="need-tag">Reglas</div>
         <h6>Escalamiento de cartera</h6>
-        <p>Cu&aacute;ndo una familia deja de recibir correo y pasa a llamada de Olga.</p>
+        <p>&iquest;Cu&aacute;ndo una familia deja de recibir correo y pasa a llamada de Olga?</p>
       </div>
     </div>
   </div>
@@ -1057,7 +1058,7 @@
       <li><strong>Forma de pago:</strong> 50% anticipo al firmar + 50% contra entrega (d&iacute;a de capacitaci&oacute;n).</li>
       <li><strong>Moneda:</strong> COP. Facturaci&oacute;n desde IRRELEVANT CLUB S.A.S., NIT 901.935.642-1.</li>
       <li><strong>IVA:</strong> 19% sobre el valor de la implementaci&oacute;n.</li>
-      <li><strong>Vigencia de esta propuesta:</strong> 15 d&iacute;as calendario desde el 16 de abril de 2026.</li>
+      <li><strong>Vigencia de esta propuesta:</strong> 15 d&iacute;as calendario desde el 20 de abril de 2026.</li>
       <li><strong>Timeline:</strong> el arranque formal ocurre al recibir el anticipo. Dos semanas despu&eacute;s, entrega.</li>
       <li><strong>Soporte post-entrega:</strong> 1 mes incluido. Tiempo de respuesta h&aacute;bil en 24 horas.</li>
     </ul>
