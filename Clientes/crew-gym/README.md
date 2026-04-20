@@ -6,7 +6,8 @@
 | **Empresa** | Crew Gym |
 | **Industria** | Fitness y Wellness |
 | **Contacto** | Julián Gómez, Gerente General |
-| **Servicio interesado** | Aún no definido |
+| **Servicio interesado** | Core Layer |
+| **Precio acordado** | Implementación: $15M COP + IVA / Fee: $3.5M COP/mes + IVA |
 | **Cómo llegó** | Conocido |
 | **Fecha de creación** | 25 de marzo de 2026 |
 | **Comercial** | Agustín Hoyos Henao |

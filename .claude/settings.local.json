@@ -47,7 +47,20 @@
       "Bash(sed -i '' 's|<div class=\"gradient-line\" style=\"margin-bottom:12px;\"></div>|<div class=\"gradient-line\" style=\"margin-bottom:22px;\"></div>|g' '/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/colegio-marymount-medellin/diseno/slides-propuesta-marymount.html')",
       "Bash(sed -i '' 's|line-height:1.6; margin-bottom:16px; max-width:1100px;|line-height:1.6; margin-bottom:32px; max-width:1100px;|g' '/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/colegio-marymount-medellin/diseno/slides-propuesta-marymount.html')",
       "Bash(sed -i '' 's|letter-spacing:2px; text-transform:uppercase; margin-bottom:14px;|letter-spacing:2px; text-transform:uppercase; margin-bottom:22px;|g' '/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/colegio-marymount-medellin/diseno/slides-propuesta-marymount.html')",
-      "Bash(sed -i '' 's|grid-template-columns:1fr 1fr; gap:14px; margin-top:18px;|grid-template-columns:1fr 1fr; gap:14px; margin-top:36px;|g' '/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/colegio-marymount-medellin/diseno/slides-propuesta-marymount.html')"
+      "Bash(sed -i '' 's|grid-template-columns:1fr 1fr; gap:14px; margin-top:18px;|grid-template-columns:1fr 1fr; gap:14px; margin-top:36px;|g' '/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/colegio-marymount-medellin/diseno/slides-propuesta-marymount.html')",
+      "WebFetch(domain:www.escuelaing.edu.co)",
+      "Bash(python3 -c ':*)",
+      "Skill(pipeline-dashboard)",
+      "Bash(echo \"EXIT:$?\")",
+      "WebFetch(domain:kuulmax.com)",
+      "Bash(mkdir -p \"/mnt/c/Users/JuanPablo/Desktop/irrelevant core/New_Strategy_Hormozi\")",
+      "Read(//mnt/c/Users/JuanPablo/Desktop/irrelevant core/New_Strategy_Hormozi/**)",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\('Has Linkedin:', 'Linkedin' in l\\); console.log\\('Has LinkedIn:', 'LinkedIn' in l\\); console.log\\('Has Instagram:', 'Instagram' in l\\); console.log\\(Object.keys\\(l\\).filter\\(k => k.toLowerCase\\(\\).includes\\('linked'\\) || k.toLowerCase\\(\\).includes\\('instagr'\\)\\)\\)\")",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => /mail|send|link|share|user|contact|external/i.test\\(k\\)\\).slice\\(0,30\\)\\)\")",
+      "Read(//mnt/c/Users/JuanPablo/Desktop/irrelevant core/Catalogo/catalogo/src/**)",
+      "Read(//mnt/c/Users/JuanPablo/Desktop/irrelevant core/Catalogo/catalogo/**)"
     ],
     "deny": [],
     "ask": []

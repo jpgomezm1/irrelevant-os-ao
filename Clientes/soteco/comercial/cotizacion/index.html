@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizaci&oacute;n Programa Edu &mdash; Claude Suite para Operaciones | Soteco | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .cover-logo img {
+    height: 50px; object-fit: contain;
+    opacity: 0.95;
+  }
+
+  .cover-logo .logo-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255,255,255,0.25);
+  }
+
+  .cover-logo .claude-logo {
+    height: 38px;
+    object-fit: contain;
+    opacity: 0.95;
+    filter: brightness(0) invert(1);
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page h4:first-child { margin-top: 0; }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== EXEC SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card-grid.single-col {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul { margin-left: 14px; }
+
+  .card-body .label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--morado-oscuro);
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  .card-body .label:first-child { margin-top: 0; }
+
+  /* ===================== MODALITY CARDS ===================== */
+  .modality-card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+
+  .modality-card.featured {
+    border: 1px solid rgba(139,92,246,0.3);
+    box-shadow: 0 4px 14px rgba(139,92,246,0.08);
+  }
+
+  .modality-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modality-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .modality-header .mod-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .modality-header .mod-badge {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--blanco);
+    background: rgba(255,255,255,0.15);
+    padding: 6px 12px;
+    border-radius: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .modality-body {
+    padding: 22px 24px;
+  }
+
+  .modality-body .mod-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .modality-body .stat {
+    background: var(--lavanda);
+    border-radius: 6px;
+    padding: 12px 10px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .modality-body .stat-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    line-height: 1.1;
+  }
+
+  .modality-body .stat-label {
+    font-size: 8px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .modality-body p {
+    font-size: 10.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: #333;
+    margin: 0;
+  }
+
+  .modality-body .mod-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--morado-oscuro);
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+
+  /* ===================== COST BLOCK ===================== */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== SIGNATURE BLOCK ===================== */
+  .signature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 20px;
+  }
+
+  .signature-side {
+    text-align: center;
+  }
+
+  .signature-side .sig-line {
+    width: 100%;
+    height: 1px;
+    background: var(--gris-claro);
+    margin-bottom: 10px;
+    margin-top: 60px;
+  }
+
+  .signature-side .sig-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 2px;
+  }
+
+  .signature-side .sig-role {
+    font-size: 9px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px; left: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 80px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .back-cover-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-cover-content .back-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .cover-title { font-size: 34px; }
+    .modality-body .mod-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+        <div class="logo-divider"></div>
+        <img class="claude-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg" alt="Claude logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Cotizaci&oacute;n de Servicios</div>
+      <div class="cover-title">Capacitaci&oacute;n<br>Claude Suite para Operaciones</div>
+      <div class="cover-subtitle">Soteco</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>20 DE ABRIL DE 2026 | CONFIDENCIAL</span>
+        <span>Preparado por Irrelevant</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 01 - RESUMEN                                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>Qu&eacute; es este programa</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Un programa de formaci&oacute;n pr&aacute;ctico dise&ntilde;ado para que el equipo de <strong>Soteco</strong> pase de &ldquo;he o&iacute;do de IA&rdquo; a operar con la <strong>Suite de Claude (Anthropic)</strong> como palanca real de productividad en las tareas operativas que hoy consumen m&aacute;s tiempo. No es un workshop aislado &mdash; es un proceso que rein&shy;stala c&oacute;mo trabaja el equipo d&iacute;a a d&iacute;a.</p>
+    </div>
+
+    <h4>Por qu&eacute; Claude y por qu&eacute; ahora</h4>
+    <div class="gradient-line"></div>
+
+    <div style="display:flex; align-items:center; gap:22px; background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:10px; padding:20px 24px; margin-bottom:14px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg" alt="Claude" style="height:54px; flex-shrink:0;">
+      <p style="margin:0; font-size:11px; line-height:1.75; color:#222;">Claude es hoy una de las plataformas de IA m&aacute;s capaces del mundo para trabajo operativo: razonamiento largo, an&aacute;lisis de documentos, generaci&oacute;n de texto t&eacute;cnico y ejecuci&oacute;n de tareas reales. <strong>Usada bien, convierte horas en minutos. Usada mal, es un chatbot caro.</strong></p>
+    </div>
+
+    <div class="highlight-box">
+      <p>Soteco no necesita que su equipo se vuelva experto en IA. Necesita que aprenda a <strong>operar con IA</strong> en las tareas que hoy le cuestan tiempo, y a decidir qu&eacute; otras herramientas incorporar al stack a medida que el equipo detecta oportunidades.</p>
+    </div>
+
+    <div class="metric-row" style="margin-top: 30px;">
+      <div class="metric-card">
+        <div class="metric-value">2</div>
+        <div class="metric-label">Modalidades a elegir</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Pr&aacute;ctico y aplicado</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">Claude</div>
+        <div class="metric-label">Suite como eje central</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top:32px;">Nuestra recomendaci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <div style="background:linear-gradient(135deg, #FFF8E7 0%, #FFF3D6 100%); border-left:3px solid #D97706; border-radius:0 8px 8px 0; padding:20px 24px; margin-bottom:14px;">
+      <p style="margin:0 0 8px 0; font-size:11px; font-weight:600; color:#92400E; font-family:'Quicksand', sans-serif; letter-spacing:0.5px;">SOBRE LA SOLICITUD DE INCLUIR OPS LAYER</p>
+      <p style="margin:0; font-size:11px; line-height:1.75; color:#333;">Soteco pregunt&oacute; por incluir adem&aacute;s un setup de <strong>AI Ops Layer</strong>. Nuestra recomendaci&oacute;n es <strong>iniciar con la capacitaci&oacute;n</strong>: una vez el equipo opera con criterio sobre la Suite de Claude (especialmente Claude Code), va a tener la capacidad de dise&ntilde;ar y desplegar sus propios procesos operativos sin depender de un proveedor externo. Si despu&eacute;s del programa identificamos juntos casos donde tiene sentido un Ops Layer dedicado, lo abordamos como un siguiente paso &mdash; pero la apuesta es que el equipo salga aut&oacute;nomo.</p>
+    </div>
+
+    <h4 style="margin-top:28px;">Lo que el equipo se lleva</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Dominio pr&aacute;ctico de la Suite de Claude (Claude, Claude Code, Claude Cowork) aplicada a la operaci&oacute;n de Soteco.</li>
+      <li><strong>M&iacute;nimo 3 procesos propios del equipo automatizados en la Suite de Claude</strong>, construidos durante el programa y listos para usarse desde el d&iacute;a siguiente.</li>
+      <li><strong>Suite de Claude instalada y configurada</strong> en los equipos de cada participante (la suscripci&oacute;n corre por cuenta de Soteco).</li>
+      <li><strong>Manual de uso de Claude</strong> personalizado al contexto y operaci&oacute;n de Soteco.</li>
+      <li><strong>Cat&aacute;logo de casos de uso recomendados</strong> para el sector y los procesos espec&iacute;ficos del equipo.</li>
+      <li>Criterio para identificar qu&eacute; herramientas adicionales vale la pena incorporar al stack y cu&aacute;les no.</li>
+      <li>Mentalidad AI-first para que el equipo siga iterando despu&eacute;s del programa sin acompa&ntilde;amiento.</li>
+    </ul>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 02 - CONTENIDO DEL PROGRAMA                                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      <span class="page-header-title">Contenido del Programa</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Estructura de las sesiones</h4>
+    <div class="gradient-line"></div>
+
+    <p>El programa est&aacute; dise&ntilde;ado alrededor de la <strong>Suite de Claude</strong> aplicada a operaci&oacute;n real. Cada sesi&oacute;n combina concepto (m&iacute;nimo necesario) con pr&aacute;ctica guiada sobre casos reales del equipo de Soteco. Las herramientas adicionales al stack se introducen progresivamente seg&uacute;n lo que surja en las sesiones &mdash; el programa no vende un stack predeterminado, se construye con el equipo.</p>
+
+    <div class="card-grid single-col" style="margin-top:16px;">
+      <div class="card" style="border:1px solid rgba(139,92,246,0.35); background:linear-gradient(180deg, #FAF7FF 0%, #FFFFFF 100%);">
+        <div class="card-header" style="background:linear-gradient(135deg, #6366F1, #4F46E5);">
+          <span class="card-tag">Antes de empezar &mdash; Setup previo</span>
+          <h5>Discovery con gerencia + form a participantes</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Qu&eacute; hacemos antes de la Sesi&oacute;n 1</div>
+          <ul>
+            <li><strong>Sesi&oacute;n con la gerencia de Soteco</strong> &mdash; 45-60 min con Santiago Mej&iacute;a y el liderazgo del equipo para identificar d&oacute;nde hay que hacer &eacute;nfasis: qu&eacute; procesos consumen m&aacute;s tiempo, d&oacute;nde se atasca la operaci&oacute;n, qu&eacute; resultados esperan del programa.</li>
+            <li><strong>Form de discovery a cada participante</strong> &mdash; Cuestionario estructurado que mapea su rol, las tareas que m&aacute;s tiempo le consumen, las herramientas que ya usa y los procesos que querr&iacute;an automatizar. Esto nos permite llegar a la Sesi&oacute;n 1 con casos reales de cada persona, no con ejemplos gen&eacute;ricos.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Resultado</div>
+          <p>El programa arranca calibrado al contexto real de Soteco y de cada participante &mdash; cero tiempo perdido en ejemplos que no aplican.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Sesi&oacute;n 1 &mdash; 3 horas</span>
+          <h5>Fundamentos de Claude + Prompting operativo</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Contenido</div>
+          <ul>
+            <li><strong>C&oacute;mo piensa Claude</strong> &mdash; Qu&eacute; hace bien, qu&eacute; hace mal, c&oacute;mo aprovecharlo sin romperlo.</li>
+            <li><strong>Prompting operativo</strong> &mdash; Estructuras, contexto, iteraci&oacute;n, errores comunes. Lo que separa una respuesta &uacute;til de una respuesta gen&eacute;rica.</li>
+            <li><strong>Projects de Claude</strong> &mdash; C&oacute;mo cargar el contexto del equipo una vez y usarlo indefinidamente.</li>
+            <li><strong>Ejercicio aplicado</strong> &mdash; Cada participante construye su primer prompt operativo sobre un caso real de Soteco.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Resultado</div>
+          <p>El equipo deja de usar Claude como buscador y empieza a usarlo como palanca operativa.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Sesi&oacute;n 2 &mdash; 3 horas</span>
+          <h5>Claude para tareas operativas intensivas</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Contenido</div>
+          <ul>
+            <li><strong>An&aacute;lisis de documentos</strong> &mdash; Procesar contratos, reportes, correos y documentaci&oacute;n t&eacute;cnica en minutos.</li>
+            <li><strong>Generaci&oacute;n de contenido y entregables</strong> &mdash; Actas, propuestas, comunicaciones, documentaci&oacute;n interna.</li>
+            <li><strong>Consolidaci&oacute;n de informaci&oacute;n dispersa</strong> &mdash; Cuando la data est&aacute; en 10 lugares distintos.</li>
+            <li><strong>Ejercicio aplicado</strong> &mdash; Cada participante toma una tarea que hoy le consume 2+ horas y la resuelve con Claude delante del grupo.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Resultado</div>
+          <p>Cada persona identifica al menos 2-3 tareas recurrentes en su semana donde IA reemplaza trabajo manual.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Sesi&oacute;n 3 &mdash; 3 horas</span>
+          <h5>Claude Code y automatizaci&oacute;n operativa</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Contenido</div>
+          <ul>
+            <li><strong>Qu&eacute; es Claude Code</strong> &mdash; C&oacute;mo ejecuta tareas reales sobre archivos, sistemas y procesos (no solo conversa).</li>
+            <li><strong>Skills y comandos</strong> &mdash; C&oacute;mo estructurar procesos repetitivos para que Claude los ejecute de punta a punta.</li>
+            <li><strong>Conexi&oacute;n con herramientas del equipo</strong> &mdash; Drive, Gmail, bases de datos, archivos locales &mdash; lo que ya usa Soteco.</li>
+            <li><strong>Ejercicio aplicado</strong> &mdash; Construcci&oacute;n guiada de un skill real para un proceso de Soteco.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Resultado</div>
+          <p>El equipo sale con al menos un proceso propio ejecut&aacute;ndose con Claude Code.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Sesi&oacute;n 4 &mdash; 3 horas &mdash; <em style="color: var(--morado-claro); font-style: normal;">solo modalidad mensual</em></span>
+          <h5>Stack extendido + h&aacute;bito operativo</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Contenido</div>
+          <ul>
+            <li><strong>Mapa del stack</strong> &mdash; Qu&eacute; otras herramientas complementan a Claude seg&uacute;n lo que surgi&oacute; en las sesiones anteriores (transcripci&oacute;n, automatizaci&oacute;n, notas, investigaci&oacute;n, conectores).</li>
+            <li><strong>Criterio de incorporaci&oacute;n</strong> &mdash; Cu&aacute;ndo agregar una herramienta y cu&aacute;ndo no. Evitar la sobrecarga de stack.</li>
+            <li><strong>Clinic de casos del equipo</strong> &mdash; Cada persona trae los 2-3 procesos que quiere resolver y los trabajamos en vivo.</li>
+            <li><strong>Plan de 30 d&iacute;as post-programa</strong> &mdash; Rutinas, m&eacute;tricas y cadencia para que el h&aacute;bito se instale.</li>
+          </ul>
+          <div class="label" style="color: #166534;">Resultado</div>
+          <p>El equipo queda con un stack definido, un h&aacute;bito instalado y un plan concreto para los siguientes 30 d&iacute;as.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Personalizaci&oacute;n:</strong> Antes del programa realizamos una sesi&oacute;n de contexto (30-45 min) con el l&iacute;der del equipo de Soteco para identificar los procesos, documentos y herramientas reales que vamos a usar como casos pr&aacute;cticos. Todos los ejercicios del programa se construyen sobre la operaci&oacute;n real de la empresa, no sobre casos gen&eacute;ricos.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 03 - MODALIDADES                                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="page-header-title">Modalidades</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Dos formas de ejecutar el programa</h4>
+    <div class="gradient-line"></div>
+
+    <p>Ofrecemos dos modalidades seg&uacute;n la disponibilidad del equipo de Soteco y el ritmo al que quieran incorporar el contenido. Ambas cubren los fundamentos centrales de la Suite de Claude; la diferencia est&aacute; en el tiempo total y en el espacio de aplicaci&oacute;n entre sesiones.</p>
+
+    <div style="display:flex; gap:10px; margin:18px 0 22px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:200px; background:var(--lavanda); border:1px solid rgba(139,92,246,0.18); border-radius:8px; padding:14px 18px; display:flex; align-items:center; gap:12px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round" style="flex-shrink:0;"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="22" x2="16" y2="22"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+        <div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:600; color:#222;">Virtual</div>
+          <div style="font-size:9.5px; font-weight:300; color:#555; line-height:1.4;">V&iacute;a Zoom, sin desplazamientos</div>
+        </div>
+      </div>
+      <div style="flex:1; min-width:200px; background:var(--lavanda); border:1px solid rgba(139,92,246,0.18); border-radius:8px; padding:14px 18px; display:flex; align-items:center; gap:12px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round" style="flex-shrink:0;"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M9 13h.01"/><path d="M15 13h.01"/><path d="M9 17h6"/></svg>
+        <div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:600; color:#222;">Presencial</div>
+          <div style="font-size:9.5px; font-weight:300; color:#555; line-height:1.4;">En las instalaciones de Soteco</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:10.5px; color:#555; margin-top:-8px; margin-bottom:18px;"><strong>Cualquiera de las dos modalidades</strong> (mensual o intensiva) puede ejecutarse virtual o presencialmente. La elecci&oacute;n del formato de entrega no cambia el contenido ni los entregables.</p>
+
+    <div class="modality-card featured">
+      <div class="modality-header">
+        <div>
+          <span class="mod-tag">Modalidad A</span>
+          <h5>Mensual &mdash; 4 sesiones semanales</h5>
+        </div>
+        <span class="mod-badge">12 HORAS TOTAL</span>
+      </div>
+      <div class="modality-body">
+        <div class="mod-stats">
+          <div class="stat">
+            <div class="stat-value">4</div>
+            <div class="stat-label">Sesiones</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">3h</div>
+            <div class="stat-label">Por sesi&oacute;n</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">1 mes</div>
+            <div class="stat-label">Duraci&oacute;n</div>
+          </div>
+        </div>
+
+        <div class="mod-label">Formato</div>
+        <p>Una sesi&oacute;n de 3 horas por semana, durante 4 semanas consecutivas. Entre sesi&oacute;n y sesi&oacute;n el equipo aplica lo aprendido en su trabajo real y trae casos a la siguiente.</p>
+
+        <div class="mod-label">Ideal cuando</div>
+        <p>El equipo quiere absorber progresivamente, aplicar en el d&iacute;a a d&iacute;a entre sesiones y llegar con preguntas y casos reales. Es la modalidad que genera m&aacute;s cambio de h&aacute;bito.</p>
+      </div>
+    </div>
+
+    <div class="modality-card">
+      <div class="modality-header">
+        <div>
+          <span class="mod-tag">Modalidad B</span>
+          <h5>Intensiva &mdash; 3 d&iacute;as consecutivos</h5>
+        </div>
+        <span class="mod-badge">9 HORAS TOTAL</span>
+      </div>
+      <div class="modality-body">
+        <div class="mod-stats">
+          <div class="stat">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Sesiones</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">3h</div>
+            <div class="stat-label">Por sesi&oacute;n</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">1 semana</div>
+            <div class="stat-label">Duraci&oacute;n</div>
+          </div>
+        </div>
+
+        <div class="mod-label">Formato</div>
+        <p>Tres sesiones de 3 horas en tres d&iacute;as consecutivos dentro de una misma semana. Cubre las sesiones 1, 2 y 3 del curr&iacute;culum con una din&aacute;mica inmersiva.</p>
+
+        <div class="mod-label">Ideal cuando</div>
+        <p>El equipo necesita cerrar el programa r&aacute;pido, hay restricciones de calendario o prefieren un formato tipo &ldquo;bootcamp&rdquo;. El seguimiento post-programa queda como responsabilidad del equipo.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 22px;">
+      <p><strong>Recomendaci&oacute;n:</strong> Si el objetivo es generar un cambio real de h&aacute;bito operativo en el equipo, la modalidad mensual tiene mejor resultado porque abre espacio de aplicaci&oacute;n entre sesiones. La intensiva funciona mejor cuando ya hay cultura de IA instalada y el equipo solo necesita la capa t&eacute;cnica.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 04 - INVERSION                                             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Inversi&oacute;n</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Inversi&oacute;n por modalidad</h4>
+    <div class="gradient-line"></div>
+
+    <div class="cost-block" style="margin-bottom: 14px;">
+      <div class="cost-label">Modalidad A &mdash; Mensual (12 horas) &mdash; Recomendada</div>
+      <div class="cost-value">$12.000.000 COP + IVA</div>
+      <div class="cost-desc">4 sesiones semanales de 3 horas</div>
+    </div>
+
+    <div class="cost-block">
+      <div class="cost-label">Modalidad B &mdash; Intensiva (9 horas)</div>
+      <div class="cost-value">$9.500.000 COP + IVA</div>
+      <div class="cost-desc">3 sesiones de 3 horas en 3 d&iacute;as consecutivos</div>
+    </div>
+
+    <h4 style="margin-top:28px;">Adicional opcional</h4>
+    <div class="gradient-line"></div>
+
+    <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.2); border-radius:10px; padding:22px 26px; display:flex; justify-content:space-between; align-items:center; gap:20px;">
+      <div>
+        <div style="font-family:'Quicksand', sans-serif; font-size:10px; font-weight:600; color:var(--morado-oscuro); text-transform:uppercase; letter-spacing:2px; margin-bottom:6px;">Add-on</div>
+        <div style="font-family:'Quicksand', sans-serif; font-size:16px; font-weight:600; color:var(--gris-texto);">P&aacute;gina web</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:'Quicksand', sans-serif; font-size:22px; font-weight:700; color:var(--morado-oscuro); line-height:1.1;">$3.000.000 COP</div>
+        <div style="font-size:9.5px; font-weight:400; color:#666; margin-top:4px;">No aplica IVA</div>
+      </div>
+    </div>
+
+    <h4>Condiciones de pago</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Anticipo para agendar</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Al finalizar</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 d&iacute;as</div>
+        <div class="metric-label">Validez de la cotizaci&oacute;n</div>
+      </div>
+    </div>
+
+    <h4>Qu&eacute; incluye</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li><strong>Setup previo:</strong> sesi&oacute;n de discovery con la gerencia de Soteco (45-60 min) + form de discovery a cada participante para personalizar el contenido.</li>
+      <li>Todas las sesiones del programa seg&uacute;n la modalidad elegida (presencial o virtual).</li>
+      <li>Material digital para todos los participantes (slides, gu&iacute;as de prompting, plantillas).</li>
+      <li>Ejercicios pr&aacute;cticos con casos reales de Soteco.</li>
+      <li><strong>Suite de Claude instalada y configurada</strong> en los equipos de cada participante.</li>
+      <li><strong>Manual de uso de Claude</strong> personalizado al contexto de Soteco.</li>
+      <li><strong>Cat&aacute;logo de casos de uso recomendados</strong> para el sector y los procesos del equipo.</li>
+      <li>M&iacute;nimo 3 procesos automatizados en la Suite de Claude, listos para usarse.</li>
+      <li>Plan de 30 d&iacute;as post-programa (modalidad mensual).</li>
+      <li>Acceso a recursos post-programa (biblioteca de prompts y skills base).</li>
+    </ul>
+
+    <h4>Qu&eacute; NO incluye</h4>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box">
+      <p><strong>Suscripciones a herramientas de terceros.</strong> El costo de cuentas de Claude (Pro, Team o Max de Anthropic), as&iacute; como cualquier otra herramienta que se incorpore al stack (transcripci&oacute;n, automatizaci&oacute;n, conectores, etc.), no est&aacute; incluido en esta cotizaci&oacute;n y es responsabilidad de Soteco. Se recomienda gestionar las cuentas antes de iniciar el programa.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 05 - CONDICIONES                                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="page-header-title">Condiciones</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>Agenda y fechas</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Las fechas y horarios espec&iacute;ficos de las sesiones se coordinan con Soteco una vez confirmado el anticipo. El programa inicia con la sesi&oacute;n previa de contexto y contin&uacute;a con las sesiones del curr&iacute;culum seg&uacute;n la modalidad elegida.</p>
+    </div>
+
+    <h4>Participantes</h4>
+    <div class="gradient-line"></div>
+
+    <p>El programa est&aacute; dise&ntilde;ado para grupos de <strong>m&aacute;ximo 10 personas</strong>. Este l&iacute;mite es deliberado: garantiza atenci&oacute;n individual en los ejercicios, permite trabajar casos reales de cada participante en clase y asegura que los procesos automatizados que se construyan durante el programa sean propios de cada persona, no demos gen&eacute;ricas.</p>
+
+    <h4>Requisitos</h4>
+    <div class="gradient-line"></div>
+
+    <div style="background:linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border-left:3px solid #DC2626; border-radius:0 8px 8px 0; padding:20px 24px; margin-bottom:16px;">
+      <p style="margin:0 0 8px 0; font-size:11px; font-weight:600; color:#991B1B; font-family:'Quicksand', sans-serif; letter-spacing:0.5px;">REQUISITO FUNDAMENTAL</p>
+      <p style="margin:0; font-size:11px; line-height:1.75; color:#333;">Soteco debe contar con <strong>m&iacute;nimo 1 cuenta de Claude Pro Max (USD $200/mes)</strong> activa antes de iniciar el programa. Sin esta cuenta no es posible ejecutar los ejercicios de Claude Code ni construir los procesos automatizados del entregable. La cuenta se gestiona directamente con Anthropic y su costo no est&aacute; incluido en esta cotizaci&oacute;n.</p>
+    </div>
+
+    <ul>
+      <li>Sala con proyector y conexi&oacute;n a internet (presencial) o acceso a Zoom (virtual).</li>
+      <li>Cada participante debe contar con un computador port&aacute;til.</li>
+      <li>Acceso a navegador web actualizado (Chrome, Firefox o Edge).</li>
+      <li>Cuentas adicionales de Claude (Pro, Team o Max) para los dem&aacute;s participantes &mdash; recomendadas para maximizar la pr&aacute;ctica individual.</li>
+      <li>Disponibilidad de la gerencia para la sesi&oacute;n previa de discovery (45-60 min).</li>
+      <li>Disponibilidad de cada participante para diligenciar el form de discovery antes de la Sesi&oacute;n 1.</li>
+    </ul>
+
+    <h4>Cancelaci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <p>Cancelaciones con m&aacute;s de 48 horas de anticipaci&oacute;n son reembolsables (descontando 20% por gestiones administrativas). Cancelaciones con menos de 48 horas no son reembolsables pero se pueden reprogramar dentro de los 30 d&iacute;as siguientes.</p>
+
+    <h4>Contacto comercial</h4>
+    <div class="gradient-line"></div>
+    <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:8px; padding:18px 22px;">
+      <p style="margin-bottom:4px;"><strong>Juan Pablo G&oacute;mez Mej&iacute;a</strong> &mdash; Representante Legal</p>
+      <p style="margin-bottom:2px;">&#9993; jpgomez@stayirrelevant.com</p>
+      <p style="margin-bottom:2px;">&#128172; +57 318 335 1733</p>
+      <p>&#127760; stayirrelevant.com</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+      <p class="back-sub">Soteco &mdash; Capacitaci&oacute;n &mdash; Claude Suite para Operaciones &mdash; 20 de abril de 2026</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
