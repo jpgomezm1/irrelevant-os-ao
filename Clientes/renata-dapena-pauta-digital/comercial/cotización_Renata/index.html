@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotización Setup de IA — Ops Layer | Renata Dapena Pauta Digital | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px; object-fit: contain;
+    opacity: 0.95;
+
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page h4:first-child { margin-top: 0; }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== EXEC SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card-grid.single-col {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body .label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .card-body ul { margin-left: 14px; }
+
+  /* ===================== PAIN GRID ===================== */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .pain-item {
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 20px;
+    background: var(--lavanda);
+  }
+
+  .pain-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--morado-oscuro);
+    margin-bottom: 6px;
+  }
+
+  .pain-item p {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #333;
+    margin: 0;
+  }
+
+  /* ===================== COST BLOCK ===================== */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== SIGNATURE BLOCK ===================== */
+  .signature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 20px;
+  }
+
+  .signature-side {
+    text-align: center;
+  }
+
+  .signature-side .sig-line {
+    width: 100%;
+    height: 1px;
+    background: var(--gris-claro);
+    margin-bottom: 10px;
+    margin-top: 60px;
+  }
+
+  .signature-side .sig-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 2px;
+  }
+
+  .signature-side .sig-role {
+    font-size: 9px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px; left: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 80px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .back-cover-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-cover-content .back-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .cover-title { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Cotización de Servicios</div>
+      <div class="cover-title">Automatización<br>Reportes de Marketing</div>
+      <div class="cover-subtitle">Renata Dapena Pauta Digital</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>20 de abril de 2026 | CONFIDENCIAL</span>
+        <span>Preparado por Irrelevant</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 01 - RESUMEN                                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>El problema que resolvemos</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Hoy tu equipo dedica varias horas cada semana a construir reportes de email marketing de forma manual: navegando por diferentes secciones de Omnisend, filtrando por fechas, copiando métricas a Excel, calculando totales y armando la presentación para clientes. <strong>Este proceso consume tiempo, introduce errores y la calidad visual no refleja el nivel de tu servicio.</strong></p>
+      <p style="margin-top:8px;">Lo que entregamos es un <strong>sistema automatizado</strong> que recolecta, estructura y visualiza toda la información de tus campañas de email marketing en un dashboard profesional, actualizado automáticamente y listo para presentar a clientes. Sin intervención manual.</p>
+    </div>
+
+    <h3>Lo que incluye esta implementación</h3>
+
+    <div class="pain-grid" style="margin-top:16px;">
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">1. Integración con Omnisend + Shopify</div>
+        <p style="color: var(--gris-texto);">Conexión directa a la API de Omnisend para extraer automáticamente todas las métricas: revenue, open rate, conversiones, crecimiento de audiencia, campañas y automatizaciones.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">2. Dashboard visual automatizado</div>
+        <p style="color: var(--gris-texto);">Interfaz limpia, profesional y fácil de interpretar que reemplaza el Excel actual. Vista ejecutiva con indicadores clave + detalle por campaña. Listo para presentar a clientes.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">3. Reportes semanales automáticos</div>
+        <p style="color: var(--gris-texto);">El sistema organiza la información en cortes semanales fijos (del 1 al 7, del 8 al 14, etc.) sin inputs manuales. Los datos históricos se cierran y no se recalculan.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">4. Entrenamiento y documentación</div>
+        <p style="color: var(--gris-texto);">Sesión de transferencia de conocimiento para que tu equipo sepa usar el sistema, interpretar los datos y hacer ajustes básicos. Incluye documentación completa.</p>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 24px;">Métricas incluidas en el dashboard</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li><strong>Revenue por campaña</strong> y revenue total semanal</li>
+      <li><strong>Open rate, click rate</strong> y conversiones asociadas a email</li>
+      <li><strong>Volumen de envíos, rebotes</strong>, tasa de spam y desuscripciones</li>
+      <li><strong>Valor promedio por orden</strong> (AOV)</li>
+      <li><strong>Crecimiento de la base de datos:</strong> nuevos suscriptores y desuscripciones</li>
+      <li><strong>Diferenciación</strong> entre campañas manuales y automatizaciones</li>
+    </ul>
+
+    <div class="metric-row" style="margin-top: 24px;">
+      <div class="metric-card">
+        <div class="metric-value">4 sem</div>
+        <div class="metric-label">Implementación completa</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Automatizado</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">0 hrs</div>
+        <div class="metric-label">De trabajo manual semanal</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 02 - ALCANCE TÉCNICO                                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span class="page-header-title">Alcance técnico</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Arquitectura del sistema</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>El sistema se construye sobre una arquitectura moderna y escalable que garantiza la correcta extracción, transformación y visualización de los datos de Omnisend. La integración se realiza mediante API oficial, lo que asegura estabilidad, seguridad y compatibilidad a largo plazo.</p>
+    </div>
+
+    <h3>Componentes técnicos</h3>
+
+    <div class="card-grid single-col" style="margin-top:16px;">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Módulo 1</span>
+          <h5>Integración con APIs</h5>
+        </div>
+        <div class="card-body">
+          <p>Conexión directa a Omnisend API para extracción automática de métricas de campañas, automatizaciones, audiencia y revenue. Integración con Shopify para datos transaccionales complementarios.</p>
+          <ul style="margin-top: 8px;">
+            <li>Autenticación OAuth segura</li>
+            <li>Extracción incremental de datos</li>
+            <li>Manejo de límites de API (rate limits)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Módulo 2</span>
+          <h5>Procesamiento y almacenamiento</h5>
+        </div>
+        <div class="card-body">
+          <p>Motor de transformación que estructura los datos en cortes semanales fijos. Base de datos para almacenamiento histórico que preserva la integridad de los reportes cerrados.</p>
+          <ul style="margin-top: 8px;">
+            <li>Cierres semanales automáticos</li>
+            <li>Cálculos agregados (totales, promedios)</li>
+            <li>Diferenciación campañas vs automatizaciones</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Módulo 3</span>
+          <h5>Dashboard de visualización</h5>
+        </div>
+        <div class="card-body">
+          <p>Interfaz web profesional con vista ejecutiva e indicadores clave + detalle granular por campaña. Diseñada para presentación a clientes con opción de branding personalizable.</p>
+          <ul style="margin-top: 8px;">
+            <li>Vista ejecutiva con KPIs principales</li>
+            <li>Detalle por campaña y automatización</li>
+            <li>Exportación de reportes (PDF/Excel)</li>
+            <li>Acceso seguro mediante autenticación</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 24px;">Escalabilidad futura</h4>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box">
+      <p>El sistema se construye preparado para crecer. Puede escalar hacia la gestión de múltiples cuentas/marcas en una misma interfaz, agregar alertas automáticas ante cambios en métricas clave, o integrar comparativas entre periodos y entre marcas.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 03 - INVERSIÓN                                             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Inversión</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Inversión total</h4>
+    <div class="gradient-line"></div>
+
+    <div class="cost-block">
+      <div class="cost-label">Implementación completa</div>
+      <div class="cost-value">$6.500.000 COP + IVA</div>
+      <div class="cost-desc">Incluye primer mes de soporte y mantenimiento</div>
+    </div>
+
+    <div class="cost-block" style="background: linear-gradient(135deg, var(--morado-oscuro), var(--morado));">
+      <div class="cost-label">Fee mensual recurrente</div>
+      <div class="cost-value">$1.000.000 COP + IVA</div>
+      <div class="cost-desc">Soporte técnico, mantenimiento y actualizaciones (aplica desde mes 2)</div>
+    </div>
+
+    <h4>Condiciones de pago</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Anticipo para iniciar</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Contra entrega</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 días</div>
+        <div class="metric-label">Validez de la cotización</div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 20px;">
+      <p><strong>Condición especial:</strong> El primer mes de fee mensual está incluido en el costo de implementación. El fee recurrente de $1.000.000 + IVA aplica a partir del segundo mes de operación del sistema.</p>
+    </div>
+
+    <h4>Qué no incluye</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Costos de suscripción a Omnisend o Shopify (deben estar activos)</li>
+      <li>Costos de hosting o infraestructura de terceros (se estiman en ~$50-100 USD/mes)</li>
+      <li>Desarrollo adicional fuera del alcance definido</li>
+      <li>Capacitación adicional después del periodo de implementación</li>
+    </ul>
+
+    <div class="highlight-box" style="margin-top: 16px;">
+      <p><strong>Importante:</strong> Esta cotización es válida por <strong>15 días</strong> a partir de la fecha de emisión. Los precios pueden estar sujetos a cambios después de este periodo.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 04 - CONDICIONES Y TIMELINE                                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="page-header-title">Timeline y condiciones</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Timeline de implementación — 4 semanas</h4>
+    <div class="gradient-line"></div>
+
+    <div class="card-grid single-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Semana 1</span>
+          <h5>Discovery y configuración inicial</h5>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Kick-off y análisis de requerimientos finales</li>
+            <li>Configuración de accesos a Omnisend y Shopify</li>
+            <li>Arquitectura del sistema y selección de stack</li>
+            <li>Priorización de métricas y estructura de reportes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Semana 2</span>
+          <h5>Desarrollo core</h5>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Integración con API de Omnisend</li>
+            <li>Desarrollo del motor de extracción y transformación</li>
+            <li>Configuración de base de datos y lógica de cierres semanales</li>
+            <li>Primera versión funcional del sistema</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Semana 3</span>
+          <h5>Dashboard y visualización</h5>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Construcción del dashboard de visualización</li>
+            <li>Vista ejecutiva con indicadores clave</li>
+            <li>Vistas de detalle por campaña y automatización</li>
+            <li>Pruebas con datos reales de Renata Dapena</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Semana 4</span>
+          <h5>Entrega y entrenamiento</h5>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Ajustes finales según feedback</li>
+            <li>Sesión de entrenamiento para el equipo</li>
+            <li>Documentación completa del sistema</li>
+            <li>Go-live y cierre del proyecto</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 28px;">Requisitos del cliente</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Acceso de administrador a Omnisend y Shopify</li>
+      <li>API keys de Shopify de cada uno de los clientes de los que se necesite generar reportes</li>
+      <li>Disponibilidad para sesiones de trabajo (1-2 horas semanales)</li>
+      <li>Aprobación de anticipo del 50% para iniciar</li>
+      <li>Revisión y feedback durante el proceso de desarrollo</li>
+    </ul>
+
+    <h4>Soporte post-implementación</h4>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box">
+      <p>Incluye <strong>1 mes de soporte</strong> posterior a la entrega (incluido en el costo de implementación) para ajustes menores, resolución de dudas y optimización del sistema. Después del primer mes, el soporte continúa mediante el fee mensual de $1.000.000 + IVA.</p>
+    </div>
+
+    <h4>Aceptación</h4>
+    <div class="gradient-line"></div>
+
+    <p>Al firmar este documento, ambas partes aceptan los términos y condiciones descritos en esta cotización.</p>
+
+    <div class="signature-block">
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">Renata Dapena</div>
+        <div class="sig-role">Gerente/Dueña — Renata Dapena Pauta Digital</div>
+      </div>
+      <div class="signature-side">
+        <div class="sig-line"></div>
+        <div class="sig-name">Agustín Hoyos</div>
+        <div class="sig-role">Consultor de IA — Irrelevant</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top:32px;">Contacto comercial</h4>
+    <div class="gradient-line"></div>
+    <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:8px; padding:18px 22px;">
+      <p style="margin-bottom:4px;"><strong>Agustín Hoyos</strong> — Consultor de IA</p>
+      <p style="margin-bottom:2px;">&#9993; ahoyosh@stayirrelevant.com</p>
+      <p style="margin-bottom:2px;">&#128172; +57 316 056 7909</p>
+      <p>&#127760; stayirrelevant.com</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+      <p class="back-sub">Renata Dapena Pauta Digital — Automatización de Reportes — 20 de abril de 2026</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

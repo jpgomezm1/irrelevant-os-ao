@@ -1,0 +1,63 @@
+﻿Requerimiento – Automatización de Reportes de Email Marketing
+Cliente: Renata Dapena
+Herramienta principal: Omnisend
+Integración base: Shopify
+________________
+
+
+Contexto y problema
+Renata Dapena gestiona campañas de email marketing para marcas ecommerce utilizando Omnisend como plataforma principal. Actualmente, el proceso de análisis y reporte de resultados se realiza de forma manual mediante un archivo de Excel que se actualiza semanalmente.
+Para construir este reporte, Renata debe navegar por diferentes secciones dentro de Omnisend (campañas, automatizaciones, reportes y crecimiento de audiencia), filtrar los datos por rangos de fechas específicos y copiar manualmente cada uno de los indicadores relevantes. Este proceso no solo consume tiempo operativo, sino que también introduce riesgos de error y dificulta la presentación de la información hacia clientes debido a la baja calidad visual del formato actual.
+Es importante destacar que todos los datos necesarios ya existen dentro de la plataforma, pero están distribuidos en diferentes vistas y no se encuentran centralizados ni estructurados para su consumo directo.
+________________
+
+
+Objetivo del proyecto
+El objetivo es diseñar e implementar un sistema que automatice completamente la recolección, estructuración y visualización de los datos de email marketing, eliminando la necesidad de construir reportes manuales en Excel.
+Este sistema debe permitir generar reportes semanales de manera automática, centralizar la información relevante en un solo lugar y presentar los resultados en un formato visual, claro y entendible para clientes. Adicionalmente, se busca que la información esté disponible en tiempo real o con actualizaciones frecuentes, permitiendo consultas inmediatas sin necesidad de reprocesar datos manualmente.
+________________
+
+
+Flujo actual de operación
+Actualmente, el flujo de trabajo consiste en acceder a Omnisend, seleccionar un rango de fechas determinado (por ejemplo, del 8 al 14 de un mes), y extraer manualmente métricas clave como revenue, open rate, métricas de campaña y comportamiento de la audiencia.
+Estos datos provienen de múltiples fuentes dentro de la plataforma: campañas enviadas manualmente, automatizaciones como correos de bienvenida o recuperación de carrito, dashboards generales y reportes de crecimiento de audiencia. Cada uno de estos módulos presenta información parcial, por lo que Renata debe consolidarla manualmente en un único archivo.
+Una vez recopilada la información, se realizan cálculos adicionales como sumas de revenue total semanal y se estructura el reporte final en Excel para su análisis y presentación.
+________________
+
+
+Requerimientos funcionales
+El sistema a desarrollar debe integrarse directamente con la API de Omnisend para extraer de forma automática toda la información relevante asociada a campañas, automatizaciones y crecimiento de audiencia.
+Debe ser capaz de consolidar métricas clave como revenue por campaña, revenue total semanal, open rate, conversiones asociadas a email, volumen de envíos, rebotes, tasa de spam, desuscripciones y valor promedio por orden. Adicionalmente, debe incluir información sobre el crecimiento de la base de datos, específicamente el número de nuevos suscriptores y desuscripciones en cada periodo.
+El sistema debe organizar automáticamente la información en cortes semanales fijos (por ejemplo: del 1 al 7, del 8 al 14, etc.), sin depender de inputs manuales. Estos cortes deben reflejar el estado de la información al momento del cierre, sin necesidad de recalcular datos históricos constantemente.
+También se requiere que el sistema permita diferenciar entre campañas manuales y automatizaciones, ya que ambas contribuyen al revenue y al desempeño general de la estrategia de email marketing.
+________________
+
+
+Requerimientos de visualización
+Uno de los puntos más críticos del proyecto es la presentación de la información. El sistema debe ofrecer un dashboard visual, limpio y fácil de interpretar, que permita reemplazar completamente el uso del Excel actual.
+Este dashboard debe incluir una vista ejecutiva donde se destaquen los principales indicadores del negocio, como revenue total, crecimiento de la base de datos, desempeño de campañas y métricas de engagement. Adicionalmente, debe permitir profundizar en el detalle de cada campaña o automatización, facilitando el análisis más granular cuando sea necesario.
+La interfaz debe ser intuitiva y estar diseñada pensando en su uso como herramienta de presentación para clientes, por lo que debe priorizar claridad, orden y estética. Idealmente, debe permitir branding o personalización visual para adaptarse a diferentes marcas.
+________________
+
+
+Requerimientos técnicos
+El sistema debe conectarse a la API de Omnisend para la extracción de datos en tiempo real o con una frecuencia de actualización alta. La arquitectura debe contemplar un proceso de transformación y agregación de datos que permita estructurar la información por periodos y categorías relevantes.
+Debe ser posible exportar o compartir los reportes generados, ya sea mediante enlaces o formatos descargables. Asimismo, el sistema debe estar preparado para escalar en el futuro hacia la gestión de múltiples cuentas o marcas dentro de una misma interfaz.
+________________
+
+
+Consideraciones de negocio
+El sistema debe reflejar fielmente la lógica operativa actual de Renata, en la cual las decisiones se toman con base en cortes semanales y no en datos que cambian retroactivamente. Por lo tanto, es importante que el modelo de datos respete esta lógica de cierre y no genere inconsistencias en los reportes históricos.
+Adicionalmente, aunque existen métricas más detalladas como la segmentación por origen de suscripción (popup vs footer), estas no son prioritarias para la toma de decisiones actual, por lo que el enfoque debe mantenerse en los indicadores que realmente impactan el análisis de performance.
+________________
+
+
+Oportunidades de evolución
+Una vez implementado el sistema base, existen oportunidades claras para ampliar su funcionalidad. Entre ellas se encuentra la incorporación de alertas automáticas frente a cambios relevantes en métricas (como aumentos en el spam rate o caídas en el open rate), así como la generación de insights automáticos que ayuden a interpretar el desempeño de las campañas.
+También se podría integrar un sistema de comparación entre periodos o entre diferentes marcas, permitiendo un análisis más estratégico del rendimiento de las campañas.
+________________
+
+
+Conclusión
+El proyecto busca transformar un proceso manual, repetitivo y poco escalable en un sistema automatizado, centralizado y visualmente eficiente. Más allá de la automatización del reporte, la solución apunta a mejorar la capacidad de análisis, facilitar la toma de decisiones y elevar la calidad de la información presentada a clientes.
+En esencia, se trata de convertir datos dispersos dentro de Omnisend en una herramienta clara, accionable y alineada con las necesidades reales del negocio.
