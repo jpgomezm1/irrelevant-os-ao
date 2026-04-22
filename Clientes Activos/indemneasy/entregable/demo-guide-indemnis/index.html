@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía del Demo — Indemneasy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --azul-oscuro: #1B2A4A;
+    --azul-medio: #2D4A7A;
+    --azul-electrico: #3366B8;
+    --azul-claro: #4A80CC;
+    --naranja: #E8673C;
+    --naranja-claro: #F28C5A;
+    --naranja-oscuro: #D05A30;
+    --gris-texto: #2A2A3A;
+    --gris-claro: #E6E9F0;
+    --crema: #F0F2F8;
+    --blanco: #FFFFFF;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #D0D4E0;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--azul-oscuro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -120px;
+    right: -60px;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(ellipse at 40% 40%, var(--azul-electrico), var(--azul-medio) 60%, transparent 75%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.85;
+    filter: blur(20px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 60px;
+    left: -100px;
+    width: 400px;
+    height: 600px;
+    background: radial-gradient(ellipse at 50% 30%, var(--naranja), var(--azul-medio) 55%, transparent 75%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.4;
+    filter: blur(30px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -80px;
+    left: -60px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(ellipse at 60% 50%, var(--naranja-claro), var(--naranja) 50%, transparent 75%);
+    border-radius: 50% 45% 55% 50%;
+    opacity: 0.3;
+    filter: blur(35px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    top: 200px;
+    right: -30px;
+    width: 350px;
+    height: 500px;
+    background: radial-gradient(ellipse at 40% 60%, var(--azul-claro), var(--azul-electrico) 50%, transparent 75%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.35;
+    filter: blur(25px);
+  }
+
+  .cover-bg-shapes .wave-lines {
+    position: absolute;
+    top: 50px;
+    right: 40px;
+    width: 400px;
+    height: 400px;
+    opacity: 0.08;
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 35px 65px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cover-brand-text {
+    font-family: 'Outfit', sans-serif;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 65px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -40px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--naranja), var(--naranja-claro));
+    margin-bottom: 35px;
+    border-radius: 2px;
+  }
+
+  .cover-expo {
+    font-family: 'Outfit', sans-serif;
+    color: var(--naranja-claro);
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.9;
+  }
+
+  .cover-title {
+    font-family: 'Outfit', sans-serif;
+    color: white;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Outfit', sans-serif;
+    color: rgba(255,255,255,0.55);
+    font-size: 19px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+  }
+
+  .cover-detail {
+    font-family: 'Inter', sans-serif;
+    color: rgba(255,255,255,0.35);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 0 65px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-version {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  /* ===================== INNER PAGES ===================== */
+  .inner-page {
+    padding: 50px 65px;
+  }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .header-icon {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, var(--azul-electrico), var(--naranja));
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-icon svg { width: 14px; height: 14px; }
+
+  .page-header-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--azul-medio);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+
+  .page-number {
+    font-size: 9px;
+    color: #AAAAAA;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+
+  .page-footer {
+    margin-top: 36px;
+    padding-top: 14px;
+    border-top: 1px solid var(--gris-claro);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    color: #BBBBBB;
+    letter-spacing: 1.5px;
+  }
+
+  .footer-confidential {
+    font-size: 8px;
+    color: #CCCCCC;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ===================== SECTION DIVIDERS ===================== */
+  .section-divider {
+    display: flex;
+    min-height: 260px;
+  }
+
+  .section-divider-left {
+    flex: 1;
+    background: var(--crema);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-divider-left .deco-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(51,102,184,0.08), rgba(232,103,60,0.06));
+    position: absolute;
+  }
+
+  .section-divider-right {
+    width: 45%;
+    background: linear-gradient(160deg, var(--azul-medio), var(--azul-oscuro));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-divider-right::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(232,103,60,0.12), transparent 60%);
+    border-radius: 50%;
+  }
+
+  .section-number {
+    font-family: 'Outfit', sans-serif;
+    font-size: 72px;
+    font-weight: 200;
+    position: absolute;
+    top: 35px;
+    right: 40px;
+    color: rgba(255,255,255,0.06);
+  }
+
+  .section-divider-right .section-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: white;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  .section-divider-right .section-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--naranja), var(--naranja-claro));
+    border-radius: 2px;
+  }
+
+  /* ===================== CONTENT ELEMENTS ===================== */
+  h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--azul-oscuro);
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  h2.small {
+    font-size: 21px;
+  }
+
+  .subtitle-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--azul-electrico), var(--naranja));
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+
+  h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--azul-medio);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 11px;
+    line-height: 1.75;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 12px;
+  }
+
+  ul li {
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--gris-texto);
+    font-weight: 300;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+
+  ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    background: var(--naranja);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  .highlight-box {
+    background: var(--crema);
+    border-left: 3px solid var(--azul-electrico);
+    padding: 18px 22px;
+    margin: 18px 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .highlight-box p {
+    margin-bottom: 0;
+    font-size: 11px;
+  }
+
+  .highlight-box-warning {
+    background: #FFF8F0;
+    border-left: 3px solid var(--naranja);
+    padding: 18px 22px;
+    margin: 18px 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .highlight-box-warning p {
+    margin-bottom: 0;
+    font-size: 11px;
+  }
+
+  /* ===================== EXEC SUMMARY ===================== */
+  .exec-summary {
+    background: var(--crema);
+    border-radius: 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    position: relative;
+    border: 1px solid rgba(51,102,184,0.08);
+  }
+
+  .exec-summary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--azul-electrico), var(--naranja), var(--naranja-claro));
+    border-radius: 10px 10px 0 0;
+  }
+
+  .exec-summary p {
+    font-size: 11.5px;
+    line-height: 1.85;
+    color: #444;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===================== OBJECTIVE GRID ===================== */
+  .objective-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0;
+  }
+
+  .objective-item {
+    padding: 16px 18px;
+    border: 1px solid #E6E9F0;
+    border-radius: 8px;
+    position: relative;
+    padding-left: 46px;
+  }
+
+  .objective-num {
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--naranja);
+    opacity: 0.4;
+  }
+
+  .objective-item p {
+    font-size: 10.5px;
+    margin: 0;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* ===================== ALCANCE BLOCKS ===================== */
+  .alcance-block {
+    margin-bottom: 18px;
+  }
+
+  .alcance-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: linear-gradient(135deg, var(--naranja), var(--naranja-oscuro));
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  .alcance-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--azul-oscuro);
+    display: inline;
+    vertical-align: middle;
+  }
+
+  .alcance-block ul {
+    margin-top: 6px;
+    margin-left: 36px;
+  }
+
+  /* ===================== PROPOSAL CARDS ===================== */
+  .proposal-card {
+    border: 1px solid #E6E9F0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .proposal-card-header {
+    background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+    padding: 22px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .proposal-card-header::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(232,103,60,0.15), transparent 60%);
+    border-radius: 50%;
+  }
+
+  .proposal-card-header h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .proposal-card-header .proposal-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    color: var(--naranja-claro);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .proposal-card-body {
+    padding: 24px 28px;
+  }
+
+  /* ===================== TABLE ===================== */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 10.5px;
+  }
+
+  .styled-table thead th {
+    background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .styled-table thead th:first-child { border-radius: 6px 0 0 0; }
+  .styled-table thead th:last-child { border-radius: 0 6px 0 0; }
+
+  .styled-table tbody td {
+    padding: 11px 16px;
+    border-bottom: 1px solid #EEECF0;
+    font-weight: 300;
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  .styled-table tbody tr:nth-child(even) { background: #FAFBFE; }
+
+  .styled-table .col-item {
+    font-weight: 500;
+    color: var(--azul-oscuro);
+    width: 30%;
+  }
+
+  /* ===================== TWO COLUMNS ===================== */
+  .two-cols { display: flex; gap: 36px; }
+  .two-cols .col { flex: 1; }
+
+  /* ===================== FEATURE LIST ===================== */
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .feature-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    background: var(--crema);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--naranja);
+    font-size: 16px;
+  }
+
+  .feature-text h5 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--azul-oscuro);
+    margin-bottom: 2px;
+  }
+
+  .feature-text p {
+    font-size: 10px;
+    margin: 0;
+    line-height: 1.6;
+    color: #666;
+  }
+
+  /* ===================== TEST CASE CARD ===================== */
+  .test-case {
+    background: var(--crema);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    border: 1px solid #E6E9F0;
+  }
+
+  .test-case-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    margin-bottom: 8px;
+  }
+
+  .test-case blockquote {
+    border-left: 2px solid var(--naranja);
+    padding-left: 12px;
+    margin: 8px 0;
+    font-style: italic;
+    font-size: 10px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .test-case .expected {
+    font-size: 10px;
+    color: #666;
+    margin-top: 6px;
+    margin-bottom: 0;
+  }
+
+  .test-case .expected strong {
+    color: var(--azul-medio);
+  }
+
+  /* ===================== FLOW DIAGRAM ===================== */
+  .flow-box {
+    background: var(--azul-oscuro);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 16px 0;
+    color: rgba(255,255,255,0.85);
+    font-family: 'Courier New', monospace;
+    font-size: 9.5px;
+    line-height: 1.5;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  /* ===================== CONTACT BAR ===================== */
+  .contact-bar {
+    background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+    padding: 24px 32px;
+    border-radius: 10px;
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-bar::before {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(232,103,60,0.1), transparent 60%);
+    border-radius: 50%;
+  }
+
+  .contact-bar .contact-text { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 300; opacity: 0.9; }
+  .contact-bar .contact-info { text-align: right; font-size: 10px; font-weight: 300; opacity: 0.7; line-height: 1.7; }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 340px;
+    background: var(--azul-oscuro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob1 {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(ellipse, var(--azul-electrico), transparent 65%);
+    border-radius: 50%;
+    opacity: 0.2;
+    filter: blur(30px);
+  }
+
+  .back-cover .blob2 {
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(ellipse, var(--naranja), transparent 65%);
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(30px);
+  }
+
+  /* ===================== CHAT PANELS ===================== */
+  .chat-panel {
+    border: 1px solid #E6E9F0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 14px 0;
+  }
+
+  .chat-panel-header {
+    background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+    padding: 12px 18px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 1px;
+  }
+
+  .chat-panel-body {
+    padding: 16px 18px;
+  }
+
+  .color-badge {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media screen and (max-width: 768px) {
+    body { background: var(--blanco); }
+    .page { width: 100%; box-shadow: none; border-bottom: 1px solid var(--gris-claro); }
+    .cover { height: 100svh; max-height: none; }
+    .cover-top { padding: 30px 28px 0; flex-direction: column; gap: 6px; }
+    .cover-center { padding: 0 28px; }
+    .cover-expo { font-size: 14px; letter-spacing: 5px; }
+    .cover-title { font-size: 34px; }
+    .cover-subtitle { font-size: 15px; }
+    .cover-bottom { padding: 0 28px 30px; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .cover-bg-shapes .blob1 { width: 300px; height: 300px; top: -80px; right: -80px; }
+    .cover-bg-shapes .blob2 { width: 220px; height: 350px; left: -80px; }
+    .cover-bg-shapes .blob3 { width: 250px; height: 250px; }
+    .cover-bg-shapes .blob4 { width: 200px; height: 300px; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { margin-bottom: 20px; padding-bottom: 10px; }
+    h2 { font-size: 22px; }
+    h2.small { font-size: 18px; }
+    p { font-size: 12px; line-height: 1.8; }
+    ul li { font-size: 12px; line-height: 1.75; }
+    .objective-grid { grid-template-columns: 1fr; gap: 10px; }
+    .two-cols { flex-direction: column; gap: 14px; }
+    .section-divider { flex-direction: column; min-height: auto; }
+    .section-divider-left { min-height: 80px; padding: 30px; }
+    .section-divider-right { width: 100%; padding: 35px 28px; }
+    .section-divider-right .section-title { font-size: 26px; }
+    .contact-bar { flex-direction: column; text-align: center; gap: 16px; padding: 22px 20px; }
+    .contact-bar .contact-info { text-align: center; }
+    .page-footer { flex-direction: column; gap: 4px; text-align: center; }
+    .back-cover { min-height: 280px; padding: 50px 28px; }
+    .flow-box { font-size: 8px; padding: 16px 18px; }
+  }
+
+  @media screen and (max-width: 380px) {
+    .cover-title { font-size: 28px; }
+    .cover-subtitle { font-size: 13px; }
+    .section-divider-right .section-title { font-size: 22px; }
+    .inner-page { padding: 24px 16px; }
+    h2 { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======== PORTADA ======== -->
+<div class="page cover">
+  <div class="cover-bg-shapes">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+    <div class="blob3"></div>
+    <div class="blob4"></div>
+    <svg class="wave-lines" viewBox="0 0 400 400" fill="none" stroke="white" stroke-width="0.5">
+      <circle cx="200" cy="200" r="60"/>
+      <circle cx="200" cy="200" r="90"/>
+      <circle cx="200" cy="200" r="120"/>
+      <circle cx="200" cy="200" r="150"/>
+      <circle cx="200" cy="200" r="180"/>
+    </svg>
+  </div>
+
+  <div class="cover-top" style="align-items: center; justify-content: flex-end;">
+    <img src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="irrelevant" style="height: 150px; opacity: 0.9; position: absolute; left: 65px; top: 15px;">
+    <div class="cover-brand-text" style="opacity: 0.4; font-size: 10px; letter-spacing: 2px; position: absolute; right: 65px; top: 85px;">Demo Funcional</div>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-line"></div>
+    <div class="cover-expo">INDEMNEASY</div>
+    <div class="cover-title">Guía del<br>Demo</div>
+    <div class="cover-subtitle">Primera aproximación funcional del sistema de intake automatizado</div>
+    <div class="cover-detail">Inteligencia Artificial &middot; Telegram &middot; Indemnizaciones</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-version">Febrero 2026</div>
+    <div class="cover-version" style="text-align: right; line-height: 1.6;">
+      Preparado por irrelevant
+    </div>
+  </div>
+</div>
+
+<!-- ======== QUE ES INDEMNEASY ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="page-header-title">irrelevant &mdash; Guía del Demo</span>
+    </div>
+    <span class="page-number">01</span>
+  </div>
+
+  <div class="highlight-box-warning">
+    <h4 style="margin-top:0; margin-bottom: 8px; font-size:10px; color: #92400E;">Nota importante</h4>
+    <p style="color: #78350F;">Esta es una primera aproximación / demo funcional del sistema. El objetivo es demostrar el flujo completo de intake automatizado y validar la experiencia antes de entrar en desarrollo de producción. Algunas funcionalidades (firma digital, generación de documentos legales) estan simuladas en esta versión.</p>
+  </div>
+
+  <h2>¿Quién es Clara?</h2>
+  <div class="subtitle-line"></div>
+
+  <div class="exec-summary">
+    <p>Clara es un agente de inteligencia artificial que automatiza la recepción y clasificación de casos legales de indemnización por accidentes. El sistema gestiona todo el proceso de forma conversacional, en español colombiano, y con un tono empático y profesional.</p>
+  </div>
+
+  <div class="objective-grid">
+    <div class="objective-item">
+      <span class="objective-num">01</span>
+      <p>Recibe casos por <strong>Telegram</strong> (y próximamente WhatsApp)</p>
+    </div>
+    <div class="objective-item">
+      <span class="objective-num">02</span>
+      <p>Conversa con el usuario para recopilar los hechos relevantes</p>
+    </div>
+    <div class="objective-item">
+      <span class="objective-num">03</span>
+      <p>Clasifica automáticamente el tipo de caso y su viabilidad</p>
+    </div>
+    <div class="objective-item">
+      <span class="objective-num">04</span>
+      <p>Estima el rango de indemnización cuando hay suficiente información</p>
+    </div>
+    <div class="objective-item">
+      <span class="objective-num">05</span>
+      <p>Ofrece el servicio y recopila datos personales + documentos</p>
+    </div>
+    <div class="objective-item">
+      <span class="objective-num">06</span>
+      <p>Deriva a revisión humana los casos que requieren criterio de un abogado</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== DIVIDER — COMO PROBAR ======== -->
+<div class="page section-divider">
+  <div class="section-divider-left">
+    <div class="deco-circle" style="top: 20px; left: -40px;"></div>
+    <div class="deco-circle" style="bottom: -30px; right: -20px; width: 120px; height: 120px;"></div>
+    <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="rgba(232,103,60,0.12)" stroke-width="1" stroke-linecap="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  </div>
+  <div class="section-divider-right">
+    <span class="section-number">02</span>
+    <div class="section-title">Cómo probar<br><span style="font-weight: 300; font-size: 18px; opacity: 0.6;">El agente en Telegram</span></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<!-- ======== COMO PROBAR EL AGENTE ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <span class="page-header-title">Cómo probar el agente</span>
+    </div>
+    <span class="page-number">02</span>
+  </div>
+
+  <h2>Acceso al agente y panel</h2>
+  <div class="subtitle-line"></div>
+
+  <div style="display: flex; gap: 14px; margin: 14px 0;">
+    <div style="flex: 1; background: var(--azul-oscuro); border-radius: 8px; padding: 16px 24px; text-align: center;">
+      <div style="font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; font-weight: 500;">Acceso al agente en Telegram</div>
+      <a href="http://t.me/indeamnessy_bot" style="color: var(--naranja-claro); font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 500; text-decoration: none; letter-spacing: 0.5px;">t.me/indeamnessy_bot</a>
+    </div>
+    <div style="flex: 1; background: var(--azul-oscuro); border-radius: 8px; padding: 16px 24px; text-align: center;">
+      <div style="font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; font-weight: 500;">Acceso al panel de administración</div>
+      <a href="https://indemeasy.vercel.app/home" style="color: var(--naranja-claro); font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 500; text-decoration: none; letter-spacing: 0.5px;">indemeasy.vercel.app/home</a>
+    </div>
+  </div>
+
+  <p>Para el agente, hacer clic en <strong>"Iniciar"</strong> o escribir <code style="background: var(--crema); padding: 2px 6px; border-radius: 3px; font-size: 10px;">/start</code> para comenzar la conversación.</p>
+
+  <h2 class="small" style="margin-top: 24px;">¿Qué esperar?</h2>
+  <div class="subtitle-line"></div>
+
+  <p>Al enviar el primer mensaje, el agente <strong>Clara</strong> se presenta y pide que le cuentes qué pasó. A partir de ahi, la conversación fluye de forma natural:</p>
+
+  <div class="alcance-block">
+    <span class="alcance-letter">1</span>
+    <span class="alcance-title">Clara se presenta</span>
+    <ul>
+      <li>Explica quién es, que todo es confidencial, y pide que describas los hechos</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter">2</span>
+    <span class="alcance-title">Recopilación de información</span>
+    <ul>
+      <li>Hace preguntas de seguimiento sobre lo que pasó, las lesiones, cuándo y dónde ocurrió</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter">3</span>
+    <span class="alcance-title">Clasificación</span>
+    <ul>
+      <li>Cuando tiene suficiente información, clasifica el caso automáticamente</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter">4</span>
+    <span class="alcance-title">Estimación</span>
+    <ul>
+      <li>Si el caso es viable, puede hacer preguntas adicionales para estimar la indemnización (ingresos, días de incapacidad, composición familiar)</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter">5</span>
+    <span class="alcance-title">Ofrecimiento del servicio</span>
+    <ul>
+      <li>Presenta el rango estimado y explica cómo funciona Indemneasy (20% solo si se recupera algo, sin costos iniciales)</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter">6</span>
+    <span class="alcance-title">Datos personales</span>
+    <ul>
+      <li>Si el usuario acepta, recopila nombre completo, cédula, teléfono y dirección</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter">7</span>
+    <span class="alcance-title">Documentos</span>
+    <ul>
+      <li>Solicita documentos de soporte (IPAT, historia clínica, denuncia penal)</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== CARACTERISTICAS DEL AGENTE ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      </div>
+      <span class="page-header-title">Características del agente</span>
+    </div>
+    <span class="page-number">03</span>
+  </div>
+
+  <h2>Características de Clara</h2>
+  <div class="subtitle-line"></div>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Mensajes cortos y naturales</h5>
+      <p>Responde con mensajes cortos (máximo 220 caracteres por burbuja), como un chat real. Envía múltiples burbujas por turno, como haría una persona en WhatsApp.</p>
+    </div>
+  </div>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Espanol colombiano</h5>
+      <p>Usa español colombiano informal ("contame", "escribime") para una experiencia natural y cercana.</p>
+    </div>
+  </div>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Reconocimiento de imágenes</h5>
+      <p>Si envías fotos, las reconoce y guarda como evidencia.</p>
+    </div>
+  </div>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Lenguaje preliminar</h5>
+      <p>Nunca hace afirmaciones legales definitivas. Usa lenguaje preliminar para proteger la integridad del proceso.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== DIVIDER — CASOS DE PRUEBA ======== -->
+<div class="page section-divider">
+  <div class="section-divider-left">
+    <div class="deco-circle" style="top: -20px; right: -50px;"></div>
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(232,103,60,0.12)" stroke-width="1" stroke-linecap="round">
+      <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+    </svg>
+  </div>
+  <div class="section-divider-right">
+    <span class="section-number">03</span>
+    <div class="section-title">Casos de<br>prueba<span style="font-weight: 300; font-size: 16px; opacity: 0.6; display: block;">Escenarios sugeridos para probar</span></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<!-- ======== CASOS DE PRUEBA 1 ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <span class="page-header-title">Casos de prueba sugeridos</span>
+    </div>
+    <span class="page-number">04</span>
+  </div>
+
+  <h2>Escenarios para probar el agente</h2>
+  <div class="subtitle-line"></div>
+
+  <div class="test-case">
+    <div class="test-case-title">Caso 1: Accidente de tránsito (el mas común)</div>
+    <blockquote>"Hola, el mes pasado tuve un accidente en moto en la avenida Boyaca en Bogotá. Un carro se paso el semáforo en rojo y me chocó. Me fracturé la pierna derecha y me dieron 45 días de incapacidad."</blockquote>
+    <p class="expected"><strong>Qué debería pasar:</strong> Clara recopila los datos, clasifica como "Accidente de tránsito" con alta confianza, y avanza a la estimación y ofrecimiento del servicio.</p>
+  </div>
+
+  <div class="test-case">
+    <div class="test-case-title">Caso 2: Caida en via pública</div>
+    <blockquote>"Buenas tardes, hace dos semanas me caí en un hueco en el andén frente al centro comercial Santafe en Medellín. Nadie había señalizado la obra. Me torcí el tobillo y me golpeé la cabeza."</blockquote>
+    <p class="expected"><strong>Qué debería pasar:</strong> Clasificación como "Caida en via pública". Clara puede preguntar más detalles sobre las lesiones y si fue al médico.</p>
+  </div>
+
+  <div class="test-case">
+    <div class="test-case-title">Caso 3: Accidente de origen común</div>
+    <blockquote>"Me resbalé en un supermercado porque el piso estaba mojado y no había ningún aviso. Me fracturé la muñeca y tuve que ir a urgencias."</blockquote>
+    <p class="expected"><strong>Qué debería pasar:</strong> Clasificación como "Accidente origen común" (responsabilidad del establecimiento comercial).</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== CASOS DE PRUEBA 2 ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <span class="page-header-title">Casos de prueba sugeridos</span>
+    </div>
+    <span class="page-number">05</span>
+  </div>
+
+  <h2>Más escenarios</h2>
+  <div class="subtitle-line"></div>
+
+  <div class="test-case">
+    <div class="test-case-title">Caso 4: Caso no viable (fuera de alcance)</div>
+    <blockquote>"Necesito ayuda, mi jefe me despidió sin justa causa y no me ha pagado la liquidación."</blockquote>
+    <p class="expected"><strong>Qué debería pasar:</strong> Clara escucha con empatía pero el sistema identifica que es un tema laboral fuera del alcance de Indemneasy. Se deriva a revisión humana o se cierra indicando que no aplica.</p>
+  </div>
+
+  <div class="test-case">
+    <div class="test-case-title">Caso 5: Información insuficiente</div>
+    <blockquote>"Tuve un problema y quiero saber si puedo reclamar algo."</blockquote>
+    <p class="expected"><strong>Qué debería pasar:</strong> Clara hace preguntas de seguimiento para entender qué pasó, cuándo, dónde, y si hubo lesiones. No clasifica hasta tener información mínima.</p>
+  </div>
+
+  <div class="test-case">
+    <div class="test-case-title">Caso 6: Caso con fallecimiento</div>
+    <blockquote>"Mi papa falleció en un accidente de tránsito hace 3 meses. Un bus de transporte publico lo atropelló en un paso peatonal."</blockquote>
+    <p class="expected"><strong>Qué debería pasar:</strong> Clara maneja el caso con sensibilidad especial. Clasifica como accidente de tránsito con fallecimiento y hace preguntas sobre composición familiar e ingresos del fallecido para estimar la indemnización.</p>
+  </div>
+
+  <div class="highlight-box">
+    <h4 style="margin-top: 0; margin-bottom: 8px;">Tips para la prueba</h4>
+    <ul style="margin-bottom: 0;">
+      <li>Puedes dar toda la información de una vez o ir respondiendo pregunta por pregunta &mdash; el agente se adapta</li>
+      <li>Puedes enviar fotos (del accidente, documentos medicos, etc.) y el sistema las reconoce</li>
+      <li>Si quieres probar la derivación a humanos, da información vaga o contradictoria para que la confianza sea baja</li>
+      <li>Cada conversación nueva con el bot es un caso nuevo</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== DIVIDER — DASHBOARD ======== -->
+<div class="page section-divider">
+  <div class="section-divider-left">
+    <div class="deco-circle" style="bottom: -40px; left: -30px;"></div>
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(51,102,184,0.12)" stroke-width="1" stroke-linecap="round">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>
+    </svg>
+  </div>
+  <div class="section-divider-right">
+    <span class="section-number">04</span>
+    <div class="section-title">Panel de<br>operaciones<span style="font-weight: 300; font-size: 16px; opacity: 0.6; display: block;">Dashboard</span></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<!-- ======== DASHBOARD — HOME ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+      </div>
+      <span class="page-header-title">Dashboard</span>
+    </div>
+    <span class="page-number">06</span>
+  </div>
+
+  <p>El dashboard es la herramienta para que el equipo de operaciones y los abogados monitoreen y gestionen los casos que llegan por el agente. Se accede desde el navegador.</p>
+
+  <h2 class="small">4.1 Inicio (Home)</h2>
+  <div class="subtitle-line"></div>
+
+  <p>Vista general con métricas en tiempo real:</p>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Tarjetas de resumen</h5>
+      <p>Casos de hoy, últimos 7 días, últimos 30 días, total general, y casos pendientes de revisión humana.</p>
+    </div>
+  </div>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Funnel de pipeline</h5>
+      <p>Visualización del flujo de casos por etapa: Registro &rarr; Intake &rarr; Clasificación &rarr; Servicio &rarr; Documentos &rarr; Cierre</p>
+    </div>
+  </div>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Grafico de estados</h5>
+      <p>Distribución de casos por estado actual.</p>
+    </div>
+  </div>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Casos recientes y feed de actividad</h5>
+      <p>Los últimos 10 casos con acceso directo al chat. Línea de tiempo con todos los eventos del sistema (caso creado, mensaje recibido, caso clasificado, etc.).</p>
+    </div>
+  </div>
+
+  <div class="feature-item">
+    <div class="feature-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+    </div>
+    <div class="feature-text">
+      <h5>Estado del sistema</h5>
+      <p>Indicador de salud de los componentes (base de datos, Redis, etc.).</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== DASHBOARD — CHATS ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <span class="page-header-title">Dashboard &mdash; Chats</span>
+    </div>
+    <span class="page-number">07</span>
+  </div>
+
+  <h2 class="small">4.2 Chats (Inbox)</h2>
+  <div class="subtitle-line"></div>
+
+  <p>Interfaz de chat en tres paneles, similar a WhatsApp Web:</p>
+
+  <div class="chat-panel">
+    <div class="chat-panel-header">Panel izquierdo &mdash; Lista de conversaciónes</div>
+    <div class="chat-panel-body">
+      <ul>
+        <li>Búsqueda por nombre</li>
+        <li>Cada conversación muestra: nombre, último mensaje, estado (badge de color), categoria y tiempo</li>
+        <li>Indicador de si la conversación la maneja Clara AI o un operador humano</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="chat-panel">
+    <div class="chat-panel-header">Panel central &mdash; Hilo del chat</div>
+    <div class="chat-panel-body">
+      <ul>
+        <li>Historial completo de mensajes entre el usuario, Clara AI y operadores</li>
+        <li>Los mensajes se distinguen visualmente:</li>
+      </ul>
+      <div style="padding-left: 18px; margin-bottom: 8px;">
+        <p style="margin-bottom: 4px;"><span class="color-badge" style="background: #8B5CF6;"></span><strong>Morado</strong> &rarr; mensajes del usuario</p>
+        <p style="margin-bottom: 4px;"><span class="color-badge" style="background: #4B5563;"></span><strong>Gris oscuro</strong> &rarr; mensajes de Clara (AI)</p>
+        <p style="margin-bottom: 4px;"><span class="color-badge" style="background: #10B981;"></span><strong>Verde</strong> &rarr; mensajes del operador humano</p>
+        <p style="margin-bottom: 4px;"><span class="color-badge" style="background: #9CA3AF;"></span><strong>Badges centrales</strong> &rarr; eventos del sistema</p>
+      </div>
+      <ul>
+        <li>Si un operador toma el control, aparece un campo de texto para responder directamente</li>
+        <li>Soporte para ver imágenes, PDFs y archivos adjuntos</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="chat-panel">
+    <div class="chat-panel-header">Panel derecho &mdash; Detalles del caso</div>
+    <div class="chat-panel-body">
+      <ul>
+        <li>Perfil del usuario (nombre, teléfono, canal)</li>
+        <li>Progreso visual del caso en el pipeline (6 etapas con indicador de avance)</li>
+        <li>Modo de atención (Clara AI / Operador humano) con botón para cambiar</li>
+        <li>Estado, categoria y porcentaje de confianza de la clasificación</li>
+        <li>Resumen del caso generado por la IA</li>
+        <li>Hechos extraidos (descripción del incidente, lesiones, fecha, lugar, etc.)</li>
+        <li>Datos personales (cédula, nombre, teléfono, dirección)</li>
+        <li>Documentos subidos por el usuario</li>
+        <li><strong>Acciones:</strong> Marcar caso como viable o no viable</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== FUNCIONALIDADES CHAT + CRM + ADMIN ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+      </div>
+      <span class="page-header-title">Dashboard &mdash; Funcionalidades</span>
+    </div>
+    <span class="page-number">08</span>
+  </div>
+
+  <h4 style="margin-top: 0;">Funcionalidades clave del chat</h4>
+
+  <div class="objective-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-bottom: 24px;">
+    <div class="objective-item" style="padding-left: 18px;">
+      <p><strong style="color: var(--azul-oscuro);">Tomar conversación</strong><br>Un operador puede tomar el control de cualquier conversación en cualquier momento, sacando a Clara del loop.</p>
+    </div>
+    <div class="objective-item" style="padding-left: 18px;">
+      <p><strong style="color: var(--azul-oscuro);">Devolver a Clara</strong><br>Puede devolver la conversación al agente AI.</p>
+    </div>
+    <div class="objective-item" style="padding-left: 18px;">
+      <p><strong style="color: var(--azul-oscuro);">Cerrar caso</strong><br>Marcar como viable (se pasa a abogado) o no viable (se cierra).</p>
+    </div>
+  </div>
+
+  <h2 class="small">4.3 CRM (Contactos y Casos)</h2>
+  <div class="subtitle-line"></div>
+
+  <p>Tabla con todos los casos del sistema, con filtros y búsqueda:</p>
+
+  <ul>
+    <li><strong>Búsqueda</strong> por nombre o teléfono</li>
+    <li><strong>Filtros</strong> por estado, categoria y canal</li>
+    <li><strong>Columnas:</strong> Nombre, teléfono, canal, estado, categoria, confianza, fecha de creación, ultima actividad</li>
+    <li><strong>Ordenamiento</strong> por fecha de creación o ultima actividad</li>
+    <li>Cada fila es clickeable y lleva directamente al chat del caso</li>
+  </ul>
+
+  <h2 class="small" style="margin-top: 24px;">4.4 Admin</h2>
+  <div class="subtitle-line"></div>
+
+  <p>Herramientas de administración para el entorno de pruebas:</p>
+
+  <ul>
+    <li><strong>Reiniciar base de datos</strong> &mdash; Limpia todos los datos para comenzar pruebas desde cero (requiere contraseña y confirmación escribiendo "RESET")</li>
+    <li><strong>Gestión de usuarios</strong> &mdash; Próximamente (placeholder para administración de operadores, roles y permisos)</li>
+  </ul>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== DIVIDER — FLUJO TECNICO ======== -->
+<div class="page section-divider">
+  <div class="section-divider-left">
+    <div class="deco-circle" style="top: 30px; right: -20px; width: 140px; height: 140px;"></div>
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(232,103,60,0.12)" stroke-width="1" stroke-linecap="round">
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+    </svg>
+  </div>
+  <div class="section-divider-right">
+    <span class="section-number">05</span>
+    <div class="section-title">Flujo técnico<br><span style="font-weight: 300; font-size: 16px; opacity: 0.6;">Arquitectura simplificada</span></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<!-- ======== FLUJO TECNICO ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <span class="page-header-title">Flujo técnico</span>
+    </div>
+    <span class="page-number">09</span>
+  </div>
+
+  <h2>Flujo técnico simplificado</h2>
+  <div class="subtitle-line"></div>
+
+  <div class="flow-box">Usuario envia mensaje en Telegram
+        |
+        v
+   Webhook recibe el mensaje
+   (responde 200 inmediatamente)
+        |
+        v
+   Worker procesa en background
+        |
+        v
+   +---------------------+
+   | Máquina de estados   |
+   | determina acción     |
+   +---------+-----------+
+             |
+     +-------+-------+----------+
+     v       v       v          v
+  Extraer  Pedir   Clasificar  Derivar a
+  info     mas      caso       humano
+           info
+     |       |       |          |
+     v       v       v          v
+   Guardar  Enviar  Evaluar   Notificar
+   hechos   pregunta viabilidad operador
+             |       |
+             v       v
+           Usuario  Ofrecer servicio
+           responde  -> Datos personales
+                     -> Documentos
+                     -> Cierre exitoso</div>
+
+  <div class="objective-grid" style="margin-top: 20px;">
+    <div class="objective-item" style="padding-left: 18px;">
+      <p><strong style="color: var(--azul-oscuro);">Sin demoras artificiales</strong><br>El webhook responde inmediato y todo se procesa en workers asincrónicos.</p>
+    </div>
+    <div class="objective-item" style="padding-left: 18px;">
+      <p><strong style="color: var(--azul-oscuro);">Event sourcing</strong><br>Cada acción queda registrada como un evento inmutable (auditoría completa).</p>
+    </div>
+    <div class="objective-item" style="padding-left: 18px;">
+      <p><strong style="color: var(--azul-oscuro);">Idempotencia</strong><br>Si Telegram reenvía un mensaje, el sistema lo detecta y no lo procesa dos veces.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== DIVIDER — ALCANCE ======== -->
+<div class="page section-divider">
+  <div class="section-divider-left">
+    <div class="deco-circle" style="top: -20px; right: -50px;"></div>
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(51,102,184,0.12)" stroke-width="1" stroke-linecap="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>
+    </svg>
+  </div>
+  <div class="section-divider-right">
+    <span class="section-number">06</span>
+    <div class="section-title">Alcance del<br>demo<span style="font-weight: 300; font-size: 16px; opacity: 0.6; display: block;">Funcional vs Pendiente</span></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<!-- ======== ALCANCE DEL DEMO ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <span class="page-header-title">Alcance del demo</span>
+    </div>
+    <span class="page-number">10</span>
+  </div>
+
+  <h2>Alcance de este demo</h2>
+  <div class="subtitle-line"></div>
+
+  <div class="two-cols">
+    <div class="col">
+      <div class="proposal-card">
+        <div class="proposal-card-header">
+          <div class="proposal-tag">Funcional</div>
+          <h3>Lo que SI esta funcional</h3>
+        </div>
+        <div class="proposal-card-body">
+          <ul>
+            <li>Conversacion completa de intake por Telegram</li>
+            <li>Clasificación automática de casos con IA (3 categorías + no viable)</li>
+            <li>Extracción inteligente de hechos del caso</li>
+            <li>Estimación de indemnización basada en jurisprudencia colombiana</li>
+            <li>Ofrecimiento del servicio con rango estimado</li>
+            <li>Recopilación de datos personales</li>
+            <li>Dashboard con métricas en tiempo real</li>
+            <li>Inbox de chat con historial completo</li>
+            <li>Toma de control por operador humano</li>
+            <li>CRM con filtros y búsqueda</li>
+            <li>Feed de actividad y auditoría</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="proposal-card" style="border-color: rgba(232,103,60,0.2);">
+        <div class="proposal-card-header" style="background: linear-gradient(135deg, var(--naranja-oscuro), var(--naranja));">
+          <div class="proposal-tag" style="color: #FED7AA;">Pendiente</div>
+          <h3>Simulado / Pendiente para producción</h3>
+        </div>
+        <div class="proposal-card-body">
+          <ul>
+            <li>Generación real de contratos y poderes (documento legal)</li>
+            <li>Firma digital integrada</li>
+            <li>Validación de documentos con visión artificial (estructura lista, modelo por entrenar)</li>
+            <li>Canal de WhatsApp (la arquitectura ya lo soporta, falta integración)</li>
+            <li>Notificaciones push a operadores</li>
+            <li>Autenticación y roles de operadores en el dashboard</li>
+            <li>Reportes y exportación de datos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== DIVIDER — PREGUNTAS FRECUENTES ======== -->
+<div class="page section-divider">
+  <div class="section-divider-left">
+    <div class="deco-circle" style="top: 30px; right: -20px; width: 140px; height: 140px;"></div>
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(232,103,60,0.12)" stroke-width="1" stroke-linecap="round">
+      <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>
+    </svg>
+  </div>
+  <div class="section-divider-right">
+    <span class="section-number">07</span>
+    <div class="section-title">Preguntas<br>frecuentes<span style="font-weight: 300; font-size: 16px; opacity: 0.6; display: block;">FAQ</span></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<!-- ======== PREGUNTAS FRECUENTES ======== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+      </div>
+      <span class="page-header-title">Preguntas frecuentes</span>
+    </div>
+    <span class="page-number">11</span>
+  </div>
+
+  <h2>Preguntas frecuentes</h2>
+  <div class="subtitle-line"></div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter" style="font-size: 11px;">?</span>
+    <span class="alcance-title">Puedo probar múltiples casos?</span>
+    <ul>
+      <li>Sí. Cada vez que inicias una conversación nueva con el bot, se crea un caso nuevo. Si quieres probar desde cero con la misma cuenta de Telegram, un administrador puede reiniciar la base de datos desde el panel de Admin.</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter" style="font-size: 11px;">?</span>
+    <span class="alcance-title">¿Las respuestas son siempre iguales?</span>
+    <ul>
+      <li>No. Clara usa IA generativa, así que las respuestas varían ligeramente en cada interacción. El flujo y la información que recopila sí son consistentes.</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter" style="font-size: 11px;">?</span>
+    <span class="alcance-title">¿Cuánto tarda en responder?</span>
+    <ul>
+      <li>Generalmente entre 3 y 8 segundos, dependiendo de la complejidad del mensaje y la carga del modelo de IA.</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter" style="font-size: 11px;">?</span>
+    <span class="alcance-title">¿Se guardan los datos?</span>
+    <ul>
+      <li>Sí, todo queda registrado en la base de datos. Para pruebas, se puede limpiar desde el panel de Admin. En producción, los datos estarán protegidos según la ley de habeas data colombiana.</li>
+    </ul>
+  </div>
+
+  <div class="alcance-block">
+    <span class="alcance-letter" style="font-size: 11px;">?</span>
+    <span class="alcance-title">¿El agente puede equivocarse?</span>
+    <ul>
+      <li>Sí, y por eso existe la revisión humana. Cuando la confianza de la clasificación es baja, el caso se deriva automáticamente a un abogado. Además, un operador puede tomar el control en cualquier momento desde el dashboard.</li>
+    </ul>
+  </div>
+
+  <div class="contact-bar" style="margin-top: 40px;">
+    <div>
+      <div class="contact-text">Indemneasy</div>
+      <div style="color: rgba(255,255,255,0.4); font-size: 10px; margin-top: 6px; font-weight: 300;">Demo funcional &middot; Febrero 2026</div>
+    </div>
+    <div class="contact-info">
+      <strong style="opacity:1; font-weight: 500;">Indemneasy</strong><br>
+      Reclamemos la indemnización que te mereces
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">irrelevant &mdash; Guía del Demo</span>
+    <span class="footer-confidential">Documento confidencial</span>
+  </div>
+</div>
+
+<!-- ======== CONTRAPORTADA ======== -->
+<div class="page back-cover">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  <div style="position: relative; z-index: 1; width: 100%; padding: 0 65px;">
+    <div style="font-family: 'Outfit', sans-serif; color: var(--naranja-claro); font-size: 12px; font-weight: 300; letter-spacing: 6px; text-transform: uppercase; margin-top: 0; margin-bottom: 10px; text-align: center; position: relative; top: 20px;">DEMO FUNCIONAL</div>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 24px;">
+      <div style="font-family: 'Outfit', sans-serif; color: white; font-size: 36px; font-weight: 700; letter-spacing: 1px;">indemn.easy</div>
+      <div style="font-family: 'Outfit', sans-serif; color: var(--naranja-claro); font-size: 26px; font-weight: 300;">&times;</div>
+      <img src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="irrelevant" style="height: 180px; opacity: 0.9;">
+    </div>
+    <div style="text-align: center;">
+      <div style="width: 80px; height: 2px; background: linear-gradient(90deg, var(--naranja), var(--naranja-claro)); margin: 14px auto; border-radius: 2px;"></div>
+      <div style="font-family: 'Inter', sans-serif; color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 300;">Guía del Demo &middot; 2026</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkpoint Semanal — Indemneasy | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --surface-3: #22222f;
+    --border: #2a2a3a;
+    --border-light: #3a3a4a;
+    --text: #e8e8f0;
+    --text-muted: #8888a0;
+    --text-dim: #5a5a70;
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,.12);
+    --orange: #f59e0b;
+    --orange-dim: rgba(245,158,11,.12);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,.12);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,.12);
+    --purple: #a855f7;
+    --purple-dim: rgba(168,85,247,.12);
+    --cyan: #06b6d4;
+    --cyan-dim: rgba(6,182,212,.12);
+    --pink: #ec4899;
+    --pink-dim: rgba(236,72,153,.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+  @media print {
+    body { background: white; color: #111; }
+    .hero { min-height: auto; padding: 3rem 2rem; }
+    .hero::before { display: none; }
+    .hero h1 span { -webkit-text-fill-color: #333; }
+    section { break-inside: avoid; page-break-inside: avoid; }
+    .card, .impact-card, .focus-block { background: #f9f9f9 !important; border-color: #ddd !important; color: #222 !important; }
+    .meta-card { background: #f9f9f9 !important; border-color: #ddd !important; }
+    .status-badge { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  .hero {
+    min-height: 60vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 4rem 2rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 25% 25%, rgba(99,102,241,.12), transparent),
+      radial-gradient(ellipse 500px 300px at 75% 65%, rgba(168,85,247,.08), transparent),
+      radial-gradient(ellipse 400px 250px at 50% 90%, rgba(236,72,153,.06), transparent);
+  }
+  .hero-logo { position: relative; margin-bottom: 1.5rem; }
+  .hero-logo img { height: 50px; opacity: .85; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.25);
+    border-radius: 100px; padding: .4rem 1.2rem;
+    font-size: .8rem; font-weight: 500; color: var(--accent-light);
+    margin-bottom: 2rem; position: relative;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.1; position: relative; margin-bottom: 1rem;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent-light), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 740px; position: relative; margin-bottom: 2.5rem; }
+  .hero-meta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; position: relative; }
+  .meta-card {
+    display: flex; flex-direction: column; align-items: center; gap: .25rem;
+    padding: 1rem 1.5rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  }
+  .meta-card .lbl { font-size: .65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: .1em; }
+  .meta-card .val { font-size: .95rem; font-weight: 600; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+  section { padding: 4rem 0; }
+
+  .section-header { display: flex; align-items: center; gap: .8rem; margin-bottom: 2rem; }
+  .section-emoji { font-size: 1.5rem; }
+  .section-header h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
+  .section-header .num {
+    font-size: .7rem; font-weight: 600; padding: .2rem .6rem; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+
+  p.prose { font-size: .98rem; color: var(--text); margin-bottom: 1.1rem; line-height: 1.75; }
+  p.prose + p.prose { margin-top: -.2rem; }
+  p.prose strong { color: var(--text); font-weight: 600; }
+
+  .big-lead {
+    font-size: 1.05rem; color: var(--text); font-weight: 400;
+    max-width: 820px; margin-bottom: 1.5rem; line-height: 1.75;
+    border-left: 3px solid var(--accent); padding-left: 1.2rem;
+  }
+
+  .status-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .5rem 1.2rem; border-radius: 100px;
+    font-size: .85rem; font-weight: 600; margin-bottom: 1.2rem;
+  }
+  .status-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,.25); }
+  .status-yellow { background: var(--orange-dim); color: var(--orange); border: 1px solid rgba(245,158,11,.25); }
+
+  .focus-block {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0; padding: 1.3rem 1.6rem;
+    margin-bottom: 1.5rem; font-size: .98rem; line-height: 1.75;
+  }
+
+  /* Definition — term + meaning */
+  .definition {
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1rem 1.3rem; margin: 1rem 0;
+    font-size: .9rem; color: var(--text-muted); line-height: 1.7;
+  }
+  .definition strong { color: var(--text); }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem 1.8rem; margin-bottom: 1rem;
+  }
+  .card h4 {
+    font-size: 1rem; font-weight: 700; color: var(--text);
+    margin-bottom: .6rem; line-height: 1.4;
+  }
+  .card p { font-size: .92rem; color: var(--text-muted); line-height: 1.75; }
+  .card p + p { margin-top: .7rem; }
+  .card p strong { color: var(--text); font-weight: 600; }
+  .card-accent-green { border-left: 3px solid var(--green); }
+  .card-accent-blue { border-left: 3px solid var(--blue); }
+  .card-accent-purple { border-left: 3px solid var(--purple); }
+  .card-accent-cyan { border-left: 3px solid var(--cyan); }
+  .card-accent-pink { border-left: 3px solid var(--pink); }
+  .card-accent-orange { border-left: 3px solid var(--orange); }
+
+  .highlight-list { list-style: none; padding: 0; }
+  .highlight-list li {
+    padding: .6rem 0; font-size: .95rem;
+    display: flex; align-items: flex-start; gap: .7rem; line-height: 1.7;
+  }
+  .highlight-list .bullet {
+    width: 24px; height: 24px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; font-weight: 700; flex-shrink: 0; margin-top: .15rem;
+  }
+  .highlight-list strong { color: var(--text); font-weight: 700; }
+
+  .impact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0;
+    padding: 1.1rem 1.4rem; margin-bottom: .8rem;
+    font-size: .92rem; line-height: 1.75;
+    display: flex; align-items: flex-start; gap: .8rem;
+  }
+  .impact-card .impact-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .impact-card strong { color: var(--text); font-weight: 600; }
+  .impact-green { border-left-color: var(--green); }
+  .impact-blue { border-left-color: var(--blue); }
+  .impact-purple { border-left-color: var(--purple); }
+  .impact-cyan { border-left-color: var(--cyan); }
+  .impact-orange { border-left-color: var(--orange); }
+  .impact-pink { border-left-color: var(--pink); }
+  .impact-red { border-left-color: var(--red); }
+
+  .numbered-list { list-style: none; padding: 0; counter-reset: step; }
+  .numbered-list li { padding: .85rem 0; font-size: .94rem; display: flex; align-items: flex-start; gap: .9rem; counter-increment: step; line-height: 1.7; }
+  .numbered-list .step-num {
+    width: 30px; height: 30px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .78rem; font-weight: 700; flex-shrink: 0;
+    background: var(--accent); color: white;
+  }
+  .numbered-list strong { color: var(--text); }
+
+  .arch-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    font-size: .9rem;
+  }
+  .arch-table th, .arch-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .arch-table th {
+    background: var(--surface-2); font-weight: 600; color: var(--text-muted);
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .08em;
+  }
+  .arch-table tr:last-child td { border-bottom: none; }
+  .arch-table td:first-child { font-weight: 600; color: var(--text); width: 30%; }
+  .arch-table td:nth-child(2) { color: var(--text-muted); line-height: 1.65; }
+
+  .progress-row { display: flex; align-items: center; gap: 1rem; padding: .6rem 0; font-size: .9rem; }
+  .progress-label { flex: 1; color: var(--text-muted); }
+  .progress-bar-wrap { flex: 2; height: 6px; background: var(--surface-3); border-radius: 100px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+  .progress-val { width: 60px; text-align: right; font-weight: 700; font-size: .85rem; color: var(--accent-light); }
+
+  .tag-pill {
+    display: inline-block; padding: .3rem .8rem;
+    border-radius: 100px; font-size: .78rem; font-weight: 600;
+    margin: .2rem .3rem .2rem 0;
+  }
+  .tag-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,.25); }
+  .tag-orange { background: var(--orange-dim); color: var(--orange); border: 1px solid rgba(245,158,11,.25); }
+  .tag-red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,.25); }
+
+  .divider { height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); }
+
+  .footer {
+    padding: 3rem 2rem; text-align: center;
+    color: var(--text-dim); font-size: .8rem;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center; gap: .8rem;
+  }
+  .footer img { height: 28px; opacity: .5; }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 1.2rem; }
+    section { padding: 3rem 0; }
+    .hero-meta { gap: .8rem; }
+    .hero { padding: 3rem 1.5rem; }
+    .progress-row { flex-wrap: wrap; }
+    .arch-table { font-size: .82rem; }
+    .arch-table th, .arch-table td { padding: .6rem; }
+    .arch-table td:first-child { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-logo">
+    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+  </div>
+  <div class="hero-badge">📩 CHECKPOINT SEMANAL — IRRELEVANT</div>
+  <h1><span>Indemneasy</span></h1>
+  <p class="hero-sub">Reporte de avances correspondiente a la semana del 16 al 22 de abril: migración del backend a Google Cloud Platform, mejoras en la experiencia conversacional del usuario, integración del banco de respuestas autoritativas del equipo y documentación del flujo operativo.</p>
+  <div class="hero-meta">
+    <div class="meta-card"><div class="lbl">Proyecto</div><div class="val">Indemneasy</div></div>
+    <div class="meta-card"><div class="lbl">Cliente</div><div class="val">Indemneasy</div></div>
+    <div class="meta-card"><div class="lbl">Semana</div><div class="val">16 Abr — 22 Abr 2026</div></div>
+    <div class="meta-card"><div class="lbl">Responsable</div><div class="val">Irrelevant Team</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 01. RESUMEN EJECUTIVO ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🧠</span>
+      <span class="num" style="background:var(--blue-dim);color:var(--blue);">01</span>
+      <h2>Resumen ejecutivo</h2>
+    </div>
+
+    <div class="status-badge status-green">🟢 Operación activa en Google Cloud — el agente está atendiendo tráfico real</div>
+
+    <div class="focus-block">
+      Durante esta semana se ejecutó el cambio de infraestructura más relevante del proyecto desde su inicio. El backend del agente Clara se migró desde un servidor alojado en DigitalOcean hacia una arquitectura gestionada sobre Google Cloud Platform, lo que mejora la disponibilidad, la seguridad y la capacidad de escalamiento del sistema. En paralelo se incorporaron dos mejoras visibles para el usuario final —indicador de redacción en tiempo real y transcripción automática de notas de voz—, se formalizó la documentación del flujo operativo del agente y se integró el banco de respuestas estándar que el equipo de Indemneasy utiliza diariamente.
+    </div>
+
+    <ul class="highlight-list">
+      <li>
+        <span class="bullet" style="background:var(--green-dim);color:var(--green);">✓</span>
+        <span><strong>Migración a Google Cloud Platform.</strong> El sistema dejó de depender de un único servidor virtual. Actualmente opera sobre servicios independientes gestionados por Google, con respaldos automáticos, certificados de seguridad renovados de forma automática y capacidad de escalar instancias según demanda.</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--blue-dim);color:var(--blue);">✓</span>
+        <span><strong>Indicador de actividad en Telegram.</strong> El usuario observa la señal de "escribiendo…" desde el instante en que envía un mensaje, lo que reduce la percepción de demora durante las respuestas más largas.</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--purple-dim);color:var(--purple);">✓</span>
+        <span><strong>Transcripción automática de notas de voz.</strong> Los mensajes de audio se convierten a texto mediante el servicio Whisper de OpenAI y se procesan en el mismo flujo que los mensajes escritos.</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--cyan-dim);color:var(--cyan);">✓</span>
+        <span><strong>Integración del banco de respuestas del equipo.</strong> Se transcribieron 32 de las 35 respuestas preconfiguradas que el equipo utiliza en WhatsApp Business y se integraron al agente con su redacción original, preservando el tono y la precisión legal definidos por Indemneasy.</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--pink-dim);color:var(--pink);">✓</span>
+        <span><strong>Documentación formal del flujo de casos de uso.</strong> Se elaboró un documento operativo que describe el recorrido completo del usuario, las reglas de negocio aplicadas y los tiempos esperados en cada fase. Permite auditoría por parte del equipo legal sin necesidad de acceso al código fuente.</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--orange-dim);color:var(--orange);">✓</span>
+        <span><strong>Seguimiento a la reunión operativa con el equipo.</strong> Los 20 compromisos recogidos en la reunión quedaron mapeados contra el estado actual del sistema: 14 confirmados como cumplidos, 3 en curso y 3 pendientes con plan de acción definido.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 02. MIGRACIÓN A GCP ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">☁️</span>
+      <span class="num" style="background:var(--purple-dim);color:var(--purple);">02</span>
+      <h2>Migración del backend a Google Cloud Platform</h2>
+    </div>
+
+    <p class="big-lead">El backend del sistema —es decir, todos los procesos que reciben los mensajes de los usuarios, consultan la base de datos, generan las respuestas y emiten los documentos— se trasladó desde un servidor virtual alojado en DigitalOcean hacia una arquitectura gestionada sobre Google Cloud Platform.</p>
+
+    <p class="prose">
+      La infraestructura anterior operaba sobre un único servidor virtual en el que se ejecutaban todos los procesos del sistema: la interfaz pública, los procesos de atención al usuario, la base de datos interna de coordinación, el certificado de seguridad y las tareas programadas. Este esquema presentaba dos limitaciones relevantes: concentraba todos los componentes en un único punto de falla y requería administración manual para actualizaciones, renovación de certificados y monitoreo.
+    </p>
+
+    <p class="prose">
+      La nueva arquitectura separa cada componente en un servicio independiente gestionado por Google. Este cambio aporta mejoras concretas en cuatro dimensiones:
+    </p>
+
+    <div class="card card-accent-green">
+      <h4>Disponibilidad y resiliencia</h4>
+      <p>Cada componente opera de forma aislada. Si uno presenta una falla, los demás continúan operando con normalidad y el componente afectado se reinicia automáticamente. La plataforma supervisa el estado de cada servicio y ejecuta los reinicios sin intervención manual.</p>
+    </div>
+
+    <div class="card card-accent-blue">
+      <h4>Escalamiento automático</h4>
+      <p>Ante un aumento de tráfico, la plataforma incrementa la cantidad de instancias del servicio que recibe los mensajes para mantener los tiempos de respuesta. Cuando el tráfico disminuye, las instancias adicionales se liberan. Esto permite absorber picos de demanda sin sobredimensionar la infraestructura en períodos de baja actividad.</p>
+    </div>
+
+    <div class="card card-accent-purple">
+      <h4>Seguridad y gestión de credenciales</h4>
+      <p>Las credenciales utilizadas por el sistema (conexión a la base de datos, claves de OpenAI, tokens de Telegram, contraseña administrativa) se trasladaron desde archivos de configuración locales hacia un servicio especializado de Google denominado Secret Manager, que registra cada acceso y controla los permisos. Adicionalmente se generó un token de verificación nuevo para proteger la recepción de mensajes de Telegram contra solicitudes fraudulentas.</p>
+    </div>
+
+    <div class="card card-accent-orange">
+      <h4>Procedimiento de despliegue</h4>
+      <p>El proceso de publicación de nuevas versiones del agente se automatizó. La compilación de la nueva versión, su almacenamiento y su despliegue en los servicios productivos se ejecutan mediante un solo comando, con una duración promedio de dos a tres minutos. La versión anterior queda preservada y es posible revertir a ella de forma inmediata.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 03. ARQUITECTURA ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🧩</span>
+      <span class="num" style="background:var(--green-dim);color:var(--green);">03</span>
+      <h2>Componentes del sistema y sus responsabilidades</h2>
+    </div>
+
+    <p class="big-lead">El backend del agente se compone actualmente de tres servicios principales que operan de forma coordinada, más los servicios auxiliares de almacenamiento y conectividad. Cada servicio tiene una responsabilidad delimitada y un ciclo de vida independiente.</p>
+
+    <div class="card card-accent-blue">
+      <h4>Servicio de recepción (API pública)</h4>
+      <p>Recibe los mensajes entrantes desde Telegram y atiende las solicitudes del panel de gestión del equipo legal. Es el único componente expuesto públicamente a internet. Registra el mensaje recibido y lo deposita en una cola de trabajo interna para su procesamiento posterior, retornando una confirmación inmediata a Telegram.</p>
+      <p><strong>Dimensionamiento:</strong> escala de forma automática entre 0 y 3 instancias según la demanda.</p>
+    </div>
+
+    <div class="card card-accent-purple">
+      <h4>Servicio de procesamiento (workers)</h4>
+      <p>Ejecuta las operaciones de fondo del agente: consulta del estado del caso en la base de datos, consulta a los modelos de OpenAI para redactar respuestas o clasificar información, generación de documentos legales en PDF (poder y contrato), envío de respuestas al usuario por Telegram y registro de eventos en la base de datos.</p>
+      <p><strong>Dimensionamiento:</strong> se mantiene al menos una instancia activa de forma permanente para garantizar que la cola de trabajo se consuma sin latencia.</p>
+    </div>
+
+    <div class="card card-accent-orange">
+      <h4>Servicio de tareas programadas</h4>
+      <p>Dispara de forma automática las tareas recurrentes del sistema: envío de recordatorios a usuarios que dejaron de responder, seguimiento médico mensual a clientes en proceso de recuperación, alertas por proximidad a la prescripción de un caso y archivado automático de leads inactivos. No interactúa con el usuario de manera directa; delega la ejecución al servicio de procesamiento.</p>
+    </div>
+
+    <p class="prose" style="margin-top: 1.5rem;">
+      <strong>Servicios auxiliares:</strong>
+    </p>
+
+    <table class="arch-table">
+      <thead>
+        <tr>
+          <th>Componente</th>
+          <th>Función</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Base de datos de coordinación (Memorystore Redis)</td>
+          <td>Almacén de alta velocidad donde la API deposita los mensajes pendientes de procesar y los workers los toman en orden. También funciona como buffer temporal para agrupar mensajes consecutivos del mismo usuario.</td>
+        </tr>
+        <tr>
+          <td>Conector de red privada (VPC Connector)</td>
+          <td>Establece el canal de comunicación privado entre los servicios y la base de datos de coordinación. La base de datos no es accesible desde internet; únicamente los componentes del proyecto pueden alcanzarla.</td>
+        </tr>
+        <tr>
+          <td>Almacén de documentos (Cloud Storage)</td>
+          <td>Bucket dedicado donde se archivan los documentos PDF generados por el agente (poderes, contratos, soportes). Accesible únicamente mediante la identidad de servicio del sistema.</td>
+        </tr>
+        <tr>
+          <td>Almacén de credenciales (Secret Manager)</td>
+          <td>Servicio de Google donde se custodian las claves y tokens sensibles del sistema. Cada acceso queda registrado y es auditable.</td>
+        </tr>
+        <tr>
+          <td>Identidad de servicio</td>
+          <td>Cuenta de servicio única asociada a los tres servicios principales, con permisos mínimos necesarios. Elimina la necesidad de mantener archivos de credenciales en disco.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 04. EXPERIENCIA CONVERSACIONAL ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">💬</span>
+      <span class="num" style="background:var(--cyan-dim);color:var(--cyan);">04</span>
+      <h2>Mejoras en la experiencia conversacional</h2>
+    </div>
+
+    <p class="big-lead">Se incorporaron dos funcionalidades que impactan directamente en la percepción del usuario durante la interacción con el agente.</p>
+
+    <div class="card card-accent-purple">
+      <h4>Indicador de redacción en tiempo real</h4>
+      <p>Telegram dispone de un indicador estándar que informa al usuario cuando el interlocutor está redactando un mensaje. El agente ahora emite ese indicador de forma continua mientras prepara su respuesta.</p>
+      <p>La emisión se dispara en tres momentos del procesamiento para garantizar continuidad visual: al recibir el mensaje, al iniciar la ejecución del procesamiento y previo a cada mensaje de respuesta. Entre mensajes sucesivos se aplica una pausa proporcional a la longitud del texto para aproximar el ritmo natural de redacción.</p>
+      <p><strong>Resultado:</strong> elimina los períodos de silencio aparente durante las respuestas que requieren llamadas a modelos de lenguaje, que pueden durar entre diez y quince segundos.</p>
+    </div>
+
+    <div class="card card-accent-cyan">
+      <h4>Procesamiento de notas de voz</h4>
+      <p>Los mensajes de audio enviados por el usuario se descargan, se transcriben automáticamente mediante el servicio Whisper de OpenAI configurado para español, y se procesan en el mismo flujo que los mensajes de texto. La extracción de información del caso, las preguntas de seguimiento y la clasificación de viabilidad operan sobre el texto resultante de la transcripción.</p>
+      <p>En caso de que la transcripción resulte vacía o ininteligible —situación previsible en audios con ruido ambiental significativo o dialectos regionales cerrados—, el agente solicita al usuario que remita el mensaje por texto.</p>
+      <p><strong>Resultado:</strong> amplía la accesibilidad del agente a usuarios que prefieren comunicarse por voz, preservando la calidad del flujo de intake.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 05. CATÁLOGO DE RESPUESTAS ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">📚</span>
+      <span class="num" style="background:var(--green-dim);color:var(--green);">05</span>
+      <h2>Integración del banco de respuestas autoritativas</h2>
+    </div>
+
+    <p class="big-lead">Se integró al agente el banco de respuestas estandarizadas que el equipo de Indemneasy utiliza diariamente en WhatsApp Business. Esta integración representa una mejora sustancial en la consistencia y la precisión legal de las respuestas del sistema.</p>
+
+    <p class="prose">
+      El equipo de Indemneasy mantiene en su WhatsApp Business un repositorio de aproximadamente 35 respuestas preconfiguradas que cubren las consultas más frecuentes del negocio: valor y estructura de honorarios, plazos del proceso, definición de la figura del poder, instrucciones de firma digital, motivos de no viabilidad, inclusión de víctimas indirectas, entre otras. La redacción de estas respuestas ha sido refinada durante año y medio de operación y constituye el estándar de comunicación definido por el equipo legal. Son respuestas clara y precisamente ajustadas, que evitan comprometer al equipo con afirmaciones imprecisas.
+    </p>
+
+    <p class="prose">
+      <strong>Objetivo de la integración:</strong> que el agente utilice la redacción exacta autorizada por el equipo cuando la consulta del usuario corresponda a uno de los temas cubiertos, en lugar de generar una versión reformulada mediante el modelo de lenguaje. Esto garantiza consistencia entre usuarios y preserva el lenguaje legal validado por el equipo.
+    </p>
+
+    <p class="prose">
+      <strong>Alcance de la implementación:</strong> se transcribieron 32 de las 35 respuestas; las 3 restantes (pertenecientes a la sección de póliza de responsabilidad civil) quedan pendientes de transcripción. Las 32 entradas se clasificaron, se estructuraron en un módulo del sistema y se integraron al agente bajo dos modalidades operativas.
+    </p>
+
+    <div class="card card-accent-blue" style="margin-top: 1.5rem;">
+      <h4>Modalidad 1: emisión automática por etapa del proceso</h4>
+      <p>Un subconjunto de las respuestas corresponde a momentos específicos del recorrido del usuario. Cuando la conversación alcanza uno de esos momentos, el agente emite la redacción exacta de la respuesta correspondiente sin recurrir al modelo de lenguaje para su generación.</p>
+      <p><strong>Respuestas integradas bajo esta modalidad:</strong></p>
+      <p>
+        • Mensaje de bienvenida, con la política de tratamiento de datos incluida<br>
+        • Presentación del servicio (con variantes diferenciadas para casos de SOAT, de póliza de responsabilidad civil y casos mixtos)<br>
+        • Solicitud de revisión de los documentos generados previo a la firma<br>
+        • Instrucciones del proceso de firma digital mediante AUCO<br>
+        • Mensaje de transición hacia el seguimiento médico posterior a la firma<br>
+        • Notificación al cliente de la radicación formal de la reclamación ante la aseguradora
+      </p>
+    </div>
+
+    <div class="card card-accent-purple">
+      <h4>Modalidad 2: clasificación semántica de consultas del usuario</h4>
+      <p>Cuando el usuario formula una pregunta, un modelo auxiliar de clasificación evalúa si la consulta está cubierta por alguna de las respuestas del banco. El clasificador opera exclusivamente en modo de identificación: no genera respuesta, únicamente identifica el tema tratado por el usuario.</p>
+      <p><strong>Si se identifica correspondencia:</strong> el agente entrega la redacción autorizada del banco de respuestas, sin invocar el modelo generativo.</p>
+      <p><strong>Si no se identifica correspondencia:</strong> la consulta continúa por el flujo habitual de respuesta generada, personalizada con el contexto del caso.</p>
+    </div>
+
+    <div class="card card-accent-orange">
+      <h4>Mecanismo de preservación del vocabulario legal</h4>
+      <p>El agente aplica por defecto una regla de simplificación del vocabulario técnico: sustituye términos como "SOAT", "póliza" o "prescripción" por equivalentes más cotidianos en los mensajes que redacta. Sin embargo, las respuestas del banco autorizado utilizan deliberadamente la terminología técnica correcta.</p>
+      <p>Se incorporó un mecanismo interno que identifica las respuestas provenientes del banco autorizado y las preserva íntegras, omitiendo la sustitución de términos y cualquier truncamiento. Esta distinción garantiza que el lenguaje legal validado por el equipo se emita tal como fue redactado.</p>
+    </div>
+
+    <p class="prose" style="margin-top: 1.5rem;">
+      <strong>Beneficios operativos de la integración:</strong>
+    </p>
+
+    <div class="impact-card impact-green">
+      <span class="impact-icon">🎯</span>
+      <div><strong>Consistencia de la comunicación.</strong> Todos los usuarios que formulen una misma consulta reciben la misma respuesta, con la redacción exacta autorizada.</div>
+    </div>
+
+    <div class="impact-card impact-cyan">
+      <span class="impact-icon">⚡</span>
+      <div><strong>Eficiencia operativa.</strong> Las consultas cubiertas por el banco no requieren invocación del modelo generativo, lo que reduce latencia y costo por turno.</div>
+    </div>
+
+    <div class="impact-card impact-purple">
+      <span class="impact-icon">🔄</span>
+      <div><strong>Centralización del mantenimiento.</strong> Cuando el equipo legal decida ajustar una respuesta, la modificación se realiza en un único punto y queda aplicada a todas las conversaciones futuras.</div>
+    </div>
+
+    <div class="impact-card impact-pink">
+      <span class="impact-icon">📝</span>
+      <div><strong>Trazabilidad legal.</strong> La redacción emitida en consultas frecuentes es auditable y coincide con la validada por el equipo, reduciendo el riesgo de afirmaciones no autorizadas.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 06. ALINEACIÓN OPERATIVA ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🤝</span>
+      <span class="num" style="background:var(--orange-dim);color:var(--orange);">06</span>
+      <h2>Seguimiento a la reunión operativa</h2>
+    </div>
+
+    <p class="big-lead">Se realizó la reunión operativa con el equipo de Indemneasy, de la que surgieron 20 puntos de trabajo. Cada uno fue contrastado con el estado actual del sistema.</p>
+
+    <div style="margin: 1.5rem 0;">
+      <span class="tag-pill tag-green">14 confirmados cumplidos</span>
+      <span class="tag-pill tag-orange">3 en curso</span>
+      <span class="tag-pill tag-red">3 pendientes</span>
+    </div>
+
+    <p class="prose"><strong>Puntos pendientes con plan de acción:</strong></p>
+
+    <div class="impact-card impact-red">
+      <span class="impact-icon">🎯</span>
+      <div><strong>Restricción del alcance a accidentes de tránsito.</strong> El equipo confirmó que Indemneasy atiende exclusivamente accidentes de tránsito y no casos de caídas en vía pública, accidentes laborales ni accidentes de origen común. Actualmente el agente escala estos casos a revisión humana; se modificará para que los cierre con un mensaje informativo de no aplicabilidad, optimizando el tiempo del equipo legal.</div>
+    </div>
+
+    <div class="impact-card impact-orange">
+      <span class="impact-icon">💛</span>
+      <div><strong>Incorporación de mensaje empático ante lesiones graves.</strong> Cuando el usuario describa lesiones severas (intervención quirúrgica, fracturas múltiples, fallecimiento) o envíe imágenes clínicas, el agente antepondrá un mensaje breve de empatía al curso normal de la conversación. Se implementará con un mecanismo de activación configurable para permitir su medición comparativa antes de fijarlo como comportamiento permanente.</div>
+    </div>
+
+    <div class="impact-card impact-purple">
+      <span class="impact-icon">📸</span>
+      <div><strong>Desactivación del análisis de imágenes durante la evaluación inicial.</strong> El equipo legal indicó que las imágenes de lesiones no aportan valor en la fase de determinación de viabilidad; su utilidad se concentra en las fases posteriores a la formalización del caso. El análisis automático de imágenes será restringido a esas fases posteriores.</div>
+    </div>
+
+    <div class="impact-card impact-cyan">
+      <span class="impact-icon">⏰</span>
+      <div><strong>Restricción horaria de recordatorios automáticos.</strong> Los mensajes de seguimiento automático a usuarios inactivos deben respetar un horario laboral (8:00 – 20:00 hora Colombia). Se verificará el comportamiento actual del planificador de tareas y se aplicarán las restricciones correspondientes.</div>
+    </div>
+
+    <div class="impact-card impact-green">
+      <span class="impact-icon">📚</span>
+      <div><strong>Banco de respuestas del equipo.</strong> <em>Cumplido durante esta semana.</em> Detalle en la sección 05.</div>
+    </div>
+
+    <div class="impact-card impact-pink">
+      <span class="impact-icon">🔀</span>
+      <div><strong>Diferenciación de origen del usuario.</strong> Los usuarios provenientes de la calculadora de la página web llegan con información previa del caso (nombre, fecha del accidente, edad, placa del vehículo). El agente deberá identificar ese origen y omitir las preguntas cuya respuesta ya está disponible. Pendiente coordinar con el equipo técnico la señalización adecuada del origen (parámetro en la URL, prefijo estándar en el mensaje inicial u otro mecanismo).</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 07. PROGRESO POR FRENTE ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">📊</span>
+      <span class="num" style="background:var(--purple-dim);color:var(--purple);">07</span>
+      <h2>Estado de avance por frente de trabajo</h2>
+    </div>
+
+    <p class="big-lead">Porcentaje de avance estimado en cada dimensión del proyecto al cierre de la semana.</p>
+
+    <div class="card">
+      <div class="progress-row"><div class="progress-label">Infraestructura sobre Google Cloud Platform</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%;"></div></div><div class="progress-val">100%</div></div>
+      <div class="progress-row"><div class="progress-label">Flujo completo del agente (28 estados)</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%;"></div></div><div class="progress-val">100%</div></div>
+      <div class="progress-row"><div class="progress-label">Recolección de datos personales</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%;"></div></div><div class="progress-val">100%</div></div>
+      <div class="progress-row"><div class="progress-label">Experiencia conversacional (indicador + audio)</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%;"></div></div><div class="progress-val">100%</div></div>
+      <div class="progress-row"><div class="progress-label">Clasificación SOAT vs Póliza y escalamiento</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:92%;"></div></div><div class="progress-val">92%</div></div>
+      <div class="progress-row"><div class="progress-label">Tareas de seguimiento automático</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:88%;"></div></div><div class="progress-val">88%</div></div>
+      <div class="progress-row"><div class="progress-label">Generación de poder y contrato</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:90%;"></div></div><div class="progress-val">90%</div></div>
+      <div class="progress-row"><div class="progress-label">Panel de gestión del equipo legal</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:85%;"></div></div><div class="progress-val">85%</div></div>
+      <div class="progress-row"><div class="progress-label">Integración del banco de respuestas autoritativas</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:92%;"></div></div><div class="progress-val">92%</div></div>
+      <div class="progress-row"><div class="progress-label">Clasificador semántico de consultas</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%;"></div></div><div class="progress-val">100%</div></div>
+      <div class="progress-row"><div class="progress-label">Compromisos operativos con el equipo</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:75%;"></div></div><div class="progress-val">75%</div></div>
+      <div class="progress-row"><div class="progress-label">Integración con WhatsApp Business API</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:15%;"></div></div><div class="progress-val">15%</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+  <span>Preparado por <strong style="color:var(--text-muted);">Irrelevant</strong> · Indemneasy — Checkpoint Semanal · 22 de Abril de 2026</span>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FASE 0 - IndemnEasy | Documento de Bases Formales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #7C3AED;
+            --primary-light: #A78BFA;
+            --primary-glow: rgba(139, 92, 246, 0.4);
+            --accent-green: #10B981;
+            --accent-cyan: #06B6D4;
+            --accent-orange: #F59E0B;
+            --accent-purple: #AD55D5;
+            --accent-red: #EF4444;
+            --bg-dark: #0F0A1F;
+            --bg-card: #1A1333;
+            --bg-elevated: #2D2250;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B4A8D2;
+            --text-muted: #7C6F9B;
+            --border: #3D2E6B;
+            --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #AD55D5 100%);
+            --gradient-secondary: linear-gradient(135deg, #06B6D4 0%, #10B981 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.7; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 100px 0; position: relative; }
+        .section-dark { background: var(--bg-card); }
+        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin-bottom: 16px; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-subtitle { font-size: 18px; color: var(--text-secondary); max-width: 700px; margin-bottom: 60px; }
+
+        /* HERO */
+        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(173, 85, 213, 0.15) 0%, transparent 50%), var(--bg-dark); }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B5CF6' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+        .hero-content { position: relative; z-index: 2; }
+        .hero-logos { display: flex; align-items: center; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
+        .hero-logo img { height: 56px; filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.3)); }
+        .hero-logo-client { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; background: var(--gradient-secondary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-separator { color: var(--text-muted); font-size: 14px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(173, 85, 213, 0.1)); border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 100px; font-size: 14px; color: var(--primary-light); margin-bottom: 28px; margin-right: 12px; }
+        .hero-badge::before { content: ''; width: 10px; height: 10px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.3); } }
+        .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 6vw, 72px); font-weight: 700; line-height: 1.1; margin-bottom: 28px; max-width: 900px; }
+        .hero-title span { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-description { font-size: 20px; color: var(--text-secondary); max-width: 700px; margin-bottom: 40px; line-height: 1.7; }
+        .hero-cta { display: flex; gap: 20px; margin-bottom: 80px; flex-wrap: wrap; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 12px; padding: 18px 36px; background: var(--gradient-primary); color: white; text-decoration: none; border-radius: 14px; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 20px var(--primary-glow); }
+        .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 12px 40px var(--primary-glow); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 10px; padding: 18px 32px; background: transparent; border: 1px solid var(--border); color: var(--text-primary); text-decoration: none; border-radius: 14px; font-weight: 500; transition: all 0.3s ease; }
+        .btn-secondary:hover { border-color: var(--primary); background: rgba(139, 92, 246, 0.1); }
+        .hero-meta { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 40px; padding-bottom: 80px; border-top: 1px solid var(--border); }
+        .hero-meta-item { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; transition: all 0.3s ease; }
+        .hero-meta-item:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .hero-meta-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(173, 85, 213, 0.1)); border-radius: 8px; font-size: 16px; }
+        .hero-meta-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+        .hero-meta-value { font-size: 15px; font-weight: 600; }
+
+        /* STATS */
+        .stats-bar { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; }
+        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 8px; }
+        .stat-label { font-size: 14px; color: var(--text-secondary); }
+
+        /* CARDS */
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-primary); opacity: 0; transition: opacity 0.3s ease; }
+        .card:hover::before { opacity: 1; }
+        .card-icon { width: 56px; height: 56px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(173, 85, 213, 0.1)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 20px; }
+        .card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+        .card p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+        .card-stat { margin-top: 16px; padding: 12px 16px; background: rgba(6, 182, 212, 0.1); border-radius: 12px; display: flex; align-items: center; gap: 10px; }
+        .card-stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: var(--accent-cyan); }
+        .card-stat-label { font-size: 12px; color: var(--text-muted); }
+
+        /* GRID LAYOUTS */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+
+        /* BADGES */
+        .badge { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 100px; margin-bottom: 24px; font-size: 14px; font-weight: 600; }
+        .badge-purple { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(173, 85, 213, 0.1)); border: 1px solid rgba(139, 92, 246, 0.4); color: var(--primary-light); }
+        .badge-red { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: var(--accent-red); }
+        .badge-green { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--accent-green); }
+        .badge-cyan { background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); color: var(--accent-cyan); }
+        .badge-orange { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--accent-orange); }
+
+        /* PAIN POINTS */
+        .pain-point { display: flex; gap: 16px; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; transition: all 0.3s ease; margin-bottom: 16px; }
+        .pain-point:hover { border-color: rgba(239, 68, 68, 0.5); transform: translateX(8px); box-shadow: 0 12px 32px rgba(239, 68, 68, 0.1); }
+        .pain-icon { width: 52px; height: 52px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.08)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+        .pain-content h4 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+        .pain-content p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+        /* QUOTE BOX */
+        .quote-box { background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(173, 85, 213, 0.05)); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 16px; padding: 24px 28px; margin: 24px 0; }
+        .quote-text { font-size: 16px; color: var(--text-secondary); font-style: italic; line-height: 1.7; }
+        .quote-text strong { color: var(--text-primary); font-style: normal; }
+
+        /* SCOPE TABLE */
+        .scope-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 32px 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+        .scope-table th { background: var(--bg-elevated); padding: 20px 24px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; text-align: left; }
+        .scope-table th:nth-child(1) { color: var(--accent-green); }
+        .scope-table th:nth-child(2) { color: var(--accent-red); }
+        .scope-table th:nth-child(3) { color: var(--accent-orange); }
+        .scope-table td { padding: 16px 24px; background: var(--bg-card); border-top: 1px solid var(--border); font-size: 14px; color: var(--text-secondary); vertical-align: top; }
+        .scope-table tr:hover td { background: var(--bg-elevated); }
+        .scope-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+        .scope-icon { flex-shrink: 0; }
+
+        /* FLOW DIAGRAM */
+        .flow-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin: 40px 0; }
+        .flow-step { background: var(--bg-card); border: 2px solid var(--border); border-radius: 20px; padding: 24px 20px; text-align: center; min-width: 140px; max-width: 160px; transition: all 0.3s ease; position: relative; }
+        .flow-step:hover { border-color: var(--primary); transform: translateY(-4px); }
+        .flow-step-number { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 28px; height: 28px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; }
+        .flow-step-icon { font-size: 32px; margin-bottom: 12px; }
+        .flow-step-title { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .flow-step-desc { font-size: 12px; color: var(--text-muted); }
+        .flow-arrow { display: flex; align-items: center; font-size: 24px; color: var(--primary); }
+        @media(max-width: 768px) { .flow-arrow { display: none; } }
+
+        /* SPRINT CARDS */
+        .sprint-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .sprint-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; overflow: hidden; transition: all 0.3s ease; }
+        .sprint-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15); }
+        .sprint-header { padding: 24px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--border); }
+        .sprint-number { width: 56px; height: 56px; background: var(--gradient-primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; }
+        .sprint-info h4 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+        .sprint-info span { font-size: 13px; color: var(--text-muted); }
+        .sprint-body { padding: 24px; }
+        .sprint-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+        .sprint-deliverables { display: flex; flex-direction: column; gap: 8px; }
+        .sprint-deliverable { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-secondary); }
+        .sprint-deliverable-icon { color: var(--accent-green); flex-shrink: 0; }
+
+        /* CHECKLIST */
+        .checklist { display: flex; flex-direction: column; gap: 12px; }
+        .checklist-item { display: flex; align-items: flex-start; gap: 16px; padding: 20px 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; transition: all 0.3s ease; }
+        .checklist-item:hover { border-color: var(--accent-cyan); transform: translateX(8px); }
+        .checklist-date { min-width: 100px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: var(--accent-cyan); font-size: 13px; }
+        .checklist-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+        .checklist-content p { font-size: 13px; color: var(--text-secondary); }
+
+        /* KPI STATS */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+        .kpi-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; text-align: center; transition: all 0.3s ease; }
+        .kpi-card:hover { border-color: var(--accent-green); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15); }
+        .kpi-value { font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 700; background: var(--gradient-secondary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 12px; }
+        .kpi-label { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+        .kpi-desc { font-size: 13px; color: var(--text-secondary); }
+
+        /* RISK CARDS */
+        .risk-card { display: flex; gap: 20px; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; margin-bottom: 16px; transition: all 0.3s ease; }
+        .risk-card:hover { border-color: var(--accent-orange); transform: translateX(4px); }
+        .risk-icon { width: 52px; height: 52px; background: rgba(245, 158, 11, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+        .risk-content { flex: 1; }
+        .risk-content h4 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        .risk-content p { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; }
+        .risk-mitigation { display: flex; align-items: flex-start; gap: 8px; padding: 12px 16px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; font-size: 13px; color: var(--accent-green); }
+
+        /* SIGNATURES */
+        .signatures-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 48px; margin-top: 60px; }
+        .signatures-title { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 48px; }
+        .signatures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; }
+        .signature-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 16px; padding: 32px; text-align: center; }
+        .signature-role { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+        .signature-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 24px; }
+        .signature-line { border-bottom: 2px dashed var(--border); padding-bottom: 40px; margin-bottom: 16px; }
+        .signature-date { font-size: 13px; color: var(--text-muted); }
+
+        /* FOOTER */
+        .footer { padding: 80px 0 40px; background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(139, 92, 246, 0.03) 100%); border-top: 1px solid var(--border); }
+        .footer-content { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 48px; }
+        .footer-logo img { height: 56px; filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.3)); }
+        .footer-tagline { font-size: 14px; color: var(--text-muted); letter-spacing: 0.1em; margin-top: 16px; }
+        .footer-contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
+        .footer-contact-card { display: flex; align-items: center; gap: 16px; padding: 20px 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; text-decoration: none; transition: all 0.3s ease; }
+        .footer-contact-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+        .footer-contact-icon { width: 48px; height: 48px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(173, 85, 213, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .footer-contact-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+        .footer-contact-value { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+        .footer-divider { width: 100%; max-width: 600px; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+        .footer-confidential { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 100px; font-size: 12px; color: var(--primary-light); font-weight: 600; text-transform: uppercase; }
+        .footer-legal { font-size: 13px; color: var(--text-muted); max-width: 600px; line-height: 1.8; }
+        .footer-copyright { font-size: 13px; color: var(--text-muted); padding-top: 24px; border-top: 1px solid var(--border); width: 100%; }
+
+        /* NAV FLOATING */
+        .nav-floating { position: fixed; top: 24px; right: 24px; z-index: 1000; display: flex; gap: 12px; }
+        .nav-item { width: 48px; height: 48px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
+        .nav-item:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 24px var(--primary-glow); }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            .section { padding: 60px 0; }
+            .hero { min-height: auto; padding: 100px 0 60px; }
+            .hero-title { font-size: 36px; }
+            .hero-cta { flex-direction: column; }
+            .stats-grid { gap: 24px; }
+            .stat-number { font-size: 36px; }
+            .flow-container { flex-direction: column; align-items: center; }
+            .flow-step { max-width: 100%; }
+            .signatures-grid { grid-template-columns: 1fr; }
+            .nav-floating { top: auto; bottom: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV FLOATING -->
+    <nav class="nav-floating">
+        <a href="#problema" class="nav-item" title="Problema">1</a>
+        <a href="#solucion" class="nav-item" title="Solución">2</a>
+        <a href="#cronograma" class="nav-item" title="Cronograma">3</a>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-logos">
+                    <div class="hero-logo">
+                        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant">
+                    </div>
+                    <span class="logo-separator">presenta</span>
+                    <div class="hero-logo">
+                        <span class="hero-logo-client">IndemnEasy</span>
+                    </div>
+                </div>
+
+                <div class="hero-badge">FASE 0 - Documento de Bases Formales</div>
+                <div class="hero-badge" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.4); color: var(--accent-green);">Versión 1.0</div>
+
+                <h1 class="hero-title">Automatización Integral con <span>Inteligencia Artificial</span> para Servicios Jurídicos</h1>
+
+                <p class="hero-description">
+                    Transformamos la operación de IndemnEasy con tres soluciones integradas: un <strong>Agente de Ventas con IA</strong> en WhatsApp que atiende y formaliza clientes 24/7, un <strong>CRM inteligente</strong> que centraliza el seguimiento de +800 casos, y un <strong>Agente Jurídico</strong> donde el equipo genera documentos legales en segundos.
+                </p>
+
+                <div class="hero-cta">
+                    <a href="#problema" class="btn-secondary">
+                        <span>1</span>
+                        <span>Ver Problema Actual</span>
+                    </a>
+                    <a href="#solucion" class="btn-secondary">
+                        <span>2</span>
+                        <span>Ver Solución Propuesta</span>
+                    </a>
+                    <a href="#cronograma" class="btn-secondary">
+                        <span>3</span>
+                        <span>Ver Cronograma</span>
+                    </a>
+                </div>
+
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <div class="hero-meta-icon">1</div>
+                        <div>
+                            <div class="hero-meta-label">Producto 1</div>
+                            <div class="hero-meta-value">Agente de Ventas (WhatsApp)</div>
+                        </div>
+                    </div>
+                    <div class="hero-meta-item">
+                        <div class="hero-meta-icon">2</div>
+                        <div>
+                            <div class="hero-meta-label">Producto 2</div>
+                            <div class="hero-meta-value">CRM Inteligente</div>
+                        </div>
+                    </div>
+                    <div class="hero-meta-item">
+                        <div class="hero-meta-icon">3</div>
+                        <div>
+                            <div class="hero-meta-label">Producto 3</div>
+                            <div class="hero-meta-value">Agente Jurídico</div>
+                        </div>
+                    </div>
+                    <div class="hero-meta-item">
+                        <div class="hero-meta-icon">4</div>
+                        <div>
+                            <div class="hero-meta-label">Industria</div>
+                            <div class="hero-meta-value">Servicios Jurídicos / Acc. Tránsito y Laborales</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STATS BAR ========== -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Productos Integrados</div>
+                </div>
+                <div>
+                    <div class="stat-number">800+</div>
+                    <div class="stat-label">Clientes Activos en Seguimiento</div>
+                </div>
+                <div>
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Disponibilidad del Agente</div>
+                </div>
+                <div>
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Tipos de Caso (Tránsito + Laboral)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PARTE 1: CONTEXTO Y PROBLEMA ========== -->
+
+    <!-- PROBLEMA ACTUAL -->
+    <section id="problema" class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-red">Sección 1</div>
+                <h2 class="section-title">El Problema Actual</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    IndemnEasy es una empresa 100% de servicios jurídicos dedicada a la representación de víctimas de accidentes de tránsito y accidentes laborales para la reclamación de indemnizaciones. A pesar de tener procesos estandarizados, la operación actual presenta cuellos de botella críticos que limitan el crecimiento y la eficiencia.
+                </p>
+            </div>
+
+            <div class="quote-box" style="border-left-color: var(--accent-red);">
+                <p class="quote-text">
+                    <strong>El cuello de botella</strong> está en la operatividad manual: desde la atención comercial por WhatsApp, pasando por el seguimiento de +800 clientes en Excel, hasta la generación manual de documentos jurídicos. Todo depende del tiempo y capacidad del equipo humano, lo cual no es sostenible con el volumen actual de casos.
+                </p>
+            </div>
+
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; margin: 48px 0 32px;">Situaciones que enfrentan hoy:</h3>
+
+            <div class="pain-point">
+                <div class="pain-icon">1</div>
+                <div class="pain-content">
+                    <h4>Atención Comercial Manual y Limitada en Horario</h4>
+                    <p>Los clientes llegan por WhatsApp tras usar la calculadora o ver pauta digital. El pico de mensajes es el domingo en la tarde, un momento en que el equipo debería descansar. Fuera de horario, los clientes quedan sin respuesta y se enfrían.</p>
+                </div>
+            </div>
+
+            <div class="pain-point">
+                <div class="pain-icon">2</div>
+                <div class="pain-content">
+                    <h4>Información Desestructurada de los Clientes</h4>
+                    <p>Los clientes envían textos largos, audios, imágenes y PDFs con mucha información innecesaria. Una pregunta simple como "fecha del accidente" genera respuestas con contexto irrelevante que alarga el proceso de validación.</p>
+                </div>
+            </div>
+
+            <div class="pain-point">
+                <div class="pain-icon">3</div>
+                <div class="pain-content">
+                    <h4>Seguimiento Manual de +800 Clientes en Excel</h4>
+                    <p>El seguimiento de clientes activos (en proceso de recuperación) se gestiona en un Excel en Google Drive. El equipo debe filtrar manualmente y contactar personas una por una, una tarea que con el volumen actual se vuelve insostenible.</p>
+                </div>
+            </div>
+
+            <div class="pain-point">
+                <div class="pain-icon">4</div>
+                <div class="pain-content">
+                    <h4>Generación Manual de Documentos Jurídicos</h4>
+                    <p>Contratos, poderes, derechos de petición y tutelas se generan manualmente cambiando datos en plantillas Word. Con el volumen de casos, esta tarea repetitiva consume tiempo valioso del equipo jurídico.</p>
+                </div>
+            </div>
+
+            <div class="pain-point">
+                <div class="pain-icon">5</div>
+                <div class="pain-content">
+                    <h4>Formalización Lenta del Cliente</h4>
+                    <p>La formalización (contrato + poder) requiere tomar datos del chat, llenar plantillas manualmente y enviar documentos al cliente para revisión. Un proceso que podría ser automático toma tiempo innecesario.</p>
+                </div>
+            </div>
+
+            <div class="pain-point">
+                <div class="pain-icon">6</div>
+                <div class="pain-content">
+                    <h4>Recolección de Documentos Sin Trazabilidad Automática</h4>
+                    <p>Los clientes deben enviar documentos específicos (historia clínica, certificación bancaria, etc.) que se reciben por WhatsApp, se cargan en Drive y se "chulean" en una lista. Este proceso manual pierde trazabilidad y genera errores.</p>
+                </div>
+            </div>
+
+            <!-- Actores -->
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; margin: 48px 0 32px; text-align: center;">Actores Involucrados</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+                <div class="card">
+                    <div class="card-icon">1</div>
+                    <h4>Víctima de Accidente de Tránsito o Laboral</h4>
+                    <p>Persona que sufrió un accidente de tránsito o accidente laboral y busca reclamar su indemnización. Llega a través de pauta digital (Google/Meta) o la calculadora web. Nivel socioeconómico variado, comunicación predominantemente por WhatsApp.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">2</div>
+                    <h4>Equipo Operativo</h4>
+                    <p>Personas del equipo que atienden la conversación inicial por WhatsApp, hacen seguimiento mensual a clientes, recolectan documentos y gestionan la formalización de servicios.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">3</div>
+                    <h4>Equipo Jurídico</h4>
+                    <p>Encargados de generar los documentos legales (derechos de petición, tutelas, etc.), presentar reclamaciones ante aseguradoras y ARL, y gestionar los procesos jurídicos de cada caso.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">4</div>
+                    <h4>Fundadores</h4>
+                    <p>Lideran la operación y estrategia de la empresa. Actualmente involucrados directamente en la atención comercial, validación de casos y supervision de procesos internos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALCANCE -->
+    <section class="section section-dark">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-purple">Sección 2</div>
+                <h2 class="section-title">Qué Vamos a Construir</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Este es el alcance cerrado del proyecto. Todo lo que está en "Incluye" será entregado. Lo demás queda fuera de esta fase.
+                </p>
+            </div>
+
+            <!-- Alcance por producto -->
+            <div class="grid-3" style="margin-bottom: 48px;">
+                <div class="card" style="border-top: 4px solid var(--accent-cyan);">
+                    <div style="display: inline-block; padding: 4px 12px; background: rgba(6, 182, 212, 0.15); border: 1px solid var(--accent-cyan); border-radius: 100px; color: var(--accent-cyan); font-size: 12px; font-weight: 600; margin-bottom: 16px;">Producto 1</div>
+                    <h4 style="color: var(--accent-cyan); margin-bottom: 16px;">Agente de Ventas</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Integración con WhatsApp Business</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Flujo de conversación estandarizado</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Clasificación automática de casos</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Procesamiento de audios, imágenes y PDFs</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Generación de contrato y poder</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Escalamiento inteligente a humano</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Soporte a consultas de clientes existentes</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Respuesta 24/7</div>
+                    </div>
+                </div>
+
+                <div class="card" style="border-top: 4px solid var(--accent-green);">
+                    <div style="display: inline-block; padding: 4px 12px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); border-radius: 100px; color: var(--accent-green); font-size: 12px; font-weight: 600; margin-bottom: 16px;">Producto 2</div>
+                    <h4 style="color: var(--accent-green); margin-bottom: 16px;">CRM Inteligente</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> CRM conectado al agente de ventas</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Creación automática de leads y clientes</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Seguimiento automático mensual</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Gestión de estados y trazabilidad</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Recolección y chequeo de documentos</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Migración de datos desde Excel actual</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Registro de interacciones y novedades</div>
+                    </div>
+                </div>
+
+                <div class="card" style="border-top: 4px solid var(--primary-light);">
+                    <div style="display: inline-block; padding: 4px 12px; background: rgba(139, 92, 246, 0.15); border: 1px solid var(--primary-light); border-radius: 100px; color: var(--primary-light); font-size: 12px; font-weight: 600; margin-bottom: 16px;">Producto 3</div>
+                    <h4 style="color: var(--primary-light); margin-bottom: 16px;">Agente Jurídico</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Interfaz web para el equipo jurídico</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Generación de derechos de petición</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Generación de tutelas</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Generación de otros escritos repetitivos</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Conexión con datos del CRM</div>
+                        <div class="scope-item"><span class="scope-icon" style="color: var(--accent-green);">+</span> Paso de aprobación antes de presentar</div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="scope-table">
+                <thead>
+                    <tr>
+                        <th style="color: var(--accent-red);">Excluye</th>
+                        <th style="color: var(--accent-orange);">Futuras Fases</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="scope-item"><span class="scope-icon">-</span> Envío automático de documentos a entidades por correo</div>
+
+                            <div class="scope-item"><span class="scope-icon">-</span> Plataforma self-service para autoreclamación</div>
+                            <div class="scope-item"><span class="scope-icon">-</span> Modificación de la calculadora web existente</div>
+                            <div class="scope-item"><span class="scope-icon">-</span> Integración con Instagram</div>
+                            <div class="scope-item"><span class="scope-icon">-</span> Integración con AUCO (firma + identidad)</div>
+                            <div class="scope-item"><span class="scope-icon">-</span> Modelo de asociación comercial</div>
+                        </td>
+                        <td>
+                            <div class="scope-item"><span class="scope-icon">?</span> Envío automatizado de documentos jurídicos a entidades</div>
+
+                            <div class="scope-item"><span class="scope-icon">?</span> Plataforma de autoreclamación para clientes</div>
+                            <div class="scope-item"><span class="scope-icon">?</span> Analytics avanzados y reportería</div>
+                            <div class="scope-item"><span class="scope-icon">?</span> Integración con AUCO (firma electrónica)</div>
+                            <div class="scope-item"><span class="scope-icon">?</span> Agente en la página web</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="quote-box" style="margin-top: 32px; border-left-color: var(--accent-orange);">
+                <p class="quote-text">
+                    <strong>Nota sobre el envío a entidades:</strong> En esta primera fase, el agente jurídico generará los documentos listos para presentar, pero el envío por correo a la entidad correspondiente quedará como un paso manual con aprobación del equipo. En fases futuras se automatizará este último paso con un flujo de aprobación previo.
+                </p>
+            </div>
+
+            <div class="grid-2" style="margin-top: 48px;">
+                <div class="card" style="border-left: 4px solid var(--primary);">
+                    <div class="card-icon">*</div>
+                    <h4>Responsabilidad de Irrelevant</h4>
+                    <p>Desarrollo completo de los tres productos: Agente de Ventas (WhatsApp), CRM inteligente (seguimiento + migración de datos) y Agente Jurídico (generación de documentos). Entrenamiento, integración y despliegue en producción.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--accent-cyan);">
+                    <div class="card-icon">*</div>
+                    <h4>Responsabilidad de IndemnEasy</h4>
+                    <p>Acceso al WhatsApp Business y API, plantillas de documentos (contrato, poder, derechos de petición, tutelas), preguntas para validación de viabilidad, tipos de caso y criterios de clasificación, base de datos de clientes actual.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PARTE 2: LA SOLUCION ========== -->
+
+    <!-- FLUJO GENERAL - AGENTE COMERCIAL -->
+    <section id="solucion" class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-cyan">Sección 3</div>
+                <h2 class="section-title">Cómo Funciona el Agente Comercial</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    El cliente llega por WhatsApp y el agente de IA lo atiende de forma inmediata, natural y profesional. Valida la viabilidad del caso, clasifica el tipo de proceso y formaliza al cliente de forma automática.
+                </p>
+            </div>
+
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div class="flow-step-number">1</div>
+                    <div class="flow-step-icon">></div>
+                    <div class="flow-step-title">CONTACTO</div>
+                    <div class="flow-step-desc">Cliente llega por WhatsApp</div>
+                </div>
+                <div class="flow-arrow">></div>
+                <div class="flow-step">
+                    <div class="flow-step-number">2</div>
+                    <div class="flow-step-icon">@</div>
+                    <div class="flow-step-title">BIENVENIDA</div>
+                    <div class="flow-step-desc">Agente saluda de forma empática</div>
+                </div>
+                <div class="flow-arrow">></div>
+                <div class="flow-step">
+                    <div class="flow-step-number">3</div>
+                    <div class="flow-step-icon">?</div>
+                    <div class="flow-step-title">VALIDACION</div>
+                    <div class="flow-step-desc">Preguntas estandarizadas</div>
+                </div>
+                <div class="flow-arrow">></div>
+                <div class="flow-step">
+                    <div class="flow-step-number">4</div>
+                    <div class="flow-step-icon">~</div>
+                    <div class="flow-step-title">CLASIFICACION</div>
+                    <div class="flow-step-desc">Viable / No viable + tipo</div>
+                </div>
+                <div class="flow-arrow">></div>
+                <div class="flow-step">
+                    <div class="flow-step-number">5</div>
+                    <div class="flow-step-icon">=</div>
+                    <div class="flow-step-title">PROPUESTA</div>
+                    <div class="flow-step-desc">Informa servicio y condiciones</div>
+                </div>
+                <div class="flow-arrow">></div>
+                <div class="flow-step">
+                    <div class="flow-step-number">6</div>
+                    <div class="flow-step-icon">!</div>
+                    <div class="flow-step-title">FORMALIZACION</div>
+                    <div class="flow-step-desc">Genera contrato y poder</div>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 48px; border-left-color: var(--accent-green);">
+                <p class="quote-text">
+                    El agente no es un chatbot con opciones predefinidas. Es una <strong>IA conversacional</strong> que entiende lenguaje natural, como hablar con una persona que tiene toda la información siempre presente. Es profesional, empático y adaptado al perfil del público de IndemnEasy. El cliente siempre sabrá que está hablando con un agente de IA.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAPACIDADES DEL AGENTE -->
+    <section class="section section-dark">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-green">Sección 4</div>
+                <h2 class="section-title">Los 3 Productos</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Tres soluciones integradas que cubren todo el flujo operativo de IndemnEasy: desde la captación del cliente hasta la generación de documentos jurídicos para la reclamación.
+                </p>
+            </div>
+
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin-bottom: 32px; text-align: center; color: var(--accent-cyan);">Producto 1: Agente de Ventas (WhatsApp)</h3>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">1</div>
+                    <h4>Validación de Viabilidad</h4>
+                    <p>El agente hace las preguntas estandarizadas (tipo de accidente, fecha, ciudad, lesiones, cirugía, SOAT/ARL, aseguradora) y limita las respuestas para obtener solo la información necesaria, evitando texto innecesario.</p>
+                    <div class="card-stat">
+                        <div class="card-stat-value">#1</div>
+                        <div class="card-stat-label">Función principal</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">2</div>
+                    <h4>Clasificación Automática de Casos</h4>
+                    <p>Con la información recolectada, determina si el caso es viable o no, y lo clasifica según el tipo de proceso interno (SOAT, póliza, ARL, etc.) para darle la respuesta correspondiente al cliente.</p>
+                    <div class="card-stat">
+                        <div class="card-stat-value">#2</div>
+                        <div class="card-stat-label">Función principal</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">3</div>
+                    <h4>Formalización Automática</h4>
+                    <p>Recolecta los datos necesarios del cliente, llena automáticamente las plantillas de contrato y poder, y genera los documentos listos para que el cliente los revise y el equipo los envie para firma.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">4</div>
+                    <h4>Procesamiento Multimedia</h4>
+                    <p>Puede leer imágenes, PDFs y escuchar audios que envien los clientes. Si no puede interpretar algo con claridad, lo reconoce y escala a un asesor humano en lugar de dar información incorrecta.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">5</div>
+                    <h4>Escalamiento Inteligente</h4>
+                    <p>Si el agente detecta que no puede resolver la consulta o que el caso ya está calificado para intervención humana, escala automáticamente con todo el contexto de la conversación al equipo correspondiente.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">6</div>
+                    <h4>Respuesta Inmediata 24/7</h4>
+                    <p>El agente responde al instante, sin importar la hora ni el día. Especialmente los domingos en la tarde (pico de mensajes), el cliente siempre recibirá atención inmediata.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">7</div>
+                    <h4>Seguimiento Automático de Clientes</h4>
+                    <p>Contacta mensualmente a los clientes en proceso de recuperación, pregunta por novedades, actualiza el estado en el CRM y mantiene la presencia de IndemnEasy durante todo el proceso.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">8</div>
+                    <h4>Recolección de Documentos</h4>
+                    <p>Envía al cliente la lista de documentos requeridos según su tipo de caso, explica dónde obtener cada uno y registra automáticamente cuando el cliente los envía, actualizando el estado en el sistema.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">9</div>
+                    <h4>Soporte a Consultas Existentes</h4>
+                    <p>Los clientes activos pueden hacer preguntas sobre su proceso, dudas generales o solicitar información, y el agente responde usando la base documental y el contexto del caso. Si es complejo, escala a humano.</p>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 2: CRM -->
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin: 60px 0 32px; text-align: center; color: var(--accent-green);">Producto 2: CRM Inteligente</h3>
+
+            <div class="grid-3">
+                <div class="card" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));">1</div>
+                    <h4>Creación Automática de Clientes</h4>
+                    <p>Cuando el agente de ventas formaliza un cliente por WhatsApp, automáticamente se crea su ficha en el CRM con todos los datos recolectados: información personal, tipo de caso, aseguradora y documentos recibidos.</p>
+                </div>
+
+                <div class="card" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));">2</div>
+                    <h4>Seguimiento Automático Mensual</h4>
+                    <p>El CRM programa y ejecuta contactos mensuales con cada cliente en recuperación a través de WhatsApp. Pregunta por novedades, registra la respuesta y actualiza el estado del caso automáticamente.</p>
+                    <div class="card-stat" style="background: rgba(16, 185, 129, 0.1);">
+                        <div class="card-stat-value" style="color: var(--accent-green);">800+</div>
+                        <div class="card-stat-label">clientes bajo seguimiento</div>
+                    </div>
+                </div>
+
+                <div class="card" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));">3</div>
+                    <h4>Gestión de Estados y Trazabilidad</h4>
+                    <p>Cada cliente tiene un estado visible (en recuperación, documentos pendientes, listo para reclamar, etc.). Se registra la fecha del último seguimiento, novedades y toda la trazabilidad del caso.</p>
+                </div>
+
+                <div class="card" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));">4</div>
+                    <h4>Recolección y Chequeo de Documentos</h4>
+                    <p>El CRM lleva el control de qué documentos ha enviado cada cliente y cuáles le faltan. La lista es estandarizada por tipo de caso. Cuando el cliente envía un documento, se actualiza automáticamente.</p>
+                </div>
+
+                <div class="card" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));">5</div>
+                    <h4>Migración de Datos</h4>
+                    <p>Toda la información actual del Excel en Google Drive (+800 clientes, estados, seguimientos) se migra al CRM de forma precisa y validada, sin pérdida de datos.</p>
+                </div>
+
+                <div class="card" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));">6</div>
+                    <h4>Conexión con Agente y Dashboard</h4>
+                    <p>El CRM es el centro de datos: el agente de ventas alimenta la información de nuevos clientes y el Agente Jurídico consume los datos del cliente para generar documentos.</p>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 3: DASHBOARD JURIDICO -->
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin: 60px 0 32px; text-align: center; color: var(--primary-light);">Producto 3: Agente Jurídico</h3>
+
+            <div class="grid-3">
+                <div class="card" style="border: 1px solid rgba(139, 92, 246, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(173, 85, 213, 0.1));">1</div>
+                    <h4>Generación de Derechos de Petición</h4>
+                    <p>El equipo selecciona el cliente y el tipo de documento en la interfaz. El sistema toma los datos desde el CRM, llena la plantilla automáticamente y entrega el derecho de petición listo para revisión y presentación.</p>
+                </div>
+
+                <div class="card" style="border: 1px solid rgba(139, 92, 246, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(173, 85, 213, 0.1));">2</div>
+                    <h4>Generación de Tutelas</h4>
+                    <p>Mismo principio: el equipo ingresa los datos necesarios en la interfaz, selecciona la plantilla correspondiente y el sistema genera la tutela completa cambiando nombres, aseguradora y datos específicos del caso.</p>
+                </div>
+
+                <div class="card" style="border: 1px solid rgba(139, 92, 246, 0.3);">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(173, 85, 213, 0.1));">3</div>
+                    <h4>Otros Documentos Jurídicos</h4>
+                    <p>Cualquier documento repetitivo que funcione con plantilla (escritos, solicitudes, notificaciones) se genera desde la interfaz ingresando los datos requeridos. El documento se descarga listo para revisión antes de enviar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESCENARIOS DE USO -->
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-purple">Sección 5</div>
+                <h2 class="section-title">Escenarios Típicos de Uso</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Estos son los escenarios más comunes que los agentes manejarán, basados en las necesidades reales identificadas en la reunión con el equipo de IndemnEasy.
+                </p>
+            </div>
+
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 24px; color: var(--accent-cyan);">Producto 1: Agente de Ventas</h3>
+
+            <div class="pain-point" style="border-color: var(--border);">
+                <div class="pain-icon" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.08));">1</div>
+                <div class="pain-content">
+                    <h4>Escenario: "Tuve un accidente y quiero saber si tengo derecho"</h4>
+                    <p><strong>Cliente:</strong> "Hola, tuve un accidente en el trabajo y quiero saber si puedo reclamar algo."<br>
+                    <strong>Agente:</strong> Saluda de forma empática, identifica el tipo de accidente (tránsito o laboral) y hace las preguntas estandarizadas correspondientes. Recibe solo las respuestas necesarias. Clasifica el caso como viable, informa la propuesta de servicio y procede con la formalización.</p>
+                </div>
+            </div>
+
+            <div class="pain-point" style="border-color: var(--border);">
+                <div class="pain-icon" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.08));">2</div>
+                <div class="pain-content">
+                    <h4>Escenario: "Use la calculadora y quiero más información"</h4>
+                    <p><strong>Cliente:</strong> Llega a WhatsApp desde la calculadora web con datos ya ingresados.<br>
+                    <strong>Agente:</strong> Reconoce que el cliente viene de la calculadora, tiene contexto del estimado y le da la bienvenida personalizada. Valida datos faltantes y guía la formalización de forma ágil.</p>
+                </div>
+            </div>
+
+            <div class="pain-point" style="border-color: var(--border);">
+                <div class="pain-icon" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.08));">3</div>
+                <div class="pain-content">
+                    <h4>Escenario: Seguimiento Mensual a Cliente Activo</h4>
+                    <p><strong>Agente:</strong> "Hola [nombre], te escribimos de IndemnEasy. Queremos saber cómo va tu proceso de recuperación. Tienes alguna novedad o actualización médica?"<br>
+                    <strong>Cliente:</strong> Responde con novedades. El agente registra la información, actualiza el CRM y si hay algo relevante, notifica al equipo.</p>
+                </div>
+            </div>
+
+            <div class="pain-point" style="border-color: var(--border);">
+                <div class="pain-icon" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.08));">4</div>
+                <div class="pain-content">
+                    <h4>Escenario: Cliente con Consulta Durante el Proceso</h4>
+                    <p><strong>Cliente:</strong> "Hola, ya soy cliente, tengo una duda sobre los documentos que debo enviar."<br>
+                    <strong>Agente:</strong> Identifica al cliente, consulta su caso en el CRM y le informa qué documentos le faltan, dónde obtenerlos y cómo enviarlos. Si la consulta es compleja, escala a un asesor humano con todo el contexto.</p>
+                </div>
+            </div>
+
+            <!-- ESCENARIOS CRM -->
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin: 48px 0 24px; color: var(--accent-green);">Producto 2: CRM Inteligente</h3>
+
+            <div class="pain-point" style="border-color: var(--border);">
+                <div class="pain-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.08));">5</div>
+                <div class="pain-content">
+                    <h4>Escenario: Seguimiento Mensual Automático</h4>
+                    <p><strong>CRM:</strong> Detecta que han pasado 30 días desde el último contacto con el cliente Pedro López y activa el seguimiento por WhatsApp.<br>
+                    <strong>Agente:</strong> "Hola Pedro, te escribimos de IndemnEasy. Queremos saber cómo va tu recuperación. Tienes alguna novedad?" El cliente responde, el CRM registra la novedad y actualiza la fecha de seguimiento.</p>
+                </div>
+            </div>
+
+            <div class="pain-point" style="border-color: var(--border);">
+                <div class="pain-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.08));">6</div>
+                <div class="pain-content">
+                    <h4>Escenario: Control de Documentos Pendientes</h4>
+                    <p><strong>CRM:</strong> Muestra que a la cliente Ana Martínez le faltan 2 documentos: certificación bancaria y certificación laboral.<br>
+                    <strong>Agente:</strong> Le envía un recordatorio por WhatsApp con la lista de documentos pendientes y le explica dónde obtenerlos. Cuando Ana los envía, el CRM los marca como recibidos automáticamente.</p>
+                </div>
+            </div>
+
+            <!-- ESCENARIOS DASHBOARD -->
+            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin: 48px 0 24px; color: var(--primary-light);">Producto 3: Agente Jurídico</h3>
+
+            <div class="pain-point" style="border-color: var(--border);">
+                <div class="pain-icon" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.08));">7</div>
+                <div class="pain-content">
+                    <h4>Escenario: Generar un Derecho de Petición (SOAT o ARL)</h4>
+                    <p><strong>Equipo:</strong> Entra al Dashboard, selecciona "Derecho de Petición", busca al cliente Juan Pérez y selecciona el tipo de caso (SOAT o ARL).<br>
+                    <strong>Dashboard:</strong> Carga automáticamente los datos del cliente desde el CRM, llena la plantilla correspondiente y genera el documento listo para descarga, revisión y presentación ante la aseguradora o ARL.</p>
+                </div>
+            </div>
+
+            <div class="pain-point" style="border-color: var(--border);">
+                <div class="pain-icon" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.08));">8</div>
+                <div class="pain-content">
+                    <h4>Escenario: Generar una Tutela para Reclamar Incapacidades</h4>
+                    <p><strong>Equipo:</strong> Selecciona "Tutela", busca a la cliente MaríaGarcía, elige la aseguradora o ARL y el tipo de reclamación.<br>
+                    <strong>Dashboard:</strong> Toma los datos del caso, genera la tutela completa con la plantilla correspondiente y la entrega lista para descarga, revisión y presentación.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PARTE 3: EJECUCION Y APROBACION ========== -->
+
+    <!-- CRONOGRAMA -->
+    <section id="cronograma" class="section section-dark">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-cyan">Sección 6</div>
+                <h2 class="section-title">Cronograma del Proyecto</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    El proyecto se desarrolla en fases incrementales, avanzando los tres productos en paralelo. Al final de cada fase hay una reunión de revisión con el equipo de IndemnEasy.
+                </p>
+            </div>
+
+            <div class="sprint-grid">
+                <div class="sprint-card">
+                    <div class="sprint-header">
+                        <div class="sprint-number">1</div>
+                        <div class="sprint-info">
+                            <h4>Configuración Base</h4>
+                            <span>Semanas 1-3</span>
+                        </div>
+                    </div>
+                    <div class="sprint-body">
+                        <div class="sprint-desc">Configuración del agente de ventas, diseño del CRM y estructura del Agente Jurídico.</div>
+                        <div class="sprint-deliverables">
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>Agente:</strong> Configurado, conectado a WhatsApp y con flujo de preguntas</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>Agente:</strong> Clasificación de casos y escalamiento a humano</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>CRM:</strong> Estructura base y modelo de datos definido</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>Dashboard:</strong> Diseño de interfaz y plantillas base cargadas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sprint-card">
+                    <div class="sprint-header">
+                        <div class="sprint-number">2</div>
+                        <div class="sprint-info">
+                            <h4>Integraciones y CRM</h4>
+                            <span>Semanas 4-6</span>
+                        </div>
+                    </div>
+                    <div class="sprint-body">
+                        <div class="sprint-desc">Integraciones clave: CRM funcional, generación de documentos y Dashboard operativo.</div>
+                        <div class="sprint-deliverables">
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>Agente:</strong> Generación automática de contrato y poder</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>CRM:</strong> Funcional y conectado al agente de ventas</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>CRM:</strong> Migración de datos desde Excel</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>Dashboard:</strong> Generación de derechos de petición y tutelas</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>Dashboard:</strong> Flujo de aprobación antes de presentar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sprint-card">
+                    <div class="sprint-header">
+                        <div class="sprint-number">3</div>
+                        <div class="sprint-info">
+                            <h4>Seguimiento y Documentos</h4>
+                            <span>Semanas 7-9</span>
+                        </div>
+                    </div>
+                    <div class="sprint-body">
+                        <div class="sprint-desc">Seguimiento automático, recolección de documentos y conexion total entre los 3 productos.</div>
+                        <div class="sprint-deliverables">
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>Agente:</strong> Soporte a consultas de clientes existentes</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>CRM:</strong> Seguimiento automático mensual por WhatsApp</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>CRM:</strong> Recolección y chequeo de documentos</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>Dashboard:</strong> Conectado al CRM (datos del cliente automáticos)</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span><strong>General:</strong> Trazabilidad y registro de interacciones</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sprint-card">
+                    <div class="sprint-header">
+                        <div class="sprint-number">4</div>
+                        <div class="sprint-info">
+                            <h4>Optimización y Entrega</h4>
+                            <span>Semanas 10-12</span>
+                        </div>
+                    </div>
+                    <div class="sprint-body">
+                        <div class="sprint-desc">Pruebas con casos reales, ajustes de calidad y entrega final de los 3 productos en producción.</div>
+                        <div class="sprint-deliverables">
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span>Pruebas con clientes reales (piloto del agente)</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span>Pruebas del CRM con datos reales migrados</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span>Pruebas del Dashboard con documentos reales</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span>Capacitación al equipo de IndemnEasy</span>
+                            </div>
+                            <div class="sprint-deliverable">
+                                <span class="sprint-deliverable-icon">+</span>
+                                <span>Lanzamiento de los 3 productos en producción</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 48px;">
+                <p class="quote-text">
+                    Al final de cada fase hay una <strong>reunión de revisión</strong> donde el equipo de IndemnEasy ve el avance, prueba los 3 productos, da feedback y valida que vamos en la dirección correcta. Se avanza en paralelo desde el Sprint 1.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUE NECESITAMOS DE INDEMNEEASY -->
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-orange">Sección 7</div>
+                <h2 class="section-title">Qué Necesitamos de IndemnEasy</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Para que el proyecto avance sin retrasos, necesitamos que IndemnEasy entregue cierta información en fechas específicas.
+                </p>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checklist-date">Día1</div>
+                    <div class="checklist-content">
+                        <h4>Responsable interno designado</h4>
+                        <p>Una persona del equipo de IndemnEasy que sea el punto de contacto principal para resolver dudas, dar feedback y aprobar entregables.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-date">Semana 1</div>
+                    <div class="checklist-content">
+                        <h4>Preguntas de validación de viabilidad</h4>
+                        <p>Listado completo de preguntas estandarizadas que se le hacen al cliente para validar si el caso es viable (tipo de accidente, fecha, ciudad, lesiones, cirugía, SOAT/ARL, aseguradora, etc.).</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-date">Semana 1</div>
+                    <div class="checklist-content">
+                        <h4>Tipos de caso y criterios de clasificación</h4>
+                        <p>Documentación de los diferentes tipos de proceso interno (SOAT, póliza, ARL, etc.) y los criterios para clasificar cada caso.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-date">Semana 1</div>
+                    <div class="checklist-content">
+                        <h4>Plantillas de documentos</h4>
+                        <p>Plantillas actuales de contrato, poder, derechos de petición, tutelas y cualquier otro documento jurídico que se genere de forma repetitiva.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-date">Semana 1</div>
+                    <div class="checklist-content">
+                        <h4>Acceso a WhatsApp Business y API</h4>
+                        <p>Cuenta de WhatsApp Business con API activa de IndemnEasy, necesaria para la integración del agente comercial.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-date">Semana 2</div>
+                    <div class="checklist-content">
+                        <h4>Base de datos de clientes actual (Excel)</h4>
+                        <p>El archivo Excel en Drive con la información de los +800 clientes activos, para migración al CRM y configuracion del seguimiento.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-date">Semana 3</div>
+                    <div class="checklist-content">
+                        <h4>Lista de documentos por tipo de caso</h4>
+                        <p>Lista estandarizada de documentos que cada cliente debe enviar según su tipo de caso, con descripción de dónde obtenerlos y cómo enviarlos.</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-date">Continuo</div>
+                    <div class="checklist-content">
+                        <h4>Respuesta en menos de 48 horas</h4>
+                        <p>Para mantener el ritmo del proyecto, necesitamos que el feedback y las aprobaciones se den en máximo 48 horas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 48px; border-left-color: var(--accent-orange);">
+                <p class="quote-text">
+                    <strong>Importante:</strong> Si las dependencias no se cumplen en las fechas indicadas, se usará información de ejemplo que luego se reemplazara. Esto puede generar retrabajo y potenciales retrasos en la entrega final.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- METRICAS DE EXITO -->
+    <section class="section section-dark">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-green">Sección 8</div>
+                <h2 class="section-title">Métricas de Éxito</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Estos son los indicadores que mediremos para saber si el proyecto es éxitoso. Son los objetivos que nos comprometemos a alcanzar.
+                </p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-value">&lt;1m</div>
+                    <div class="kpi-label">Tiempo de Primera Respuesta</div>
+                    <div class="kpi-desc">El agente comercial debe responder en menos de 1 minuto cualquier consulta por WhatsApp, incluyendo domingos.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">>80%</div>
+                    <div class="kpi-label">Tasa de Validación Automática</div>
+                    <div class="kpi-desc">Más del 80% de las validaciones de viabilidad deben completarse sin intervención humana.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">0</div>
+                    <div class="kpi-label">Mensajes Sin Responder</div>
+                    <div class="kpi-desc">Ningún cliente debe quedar sin respuesta. El agente contesta 24/7, especialmente los fines de semana.</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">100%</div>
+                    <div class="kpi-label">Cobertura de Seguimiento</div>
+                    <div class="kpi-desc">Todos los clientes activos deben recibir al menos un contacto mensual de seguimiento automático.</div>
+                </div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 48px;">
+                <div class="card">
+                    <h4>Reducción de Carga Operativa</h4>
+                    <p>El equipo humano debe reducir significativamente el tiempo dedicado a la atención inicial, seguimiento manual y generación de documentos repetitivos.</p>
+                </div>
+                <div class="card">
+                    <h4>Formalización Más Rápida</h4>
+                    <p>El tiempo desde el primer contacto hasta la generación de documentos de formalización debe reducirse drásticamente gracias a la automatizacion del flujo.</p>
+                </div>
+                <div class="card">
+                    <h4>Tasa de Conversion</h4>
+                    <p>Al responder en caliente 24/7, la tasa de conversión de leads a clientes formalizados debe aumentar significativamente respecto al proceso manual actual.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RIESGOS -->
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-orange">Sección 9</div>
+                <h2 class="section-title">Riesgos del Proyecto</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Estos son los principales riesgos identificados y cómo planeamos mitigarlos para asegurar el éxito del proyecto.
+                </p>
+            </div>
+
+            <div class="risk-card">
+                <div class="risk-icon">!</div>
+                <div class="risk-content">
+                    <h4>Calidad de archivos enviados por clientes</h4>
+                    <p>El público de IndemnEasy tiene un perfil socioeconómico variado. Las imágenes, PDFs y documentos que envían pueden ser de baja calidad, desorganizados o ilegibles.</p>
+                    <div class="risk-mitigation">
+                        <span>></span>
+                        <span><strong>Mitigación:</strong> El agente tendrá instrucciones claras para solicitar solo la información necesaria en formato específico. Si no puede interpretar un archivo, escala a humano en lugar de asumir información incorrecta.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="risk-card">
+                <div class="risk-icon">!</div>
+                <div class="risk-content">
+                    <h4>Precisión en documentos jurídicos</h4>
+                    <p>Los documentos legales requieren exactitud absoluta. Un error en un derecho de petición o tutela puede tener consecuencias reales para el cliente.</p>
+                    <div class="risk-mitigation">
+                        <span>></span>
+                        <span><strong>Mitigación:</strong> Todos los documentos generados por la interfaz pasan por revisión y aprobación humana antes de ser presentados. La interfaz genera, el equipo revisa y aprueba.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="risk-card">
+                <div class="risk-icon">!</div>
+                <div class="risk-content">
+                    <h4>Sensibilidad del tema (accidentes de tránsito y laborales)</h4>
+                    <p>Los clientes están pasando por una situación difícil. El tono del agente debe ser profesional, empático y nunca percibirse como frío o robótico.</p>
+                    <div class="risk-mitigation">
+                        <span>></span>
+                        <span><strong>Mitigación:</strong> El agente se construira con un tono empático y profesional. Se harán pruebas exhaustivas de tono y sensibilidad. El cliente siempre sabrá que habla con IA y tendrá opcion de hablar con un humano.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="risk-card">
+                <div class="risk-icon">!</div>
+                <div class="risk-content">
+                    <h4>Migración de datos del Excel actual</h4>
+                    <p>La base de datos actual en Excel tiene +800 clientes con información estructurada de forma especifica. La migración al CRM debe ser precisa y sin pérdida de datos.</p>
+                    <div class="risk-mitigation">
+                        <span>></span>
+                        <span><strong>Mitigación:</strong> Se hará un mapeo detallado de campos antes de migrar. Se validará la migración con IndemnEasy antes de desactivar el Excel como fuente principal.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="risk-card">
+                <div class="risk-icon">!</div>
+                <div class="risk-content">
+                    <h4>Feedback tardio del cliente</h4>
+                    <p>Si las revisiones de fase toman más de 48 horas, se acumulan retrasos que afectan las siguientes etapas del proyecto.</p>
+                    <div class="risk-mitigation">
+                        <span>></span>
+                        <span><strong>Mitigación:</strong> Establecemos SLA de 48 horas desde el día 1 y designamos un responsable interno en IndemnEasy.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISION A FUTURO -->
+    <section class="section section-dark">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-purple">Sección 10</div>
+                <h2 class="section-title">Visión a Futuro</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Esta primera fase resuelve los dolores más urgentes: captación comercial y generación jurídica. Pero los agentes de IA pueden crecer y abarcar mucho más en fases posteriores.
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card" style="border: 2px solid var(--accent-green); background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), var(--bg-card));">
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));">1</div>
+                    <div style="display: inline-block; padding: 4px 12px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); border-radius: 100px; color: var(--accent-green); font-size: 12px; font-weight: 600; margin-bottom: 12px;">Recomendado</div>
+                    <h4 style="color: var(--accent-green);">Fase 2: Envío Automático a Entidades</h4>
+                    <p>La interfaz genera el documento, el equipo lo aprueba, y se envía automáticamente por correo a la aseguradora, ARL o entidad correspondiente. Sin intervención manual adicional.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">2</div>
+                    <h4>Fase 3: Plataforma Self-Service</h4>
+                    <p>Una extensión web donde el cliente que no quiera contratar el servicio completo pueda acceder a una asesoría automatizada, obtenga sus documentos y reclame por su cuenta a un costo menor.</p>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 48px;">
+                <p class="quote-text">
+                    La adopción de inteligencia artificial es un proceso gradual. La idea es <strong>empezar con los dolores más urgentes</strong> (las dos esquinas: comercial y jurídico), demostrar resultados y desde ahí ir expandiendo las capacidades hasta cubrir todo el flujo operativo de IndemnEasy.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COTIZACION ========== -->
+
+    <!-- FEE DE IMPLEMENTACION -->
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-green">Cotización</div>
+                <h2 class="section-title">Fee de Implementación</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Pago único que cubre el desarrollo completo de los 3 productos (Agente de Ventas + CRM + Agente Jurídico) según el alcance definido en este documento.
+                </p>
+            </div>
+
+            <div style="background: var(--bg-card); border: 2px solid var(--primary); border-radius: 32px; padding: 48px; text-align: center; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-primary);"></div>
+                <div style="font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Inversión Total de Implementación</div>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 64px; font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;">$17'000.000 COP</div>
+                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Este valor cubre el diseño, desarrollo e integración de los 3 productos: Agente de Ventas ($8'000.000), Agente Jurídico ($5'000.000) y CRM Inteligente ($4'000.000).
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 48px;">
+                <div class="card" style="border-left: 4px solid var(--accent-green);">
+                    <h4 style="color: var(--accent-green);">Qué Incluye el Fee de Implementación</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">+</span>
+                            <span>Agente de Ventas: IA + WhatsApp</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">+</span>
+                            <span>CRM Inteligente: seguimiento + migración de datos</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">+</span>
+                            <span>Agente Jurídico: peticiones, tutelas y escritos</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">+</span>
+                            <span>Integración con WhatsApp Business API</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">+</span>
+                            <span>Migración completa de datos (Excel > CRM)</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">+</span>
+                            <span>Capacitación al equipo de IndemnEasy</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">+</span>
+                            <span>Entrega garantizada en 12 semanas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--accent-cyan);">
+                    <h4 style="color: var(--accent-cyan);">Por Qué Este Precio</h4>
+                    <p style="margin-bottom: 16px;">
+                        Este valor <strong>no refleja el costo real total</strong> de construir una tecnología de este nivel. El proyecto incluye 3 productos completos (Agente + CRM + Dashboard), múltiples integraciones y automatizaciones avanzadas.
+                    </p>
+                    <p>
+                        Se establece asípara <strong>no afectar el flujo de caja inicial</strong> de IndemnEasy y trasladar parte del costo real al modelo mensual, permitiendo un crecimiento sostenible para ambas partes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEE MENSUAL -->
+    <section class="section section-dark">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-cyan">Operación</div>
+                <h2 class="section-title">Fee Mensual de Operación</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    El fee mensual cubre la operación continua de los 3 productos: infraestructura, costos de IA, mantenimiento y soporte técnico.
+                </p>
+            </div>
+
+            <div style="background: var(--bg-card); border: 2px solid var(--accent-cyan); border-radius: 32px; padding: 48px; text-align: center; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-secondary);"></div>
+                <div style="font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Fee Mensual</div>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 64px; font-weight: 700; background: var(--gradient-secondary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;">$4'500.000 COP</div>
+                <div style="font-size: 18px; color: var(--text-secondary); margin-top: 8px;">por mes + WhatsApp</div>
+                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 24px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Incluye operación completa de los 3 productos (Agente + CRM + Dashboard), costos de inteligencia artificial, infraestructura 24/7 y soporte técnico continuo. El costo de WhatsApp Business API es adicional.
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.05)); border: 1px solid var(--accent-cyan); border-radius: 20px; padding: 32px; margin: 48px 0 0;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: var(--accent-cyan); margin-bottom: 12px;">Sin Permanencia Minima</div>
+                <div style="font-size: 15px; color: var(--text-secondary);">No hay tiempo minimo de permanencia. IndemnEasy puede cancelar el servicio en cualquier momento. El fee mensual se cobra mientras los productos esten activos y operando.</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05)); border: 1px solid var(--accent-orange); border-radius: 20px; padding: 32px; margin: 24px 0 0;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: var(--accent-orange); margin-bottom: 12px;">Costo de WhatsApp (adicional)</div>
+                <div style="font-size: 15px; color: var(--text-secondary);">WhatsApp Business API tiene un costo adicional que es asumido directamente por IndemnEasy. Incluye una tarifa base mensual + consumo por conversación (inbound y outbound). Este costo no está incluido en el fee mensual.</div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 48px;">
+                <div class="card">
+                    <h4>Por Qué Existe el Fee Mensual</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">1</span>
+                            <span><strong>Costos de IA:</strong> El agente de ventas usa inteligencia artificial activa 24/7. El Agente Jurídico genera documentos con precision. Estos costos escalan con el uso.</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">2</span>
+                            <span><strong>Infraestructura:</strong> Servidores 24/7, bases de datos, CRM, APIs en producción y monitoreo continuo para garantizar disponibilidad.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4>&nbsp;</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">3</span>
+                            <span><strong>Mantenimiento:</strong> Equipo técnico activo para garantizar funcionamiento, ajustes y evolución del sistema.</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text-secondary);">
+                            <span style="color: var(--accent-green); font-size: 18px; flex-shrink: 0; margin-top: 2px;">4</span>
+                            <span><strong>Modelo de negocio:</strong> Distribuimos el costo real en el tiempo para menor impacto inicial y pago proporcional al valor generado.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMA DE PAGO -->
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-orange">Pago</div>
+                <h2 class="section-title">Facilidades de Pago</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Ofrecemos un esquema de pago flexible alineado con los entregables del proyecto.
+                </p>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin: 40px 0;">
+                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-align: center; min-width: 200px; flex: 1; max-width: 300px; transition: all 0.3s ease;">
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 700; background: var(--gradient-secondary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 12px;">50%</div>
+                    <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px;">Anticipo antes de comenzar</div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: var(--accent-green);">$8'500.000 COP</div>
+                </div>
+                <div style="font-size: 32px; color: var(--primary);">></div>
+                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; text-align: center; min-width: 200px; flex: 1; max-width: 300px; transition: all 0.3s ease;">
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 700; background: var(--gradient-secondary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 12px;">50%</div>
+                    <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px;">Al completar la entrega final</div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: var(--accent-green);">$8'500.000 COP</div>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 48px; border-left-color: var(--accent-green);">
+                <p class="quote-text">
+                    <strong>Nota:</strong> El segundo pago está sujeto a la aprobación de la entrega final en la reunión de revisión del Sprint 4. Esto garantiza que solo se paga por trabajo validado y aprobado.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESUMEN EJECUTIVO COTIZACION -->
+    <section class="section section-dark">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div class="badge badge-purple">Resumen</div>
+                <h2 class="section-title">Resumen Ejecutivo</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Vista consolidada de la inversion y condiciones del proyecto.
+                </p>
+            </div>
+
+            <div class="grid-2" style="gap: 32px; max-width: 1000px; margin: 0 auto;">
+                <div style="background: var(--bg-card); border: 2px solid var(--primary); border-radius: 24px; padding: 32px; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-primary);"></div>
+                    <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Pago Único</div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; margin-bottom: 24px; color: var(--primary-light);">Fee de Implementación</h3>
+                    <div style="text-align: center; padding: 24px 0; border-bottom: 1px solid var(--border);">
+                        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;">$17M</div>
+                        <div style="font-size: 16px; color: var(--text-secondary); margin-top: 4px;">COP</div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; font-size: 14px;">
+                            <span style="color: var(--text-secondary);">Anticipo (50%)</span>
+                            <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600;">$8'500.000 COP</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; font-size: 14px;">
+                            <span style="color: var(--text-secondary);">Entrega final (50%)</span>
+                            <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600;">$8'500.000 COP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: var(--bg-card); border: 2px solid var(--accent-cyan); border-radius: 24px; padding: 32px; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-secondary);"></div>
+                    <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Pago Mensual</div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; margin-bottom: 24px; color: var(--accent-cyan);">Fee de Operación</h3>
+                    <div style="text-align: center; padding: 24px 0; border-bottom: 1px solid var(--border);">
+                        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; color: var(--accent-cyan); line-height: 1;">$4.5M</div>
+                        <div style="font-size: 16px; color: var(--text-secondary); margin-top: 4px;">COP / mes + WhatsApp</div>
+                        <div style="display: inline-block; padding: 6px 14px; background: rgba(16, 185, 129, 0.15); border-radius: 100px; color: var(--accent-green); font-size: 13px; font-weight: 600; margin-top: 12px;">Sin permanencia mínima</div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; font-size: 13px;">
+                            <span style="color: var(--accent-green); flex-shrink: 0;">+</span>
+                            <span style="color: var(--text-secondary);">Costos de IA y procesamiento</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; font-size: 13px;">
+                            <span style="color: var(--accent-green); flex-shrink: 0;">+</span>
+                            <span style="color: var(--text-secondary);">Infraestructura: Agente + CRM + Dashboard 24/7</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; font-size: 13px;">
+                            <span style="color: var(--accent-green); flex-shrink: 0;">+</span>
+                            <span style="color: var(--text-secondary);">Mantenimiento y soporte técnico</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 48px; margin-top: 48px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: var(--primary-light);">12</div>
+                    <div style="font-size: 14px; color: var(--text-muted);">semanas de entrega</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: var(--accent-green);">4</div>
+                    <div style="font-size: 14px; color: var(--text-muted);">sprints con revisión</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: var(--accent-cyan);">0</div>
+                    <div style="font-size: 14px; color: var(--text-muted);">meses de permanencia</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: var(--accent-orange);">3</div>
+                    <div style="font-size: 14px; color: var(--text-muted);">productos integrados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant">
+                    <div class="footer-tagline">TECNOLOGIA CON PROPÓSITO</div>
+                </div>
+
+                <div class="footer-contact">
+                    <a href="mailto:marketing@stayirrelevant.com" class="footer-contact-card">
+                        <div class="footer-contact-icon">@</div>
+                        <div>
+                            <div class="footer-contact-label">Email</div>
+                            <div class="footer-contact-value">marketing@stayirrelevant.com</div>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/573218464652" class="footer-contact-card">
+                        <div class="footer-contact-icon">#</div>
+                        <div>
+                            <div class="footer-contact-label">WhatsApp</div>
+                            <div class="footer-contact-value">+57 321-846-4652</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="footer-divider"></div>
+
+                <div class="footer-confidential">
+                    <span>*</span> Documento de Alcance del Proyecto
+                </div>
+
+                <p class="footer-legal">
+                    Este documento establece las bases formales del proyecto IndemnEasy y debe ser referenciado ante cualquier duda sobre alcance, responsabilidades o criterios de éxito. Cualquier cambio al alcance requiere un "change request" formal aprobado por ambas partes.
+                </p>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <a href="https://stayirrelevant.com">irrelevant</a>. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
