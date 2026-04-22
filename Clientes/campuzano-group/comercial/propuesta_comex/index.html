@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Comercial — Campuzano Group | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --negro: #0F0A1F;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto 20px;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* PORTADA */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, #1A1333 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px;
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-size: 22px;
+    color: var(--gris-claro);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .cover-client {
+    font-size: 18px;
+    color: var(--morado-claro);
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 35px;
+  }
+
+  .cover-meta-item {
+    background: rgba(255,255,255,0.05);
+    padding: 16px 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .cover-meta-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--morado-claro);
+    margin-bottom: 6px;
+  }
+
+  .cover-meta-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--blanco);
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .cover-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--gris-claro);
+    font-size: 12px;
+  }
+
+  .cover-tagline {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+  }
+
+  /* PÁGINAS DE CONTENIDO */
+  .content-page {
+    padding: 55px;
+    min-height: 297mm;
+  }
+
+  .content-header {
+    margin-bottom: 45px;
+    border-bottom: 2px solid var(--lavanda);
+    padding-bottom: 20px;
+  }
+
+  .content-logo {
+    margin-bottom: 20px;
+    background: var(--negro);
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+
+  .content-logo img {
+    height: 35px;
+    display: block;
+  }
+
+  h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--morado);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado);
+    margin: 35px 0 20px 0;
+  }
+
+  h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--morado-oscuro);
+    margin: 25px 0 15px 0;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin: 20px 0 12px 0;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+
+  ul, ol {
+    margin: 15px 0 20px 25px;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  strong {
+    color: var(--morado-oscuro);
+    font-weight: 600;
+  }
+
+  .exec-summary {
+    background: linear-gradient(135deg, var(--lavanda) 0%, var(--blanco) 100%);
+    border: 2px solid var(--morado);
+    border-radius: 12px;
+    padding: 30px;
+    margin: 30px 0;
+  }
+
+  .exec-summary h3 {
+    margin-top: 0;
+    color: var(--morado);
+  }
+
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 4px solid var(--morado);
+    padding: 20px 25px;
+    margin: 25px 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .highlight-box h3, .highlight-box h4 {
+    margin-top: 0;
+  }
+
+  .component-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin: 25px 0;
+  }
+
+  .component-card {
+    background: var(--blanco);
+    border: 2px solid var(--morado-claro);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .component-header {
+    background: var(--morado);
+    color: white;
+    padding: 18px 25px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .component-body {
+    padding: 25px;
+  }
+
+  .component-body p {
+    margin-bottom: 12px;
+  }
+
+  .component-body ul {
+    margin: 15px 0 0 20px;
+  }
+
+  .component-body li {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .cost-block {
+    background: linear-gradient(135deg, var(--morado) 0%, var(--morado-oscuro) 100%);
+    color: white;
+    padding: 35px;
+    border-radius: 12px;
+    margin: 30px 0;
+    text-align: center;
+  }
+
+  .cost-block h3 {
+    color: white;
+    margin-top: 0;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+  }
+
+  .cost-main {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 20px 0;
+    color: white;
+  }
+
+  .cost-detail {
+    font-size: 14px;
+    color: white;
+    opacity: 0.95;
+    margin-top: 10px;
+  }
+
+  .cost-block strong {
+    color: white;
+    font-weight: 700;
+  }
+
+  .cost-terms {
+    background: rgba(255,255,255,0.15);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 25px;
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .cost-terms p {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: white;
+  }
+
+  .cost-terms strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  .warning-box {
+    background: #FEF3C7;
+    border-left: 4px solid #F59E0B;
+    padding: 20px 25px;
+    margin: 25px 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .warning-box h4 {
+    margin-top: 0;
+    color: #D97706;
+  }
+
+  .timeline {
+    margin: 25px 0;
+  }
+
+  .timeline-item {
+    background: var(--blanco);
+    border-left: 4px solid var(--morado);
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .timeline-item h4 {
+    margin-top: 0;
+    color: var(--morado);
+  }
+
+  .success-criteria {
+    counter-reset: criterion;
+  }
+
+  .criterion {
+    counter-increment: criterion;
+    background: var(--lavanda);
+    padding: 20px 25px 20px 60px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .criterion::before {
+    content: counter(criterion);
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--morado);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .criterion h4 {
+    margin: 0 0 8px 0;
+    color: var(--morado);
+  }
+
+  .criterion p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .contact-box {
+    background: var(--negro);
+    color: white;
+    padding: 35px;
+    border-radius: 12px;
+    margin-top: 40px;
+  }
+
+  .contact-box h3 {
+    color: white;
+    margin-top: 0;
+  }
+
+  .contact-info {
+    margin-top: 15px;
+  }
+
+  .contact-info p {
+    margin-bottom: 8px;
+  }
+
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 25px 0;
+  }
+
+  .metric-item {
+    background: var(--lavanda);
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid var(--morado-claro);
+  }
+
+  .metric-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--morado);
+    margin-bottom: 8px;
+  }
+
+  .metric-label {
+    font-size: 13px;
+    color: var(--gris-texto);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .page-footer {
+    position: absolute;
+    bottom: 30px;
+    left: 55px;
+    right: 55px;
+    padding-top: 15px;
+    border-top: 1px solid var(--gris-claro);
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #666;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), transparent);
+    margin: 30px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+    </div>
+
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+      </div>
+    </div>
+
+    <div class="cover-center">
+      <div class="cover-label">PROPUESTA COMERCIAL</div>
+      <h1 class="cover-title">Automatización del Proceso de<br>Declaración de Importación</h1>
+      <div class="cover-subtitle">Sistema inteligente para generación automatizada del Formulario 500 DIAN</div>
+      <div class="cover-client">Campuzano Group — COMEX</div>
+
+      <div class="cover-meta">
+        <div class="cover-meta-item">
+          <div class="cover-meta-label">Servicio</div>
+          <div class="cover-meta-value">AI Ops Layer</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="cover-meta-label">Duración</div>
+          <div class="cover-meta-value">1 semana</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="cover-meta-label">Entregables</div>
+          <div class="cover-meta-value">7 procesos inteligentes</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="cover-meta-label">Fecha</div>
+          <div class="cover-meta-value">20 de Abril, 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-bottom">
+      <div class="cover-footer">
+        <div>
+          <strong style="color: white; display: block; margin-bottom: 4px;">Irrelevant Club S.A.S.</strong>
+          NIT 901.935.642-1 • Medellín, Colombia
+        </div>
+        <div class="cover-tagline">THINK AI OR STAY IRRELEVANT</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PÁGINA 1: EL PROBLEMA -->
+<div class="page page-break">
+  <div class="content-page">
+    <div class="content-header">
+      <div class="content-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+      </div>
+      <h1>1. EL PROBLEMA</h1>
+      <p style="color: var(--morado); font-size: 16px; margin: 0;">Diagnóstico del proceso actual de importaciones en COMEX</p>
+    </div>
+
+    <div class="exec-summary">
+      <h3>Resumen Ejecutivo</h3>
+      <p>El equipo de importaciones de Campuzano Group procesa actualmente las <strong>Declaraciones de Importación (Formulario 500 DIAN)</strong> mediante llenado manual casilla por casilla. Este proceso operativo consume recursos significativos, limita la capacidad de procesamiento y genera riesgo de errores que pueden resultar en retenciones costosas en puerto.</p>
+    </div>
+
+    <h2>Situación Actual Diagnosticada</h2>
+
+    <h3>Proceso Manual Ineficiente</h3>
+    <ul>
+      <li><strong>91 casillas del Formulario 500</strong> se llenan manualmente una por una en el sistema DIAN</li>
+      <li><strong>5-6 documentos fuente diferentes</strong> de los cuales se extrae información:
+        <ul style="margin-top: 8px;">
+          <li>Factura comercial</li>
+          <li>Guía aérea / Bill of Lading (BL)</li>
+          <li>Factura de fletes internacionales</li>
+          <li>Certificado de seguro</li>
+          <li>Certificados de origen y sanitarios</li>
+          <li>Manifiesto de carga DIAN</li>
+        </ul>
+      </li>
+      <li><strong>Tiempo de procesamiento:</strong> 45-60 minutos por declaración</li>
+      <li><strong>Códigos DIAN complejos</strong> requieren consulta constante de tablas (ciudades, depósitos, transportadores, formas de pago, tipos de importación)</li>
+      <li><strong>Validaciones manuales:</strong> Los términos de negociación requieren interpretación experta (ejemplo: una factura que dice SWORD pero incluye flete debe corregirse a CPT)</li>
+    </ul>
+
+    <h3>Carga Operativa Desbalanceada</h3>
+    <div class="metric-row">
+      <div class="metric-item">
+        <div class="metric-value">3:1</div>
+        <div class="metric-label">Personas por importación</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">1:10</div>
+        <div class="metric-label">Persona por exportaciones</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">6X</div>
+        <div class="metric-label">Diferencial de eficiencia</div>
+      </div>
+    </div>
+
+    <h3>Costos del Problema</h3>
+    <ul>
+      <li><strong>Costo operativo alto:</strong> 3 personas dedicadas por cada importación vs 1 persona para 10 exportaciones</li>
+      <li><strong>Capacidad limitada:</strong> La velocidad de procesamiento está limitada por digitación manual</li>
+      <li><strong>Riesgo de retenciones:</strong> Errores en documentación pueden generar costos de <strong>$100-500 USD/día</strong> por contenedor retenido en puerto</li>
+      <li><strong>Impacto al cliente:</strong> Mayor tiempo de nacionalización = mayores costos de bodegaje y financieros para el importador</li>
+    </ul>
+
+    <h3>Oportunidad No Aprovechada</h3>
+    <p>El sistema DIAN permite <strong>carga masiva de declaraciones vía archivo plano Excel</strong>, un método significativamente más eficiente que el llenado casilla por casilla. Sin embargo, generar ese archivo Excel de forma manual también es complejo, por lo que actualmente no se aprovecha esta funcionalidad del sistema.</p>
+
+    <div class="page-footer">
+      <span>Propuesta Comercial — Campuzano Group</span>
+      <span>Página 1 de 5</span>
+    </div>
+  </div>
+</div>
+
+<!-- PÁGINA 2: LA SOLUCIÓN -->
+<div class="page page-break">
+  <div class="content-page">
+    <div class="content-header">
+      <div class="content-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+      </div>
+      <h1>2. LA SOLUCIÓN</h1>
+      <p style="color: var(--morado); font-size: 16px; margin: 0;">Sistema automatizado de generación de Declaraciones de Importación</p>
+    </div>
+
+    <h2>Objetivo</h2>
+    <p>Implementar un sistema inteligente que extraiga automáticamente la información de los documentos fuente, valide las reglas de negocio DIAN, y genere el archivo plano Excel listo para carga masiva en el sistema de la DIAN, reduciendo el tiempo de procesamiento de 45-60 minutos a 10-15 minutos por declaración.</p>
+
+    <div class="exec-summary">
+      <h3>Flujo del Sistema</h3>
+      <p style="text-align: center; font-size: 15px; line-height: 2; margin: 20px 0;">
+        <strong>Documentos PDF</strong> → <span style="color: var(--morado);">Motor de IA</span> → <strong>Validación automática</strong> → <span style="color: var(--morado);">Aplicación de reglas DIAN</span> → <strong>Archivo Excel listo</strong>
+      </p>
+    </div>
+
+    <h2>Componentes de la Implementación</h2>
+
+    <div class="component-grid">
+      <div class="component-card">
+        <div class="component-header">Componente 1 — Automatización de Declaraciones de Importación (DIM)</div>
+        <div class="component-body">
+          <p><strong>5 Procesos Inteligentes:</strong></p>
+          <ul>
+            <li><strong>Extractor de documentos:</strong> Extrae datos de factura comercial, guía aérea/BL, factura de fletes, certificado de seguro y manifiesto DIAN</li>
+            <li><strong>Validador de términos:</strong> Interpreta y valida términos de negociación (SWORD, CPT, FOB, CIF, etc.) según reglas DIAN</li>
+            <li><strong>Asistente de códigos DIAN:</strong> Aplica automáticamente códigos de ciudades, depósitos, transportadores, formas de pago y tipos de importación</li>
+            <li><strong>Validador de reglas de negocio:</strong> Valida DAV, forma de pago, cálculos de arancel e IVA</li>
+            <li><strong>Generador de archivo plano Excel:</strong> Produce el Formulario 500 completo listo para carga masiva DIAN</li>
+          </ul>
+          <p style="margin-top: 15px;"><strong>Resultado:</strong> Reducción de 75% en tiempo de procesamiento (de 45-60 min a 10-15 min)</p>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-header">Componente 2 — 2 Skills Adicionales Personalizadas</div>
+        <div class="component-body">
+          <p>Por este costo de implementación, construimos <strong>2 procesos inteligentes adicionales</strong> para otros flujos operativos de Campuzano Group.</p>
+          <p><strong>¿Qué es una Skill?</strong><br>
+          Una skill es un proceso automatizado que resuelve una tarea específica dentro de la operación. Funciona como un asistente especializado que ejecuta un flujo completo de forma autónoma.</p>
+          <p><strong>Ejemplos disponibles:</strong></p>
+          <ul>
+            <li>Skill de seguimiento a cliente (respuesta automática de trazabilidad)</li>
+            <li>Skill de validación pre-importación (identifica requisitos DIAN antes de embarcar)</li>
+            <li>Skill de generación de cotizaciones (calcula aranceles e IVA automáticamente)</li>
+            <li>Skill de alertas operativas (monitoreo de plazos críticos)</li>
+          </ul>
+          <p style="margin-top: 15px; font-size: 13px; color: #666;">Las 2 skills se definen en conjunto con Campuzano durante el Día 1 del proyecto, según las prioridades operativas más allá de la DIM.</p>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-header">Componente 3 — Stack de Herramientas Configurado</div>
+        <div class="component-body">
+          <p><strong>Infraestructura instalada y lista para usar:</strong></p>
+          <ul>
+            <li><strong>Claude Plan Max:</strong> Motor de inteligencia artificial para procesamiento de lenguaje natural y extracción semántica</li>
+            <li><strong>API de OCR:</strong> Sistema de procesamiento de PDFs y extracción de datos de documentos escaneados</li>
+            <li><strong>Base de datos de códigos DIAN:</strong> Catálogo completo de códigos de ciudades, depósitos, transportadores, formas de pago</li>
+            <li><strong>Generador de Excel:</strong> Motor de generación automática de archivos planos compatibles con sistema DIAN</li>
+          </ul>
+          <p style="margin-top: 15px;"><strong>Incluye además:</strong></p>
+          <ul>
+            <li>Documentación completa del sistema</li>
+            <li>Manual de uso y validación de outputs</li>
+            <li>Sesión de entrenamiento (2-3 horas) para el equipo</li>
+            <li>Soporte durante la primera semana de producción</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Propuesta Comercial — Campuzano Group</span>
+      <span>Página 2 de 5</span>
+    </div>
+  </div>
+</div>
+
+<!-- PÁGINA 3: INVERSIÓN -->
+<div class="page page-break">
+  <div class="content-page">
+    <div class="content-header">
+      <div class="content-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+      </div>
+      <h1>3. INVERSIÓN</h1>
+      <p style="color: var(--morado); font-size: 16px; margin: 0;">Estructura comercial y términos de pago</p>
+    </div>
+
+    <div class="cost-block">
+      <h3>AI Ops Layer — Implementación Completa</h3>
+      <div class="cost-main">$10.000.000 COP</div>
+      <div class="cost-detail">+ IVA (19%)</div>
+      <div class="cost-detail" style="margin-top: 5px;">Total inversión: <strong>$11.900.000 COP</strong></div>
+
+      <div class="cost-terms">
+        <p><strong>Forma de pago:</strong></p>
+        <p>• 50% anticipo al inicio del proyecto: <strong>$5.950.000 COP</strong></p>
+        <p>• 50% contra entrega (día 7): <strong>$5.950.000 COP</strong></p>
+        <p style="margin-top: 15px; font-size: 13px; opacity: 0.8;">Vigencia de la propuesta: 15 días calendario</p>
+      </div>
+    </div>
+
+    <h2>Costos Recurrentes de Tecnología</h2>
+
+    <div class="highlight-box">
+      <h3>Fee Mensual Aproximado: $110-120 USD/mes</h3>
+      <p style="margin-bottom: 10px;">Aproximadamente <strong>$440.000-480.000 COP/mes</strong> según TRM</p>
+
+      <p><strong>Desglose:</strong></p>
+      <ul style="margin-bottom: 15px;">
+        <li><strong>API de OCR</strong> (extracción de datos de documentos): $10-20 USD/mes</li>
+        <li><strong>Claude Plan Max</strong> (motor de inteligencia artificial): $100 USD/mes</li>
+      </ul>
+    </div>
+
+    <div class="warning-box">
+      <h4>⚠️ Importante: Costos Sujetos a Uso Real</h4>
+      <p style="margin-bottom: 10px;">Los costos mensuales indicados ($110-120 USD) son <strong>aproximados</strong> y están basados en procesar ~100 declaraciones de importación por mes. El costo real estará <strong>sujeto al uso efectivo de la tecnología</strong> (cantidad de documentos procesados mensualmente).</p>
+
+      <p style="margin-bottom: 10px;"><strong>Este fee mensual NO incluye:</strong></p>
+      <ul style="margin-bottom: 15px;">
+        <li>Soporte técnico adicional al mes inicial</li>
+        <li>Mantenimientos o actualizaciones del sistema</li>
+        <li>Consultoría adicional o ajustes de procesos</li>
+        <li>Construcción de nuevas skills o funcionalidades</li>
+      </ul>
+
+      <p style="font-size: 14px;"><strong>Soporte y mantenimiento adicional:</strong> Si Campuzano requiere soporte técnico continuo, mantenimientos o actualizaciones posteriores a la implementación, esto debe pactarse por separado mediante un contrato de soporte que se cotizará según las necesidades específicas.</p>
+    </div>
+
+    <h2>Qué NO Incluye Esta Propuesta</h2>
+    <p>Para mantener el proyecto enfocado y dentro del alcance de 1 semana:</p>
+    <ul>
+      <li>Integración directa con el sistema DIAN (la carga sigue siendo manual vía archivo Excel)</li>
+      <li>Integración con el sistema interno de Campuzano (el output es archivo Excel independiente)</li>
+      <li>Automatización de otros procesos más allá del Formulario 500 DIM</li>
+      <li>Procesamiento de exportaciones (solo importaciones en esta fase)</li>
+      <li>Clasificación arancelaria automática (se usa la clasificación actual del cliente)</li>
+      <li>Validación pre-importación de requisitos (esto sería un proyecto separado)</li>
+      <li>Infraestructura en la nube (el sistema corre en la máquina local del cliente)</li>
+    </ul>
+
+    <p style="font-size: 14px; color: var(--morado); margin-top: 20px;"><strong>Nota:</strong> Estos alcances pueden ser parte de un proyecto de AI Core Layer (transformación completa con infraestructura en la nube, integraciones API y acompañamiento continuo) en una fase posterior si Campuzano lo requiere.</p>
+
+    <div class="divider"></div>
+
+    <h2>Retorno Esperado (ROI Estimado)</h2>
+
+    <p><strong>Supuestos:</strong> 100 importaciones/mes, ahorro de 40 min/importación, reducción de 1 persona del equipo</p>
+
+    <div class="metric-row">
+      <div class="metric-item">
+        <div class="metric-value">75%</div>
+        <div class="metric-label">Reducción de tiempo</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">171%</div>
+        <div class="metric-label">ROI primer año</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">4-5 meses</div>
+        <div class="metric-label">Payback period</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;"><strong>Ahorro estimado:</strong></p>
+    <ul>
+      <li><strong>Ahorro en tiempo:</strong> $1.000.000 COP/mes</li>
+      <li><strong>Ahorro en personal reasignado:</strong> $2.500.000 COP/mes</li>
+      <li><strong>Total ahorro mensual:</strong> $3.500.000 COP/mes</li>
+      <li><strong>Total ahorro anual:</strong> $42.000.000 COP/año</li>
+    </ul>
+
+    <p style="font-size: 13px; margin-top: 15px; color: #666;">Inversión total año 1: $15.500.000 COP (implementación + fee mensual x 12 meses)<br>
+    Este cálculo no incluye el ahorro adicional por evitar retenciones en puerto debido a errores de documentación, que puede ser significativo ($100-500 USD/día por contenedor).</p>
+
+    <div class="page-footer">
+      <span>Propuesta Comercial — Campuzano Group</span>
+      <span>Página 3 de 5</span>
+    </div>
+  </div>
+</div>
+
+<!-- PÁGINA 4: TIMELINE Y CRITERIOS DE ÉXITO -->
+<div class="page page-break">
+  <div class="content-page">
+    <div class="content-header">
+      <div class="content-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+      </div>
+      <h1>4. TIMELINE Y CRITERIOS DE ÉXITO</h1>
+      <p style="color: var(--morado); font-size: 16px; margin: 0;">Cronograma de implementación (1 semana)</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>DÍA 1 — Diagnóstico y Configuración Inicial</h4>
+        <p><strong>Actividades:</strong></p>
+        <ul>
+          <li>Reunión de kickoff con el equipo de importaciones (1.5 horas)</li>
+          <li>Definición de las 2 skills adicionales a construir</li>
+          <li>Recolección de 5 ejemplos reales de documentos</li>
+          <li>Instalación del stack de herramientas</li>
+        </ul>
+        <p><strong>Entregable:</strong> Stack instalado, 5 casos de ejemplo documentados, 2 skills definidas</p>
+      </div>
+
+      <div class="timeline-item">
+        <h4>DÍA 2-3 — Construcción de Procesos Core</h4>
+        <p><strong>Actividades:</strong></p>
+        <ul>
+          <li>Proceso 1: Extractor de documentos</li>
+          <li>Proceso 2: Validador de términos de negociación</li>
+          <li>Proceso 3: Asistente de códigos DIAN</li>
+        </ul>
+        <p><strong>Entregable:</strong> 3 procesos funcionando y probados con casos reales</p>
+      </div>
+
+      <div class="timeline-item">
+        <h4>DÍA 4-5 — Validación y Skills Adicionales</h4>
+        <p><strong>Actividades:</strong></p>
+        <ul>
+          <li>Proceso 4: Validador de reglas de negocio</li>
+          <li>Proceso 5: Generador de archivo plano Excel</li>
+          <li>Construcción de las 2 skills adicionales definidas</li>
+          <li>Pruebas end-to-end con los 5 casos de ejemplo</li>
+        </ul>
+        <p><strong>Entregable:</strong> 5 procesos DIM + 2 skills adicionales funcionando, 5 archivos Excel generados y validados</p>
+      </div>
+
+      <div class="timeline-item">
+        <h4>DÍA 6 — Validación con Equipo y Entrenamiento</h4>
+        <p><strong>Actividades:</strong></p>
+        <ul>
+          <li>Sesión de validación con equipo de importaciones (2.5 horas)</li>
+          <li>Sesión de entrenamiento completa (2-3 horas)</li>
+          <li>Ajustes finales según feedback del equipo</li>
+        </ul>
+        <p><strong>Entregable:</strong> Sistema completo ajustado, equipo entrenado y documentación finalizada</p>
+      </div>
+
+      <div class="timeline-item">
+        <h4>DÍA 7 — Entrega y Puesta en Producción</h4>
+        <p><strong>Actividades:</strong></p>
+        <ul>
+          <li>Entrega formal del sistema completo</li>
+          <li>Procesamiento de 3 DIM reales en vivo con el equipo</li>
+          <li>Inicio de soporte durante primera semana de producción</li>
+        </ul>
+        <p><strong>Entregable:</strong> Sistema en producción, documentación completa, soporte activo iniciado</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top: 40px;">Criterios de Éxito del Proyecto</h2>
+    <p>El proyecto se considera exitoso cuando se cumplen los siguientes criterios verificables:</p>
+
+    <div class="success-criteria">
+      <div class="criterion">
+        <h4>Precisión de Extracción ≥ 95%</h4>
+        <p>95% o más de los campos del Formulario 500 se extraen correctamente de los documentos fuente. <strong>Validación:</strong> Comparación de outputs con DIM reales procesadas manualmente.</p>
+      </div>
+
+      <div class="criterion">
+        <h4>Validación de Reglas = 100%</h4>
+        <p>100% de las reglas de negocio DIAN se aplican correctamente (DAV, forma de pago, términos de negociación, códigos). <strong>Validación:</strong> Pruebas con casos conocidos y revisión con expertos de Campuzano.</p>
+      </div>
+
+      <div class="criterion">
+        <h4>Archivo Excel Compatible</h4>
+        <p>El archivo Excel generado es cargable directamente en el sistema DIAN sin errores de formato o estructura. <strong>Validación:</strong> Carga exitosa en sistema DIAN de producción.</p>
+      </div>
+
+      <div class="criterion">
+        <h4>Reducción de Tiempo ≥ 75%</h4>
+        <p>Reducción de 45-60 min a 10-15 min por declaración (75% de reducción). <strong>Validación:</strong> Cronometraje del proceso antes vs después con casos reales.</p>
+      </div>
+
+      <div class="criterion">
+        <h4>Adopción Autónoma del Equipo</h4>
+        <p>El equipo de importaciones puede usar el sistema de forma completamente autónoma después del entrenamiento. <strong>Validación:</strong> Procesamiento de 3 DIM reales sin asistencia de Irrelevant.</p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Propuesta Comercial — Campuzano Group</span>
+      <span>Página 4 de 5</span>
+    </div>
+  </div>
+</div>
+
+<!-- PÁGINA 5: SIGUIENTES PASOS Y CONTACTO -->
+<div class="page page-break">
+  <div class="content-page">
+    <div class="content-header">
+      <div class="content-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+      </div>
+      <h1>5. SIGUIENTES PASOS</h1>
+    </div>
+
+    <h2>Proceso de Arranque del Proyecto</h2>
+
+    <ol style="font-size: 16px; line-height: 2.2; margin: 30px 0;">
+      <li><strong>Revisión y validación de propuesta</strong><br>
+        <span style="font-size: 14px; color: #666;">Confirmación de que el alcance está alineado con las expectativas de Campuzano</span>
+      </li>
+
+      <li><strong>Generación y firma de contrato</strong><br>
+        <span style="font-size: 14px; color: #666;">Contrato de AI Ops Layer con alcance específico definido</span>
+      </li>
+
+      <li><strong>Pago de anticipo (50%)</strong><br>
+        <span style="font-size: 14px; color: #666;">Transferencia de $5.950.000 COP para iniciar el proyecto</span>
+      </li>
+
+      <li><strong>Agendamiento de kickoff</strong><br>
+        <span style="font-size: 14px; color: #666;">Coordinación de fecha Día 1 y logística del proyecto</span>
+      </li>
+
+      <li><strong>Ejecución del proyecto</strong><br>
+        <span style="font-size: 14px; color: #666;">Flujo de 7 días según cronograma establecido</span>
+      </li>
+
+      <li><strong>Pago contra entrega (50%)</strong><br>
+        <span style="font-size: 14px; color: #666;">Transferencia final de $5.950.000 COP al completar la implementación</span>
+      </li>
+    </ol>
+
+    <div class="divider"></div>
+
+    <h2>Datos de Facturación y Pago</h2>
+
+    <div class="highlight-box">
+      <h4>Irrelevant Club S.A.S.</h4>
+      <p style="margin-bottom: 8px;"><strong>NIT:</strong> 901.935.642-1</p>
+      <p style="margin-bottom: 8px;"><strong>Representante Legal:</strong> Juan Pablo Gómez Mejía</p>
+      <p style="margin-bottom: 8px;"><strong>Domicilio:</strong> Medellín, Antioquia</p>
+      <p style="margin-bottom: 0;"><strong>Correo electrónico:</strong> jpgomez@stayirrelevant.com</p>
+    </div>
+
+    <p style="margin-top: 30px; font-size: 15px;">Los datos bancarios para transferencia serán proporcionados en la factura de anticipo.</p>
+
+    <div class="divider"></div>
+
+    <h2>Preguntas Frecuentes</h2>
+
+    <h4>¿Qué pasa si necesitamos más skills después de la implementación?</h4>
+    <p>Podemos construir skills adicionales mediante proyectos independientes. Cada skill adicional se cotiza por separado según complejidad.</p>
+
+    <h4>¿El sistema funciona sin conexión a internet?</h4>
+    <p>No, requiere conexión a internet para consultar las APIs de OCR y Claude. El volumen de datos es bajo (~10-20 MB por declaración).</p>
+
+    <h4>¿Qué sucede si cambian las reglas DIAN?</h4>
+    <p>Actualizaciones por cambios normativos DIAN están fuera del alcance de esta implementación. Requieren contrato de soporte y mantenimiento por separado.</p>
+
+    <h4>¿Podemos escalar el sistema a más volumen de operaciones?</h4>
+    <p>Sí, el sistema escala según el volumen. El costo mensual de tecnología aumentará proporcionalmente al número de declaraciones procesadas.</p>
+
+    <div class="contact-box">
+      <h3>Información de Contacto</h3>
+      <div class="contact-info">
+        <p><strong>Agustín Hoyos</strong><br>
+        Comercial Responsable — Irrelevant Club S.A.S.</p>
+        <p style="margin-top: 15px;">
+          <strong>Email:</strong> ahoyosh@stayirrelevant.com<br>
+          <strong>Teléfono:</strong> +57 316 056 7909<br>
+          <strong>Web:</strong> stayirrelevant.com
+        </p>
+        <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">
+          Estamos disponibles para aclarar cualquier duda sobre esta propuesta<br>
+          y coordinar los siguientes pasos para iniciar el proyecto.
+        </p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Propuesta Comercial — Campuzano Group</span>
+      <span>Página 5 de 5 • Confidencial</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

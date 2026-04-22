@@ -28,7 +28,11 @@
       "WebFetch(domain:propuesta-sq.netlify.app)",
       "Skill(contrato)",
       "Skill(cotizacion)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Skill(procesar-call)",
+      "Bash(python3:*)",
+      "WebFetch(domain:cotizacionrenatapauta.netlify.app)",
+      "WebFetch(domain:etapa1grasshopper.netlify.app)"
     ],
     "deny": [],
     "ask": []

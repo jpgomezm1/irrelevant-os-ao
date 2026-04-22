@@ -1,0 +1,444 @@
+﻿1. CAPA BOT WHATS APP PAGINA o CHAT BOT DE PERFILADOR POR PAGINA www.grasshopperstudy.com
+        
+
+
+PERFILADOR ACTUAL PREGUNTAS:
+
+
+"Eres freedom BOT, el asistente virtual inteligente de Grasshopper. Tu objetivo es dar la bienvenida a los visitantes con extrema amabilidad, profesionalismo y calidez. Tu misión principal es ayudar a los usuarios a resolver dudas iniciales y, tras una breve charla, identificar si el usuario cumple con el perfil ideal para hablar con un asesor humano. Si el perfil es bueno, debes persuadirlos de agendar una cita. Si no es el perfil ideal, debes ofrecerles recursos informativos de manera muy educada."
+
+
+El bot no solo responde dudas, sino que ejecuta un script de calificación basado en tus necesidades de venta:
+
+
+Identificación (Greeter): Captura de nombre, edad y ciudad.
+
+
+Perfilamiento Académico/Económico: Preguntas clave para determinar si es un lead para pregrado, posgrado o idiomas, y su presupuesto estimado.
+
+
+AI Matching Inicial: El bot analiza las respuestas y dice: "Basado en lo que me cuentas, tienes un perfil ideal para programas en [País/Área]."
+
+
+Call to Action (CTA) Dinámico: * 
+1. Si el perfil es alto: Agenda cita directa con un mentor.
+2. Si necesita claridad sobre que estudiar: Lo deriva al Perfilador Web de Mentoring - Pagando $$
+3. Si busca idiomas: Envía el enlace al Examen de Inglés
+
+
+Estructura del Flujo de Conversación
+Paso A: Saludo y Empatía
+* Bot: "¡Hola! Bienvenid@ a Grasshopper. 🦗 Es un gusto saludarte. Estoy aquí para guiarte y asegurarme de que recibas la mejor atención. ¿Con quién tengo el gusto de hablar?"
+* (El usuario responde su nombre)
+* Bot: "¡Mucho gusto, [Nombre]! Me encantaría saber, ¿qué te trajo hoy por aquí? ¿Buscas información sobre 1. Programas de estudio en el exterior, 2. Orientacion profesional o mentoría, 3. cursos virtuales o algo más?"
+Paso B: Calificación Inteligente (Perfilado)
+Para no perder tiempo con "curiosos", el bot debe hacer 2 o 3 preguntas clave discretamente. Ejemplo si eres una agencia de estudios en el exterior:
+1. Presupuesto/Capacidad: "¿Tienes ya una idea de cuánto te gustaría invertir en este proyecto o necesitas que te orientemos con los costos?"
+2. Urgencia: "¿Cuándo tienes planeado comenzar con este cambio?"
+3. Interés real: "¿Qué es lo que más te motiva a dar este paso ahora?"
+Paso C: El "Filtro" (Lógica condicional)
+* Si el perfil es bueno (cumple requisitos):
+   * Bot: "¡Excelente, [Nombre]! Por lo que me cuentas, tu perfil es muy sólido y creo que podemos aportar muchísimo valor a tu proyecto. Lo ideal ahora es que hables con uno de nuestros asesores expertos para personalizar tu estrategia. ¿Te gustaría agendar una breve llamada de 15 minutos?"
+   * (Muestra botón de KOALENDAR o el agendador interno).
+* * Si el perfil NO es ideal (todavía):
+   * Bot: "¡Muchas gracias por compartir eso conmigo, [Nombre]! Para que estés mejor preparado antes de una asesoría, te recomiendo descargar nuestra 'Guía de Éxito Grasshopper'. Una vez la leas, ¡estaremos listos para el siguiente paso! [Enlace a PDF/Blog]".
+Fase 0: Saludo y Segmentación Inicial
+Bot: "¡Hola! Qué alegría que nos visites en Grasshopper. 🦗 Mi nombre es Grassy y mi misión es ayudarte a encontrar el camino educativo ideal para ti o para tu familia. Para guiarte con el asesor experto indicado, cuéntame: ¿Cuál de estos caminos te emociona más hoy?"
+* Opción A: "Quiero estudiar en el exterior (Idiomas, Campamentos, Carreras, etc.)"
+* Opción B: "Necesito orientación para mi carrera o para aplicar a universidades (Mentoring)."
+* Opción C: "Busco programas online (Idiomas o Títulos sin salir de casa)."
+________________
+
+
+Rama A: Educación Global (Estudios en el Exterior)
+Si elige Opción A, el bot debe identificar la etapa de vida:
+1. Pregunta de Perfil: "¡Fantástico! Viajar abre la mente. Cuéntame, ¿para quién sería este programa?"
+   * Respuestas: Para mi hijo/a (7-17 años) / Para mí (Soy estudiante) / Para mí (Soy profesional) / Para mi familia.
+2. 3. Pregunta de Interés: "¿Qué tipo de experiencia buscas?"
+   * Respuestas: Campamento de verano / Perfeccionar un idioma / Pregrado o Maestría / Voluntariado.
+4. 5. Pregunta de Calificación (Filtro de presupuesto/tiempo): "¡Qué buen plan! Para darte opciones reales: ¿En qué fecha te gustaría viajar y tienes algún país en mente?"
+6. Cierre hacia Cita: "¡Suena increíble! Tenemos convenios maravillosos que encajan con lo que buscas. ¿Te gustaría agendar una cita de 15 min con nuestro asesor de Educación Global para ver destinos y presupuestos?"
+________________
+
+
+Rama B: Orientación Profesional y College Counseling
+Si elige Opción B, el bot debe distinguir entre el joven y el adulto "quemado":
+1. Pregunta de Perfil: "Entiendo, un buen guía hace toda la diferencia. ¿En qué etapa te encuentras?"
+   * Respuestas: Estoy en el colegio (buscando carrera) / Ya soy profesional (buscando un cambio).
+2. 3. Si es Estudiante (College Counseling):
+   * "¿Ya tienes universidades en la mira o necesitas que te ayudemos a elegirlas desde cero?"
+   * "¿Necesitas apoyo con tu Statement of Purpose (ensayo) o con los requisitos de admisión?"
+4. 5. Si es Profesional (Career Coaching):
+   * "¿Sientes que tu carrera se estancó o buscas dar un giro total a lo que haces?"
+   * "¿Te interesa potenciar tu hoja de vida para el mercado internacional?"
+6. 7. Pregunta de Calificación: "Nuestros procesos de Counseling son personalizados y algunos requieren una inversión (fee) para aplicar a universidades sin convenio. ¿Estás listo para invertir en tu futuro profesional hoy?"
+8. Cierre hacia Cita: "Tu perfil requiere una atención detallada. Agendemos una sesión de diagnóstico con nuestro Consultor Senior."
+________________
+
+
+Rama C: Programas Online (Global Learning)
+Si elige Opción C, el bot busca la meta profesional:
+1. Pregunta de Enfoque: "La flexibilidad de lo online es maravillosa. ¿Qué buscas lograr?"
+   * Respuestas: Aprender un idioma (ejecutivos/adultos) / Hacer un Pregrado o Maestría online.
+2. 3. Pregunta de Tiempo: "¿Cuántas horas a la semana podrías dedicarle a tu estudio?"
+4. Pregunta de Calificación: "Muchos de nuestros programas online tienen doble titulación internacional. ¿Buscas que el título sea de una universidad específica fuera del país?"
+5. Cierre hacia Cita: "¡Perfecto! Te enviaré el catálogo inicial, pero lo mejor es que hables con un asesor para ver becas vigentes en programas online. ¿Agendamos?"
+________________
+
+
+El "Cerebro" del Filtro (Lógica interna para Gemini)
+Para que el bot decida quién es "Buen Perfil" y merece la cita, configura estas reglas en el System Instruction de AI Studio:
+* REGLA 1 (Urgencia): Si el usuario quiere empezar en menos de 6 meses, es Prioridad Alta.
+* REGLA 2 (Presupuesto): Si el usuario pregunta por Maestrías o College Counseling en universidades sin convenio, es Perfil Premium (debe agendar sí o sí).
+* REGLA 3 (Tono): Si el usuario escribe de forma educada y completa las preguntas, trátalo como un "Estudiante VIP".
+Ejemplo de cómo respondería el bot ante una duda:
+Usuario: "Hola, quiero estudiar en Canadá pero no tengo mucho dinero."
+Bot (Amable e Inteligente): "¡Hola! Canadá es un destino soñado y te entiendo perfectamente, la inversión es un factor clave. 🇨🇦 Lo que podemos hacer es explorar programas online que son más económicos o voluntariados que reducen costos. Sin embargo, para darte una cifra real de cuánto necesitas para la visa, ¿te parece si hablamos 10 minutos con un asesor financiero de estudios? Así no pierdes tiempo con opciones que no se ajustan a ti."
+________________
+
+
+Siguientes pasos para tu implementación:
+1. Crea el Prompt en Google AI Studio: Pega esta estructura en la sección "System Instructions".
+2. Define el "Trigger" de la cita: Cuando la conversación llegue al final de una rama, instruye a Gemini a decir: "Por favor, elige un horario aquí: [TU LINK DE CALENDLY]".
+3. Integración: Si quieres que el bot viva en tu web, te recomiendo usar Botpress. Es muy fácil conectar Gemini a Botpress y luego Botpress a tu web.
+
+
+Speech telefonico viejo: https://docs.google.com/document/d/143i1C1pfvfU0j7u_nU56UXb4lzPumv_E/edit
+Output interno del motor
+Debe producir:
+* summary_profile
+* score_total
+* lead_category
+* next_best_action
+* recommended_services
+* recommended_programs
+* recommended_countries
+* objections
+
+
+CTA según score
+Premium
+Mensaje:
+“Por lo que me cuentas, ya tienes un perfil con muy buen potencial para avanzar con una ruta más concreta. Te recomiendo pasar a una sesión Premium para revisar tus opciones con profundidad y construir tu plan.”
+Acción:
+* comprar Premium
+* agendar counsellor
+* enviar a Bitrix
+Potencial
+Mensaje:
+“Tienes muy buenas señales, pero todavía hay algunas variables que conviene aclarar antes de tomar decisiones grandes. La mejor siguiente acción es profundizar tu perfil y revisar opciones con guía.”
+Acción:
+* vender Básico o Premium
+* mentoring de diagnóstico
+* nutrir
+Exploratorio
+Mensaje:
+“Todavía estás en una etapa de descubrimiento, y eso está bien. Lo mejor ahora es ayudarte a ganar claridad antes de hablar de programas o destinos.”
+Acción:
+* Básico
+* contenido
+* test de inglés
+* charlas
+No Fit
+Mensaje:
+“En este momento parece que todavía no estás listo para tomar una decisión concreta, pero sí podemos acompañarte con herramientas y contenido para que avances con más claridad cuando llegue el momento.”
+Acción:
+* contenido
+* biblioteca
+* nurturing largo
+BLUEPRINT OPERATIVO DEL CHATBOT EN FASE 1
+Entrada
+* saludo
+* segmentación
+Journey núcleo
+* identidad
+* exploración
+* claridad
+* viabilidad
+* recomendación
+Salidas posibles
+* dashboard
+* upgrade básico
+* upgrade premium
+* Bitrix
+* nurturing
+* contenido
+
+
+2. BOT INTERNA DE BUSQUEDA PARA LOS ASESORES COMERCIALES DE GRASSHOPPER
+
+
+Se te entregara un excel con todas las instituciones educativas disponibles donde recibimos pago y basado en esto y en lo que el asesor esta buscando (tipo de programa) el BOT debe ir a buscar todos los programas que esten disponibles que le pueda ofrecer, le debe salir, te parece si te saco las opciones en
+ 
+Univ a, b, c
+
+
+Si el asesor dice si debe presentar las opciones en una tabla asi
+
+
+
+
+NOMBRE DEL PROGRAMA
+	
+
+	
+
+	PAIS
+	
+
+	
+
+	INSTITUCIÓN
+	
+
+	
+
+	DURACION
+	
+
+	
+
+	LINK DEL PROGRAMA
+	
+
+	
+
+	TUITION FEES PARA INTERNACIONALES
+	
+
+	
+
+	BENEFICIOS DEL PROGRAMA E INSTITUCION
+	
+
+	
+
+	
+
+3. PLATAFORMA MENTORIA - HOPPER
+
+
+La plataforma operará bajo un modelo de doble cliente:
+1. Cliente Básico (USD $50) - Acceso a plataforma digital con herramientas de autoconocimiento, test orientacion gratuitos. - Evaluación de inglés. - Orientación vocacional automatizada mediante IA. - Acceso a contenido educativo clave (charlas virtuales para estudiantes y padres): sistemas educativos, becas, tendencias laborales, toma de decisiones. 
+Objetivo: masificación, generación de leads y democratización del acceso.
+2. Cliente Premium (USD $90) - Incluye MBTI Career Report + iStrong. - 2 horas de mentoría personalizada (one-to-one) con career/college counsellor. 
+Entregable vocacional personalizado (Career Report ampliado) - Resolución de dudas y acompañamiento estratégico
+Reporte personalizado mezclando MBTI+ career 
+Produccion de Hoja de vida con IA, Redaccion de SOP con IA 
+Objetivo: profundización, monetización y conversión hacia servicios de mayor valor (educación internacional, mentoría extendida, colocación laboral).
+
+
+
+
+USUARIOS:
+A. Cliente individual que desee comprar servicio de orientacion con estos 3 perfiles
+9o grado - IDENTIFICA QUIEN ERES
+10o grado - PARA DONDE VOY
+11o grado - QUE QUIERO SER
+PROFESIONAL - HACIA DONDE QUIERO DIRIGIRME
+
+
+B. Cliente B2B: compra varios usuarios para su colegio o institución (permite tener usuarios cliente individual y observer que puede ver todos los clientes de ese colegio o institucion
+Panel de monitoreo de sus estudiantes y resumen de los estudiantes con su perfil
+
+
+C. Usuario Corporate: Universidades como EAFIT, CES o Arizona State a la cual le asigne varios leads y le vendo esos usuarios para que los trabaje
+Informacion condensada de valor sobre cada uno de los leads o estudiantes que se le van a entregar
+
+
+PREGUNTAS QUE DEBEMOS INTEGRAR EN FORMS:
+Respuestas: 
+Estoy en el colegio (buscando carrera) / Ya soy profesional (buscando un cambio)
+1. INICIO: formulario de inscripcion o preguntas: https://docs.google.com/forms/d/e/1FAIpQLSf3oTqtJLyNbeFIGWwp55C2_9Yyq_9vp1oWuH46gBs-QGg_BQ/viewform?usp=header
+2. Pueba socio emocional: https://docs.google.com/document/d/19wpXdrAS-ddrjwm42wIIYCo_S3ToryblQgNP4Hj6LtY/edit?usp=sharing
+3. Mis intereses: https://docs.google.com/forms/d/e/1FAIpQLSf3oTqtJLyNbeFIGWwp55C2_9Yyq_9vp1oWuH46gBs-QGg_BQ/viewform?usp=header
+4. Mis logros o reconocimientos: https://docs.google.com/document/d/1r2KbbvqHmAF2h-hekEXZBdMj_mZO9Lw7ZbvYsdij1uM/edit?tab=t.0
+5. Evaluando mis 3 opciones de carrera: https://docs.google.com/document/d/1bARArxn42hI56McxbfC1iUZ-b4SMsMvkJRKzQwP5Pg8/edit?tab=t.0
+6. En que universidades?
+https://docs.google.com/document/d/1aH_G07SIB7jRf1Xi11mcO9CtiRy2tEWGFgBtMuorCzU/edit?tab=t.0
+7. El Simulador (Realidad y Estilo de Vida): Cuestionarios de presupuesto, adaptabilidad internacional y filtros de becas - por hacer—-para definir el % de afinidad con el presupuesto y estilo de vida para estudiar en el exterior
+8. Estas serían un poco las preguntas aunque aca están más diseñadas para el cliente pregrado, inicialmente tocaría preguntar si es estudiante colegio o profesional
+
+
+Para el profesional toca diseñar otros forms un poco diferentes
+
+
+TESTS: para entrar aca $$$
+
+
+Van a haber unos tests gratuitos otros donde el usuario si los quiere debe pagar para acceder a ellos
+Los tests que Pusieron actualmente en Hopper son los que son, o hay posibilidad de revisar bien que test incluimos y si encontramos API de otros
+
+OFERTA DE CURSOS
+A medida que va contestando preguntas, tests se le van dando ofertas con IA pero solo buscando de las universidades o opciones que están en nuestro portfolio, 
+Importante ver si se puede conectar  https://www.onetonline.org/ para irle mostrando profesiones afines y salarios
+
+
+ESPACIO DONDE EL ESTUDIANTE O GRASSHOPPER PUEDE IR MONTANDOLE DOCUMENTOS
+Y CON ESTOS DOCUMENTOS Y TODA LA INFORMACION QUE TIENE VA GENERANDO: 
+
+
+Generar $$$$- POSIBILIDAD DE QUE LA APP SE CONFIGURE CON UNOS SERVICIOS QUE SE PAGAN EXTRA
+Hoja de vida
+Statement of purpose
+Hacer preparacion SAT o ACT- buscar si hay APIs donde pueda sacar esta info para hacer como una preparacion de SAT o de TOEFL o IELTS
+Pagar AP´s materias
+Pagar materia ingles online
+
+
+IR CREANDO UN PERFIL - snapshot que arroje un pdf
+Con resumen de su personalidad (segun tests)
+De su nivel de ingles
+De sus respuestas interactuando con el BOT
+De sus intereses
+De sus logros
+
+
+Puede ir ingresando diplomas de cursos o concursos o logros y asi a traves de su vida va ingresando sus logros o objetivos y el sistema le va proponiendo nuevas cosas o le va haciendo su hoja de vida o sop
+
+
+OFERTA:
+No hemos ensayado que el sistema pueda ir ofreciendole otros programas por ejemplo si estoy en 9no grado y veo que me gustan las finanzas pueda ofrecerle un campamento en UK de bloomberg y finanzas si segun su personalidad le sale que es bueno y tiene un gusto por la aeroespacial le ofrezca el pregrado en aerospace engineering en las diferentes unis de UK o USA
+Y que puedan salir cuales requisitos se alinean con su GPA calculado o por lomenos que le salgan los programas
+
+
+ACA ESTA UN LISTADO INICIAL DE LAS INSTITUCIONES EN LAS QUE EL DEBERIA BUSCAR PARA OFRECER PROGRAMAS https://docs.google.com/spreadsheets/d/1OyzMlAKihbvL-heFv77-64CWbjzIDmyMbDGdYD9C5Vw/edit?usp=sharing
+
+
+
+
+EVALUACIÓN HOPPER ACTUAL
+
+
+Las preguntas que hace el Journey no son las mas cheveres, estas preguntas son estaticas? Hay que definirlas o el sistema con IA puede hacerlas de manera autonoma? Podriamos humanizarlo un poco mas?
+
+
+Como se le ingresa toda la informacion para que no responda cosas que nada que ver
+  
+
+
+
+EN LA BITACORA:
+Las notas aportan algo? Seria mejor como agregar un logro, agregar un nuevo estudio, agregar un nuevo deseo, agregar un hobbie
+
+
+
+
+Paso a paso, que sean como mundos que voy desbloqueando y el me vaya llevando
+   1. ME LOGUEO
+   2. HAZME UNAS PREGUNTAS PARA QUE SEPAS QUIEN SOY Y HACIA QUE LUGAR ME DIRIGIES
+   3. DE AHI SI IDENTIFICAS QUE SOY DE 9 O 10 O 11 O PROFESIONAL ME INVITES A HACER:
+TEST DE ORIENTACION SEGUN NIVEL
+TEST DE IDIOMA
+EVALUA MIS GUSTOS - PREGUNTAS
+
+
+
+
+9o grado - IDENTIFICA QUIEN ERES
+10o grado - PARA DONDE VOY
+11o grado - QUE QUIERO SER
+PROFESIONAL - HACIA DONDE QUIERO DIRIGIRME
+
+
+Para Colegios: El layout incluye un "Portal del Consejero" donde el psicólogo del colegio ve el progreso grupal (quiénes están perdidos, quiénes ya eligieron).
+Para Profesionales: El tono cambia de "descubrimiento" a "optimización". El layout se vuelve más minimalista y enfocado en el Retorno de Inversión (ROI) de la nueva carrera.
+
+
+
+
+
+
+DONDE ENCONTRAR MAS MATERIAL
+1. O*NET Web Services (La opción más profesional)2
+Es el estándar de oro en EE.UU. para la clasificación de ocupaciones. Ofrecen el O*NET Interest Profiler, un test basado en el modelo RIASEC (Realista, Investigador, Artístico, Social, Emprendedor y Convencional).3
+      * Qué ofrece: Una API que permite integrar su cuestionario de intereses y devuelve sugerencias de carreras vinculadas a su base de datos masiva.4
+      * Costo: Gratuito para desarrolladores (requiere registro).5
+      * Ideal para: Aplicaciones que necesiten resultados respaldados por investigaciones gubernamentales.
+      * Enlace: O*NET Web Services6
+2. CareerOneStop (Department of Labor, USA)
+Similar a O*NET, provee una suite de APIs para datos de empleo, pero también incluye herramientas de autoevaluación.
+      * Qué ofrece: Acceso a datos de habilidades, ocupaciones y herramientas de "Skills Matcher".7
+      * Costo: Gratuito (requiere solicitar una clave de API).8
+      * Idioma: Principalmente en inglés, aunque su base de datos tiene mucha equivalencia para mercados internacionales.
+      * Enlace: CareerOneStop Web APIs
+3. Sayvaluation (IA y Orientación)9
+Es una plataforma más moderna que utiliza IA para generar tests de orientación vocacional.
+      * Qué ofrece: Servicios de API integrados para construir y evaluar tests dentro de tu propia plataforma.10
+      * Costo: Tienen una opción de prueba gratuita y planes específicos, pero es menos "abierta" que las gubernamentales.11
+      * Enlace: Sayvaluation API12
+4. Alternativa Open Source: Implementación Manual
+Si no encuentras una API que te convenza, muchos desarrolladores optan por codificar el motor del test ellos mismos usando bases de datos abiertas:
+      * Dataset RIASEC: Puedes encontrar el cuestionario de 60 preguntas del modelo Holland (RIASEC) en repositorios como GitHub.
+      * Lógica: Al ser un test de puntuación (sumatoria de respuestas por categoría), no necesitas una API compleja; puedes alojar las preguntas en un JSON y calcular el resultado en el frontend.
+      * Big 5 test: https://ipip.ori.org/new_ipip-50-item-scale.htm
+________________
+
+
+Tabla Comparativa
+Proveedor
+	Modelo
+	Facilidad de Integración
+	Gratis
+	O*NET
+	RIASEC / Ocupacional
+	Alta (REST API)
+	Sí
+	CareerOneStop
+	Habilidades / Empleo
+	Media
+	Sí
+	Big 5 Assessments
+	Personalidad
+	Alta
+	No (Costo por reporte)
+	¿Te gustaría que te ayude a buscar la documentación técnica de alguna de estas APIs para ver cómo se implementan los endpoints?
+
+
+No existe una "API oficial" única de los creadores de estos exámenes (como College Board o ETS) que te entregue preguntas y respuestas directamente para que construyas tu propia app de práctica de forma gratuita. Sin embargo, existen varias alternativas sólidas dependiendo de si buscas contenido, gestión de datos o integración de IA.
+Aquí tienes las opciones más viables:
+1. APIs de Proveedores de Contenido (EdTech)
+Existen empresas que han digitalizado bancos de preguntas y ofrecen acceso mediante API para desarrolladores:
+      * Knewton: Es uno de los referentes en "aprendizaje adaptativo". Ofrecen APIs para cursos personalizados de SAT y GMAT, permitiendo que tu aplicación aprenda del progreso del usuario.
+      * Quizlet API: Aunque es más general, tiene una base de datos masiva de millones de unidades de estudio para TOEFL, IELTS y SAT creadas por usuarios y expertos. Puedes buscar y descargar sets de "flashcards" programáticamente.
+      * Khan Academy API: Son los colaboradores oficiales del College Board para el SAT. Su API permite acceder a gran parte de su contenido educativo y ejercicios (aunque su uso para apps comerciales de terceros tiene restricciones).
+2. APIs Oficiales (Administración y Resultados)
+Si lo que necesitas es gestionar el registro o los resultados de tus alumnos, las instituciones oficiales ofrecen lo siguiente:
+      * College Board (SAT): Ofrecen APIs específicamente para K-12 Reporting, permitiendo que instituciones educativas descarguen reportes de puntuaciones y datos de estudiantes de forma automatizada. No entregan "preguntas de práctica" por esta vía.
+      * ETS (TOEFL): Generalmente no ofrecen una API pública de contenido. Sin embargo, tienen portales para instituciones (Partners) donde se pueden gestionar servicios de verificación de puntajes.
+3. Alternativa de IA: "SATBank" y Modelos de Lenguaje
+Hoy en día, muchos desarrolladores están optando por combinar bases de datos abiertas con IA:
+      * SATBank: Es una base de datos abierta con más de 1,000 preguntas de SAT. Muchos desarrolladores conectan esta base de datos con la API de Gemini o GPT-4 para generar explicaciones detalladas o "tips" personalizados basados en el error del usuario.
+      * Generación de Preguntas: Puedes usar la API de Gemini para generar ejercicios de "Reading" o "Writing" siguiendo los formatos exactos de IELTS o TOEFL, lo cual es mucho más flexible que una base de datos estática.
+4. APIs de Evaluación de Idiomas
+Si buscas evaluar el nivel de inglés (útil para IELTS/TOEFL):
+      * SpeechAce: Ofrece una API excelente para evaluar la pronunciación y el "speaking" específicamente alineada con los estándares de IELTS y TOEFL.
+      * Grammarly API / Write & Improve (Cambridge): Para evaluar la parte de "Writing" y dar feedback gramatical instantáneo.
+________________
+
+
+Resumen de recomendación:
+| Si buscas... | Usa... |
+| :--- | :--- |
+| Preguntas y ejercicios | Knewton o Khan Academy API. |
+| Evaluación de voz/pronunciación | SpeechAce API. |
+| Feedback de escritura | API de Gemini/OpenAI o Grammarly. |
+| Resultados oficiales | Portales de College Board o ETS (requiere ser institución). |
+¿Estás planeando desarrollar una aplicación propia o necesitas la API para integrar estos datos en una plataforma educativa ya existente?
+
+
+BLUEPRINT OPERATIVO DE LA HERRAMIENTA DE ORIENTACIÓN
+Entrada
+      * saludo
+      * segmentación
+Journey núcleo
+      * identidad
+      * exploración
+      * claridad
+      * viabilidad
+      * recomendación
+Salidas posibles
+      * dashboard
+      * Bitrix
+      * nurturing
+      * contenido

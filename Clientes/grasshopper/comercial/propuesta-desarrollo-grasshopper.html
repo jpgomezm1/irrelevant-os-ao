@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta de Desarrollo - Grasshopper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #7C3AED;
+            --primary-light: #A78BFA;
+            --accent-green: #10B981;
+            --accent-cyan: #06B6D4;
+            --accent-orange: #F59E0B;
+            --accent-red: #EF4444;
+            --bg-dark: #0F0A1F;
+            --bg-card: #1A1333;
+            --bg-elevated: #2D2250;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B4A8D2;
+            --text-muted: #7C6F9B;
+            --border: rgba(139, 92, 246, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15), transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1), transparent 40%);
+            position: relative;
+            overflow: hidden;
+            padding: 120px 0 80px;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .hero-logo {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-separator {
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(180deg, transparent, var(--primary), transparent);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .badge-purple {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--primary-light);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .badge-green {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-cyan {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .badge-orange {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-orange);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(36px, 5vw, 72px);
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 48px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-light);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: clamp(16px, 2vw, 18px);
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1));
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* Component Card */
+        .component-card {
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .component-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .component-number {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .component-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .subsection {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .subsection-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--primary-light);
+        }
+
+        .subsection-content {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .subsection-content ul,
+        .subsection-content ol {
+            margin-left: 24px;
+            margin-top: 12px;
+        }
+
+        .subsection-content li {
+            margin-bottom: 8px;
+        }
+
+        .subsection-content strong {
+            color: var(--text-primary);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-green);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin: 24px 0;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight-content {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(124, 58, 237, 0.05));
+            border-left: 4px solid var(--primary);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin: 24px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* Timeline */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .timeline-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+        }
+
+        .timeline-number {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 16px;
+        }
+
+        .timeline-weeks {
+            color: var(--accent-cyan);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Pricing Section */
+        .pricing-hero {
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            border-radius: 32px;
+            padding: 48px;
+            text-align: center;
+            margin: 48px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        }
+
+        .pricing-label {
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .pricing-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(48px, 6vw, 64px);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .pricing-note {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Includes List */
+        .includes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .includes-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .includes-icon {
+            color: var(--accent-green);
+            font-size: 20px;
+        }
+
+        /* Table */
+        .pricing-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 48px 0;
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .pricing-table thead {
+            background: var(--bg-elevated);
+        }
+
+        .pricing-table th {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .pricing-table tbody tr {
+            border-top: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-table tbody tr:hover {
+            background: var(--bg-elevated);
+        }
+
+        .pricing-table td {
+            color: var(--text-secondary);
+        }
+
+        .price-highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.05));
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .footer-logo img {
+            max-width: 180px;
+            height: auto;
+        }
+
+        .footer-contact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .footer-contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-contact-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .footer-contact-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .footer-contact-label {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .footer-contact-value {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 48px 0 32px;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: auto;
+                padding: 100px 0 60px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-value {
+                font-size: 48px;
+            }
+
+            .component-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-logos">
+                    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant Logo" class="hero-logo">
+                    <div class="logo-separator"></div>
+                    <div class="logo-text">Grasshopper</div>
+                </div>
+                <div class="badge badge-purple">Propuesta de Desarrollo Técnico</div>
+                <h1 class="hero-title">
+                    Plataforma de Inteligencia<br>
+                    <span class="gradient-text">Grasshopper</span>
+                </h1>
+                <p class="hero-description">
+                    Sistema integral de orientación educativa, perfilamiento automatizado y gestión comercial con IA para transformar la experiencia del estudiante y optimizar las operaciones de Grasshopper.
+                </p>
+                <div class="hero-cta">
+                    <a href="#alcance" class="btn btn-primary">Ver Alcance Completo</a>
+                    <a href="#inversion" class="btn btn-secondary">Inversión y Timeline</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contexto Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">¿Por qué necesita Grasshopper esta plataforma?</h2>
+            <p class="section-subtitle">
+                Tres desafíos críticos que resuelve este desarrollo
+            </p>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3 class="card-title">Calificación Inteligente de Leads</h3>
+                    <p class="card-description">
+                        Actualmente no existe un sistema automatizado que califique y segmente a los prospectos antes de asignarlos a asesores, generando pérdida de tiempo y recursos en leads de baja calidad.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Búsqueda Manual de Programas</h3>
+                    <p class="card-description">
+                        Los asesores comerciales invierten horas buscando programas educativos manualmente en Excel, ralentizando el proceso de atención y reduciendo la capacidad de respuesta.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌍</div>
+                    <h3 class="card-title">Orientación Vocacional Escalable</h3>
+                    <p class="card-description">
+                        No existe una plataforma digital que democratice el acceso a orientación profesional de calidad, limitando la capacidad de generar leads masivos y recurrencia de ingresos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alcance Section -->
+    <section class="section" id="alcance" style="background: rgba(139, 92, 246, 0.02);">
+        <div class="container">
+            <h2 class="section-title">Alcance del Desarrollo</h2>
+            <p class="section-subtitle">
+                La solución está compuesta por 3 componentes principales que trabajan de forma integrada
+            </p>
+
+            <!-- Component 1: Chatbot Web -->
+            <div class="component-card">
+                <div class="component-header">
+                    <div class="component-number">1</div>
+                    <h3 class="component-title">Chatbot Perfilador Web</h3>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🎭 Objetivo del Bot</h4>
+                    <div class="subsection-content">
+                        <p><strong>Freedom BOT</strong> es el asistente virtual inteligente de Grasshopper que da la bienvenida, resuelve dudas iniciales y ejecuta un proceso de calificación automatizado para determinar si el usuario debe hablar con un asesor humano, pagar por orientación premium, o recibir contenido educativo.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🔄 Flujo de Conversación - Fase 0: Segmentación Inicial</h4>
+                    <div class="subsection-content">
+                        <p><strong>Saludo y Segmentación:</strong></p>
+                        <ul>
+                            <li><strong>Bot:</strong> "¡Hola! Qué alegría que nos visites en Grasshopper. 🦗 Mi nombre es Grassy y mi misión es ayudarte a encontrar el camino educativo ideal para ti o para tu familia."</li>
+                            <li><strong>Opciones:</strong>
+                                <ul>
+                                    <li>A: "Quiero estudiar en el exterior (Idiomas, Campamentos, Carreras)"</li>
+                                    <li>B: "Necesito orientación para mi carrera o para aplicar a universidades (Mentoring)"</li>
+                                    <li>C: "Busco programas online (Idiomas o Títulos sin salir de casa)"</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🌍 Rama A: Educación Global (Estudios en el Exterior)</h4>
+                    <div class="subsection-content">
+                        <ol>
+                            <li><strong>Perfil:</strong> "¿Para quién sería este programa?" (hijo 7-17 años, estudiante, profesional, familia)</li>
+                            <li><strong>Interés:</strong> "¿Qué tipo de experiencia buscas?" (campamento, idioma, pregrado/maestría, voluntariado)</li>
+                            <li><strong>Calificación:</strong> "¿En qué fecha te gustaría viajar y tienes algún país en mente?"</li>
+                            <li><strong>CTA:</strong> "¿Te gustaría agendar una cita de 15 min con nuestro asesor de Educación Global?"</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🎓 Rama B: Orientación Profesional y College Counseling</h4>
+                    <div class="subsection-content">
+                        <ol>
+                            <li><strong>Perfil:</strong> "¿En qué etapa te encuentras?" (colegio o profesional)</li>
+                            <li><strong>Si es Estudiante:</strong>
+                                <ul>
+                                    <li>"¿Ya tienes universidades en la mira o necesitas que te ayudemos a elegirlas?"</li>
+                                    <li>"¿Necesitas apoyo con tu Statement of Purpose o requisitos de admisión?"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Si es Profesional:</strong>
+                                <ul>
+                                    <li>"¿Sientes que tu carrera se estancó o buscas un giro total?"</li>
+                                    <li>"¿Te interesa potenciar tu hoja de vida para el mercado internacional?"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Calificación:</strong> "¿Estás listo para invertir en tu futuro profesional hoy?"</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">💻 Rama C: Programas Online (Global Learning)</h4>
+                    <div class="subsection-content">
+                        <ol>
+                            <li><strong>Enfoque:</strong> "¿Qué buscas lograr?" (idioma ejecutivos, pregrado/maestría online)</li>
+                            <li><strong>Tiempo:</strong> "¿Cuántas horas a la semana podrías dedicarle?"</li>
+                            <li><strong>Calificación:</strong> "¿Buscas que el título sea de una universidad específica fuera del país?"</li>
+                            <li><strong>CTA:</strong> "Te enviaré el catálogo inicial, pero lo mejor es que hables con un asesor."</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🧠 Motor de Calificación y Scoring</h4>
+                    <div class="subsection-content">
+                        <p><strong>El bot ejecuta un sistema de scoring basado en 3 reglas principales:</strong></p>
+                        <ul>
+                            <li><strong>REGLA 1 (Urgencia):</strong> Si el usuario quiere empezar en menos de 6 meses = Prioridad Alta</li>
+                            <li><strong>REGLA 2 (Presupuesto):</strong> Si pregunta por Maestrías o College Counseling sin convenio = Perfil Premium</li>
+                            <li><strong>REGLA 3 (Tono):</strong> Si escribe de forma educada y completa = Estudiante VIP</li>
+                        </ul>
+                        <p><strong>Output interno del motor:</strong></p>
+                        <ul>
+                            <li>summary_profile</li>
+                            <li>score_total</li>
+                            <li>lead_category (Premium, Potencial, Exploratorio, No Fit)</li>
+                            <li>next_best_action</li>
+                            <li>recommended_services</li>
+                            <li>recommended_programs</li>
+                            <li>recommended_countries</li>
+                            <li>objections</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">📊 CTA Dinámico según Score</h4>
+                    <div class="subsection-content">
+                        <table style="width: 100%; margin-top: 16px;">
+                            <thead>
+                                <tr style="background: var(--bg-elevated);">
+                                    <th style="padding: 12px;">Categoría</th>
+                                    <th style="padding: 12px;">Mensaje</th>
+                                    <th style="padding: 12px;">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px; color: var(--accent-green); font-weight: 600;">Premium</td>
+                                    <td style="padding: 12px; color: var(--text-secondary);">Ya tienes un perfil con muy buen potencial para avanzar con una ruta concreta.</td>
+                                    <td style="padding: 12px; color: var(--text-secondary);">Comprar Premium, agendar counsellor, enviar a Bitrix</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; color: var(--accent-cyan); font-weight: 600;">Potencial</td>
+                                    <td style="padding: 12px; color: var(--text-secondary);">Tienes buenas señales, pero hay variables que conviene aclarar.</td>
+                                    <td style="padding: 12px; color: var(--text-secondary);">Vender Básico o Premium, mentoring diagnóstico, nutrir</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; color: var(--accent-orange); font-weight: 600;">Exploratorio</td>
+                                    <td style="padding: 12px; color: var(--text-secondary);">Todavía estás en una etapa de descubrimiento, y eso está bien.</td>
+                                    <td style="padding: 12px; color: var(--text-secondary);">Básico, contenido, test de inglés, charlas</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; color: var(--text-muted); font-weight: 600;">No Fit</td>
+                                    <td style="padding: 12px; color: var(--text-secondary);">Todavía no estás listo para una decisión concreta.</td>
+                                    <td style="padding: 12px; color: var(--text-secondary);">Contenido, biblioteca, nurturing largo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🔧 Blueprint Operativo del Chatbot en Fase 1</h4>
+                    <div class="subsection-content">
+                        <p><strong>El chatbot operará bajo una arquitectura de 3 fases:</strong></p>
+
+                        <p style="margin-top: 16px;"><strong>1. ENTRADA</strong></p>
+                        <ul>
+                            <li><strong>Saludo:</strong> Bienvenida cálida y profesional por parte de Freedom BOT</li>
+                            <li><strong>Segmentación:</strong> Identificación del tipo de servicio que busca (Opción A: Educación Global, B: Orientación Profesional, C: Programas Online)</li>
+                        </ul>
+
+                        <p style="margin-top: 16px;"><strong>2. JOURNEY NÚCLEO (5 Etapas)</strong></p>
+                        <ul>
+                            <li><strong>Identidad:</strong> Captura de nombre, edad, ciudad, perfil (hijo 7-17, estudiante, profesional)</li>
+                            <li><strong>Exploración:</strong> Identificación de intereses (campamentos, idiomas, pregrado/maestría, carrera, cambio profesional)</li>
+                            <li><strong>Claridad:</strong> Definición de tipo de experiencia buscada y áreas de enfoque</li>
+                            <li><strong>Viabilidad:</strong> Preguntas de calificación (presupuesto, urgencia, compromiso de inversión)</li>
+                            <li><strong>Recomendación:</strong> AI Matching inicial basado en respuestas ("Basado en lo que me cuentas, tienes un perfil ideal para programas en [País/Área]")</li>
+                        </ul>
+
+                        <p style="margin-top: 16px;"><strong>3. SALIDAS POSIBLES</strong></p>
+                        <ul>
+                            <li><strong>Dashboard:</strong> Envío a panel del usuario con información personalizada</li>
+                            <li><strong>Upgrade Básico:</strong> Invitación a comprar plan Básico ($50 USD) de la plataforma Hopper</li>
+                            <li><strong>Upgrade Premium:</strong> Invitación a comprar plan Premium ($90 USD) con mentoría personalizada</li>
+                            <li><strong>Bitrix:</strong> Envío automático de lead calificado al CRM para seguimiento por asesor</li>
+                            <li><strong>Nurturing:</strong> Incorporación a secuencias de contenido educativo y seguimiento automatizado</li>
+                            <li><strong>Contenido:</strong> Entrega de recursos informativos (guías, PDFs, charlas grabadas, biblioteca)</li>
+                        </ul>
+
+                        <p style="margin-top: 16px;"><strong>El sistema selecciona automáticamente la salida según el score y categoría del lead (Premium, Potencial, Exploratorio, No Fit).</strong></p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-title">✅ Entregable del Componente 1</div>
+                    <div class="highlight-content">
+                        <ul>
+                            <li>Chatbot integrado en www.grasshopperstudy.com con Google AI Studio (Gemini)</li>
+                            <li>Motor de scoring y calificación automatizado</li>
+                            <li>Integración con Koalendar para agendamiento</li>
+                            <li>Integración con Bitrix CRM para envío de leads calificados</li>
+                            <li>Panel de configuración de respuestas y flujos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component 2: Bot de Búsqueda Interna -->
+            <div class="component-card">
+                <div class="component-header">
+                    <div class="component-number">2</div>
+                    <h3 class="component-title">Bot de Búsqueda Interna para Asesores</h3>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🎯 Objetivo del Sistema</h4>
+                    <div class="subsection-content">
+                        <p>Herramienta interna que permite a los asesores comerciales de Grasshopper buscar programas educativos de forma instantánea usando IA, eliminando la búsqueda manual en Excel.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">⚙️ Funcionamiento</h4>
+                    <div class="subsection-content">
+                        <ol>
+                            <li><strong>Input del asesor:</strong> El asesor describe qué está buscando (ej: "Maestría en Marketing Digital en UK con menos de £15,000")</li>
+                            <li><strong>Búsqueda inteligente:</strong> El bot consulta la base de datos de instituciones educativas con convenio</li>
+                            <li><strong>Confirmación:</strong> "¿Te parece si te saco las opciones en Universidad A, B, C?"</li>
+                            <li><strong>Presentación en tabla:</strong> Si el asesor dice sí, el bot genera una tabla completa</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">📋 Formato de Tabla de Resultados</h4>
+                    <div class="subsection-content">
+                        <table style="width: 100%; margin-top: 16px; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: var(--bg-elevated);">
+                                    <th style="padding: 12px; text-align: left;">Nombre del Programa</th>
+                                    <th style="padding: 12px; text-align: left;">País</th>
+                                    <th style="padding: 12px; text-align: left;">Institución</th>
+                                    <th style="padding: 12px; text-align: left;">Duración</th>
+                                    <th style="padding: 12px; text-align: left;">Link del Programa</th>
+                                    <th style="padding: 12px; text-align: left;">Tuition Fees</th>
+                                    <th style="padding: 12px; text-align: left;">Beneficios</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px; color: var(--text-secondary);" colspan="7">El sistema genera automáticamente las filas con los programas que coinciden con la búsqueda</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">📊 Base de Datos de Instituciones</h4>
+                    <div class="subsection-content">
+                        <p>El sistema trabajará con el Excel de instituciones educativas disponibles donde Grasshopper recibe comisión. Este Excel se cargará al sistema y el bot consultará en tiempo real.</p>
+                        <p><strong>Referencia:</strong> <a href="https://docs.google.com/spreadsheets/d/1OyzMlAKihbvL-heFv77-64CWbjzIDmyMbDGdYD9C5Vw/edit?usp=sharing" style="color: var(--accent-cyan);">Ver Excel de Instituciones</a></p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-title">✅ Entregable del Componente 2</div>
+                    <div class="highlight-content">
+                        <ul>
+                            <li>Panel interno para asesores (acceso con login)</li>
+                            <li>Interfaz de chat con bot de búsqueda</li>
+                            <li>Sistema de carga y actualización de Excel de programas</li>
+                            <li>Exportación de resultados a PDF o Excel</li>
+                            <li>Historial de búsquedas por asesor</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component 3: Plataforma de Mentoría -->
+            <div class="component-card">
+                <div class="component-header">
+                    <div class="component-number">3</div>
+                    <h3 class="component-title">Plataforma de Mentoría Hopper</h3>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🎯 Objetivo de la Plataforma</h4>
+                    <div class="subsection-content">
+                        <p>Sistema digital de orientación vocacional y profesional con IA que opera bajo un modelo de doble cliente: <strong>Básico ($50 USD)</strong> y <strong>Premium ($90 USD)</strong>, generando ingresos recurrentes y democratizando el acceso a orientación de calidad.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">👥 Tipos de Usuario</h4>
+                    <div class="subsection-content">
+                        <p><strong>A. Cliente Individual</strong> con 4 perfiles:</p>
+                        <ul>
+                            <li><strong>9° grado:</strong> IDENTIFICA QUIÉN ERES</li>
+                            <li><strong>10° grado:</strong> PARA DÓNDE VOY</li>
+                            <li><strong>11° grado:</strong> QUÉ QUIERO SER</li>
+                            <li><strong>Profesional:</strong> HACIA DÓNDE QUIERO DIRIGIRME</li>
+                        </ul>
+                        <p><strong>B. Cliente B2B (Colegios e Instituciones):</strong></p>
+                        <ul>
+                            <li>Compra varios usuarios para su colegio</li>
+                            <li>Panel de monitoreo de estudiantes</li>
+                            <li>Usuario "observer" que ve todos los clientes</li>
+                            <li>Portal del Consejero con progreso grupal</li>
+                        </ul>
+                        <p><strong>C. Cliente Corporate (Universidades):</strong></p>
+                        <ul>
+                            <li>Universidades como EAFIT, CES o Arizona State</li>
+                            <li>Información condensada de leads para trabajar</li>
+                            <li>Acceso a perfiles completos de estudiantes asignados</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">💎 Modelo de Cliente Básico ($50 USD)</h4>
+                    <div class="subsection-content">
+                        <p><strong>Incluye:</strong></p>
+                        <ul>
+                            <li>Acceso a plataforma digital con herramientas de autoconocimiento</li>
+                            <li>Tests de orientación gratuitos</li>
+                            <li>Evaluación de nivel de inglés</li>
+                            <li>Orientación vocacional automatizada mediante IA</li>
+                            <li>Acceso a contenido educativo clave:
+                                <ul>
+                                    <li>Charlas virtuales para estudiantes y padres</li>
+                                    <li>Sistemas educativos internacionales</li>
+                                    <li>Becas y financiamiento</li>
+                                    <li>Tendencias laborales</li>
+                                    <li>Toma de decisiones</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p><strong>Objetivo:</strong> Masificación, generación de leads y democratización del acceso</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">👑 Modelo de Cliente Premium ($90 USD)</h4>
+                    <div class="subsection-content">
+                        <p><strong>Incluye todo lo del Básico + :</strong></p>
+                        <ul>
+                            <li><strong>MBTI Career Report + iStrong</strong></li>
+                            <li><strong>2 horas de mentoría personalizada</strong> (one-to-one) con career/college counsellor</li>
+                            <li><strong>Entregable vocacional personalizado</strong> (Career Report ampliado)</li>
+                            <li><strong>Reporte personalizado mezclando MBTI + Career</strong></li>
+                            <li><strong>Producción de Hoja de Vida con IA</strong></li>
+                            <li><strong>Redacción de Statement of Purpose (SOP) con IA</strong></li>
+                            <li>Resolución de dudas y acompañamiento estratégico</li>
+                        </ul>
+                        <p><strong>Objetivo:</strong> Profundización, monetización y conversión hacia servicios de mayor valor (educación internacional, mentoría extendida, colocación laboral)</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">📋 Journey del Usuario - Estructura Paso a Paso</h4>
+                    <div class="subsection-content">
+                        <ol>
+                            <li><strong>Me logueo</strong> (registro y creación de cuenta)</li>
+                            <li><strong>Preguntas iniciales</strong> para identificar perfil (9°, 10°, 11° o profesional)</li>
+                            <li><strong>Invitación a completar evaluaciones:</strong>
+                                <ul>
+                                    <li>Test de orientación según nivel</li>
+                                    <li>Test de idioma (nivel de inglés)</li>
+                                    <li>Evaluación de gustos e intereses</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p><strong>Concepto: "Mundos que voy desbloqueando"</strong> - El sistema va guiando al estudiante paso a paso, desbloqueando nuevas secciones a medida que completa las anteriores.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">📝 Formularios y Preguntas Integradas</h4>
+                    <div class="subsection-content">
+                        <p><strong>La plataforma integrará los siguientes cuestionarios:</strong></p>
+                        <ol>
+                            <li><strong>Formulario de inscripción</strong> (datos básicos, nivel educativo, objetivos)</li>
+                            <li><strong>Prueba socio-emocional</strong></li>
+                            <li><strong>Mis intereses</strong> (áreas de conocimiento, hobbies, motivaciones)</li>
+                            <li><strong>Mis logros o reconocimientos</strong> (portfolio personal)</li>
+                            <li><strong>Evaluando mis 3 opciones de carrera</strong> (proceso de decisión)</li>
+                            <li><strong>¿En qué universidades?</strong> (preferencias institucionales)</li>
+                            <li><strong>El Simulador - Realidad y Estilo de Vida:</strong>
+                                <ul>
+                                    <li>Cuestionarios de presupuesto</li>
+                                    <li>Adaptabilidad internacional</li>
+                                    <li>Filtros de becas</li>
+                                    <li>% de afinidad con presupuesto y estilo de vida para estudiar en el exterior</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p><strong>Nota:</strong> Para profesionales se diseñarán formularios específicos con enfoque en career pivoting, upskilling y mercado laboral internacional.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🧪 Tests Integrados</h4>
+                    <div class="subsection-content">
+                        <p><strong>Habrá tests gratuitos y tests pagos ($$$) que requieren upgrade:</strong></p>
+                        <ul>
+                            <li><strong>Tests gratuitos (Básico):</strong>
+                                <ul>
+                                    <li>Test de orientación vocacional RIASEC</li>
+                                    <li>Evaluación de nivel de inglés básica</li>
+                                    <li>Cuestionario de intereses</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tests Premium (requieren pago):</strong>
+                                <ul>
+                                    <li>MBTI Career Report</li>
+                                    <li>iStrong Assessment</li>
+                                    <li>Big 5 Personality Test</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p><strong>APIs y Proveedores Sugeridos:</strong></p>
+                        <ul>
+                            <li><strong>O*NET Web Services:</strong> Test RIASEC + base de datos de ocupaciones (gratuito)</li>
+                            <li><strong>CareerOneStop API:</strong> Skills Matcher y datos de empleo (gratuito)</li>
+                            <li><strong>Big 5 Test:</strong> https://ipip.ori.org/new_ipip-50-item-scale.htm</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🎓 Oferta de Programas con IA</h4>
+                    <div class="subsection-content">
+                        <p><strong>A medida que el estudiante va completando tests y cuestionarios, el sistema:</strong></p>
+                        <ul>
+                            <li>Genera recomendaciones de programas educativos con IA</li>
+                            <li><strong>SOLO busca en el portfolio de instituciones con convenio de Grasshopper</strong></li>
+                            <li>Muestra profesiones afines usando <strong>O*NET Online</strong> (https://www.onetonline.org/)</li>
+                            <li>Despliega salarios esperados por profesión y país</li>
+                        </ul>
+                        <p><strong>Ejemplo de Oferta Personalizada:</strong></p>
+                        <ul>
+                            <li>Si el estudiante está en 9° grado y los tests muestran interés en finanzas → el sistema ofrece un campamento en UK de Bloomberg y Finanzas</li>
+                            <li>Si tiene perfil aerospace engineering → muestra pregrados en UK y USA con requisitos de GPA</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">📂 Gestión de Documentos y Generación con IA</h4>
+                    <div class="subsection-content">
+                        <p><strong>El estudiante o Grasshopper puede ir subiendo documentos a la plataforma:</strong></p>
+                        <ul>
+                            <li>Diplomas de cursos</li>
+                            <li>Certificados de concursos o logros</li>
+                            <li>Transcripts académicos</li>
+                            <li>Cartas de recomendación</li>
+                        </ul>
+                        <p><strong>Con estos documentos y toda la información capturada, el sistema genera:</strong></p>
+                        <ul>
+                            <li><strong>Hoja de Vida (CV) automática</strong></li>
+                            <li><strong>Statement of Purpose (SOP)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">💰 Servicios Extra que se Pagan Dentro de la Plataforma</h4>
+                    <div class="subsection-content">
+                        <p><strong>La plataforma ofrecerá servicios adicionales pagos:</strong></p>
+                        <ul>
+                            <li>Generación de Hoja de Vida profesional</li>
+                            <li>Redacción de Statement of Purpose personalizado</li>
+                            <li>Preparación SAT o ACT (integración con APIs de práctica)</li>
+                            <li>Preparación TOEFL o IELTS</li>
+                            <li>Pago de AP's (Advanced Placement) - materias</li>
+                            <li>Materia de inglés online</li>
+                        </ul>
+                        <p><strong>APIs Sugeridas para Preparación de Exámenes:</strong></p>
+                        <ul>
+                            <li><strong>Khan Academy API:</strong> SAT oficial (colaboradores de College Board)</li>
+                            <li><strong>Quizlet API:</strong> Flashcards para TOEFL, IELTS, SAT</li>
+                            <li><strong>SpeechAce API:</strong> Evaluación de pronunciación para IELTS/TOEFL Speaking</li>
+                            <li><strong>Grammarly API / Write & Improve (Cambridge):</strong> Feedback de Writing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">📸 Snapshot - PDF del Perfil del Estudiante</h4>
+                    <div class="subsection-content">
+                        <p><strong>El sistema va creando un perfil completo del estudiante que se puede exportar como PDF:</strong></p>
+                        <ul>
+                            <li>Resumen de personalidad (según tests MBTI, Big 5, RIASEC)</li>
+                            <li>Nivel de inglés certificado</li>
+                            <li>Resumen de respuestas del bot de orientación</li>
+                            <li>Intereses y áreas de fortaleza</li>
+                            <li>Logros y reconocimientos</li>
+                            <li>Programas recomendados según perfil</li>
+                        </ul>
+                        <p><strong>Este snapshot es clave para:</strong></p>
+                        <ul>
+                            <li>Compartir con padres</li>
+                            <li>Presentar a universidades</li>
+                            <li>Vender a clientes Corporate (universidades que compran leads)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🎨 Adaptación de Layout según Cliente</h4>
+                    <div class="subsection-content">
+                        <ul>
+                            <li><strong>Para Colegios (B2B):</strong> Portal del Consejero donde el psicólogo del colegio ve progreso grupal (quiénes están perdidos, quiénes ya eligieron)</li>
+                            <li><strong>Para Profesionales:</strong> Tono cambia de "descubrimiento" a "optimización". Layout minimalista enfocado en ROI de la nueva carrera</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4 class="subsection-title">🔧 Blueprint Operativo de la Herramienta de Orientación</h4>
+                    <div class="subsection-content">
+                        <p><strong>La plataforma Hopper operará bajo una arquitectura de 3 fases:</strong></p>
+
+                        <p style="margin-top: 16px;"><strong>1. ENTRADA</strong></p>
+                        <ul>
+                            <li><strong>Saludo:</strong> Bienvenida personalizada al estudiante y creación de cuenta</li>
+                            <li><strong>Segmentación:</strong> Identificación del perfil del usuario (9° grado, 10° grado, 11° grado o Profesional) mediante preguntas iniciales</li>
+                        </ul>
+
+                        <p style="margin-top: 16px;"><strong>2. JOURNEY NÚCLEO (5 Etapas - "Mundos Desbloqueables")</strong></p>
+                        <ul>
+                            <li><strong>Identidad:</strong> Formulario de inscripción, datos básicos, prueba socio-emocional, evaluación de personalidad (MBTI, Big 5, RIASEC). El sistema responde: "¿Quién eres?"</li>
+                            <li><strong>Exploración:</strong> Tests de orientación vocacional, evaluación de intereses, mis gustos, hobbies. El sistema ayuda a descubrir: "¿Qué te apasiona?"</li>
+                            <li><strong>Claridad:</strong> Evaluación de las 3 opciones de carrera principales, análisis de fortalezas vs. intereses, filtrado de programas afines. El sistema define: "¿Qué quieres ser?"</li>
+                            <li><strong>Viabilidad:</strong> Simulador de Realidad y Estilo de Vida (presupuesto, adaptabilidad internacional, filtros de becas), evaluación de universidades, cálculo de afinidad con GPA. El sistema valida: "¿Es viable para ti?"</li>
+                            <li><strong>Recomendación:</strong> Sistema de IA genera recomendaciones personalizadas de programas (solo del portfolio Grasshopper), profesiones afines con O*NET, salarios esperados, países y universidades que encajan con el perfil. El sistema entrega: "Este es tu camino recomendado"</li>
+                        </ul>
+
+                        <p style="margin-top: 16px;"><strong>3. SALIDAS POSIBLES</strong></p>
+                        <ul>
+                            <li><strong>Dashboard:</strong> Panel personalizado con progreso del journey, resultados de tests, recomendaciones activas y próximos pasos</li>
+                            <li><strong>Bitrix:</strong> Leads calificados con alto potencial son enviados automáticamente al CRM para contacto por asesores</li>
+                            <li><strong>Nurturing:</strong> Contenido educativo progresivo (charlas virtuales, guías de sistemas educativos, becas, tendencias laborales)</li>
+                            <li><strong>Contenido:</strong> Biblioteca de recursos, artículos, videos y materiales descargables según área de interés</li>
+                        </ul>
+
+                        <p style="margin-top: 16px;"><strong>Cada perfil de usuario (9°, 10°, 11°, Profesional) recibe un journey adaptado con contenido y recomendaciones específicas para su etapa de vida.</strong></p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-title">✅ Entregable del Componente 3</div>
+                    <div class="highlight-content">
+                        <ul>
+                            <li>Plataforma web completa (responsive) con login de usuarios</li>
+                            <li>Sistema de suscripción Básico ($50) y Premium ($90)</li>
+                            <li>Integración de tests: RIASEC, MBTI, iStrong, Big 5, nivel de inglés</li>
+                            <li>Journey guiado paso a paso ("mundos desbloqueables")</li>
+                            <li>Formularios integrados (7 cuestionarios principales)</li>
+                            <li>Sistema de recomendación de programas con IA (solo del portfolio Grasshopper)</li>
+                            <li>Integración con O*NET Online para profesiones y salarios</li>
+                            <li>Módulo de gestión de documentos (upload y storage)</li>
+                            <li>Generador automático de CV y SOP con IA</li>
+                            <li>Marketplace de servicios extra (SAT, TOEFL, AP's, etc.)</li>
+                            <li>Exportación de Snapshot en PDF</li>
+                            <li>Panel B2B para Colegios (Portal del Consejero)</li>
+                            <li>Panel Corporate para Universidades (visualización de leads)</li>
+                            <li>Integración con Bitrix CRM para conversión de leads</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Entregables Finales Section -->
+    <section class="section" style="background: rgba(139, 92, 246, 0.02);">
+        <div class="container">
+            <h2 class="section-title">Entregables Finales del Proyecto</h2>
+            <p class="section-subtitle">
+                Todo lo que recibirás al finalizar el desarrollo
+            </p>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3 class="card-title">Componente 1: Chatbot</h3>
+                    <div class="includes-list">
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Chatbot perfilador integrado en web</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Motor de scoring automatizado</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Integración con Koalendar y Bitrix CRM</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Panel de configuración de flujos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔍</div>
+                    <h3 class="card-title">Componente 2: Bot Búsqueda</h3>
+                    <div class="includes-list">
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Panel interno para asesores</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Sistema de búsqueda con IA</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Exportación de resultados</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Historial de búsquedas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎓</div>
+                    <h3 class="card-title">Componente 3: Plataforma Hopper</h3>
+                    <div class="includes-list">
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Plataforma completa con suscripción Básico/Premium</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Tests integrados (RIASEC, MBTI, Big 5, inglés)</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Journey guiado con "mundos desbloqueables"</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Recomendador de programas con IA</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Generador de CV y SOP automatizado</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Marketplace de servicios extra</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Paneles B2B (Colegios) y Corporate (Universidades)</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Exportación de Snapshot PDF</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h3 class="card-title">Documentación y Soporte</h3>
+                    <div class="includes-list">
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Documentación técnica completa</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Video tutoriales de uso</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>Capacitación al equipo de Grasshopper</span>
+                        </div>
+                        <div class="includes-item">
+                            <span class="includes-icon">✓</span>
+                            <span>30 días de soporte post-entrega</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section" id="timeline">
+        <div class="container">
+            <h2 class="section-title">Timeline de Implementación</h2>
+            <p class="section-subtitle">
+                Plan de desarrollo escalonado en 4 fases principales
+            </p>
+            <div class="timeline-grid">
+                <div class="timeline-card">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-weeks">Semanas 1-3</div>
+                    <div class="timeline-title">Discovery y Arquitectura</div>
+                    <div class="timeline-description">
+                        Diseño de arquitectura técnica, definición de APIs, estructura de base de datos y wireframes de interfaces.
+                    </div>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-weeks">Semanas 4-7</div>
+                    <div class="timeline-title">Desarrollo Componentes 1 y 2</div>
+                    <div class="timeline-description">
+                        Construcción del Chatbot perfilador web y Bot de búsqueda interna. Integración con Koalendar y Bitrix CRM.
+                    </div>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-weeks">Semanas 8-14</div>
+                    <div class="timeline-title">Desarrollo Plataforma Hopper</div>
+                    <div class="timeline-description">
+                        Frontend, backend, integración de tests, journey guiado, sistema de suscripciones, generador de CV/SOP y paneles B2B.
+                    </div>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-weeks">Semanas 15-16</div>
+                    <div class="timeline-title">Testing y Deploy</div>
+                    <div class="timeline-description">
+                        QA completo, ajustes finales, capacitación al equipo, deploy a producción y 30 días de soporte post-entrega.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inversión Section -->
+    <section class="section" id="inversion" style="background: rgba(139, 92, 246, 0.02);">
+        <div class="container">
+            <h2 class="section-title">Inversión del Proyecto</h2>
+            <p class="section-subtitle">
+                Estructura de inversión basada en el alcance completo de los 3 componentes
+            </p>
+
+            <div class="pricing-hero">
+                <div class="pricing-label">Inversión Total del Proyecto</div>
+                <div class="pricing-value">Por Definir</div>
+                <div class="pricing-note">La inversión se definirá en conjunto con Grasshopper basándose en:</div>
+                <div class="includes-list" style="max-width: 600px; margin: 24px auto 0;">
+                    <div class="includes-item">
+                        <span class="includes-icon">✓</span>
+                        <span>Alcance final confirmado de cada componente</span>
+                    </div>
+                    <div class="includes-item">
+                        <span class="includes-icon">✓</span>
+                        <span>Priorización de funcionalidades (MVP vs Full)</span>
+                    </div>
+                    <div class="includes-item">
+                        <span class="includes-icon">✓</span>
+                        <span>Timeline acordado y recursos asignados</span>
+                    </div>
+                    <div class="includes-item">
+                        <span class="includes-icon">✓</span>
+                        <span>Integraciones con APIs de terceros (costos de licencias)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p>Esta propuesta presenta el alcance técnico completo basado en el documento de necesidades. El siguiente paso es agendar una sesión de refinamiento donde definiremos juntos qué funcionalidades van en la Fase 1 (MVP) y cuáles en fases posteriores, para poder construir una cotización precisa y un plan de trabajo detallado.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Requisitos Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Requisitos y Siguientes Pasos</h2>
+            <p class="section-subtitle">
+                Lo que necesitamos de Grasshopper para comenzar
+            </p>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-icon">📋</div>
+                    <h3 class="card-title">Información y Accesos Necesarios</h3>
+                    <div class="subsection-content">
+                        <ol>
+                            <li>Acceso al sitio web www.grasshopperstudy.com (FTP, admin panel o repositorio)</li>
+                            <li>Acceso a Bitrix CRM para configurar integración</li>
+                            <li>Excel actualizado de instituciones educativas con convenio</li>
+                            <li>Documentos de referencia de tests actuales (si existen)</li>
+                            <li>Formularios de Google Forms mencionados en el documento</li>
+                            <li>Cuenta de Koalendar configurada</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3 class="card-title">Próximos Pasos</h3>
+                    <div class="subsection-content">
+                        <ol>
+                            <li><strong>Sesión de Refinamiento:</strong> Agendar reunión de 2 horas para priorizar funcionalidades y definir MVP</li>
+                            <li><strong>Cotización Final:</strong> Irrelevant entregará propuesta económica detallada con desglose por componente</li>
+                            <li><strong>Firma de Contrato:</strong> Formalización del proyecto y timeline acordado</li>
+                            <li><strong>Kickoff Meeting:</strong> Sesión inicial con equipos técnicos de ambas partes</li>
+                            <li><strong>Sprint 0:</strong> Configuración de ambientes, accesos y arquitectura técnica</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant Logo">
+            </div>
+            <div class="footer-contact">
+                <div class="footer-contact-card">
+                    <div class="footer-contact-icon">📧</div>
+                    <div class="footer-contact-label">Email</div>
+                    <div class="footer-contact-value">jpgomez@stayirrelevant.com</div>
+                </div>
+                <div class="footer-contact-card">
+                    <div class="footer-contact-icon">📱</div>
+                    <div class="footer-contact-label">Teléfono</div>
+                    <div class="footer-contact-value">+57 318 335 1733</div>
+                </div>
+                <div class="footer-contact-card">
+                    <div class="footer-contact-icon">🌐</div>
+                    <div class="footer-contact-label">Web</div>
+                    <div class="footer-contact-value">stayirrelevant.com</div>
+                </div>
+                <div class="footer-contact-card">
+                    <div class="footer-contact-icon">📅</div>
+                    <div class="footer-contact-label">Agendar Reunión</div>
+                    <div class="footer-contact-value">cal.com/juan-irrelevant/discovery</div>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-copyright">
+                <p>© 2026 Irrelevant Club S.A.S. - NIT 901.935.642-1</p>
+                <p>Propuesta técnica generada para Grasshopper - Abril 2026</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
