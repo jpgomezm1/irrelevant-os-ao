@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 0 — Pure Wellness Med Spa | Irrelevant Digital Presence Solution</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== COVER ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px;
+    right: -100px;
+    width: 750px;
+    height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px;
+    left: -150px;
+    width: 500px;
+    height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px;
+    right: -80px;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px;
+    left: -80px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px;
+    object-fit: contain;
+    opacity: 0.95;
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h2.small {
+    font-size: 21px;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong {
+    font-weight: 600;
+  }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== SECTION DIVIDER ===================== */
+  .section-divider {
+    display: flex;
+    min-height: 100vh;
+    max-height: 297mm;
+  }
+
+  .section-divider-left {
+    flex: 1;
+    background: var(--lavanda);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+  }
+
+  .section-divider-left .section-icon {
+    width: 80px;
+    height: 80px;
+    color: var(--morado);
+    margin-bottom: 20px;
+  }
+
+  .section-divider-right {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-divider-right::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%);
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+
+  .section-number {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.08);
+    position: absolute;
+    top: 40px;
+    right: 50px;
+  }
+
+  .section-divider-right h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.25;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 14px;
+  }
+
+  .section-divider-right p {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+  }
+
+  .section-divider-right .section-line {
+    width: 40px;
+    height: 2px;
+    background: var(--morado-claro);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===================== EXECUTIVE SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  .highlight-box.warning {
+    border-left-color: #F59E0B;
+    background: #FFFBEB;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul {
+    margin-left: 14px;
+  }
+
+  .card-body .label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--morado);
+    margin-bottom: 6px;
+    margin-top: 10px;
+  }
+
+  /* ===================== SOLUTION GRAPHIC ===================== */
+  .solution-item {
+    background: #F0FDF4;
+    border-left: 3px solid #22C55E;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+  }
+
+  .solution-item .solution-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #166534;
+    margin-bottom: 3px;
+  }
+
+  .solution-item p {
+    font-size: 9px;
+    font-weight: 300;
+    color: #14532D;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== LAYER CARDS ===================== */
+  .layer-card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .layer-card-header {
+    background: linear-gradient(135deg, var(--morado), var(--morado-oscuro));
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .layer-card-header .layer-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .layer-card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .layer-card-body {
+    padding: 20px 24px;
+  }
+
+  .layer-card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    color: #444;
+    margin-bottom: 4px;
+    line-height: 1.6;
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== COST BLOCK ===================== */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== IMPACT TABLE ===================== */
+  .impact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 10px;
+  }
+
+  .impact-table th {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+
+  .impact-table th:first-child {
+    border-radius: 6px 0 0 0;
+  }
+
+  .impact-table th:last-child {
+    border-radius: 0 6px 0 0;
+  }
+
+  .impact-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gris-claro);
+    font-weight: 300;
+    color: #333;
+  }
+
+  .impact-table tr:nth-child(even) td {
+    background: var(--lavanda);
+  }
+
+  .impact-table .highlight-cell {
+    font-weight: 600;
+    color: var(--morado-oscuro);
+  }
+
+  /* ===================== PRODUCT PRICING CARDS ===================== */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 30px 0;
+  }
+
+  .pricing-card {
+    background: var(--negro);
+    border-radius: 12px;
+    padding: 28px 24px;
+    border: 2px solid;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pricing-card.product-1 { border-color: #06B6D4; }
+  .pricing-card.product-2 { border-color: #10B981; }
+  .pricing-card.product-3 { border-color: #A855F7; }
+  .pricing-card.product-4 { border-color: #F59E0B; }
+
+  .pricing-card-tag {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 16px;
+    border: 1px solid;
+  }
+
+  .product-1 .pricing-card-tag {
+    color: #06B6D4;
+    border-color: #06B6D4;
+    background: rgba(6, 182, 212, 0.1);
+  }
+  .product-2 .pricing-card-tag {
+    color: #10B981;
+    border-color: #10B981;
+    background: rgba(16, 185, 129, 0.1);
+  }
+  .product-3 .pricing-card-tag {
+    color: #A855F7;
+    border-color: #A855F7;
+    background: rgba(168, 85, 247, 0.1);
+  }
+  .product-4 .pricing-card-tag {
+    color: #F59E0B;
+    border-color: #F59E0B;
+    background: rgba(245, 158, 11, 0.1);
+  }
+
+  .pricing-card-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 28px;
+    line-height: 1.3;
+  }
+
+  .product-1 .pricing-card-title { color: #06B6D4; }
+  .product-2 .pricing-card-title { color: #10B981; }
+  .product-3 .pricing-card-title { color: #A855F7; }
+  .product-4 .pricing-card-title { color: #F59E0B; }
+
+  .pricing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .pricing-row:last-child {
+    border-bottom: none;
+  }
+
+  .pricing-row-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .pricing-row-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .product-1 .pricing-row-value { color: #06B6D4; }
+  .product-2 .pricing-row-value { color: #10B981; }
+  .product-3 .pricing-row-value { color: #A855F7; }
+  .product-4 .pricing-row-value { color: #F59E0B; }
+
+  /* ===================== SAVINGS HERO BLOCK ===================== */
+  .savings-hero {
+    background: linear-gradient(135deg, #10B981, #059669);
+    border-radius: 16px;
+    padding: 40px 50px;
+    margin: 40px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #10B981;
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+  }
+
+  .savings-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.15), transparent 60%);
+    border-radius: 50%;
+  }
+
+  .savings-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .savings-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.3;
+  }
+
+  .savings-amounts {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .savings-amount-block {
+    text-align: center;
+  }
+
+  .savings-amount-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  .savings-amount-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    line-height: 1;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  .savings-amount-period {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    margin-top: 4px;
+  }
+
+  .savings-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.95);
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+  }
+
+  .package-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 30px 0;
+  }
+
+  .comparison-block {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    border: 2px solid;
+  }
+
+  .comparison-block.individual {
+    border-color: #EF4444;
+  }
+
+  .comparison-block.package {
+    border-color: #10B981;
+    background: linear-gradient(135deg, #F0FDF4, white);
+  }
+
+  .comparison-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .comparison-block.individual .comparison-label {
+    color: #EF4444;
+  }
+
+  .comparison-block.package .comparison-label {
+    color: #10B981;
+  }
+
+  .comparison-price {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .comparison-block.individual .comparison-price {
+    color: #DC2626;
+  }
+
+  .comparison-block.package .comparison-price {
+    color: #059669;
+  }
+
+  .comparison-detail {
+    font-size: 10px;
+    color: #666;
+    font-weight: 400;
+  }
+
+  /* ===================== TIMELINE / LEVELS ===================== */
+  .level-timeline {
+    position: relative;
+    margin: 24px 0;
+    padding-left: 30px;
+  }
+
+  .level-timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--morado), var(--morado-claro), rgba(139,92,246,0.2));
+  }
+
+  .level-item {
+    position: relative;
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+
+  .level-item::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--morado);
+    border: 2px solid var(--blanco);
+    box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+  }
+
+  .level-item h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 6px;
+  }
+
+  .level-item p {
+    font-size: 10px;
+    font-weight: 300;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px;
+    left: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(167,139,250,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 60px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+
+  .back-cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .deco-circles {
+    width: 120px;
+    height: 120px;
+    opacity: 0.15;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .layer-card-body { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .package-comparison { grid-template-columns: 1fr; }
+    .savings-amounts { flex-direction: column; gap: 30px; }
+    .savings-hero { padding: 30px 24px; }
+    .savings-title { font-size: 22px; }
+    .savings-amount-value { font-size: 36px; }
+    .cover-title { font-size: 36px; }
+    .section-divider { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- COVER PAGE                                                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Premium Digital Presence Solution</div>
+      <div class="cover-title">Pure Wellness Med Spa</div>
+      <div class="cover-subtitle">Complete Integrated Ecosystem: Premium Website + Intelligent Assistant 24/7 + Centralized CRM + Appointment Assistant</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>CONFIDENTIAL DOCUMENT</span>
+        <span>2025</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1 - CLIENT CONTEXT (Divider)                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="28" r="12"/>
+        <path d="M20 60 Q20 48, 32 48 L48 48 Q60 48, 60 60 L60 70 L20 70 Z"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">01</div>
+      <div class="section-line"></div>
+      <h2>Client Context</h2>
+      <p>Overview of Pure Wellness Med Spa and their positioning in the premium aesthetic medicine market.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 01 - CLIENT CONTEXT                                    -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+      <span class="page-header-title">Client Context</span>
+    </div>
+    <span class="page-header-num">PAGE 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>About Pure Wellness Med Spa</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Pure Wellness Med Spa</strong> is a premium aesthetic clinic located in Ocala, Florida, specializing in advanced non-surgical procedures, laser treatments, skincare, and wellness therapies. Their motto "Let your natural features steal the show" reflects their approach: medical excellence, advanced technology, and a premium experience.</p>
+    </div>
+
+    <h3>Service Portfolio (20+ services)</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Non-Surgical Procedures</span>
+          <h5>Injectables & Contouring</h5>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Botox, Dysport, Daxxify</li>
+            <li>Dermal Fillers</li>
+            <li>Sculptra</li>
+            <li>Non-Surgical BBL</li>
+            <li>PRP Injections</li>
+            <li>EZ Gel & Exosomes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Laser & Devices</span>
+          <h5>Advanced Technology</h5>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Attiva Skin Tightening</li>
+            <li>CoolPeel CO2</li>
+            <li>IPL Photofacial</li>
+            <li>Morpheus8 Face & Body</li>
+            <li>Laser Hair Removal</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Skincare</span>
+          <h5>Skin Enhancement</h5>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>HydraFacial</li>
+            <li>Microneedling</li>
+            <li>Chemical Peels</li>
+            <li>Custom Facials</li>
+            <li>Brow & Lash Services</li>
+            <li>Advanced Skincare</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Wellness</span>
+          <h5>Integral Wellness</h5>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Vitamin IV Infusions</li>
+            <li>NAD+ Therapy</li>
+            <li>Weight Loss Therapy</li>
+            <li>GLP Therapies</li>
+            <li>Integral Wellness</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Premium positioning:</strong> Pure Wellness Med Spa combines medical credibility with luxury experience. Their service portfolio requires a digital presence that reflects this level of excellence and professionalism.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 - IDENTIFIED OPPORTUNITIES (Divider)             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M40 15 L55 30 L50 30 L50 45 L30 45 L30 30 L25 30 Z"/>
+        <rect x="22" y="48" width="36" height="18" rx="2"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">02</div>
+      <div class="section-line"></div>
+      <h2>Identified Opportunities</h2>
+      <p>Six strategic areas to strengthen digital presence and operational efficiency.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 02 - OPPORTUNITIES                                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="12,2 15,8 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,8"/></svg>
+      <span class="page-header-title">Strategic Opportunities</span>
+    </div>
+    <span class="page-header-num">PAGE 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>6 Identified opportunity areas</h4>
+    <div class="gradient-line"></div>
+
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">1. Premium Digital Presence</div>
+        <p>Need for a website that reflects medical excellence, professionalism, and the luxury experience Pure Wellness offers.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">2. 24/7 Availability</div>
+        <p>Capture leads outside business hours. Potential clients search for information and expect immediate responses at any time.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">3. Centralized Management</div>
+        <p>Unified system for managing leads and clients across all contact channels (web, social media, calls, etc.).</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">4. Efficient Scheduling</div>
+        <p>Automate appointments and reduce manual workload, allowing the team to focus on patient care.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">5. Systems Integration</div>
+        <p>Connect multiple contact channels into a single centralized system to avoid information loss and duplication.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">6. Competitive Differentiation</div>
+        <p>Position as an innovative leader integrating advanced technology not only in treatments, but also in customer experience.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Core insight:</strong> Pure Wellness has medical excellence and premium services. The opportunity is to ensure the digital experience reflects this same level of quality and sophistication.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 - PROPOSED SOLUTION (Divider)                    -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M40 15 L15 30 L15 50 L40 65 L65 50 L65 30 Z"/>
+        <circle cx="40" cy="40" r="8"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">03</div>
+      <div class="section-line"></div>
+      <h2>Proposed Solution</h2>
+      <p>Complete integrated ecosystem: 4 products working in sync to transform Pure Wellness digital presence.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 03 - PRODUCT 1: LUXURY WEBSITE                         -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <span class="page-header-title">Product 1: Luxury Website</span>
+    </div>
+    <span class="page-header-num">PAGE 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Product 1: Luxury Website</h4>
+    <div class="gradient-line"></div>
+
+    <div class="layer-card">
+      <div class="layer-card-header">
+        <span class="layer-num">01</span>
+        <h5>Premium Website</h5>
+      </div>
+      <div class="layer-card-body">
+        <p><strong>Key Features:</strong></p>
+        <ul>
+          <li>Luxury design: clean, minimalist, and sophisticated that reflects medical excellence</li>
+          <li>Clear presentation of aesthetic services with high-quality visuals</li>
+          <li>Conversion-optimized UX to guide visitors toward consultation booking</li>
+          <li>Medical credibility transmission through professional design and structured content</li>
+          <li>Responsive design (mobile-first) for optimal experience on all devices</li>
+          <li>SEO optimization for local searches (Ocala, Florida + aesthetic services)</li>
+          <li>Social media integration (Instagram, Facebook, etc.)</li>
+          <li>Strategic contact forms at key conversion points</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Design principle:</strong> The website is not a digital brochure. It is the first contact point with the brand—a virtual extension of the premium experience offered at the clinic.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 04 - PRODUCT 2: INTELLIGENT ASSISTANT 24/7             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span class="page-header-title">Product 2: Intelligent Assistant</span>
+    </div>
+    <span class="page-header-num">PAGE 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Product 2: Intelligent Assistant 24/7</h4>
+    <div class="gradient-line"></div>
+
+    <div class="layer-card">
+      <div class="layer-card-header">
+        <span class="layer-num">02</span>
+        <h5>AI-Powered Conversational Assistant</h5>
+      </div>
+      <div class="layer-card-body">
+        <p><strong>Functionalities:</strong></p>
+        <ul>
+          <li>Answers frequently asked questions about services, procedures, pricing, and availability</li>
+          <li>Explains services and procedures in detail (Botox, fillers, laser treatments, wellness, etc.)</li>
+          <li>Recommends treatments based on client-expressed needs</li>
+          <li>Intelligent redirection by service type (aesthetic, wellness, skincare, etc.)</li>
+          <li>Captures qualified leads with contact information and service of interest</li>
+          <li>24/7 availability—captures opportunities outside business hours</li>
+          <li>Professional and empathetic tone aligned with the premium brand</li>
+          <li>Escalation to human when necessary (complex cases, urgent issues)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Impact:</strong> The assistant doesn't replace the team—it amplifies their capacity. It handles initial inquiries, qualifies leads, and ensures no potential client goes unanswered.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 05 - PRODUCT 3: CENTRALIZED CRM                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span class="page-header-title">Product 3: Centralized CRM</span>
+    </div>
+    <span class="page-header-num">PAGE 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>Product 3: Centralized CRM</h4>
+    <div class="gradient-line"></div>
+
+    <div class="layer-card">
+      <div class="layer-card-header">
+        <span class="layer-num">03</span>
+        <h5>Lead & Client Management System</h5>
+      </div>
+      <div class="layer-card-body">
+        <p><strong>Capabilities:</strong></p>
+        <ul>
+          <li>Automatic lead capture from website (forms and chat assistant)</li>
+          <li>Direct integration with intelligent assistant—every conversation becomes a lead</li>
+          <li>Unified lead capture from multiple channels (social media, phone, email, web)</li>
+          <li>Follow-up tracking and status management for each lead (new, contacted, scheduled, converted)</li>
+          <li>Complete interaction history per client</li>
+          <li>Segmentation by service of interest (injectables, laser, wellness, skincare, etc.)</li>
+          <li>Dashboard with key metrics: total leads, conversion rate, services in demand</li>
+          <li>Automatic alerts and reminders for follow-ups</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Centralization principle:</strong> A scattered system loses information, duplicates effort, and wastes opportunities. A centralized CRM ensures no lead is lost and every interaction is tracked.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 06 - PRODUCT 4: SCHEDULING ASSISTANT                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="page-header-title">Product 4: Scheduling Assistant</span>
+    </div>
+    <span class="page-header-num">PAGE 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>Product 4: Appointment Scheduling Assistant</h4>
+    <div class="gradient-line"></div>
+
+    <div class="layer-card">
+      <div class="layer-card-header">
+        <span class="layer-num">04</span>
+        <h5>Automated Scheduling System</h5>
+      </div>
+      <div class="layer-card-body">
+        <p><strong>Features:</strong></p>
+        <ul>
+          <li>Conversational bot for appointment scheduling via chat</li>
+          <li>Direct connection with CRM—every appointment is automatically logged</li>
+          <li>Email integration for automatic confirmations</li>
+          <li>Automatic confirmation emails after booking</li>
+          <li>Automated pre-appointment reminders (24 hours before)</li>
+          <li>Availability management by service type (different slots for different treatments)</li>
+          <li>Assisted cancellation and rescheduling</li>
+          <li>Automatic sync of all information with CRM</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Efficiency:</strong> Manual scheduling consumes time and creates friction. An automated system frees the team to focus on patient care while ensuring no appointment is missed or forgotten.</p>
+    </div>
+
+    <h3>Total Integration</h3>
+    <p><strong>The 4 products work synchronized creating a complete flow:</strong></p>
+    <p style="font-size: 11px; font-weight: 400; color: var(--morado-oscuro); background: var(--lavanda); padding: 14px; border-radius: 6px; border-left: 3px solid var(--morado);">
+      Website visit → Intelligent assistant interaction → Lead captured in CRM → Appointment scheduled via assistant → Automatic email confirmation → Pre-appointment reminder → Client arrives prepared
+    </p>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4 - IMPLEMENTATION TIMELINE (Divider)              -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <line x1="10" y1="40" x2="70" y2="40"/>
+        <circle cx="20" cy="40" r="4"/>
+        <circle cx="40" cy="40" r="4"/>
+        <circle cx="60" cy="40" r="4"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">04</div>
+      <div class="section-line"></div>
+      <h2>Implementation Timeline</h2>
+      <p>8-week accelerated roadmap with agile methodology and optimized sprints.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 07 - TIMELINE                                          -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="page-header-title">Timeline & Phases</span>
+    </div>
+    <span class="page-header-num">PAGE 07</span>
+  </div>
+  <div class="inner-page">
+    <h4>Implementation Timeline: 8 Weeks</h4>
+    <div class="gradient-line"></div>
+
+    <p><strong>Methodology:</strong> Accelerated agile approach with focused sprints for rapid delivery and continuous feedback.</p>
+
+    <div class="level-timeline">
+      <div class="level-item">
+        <h5>PHASE 1: FOUNDATION (Weeks 1-3)</h5>
+        <p><strong>Week 1:</strong> UI/UX design of the website, information architecture, design system and components, initial prototype.</p>
+        <p><strong>Weeks 2-3:</strong> Responsive frontend development, detailed services section, complete main pages, performance optimization, and initial content integration.</p>
+      </div>
+
+      <div class="level-item">
+        <h5>PHASE 2: INTELLIGENCE (Weeks 4-6)</h5>
+        <p><strong>Week 4:</strong> Assistant conversational design, services knowledge base, chat integration on website, escalation logic to human.</p>
+        <p><strong>Weeks 5-6:</strong> CRM setup and implementation, integration with web forms and intelligent assistant, tracking dashboard, automated lead capture flows.</p>
+      </div>
+
+      <div class="level-item">
+        <h5>PHASE 3: AUTOMATION & LAUNCH (Weeks 7-8)</h5>
+        <p><strong>Week 7:</strong> Conversational scheduling bot development, integration with CRM and email, automatic confirmation system, appointment reminders, complete system integration testing.</p>
+        <p><strong>Week 8:</strong> Final comprehensive testing of all systems, team training sessions, final adjustments and optimizations, official launch, and post-launch monitoring.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Accelerated delivery:</strong> Optimized 8-week timeline maintains quality while reducing time to market. Parallel development streams ensure all 4 products are delivered on schedule with full integration.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5 - PRICING (Divider)                              -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="26"/>
+        <path d="M40 22v36"/>
+        <path d="M48 32c0-4-3.5-6-8-6s-8 2-8 6 3.5 5 8 5 8 1 8 5-3.5 6-8 6-8-2-8-6"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">05</div>
+      <div class="section-line"></div>
+      <h2>Investment Structure</h2>
+      <p>Transparent pricing with individual options and complete ecosystem package.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 08 - PRICING OPTIONS                                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Pricing Structure</span>
+    </div>
+    <span class="page-header-num">PAGE 08</span>
+  </div>
+  <div class="inner-page">
+    <h4>Individual Product Pricing</h4>
+    <div class="gradient-line"></div>
+
+    <div class="pricing-grid">
+      <!-- Product 1 -->
+      <div class="pricing-card product-1">
+        <span class="pricing-card-tag">Product 1</span>
+        <h3 class="pricing-card-title">Luxury Website</h3>
+        <div class="pricing-row">
+          <span class="pricing-row-label">Setup (one-time)</span>
+          <span class="pricing-row-value">USD 1,500</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-label">Monthly Fee</span>
+          <span class="pricing-row-value">N/A</span>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="pricing-card product-2">
+        <span class="pricing-card-tag">Product 2</span>
+        <h3 class="pricing-card-title">Intelligent Assistant 24/7</h3>
+        <div class="pricing-row">
+          <span class="pricing-row-label">Setup (one-time)</span>
+          <span class="pricing-row-value">USD 2,000</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-label">Monthly Fee</span>
+          <span class="pricing-row-value">USD 550 / month</span>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="pricing-card product-3">
+        <span class="pricing-card-tag">Product 3</span>
+        <h3 class="pricing-card-title">Centralized CRM</h3>
+        <div class="pricing-row">
+          <span class="pricing-row-label">Setup (one-time)</span>
+          <span class="pricing-row-value">USD 3,000</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-label">Monthly Fee</span>
+          <span class="pricing-row-value">USD 600 / month</span>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="pricing-card product-4">
+        <span class="pricing-card-tag">Product 4</span>
+        <h3 class="pricing-card-title">Scheduling Assistant</h3>
+        <div class="pricing-row">
+          <span class="pricing-row-label">Setup (one-time)</span>
+          <span class="pricing-row-value">USD 2,000</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-row-label">Monthly Fee</span>
+          <span class="pricing-row-value">USD 600 / month</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">USD 8,500</div>
+        <div class="metric-label">Total Individual Setup</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">USD 1,750/mo</div>
+        <div class="metric-label">Total Monthly Fee</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 40px;">Complete Ecosystem Package (RECOMMENDED)</h3>
+
+    <!-- Savings Hero Block -->
+    <div class="savings-hero">
+      <div class="savings-badge">🎯 MAXIMUM SAVINGS PACKAGE</div>
+      <h2 class="savings-title">Save BIG with the Complete Ecosystem</h2>
+
+      <div class="savings-amounts">
+        <div class="savings-amount-block">
+          <div class="savings-amount-label">Save on Setup</div>
+          <div class="savings-amount-value">$1,300</div>
+        </div>
+        <div class="savings-amount-block">
+          <div class="savings-amount-label">Save Monthly</div>
+          <div class="savings-amount-value">$250</div>
+          <div class="savings-amount-period">/ month</div>
+        </div>
+      </div>
+
+      <p class="savings-description">
+        Get all 4 products fully integrated for <strong>$1,300 less</strong> upfront + <strong>$250/month savings</strong> forever.
+        That's <strong>$4,300 saved in the first year alone!</strong>
+      </p>
+    </div>
+
+    <!-- Price Comparison -->
+    <div class="package-comparison">
+      <div class="comparison-block individual">
+        <div class="comparison-label">❌ Individual Products</div>
+        <div class="comparison-price">$8,500</div>
+        <div class="comparison-detail">Setup</div>
+        <div class="comparison-price" style="font-size: 24px; margin-top: 12px;">$1,750</div>
+        <div class="comparison-detail">per month</div>
+      </div>
+
+      <div class="comparison-block package">
+        <div class="comparison-label">✅ Complete Package</div>
+        <div class="comparison-price">$7,200</div>
+        <div class="comparison-detail">Setup (save $1,300)</div>
+        <div class="comparison-price" style="font-size: 24px; margin-top: 12px;">$1,500</div>
+        <div class="comparison-detail">per month (save $250/mo)</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Package discount:</strong> The discount applies only when contracting all 4 products as a complete integrated stack. This ensures maximum efficiency and synergy between systems.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 09 - PAYMENT TERMS & WHAT'S INCLUDED                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span class="page-header-title">Payment Terms & Included</span>
+    </div>
+    <span class="page-header-num">PAGE 09</span>
+  </div>
+  <div class="inner-page">
+    <h4>Payment Terms</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Upfront Deposit</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Upon Delivery</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 days</div>
+        <div class="metric-label">Proposal Validity</div>
+      </div>
+    </div>
+
+    <h3>What's Included</h3>
+
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">Diagnosis & Custom Design</div>
+        <p>Deep analysis of current process and custom solution design.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Development & Implementation</div>
+        <p>Full solution build with cutting-edge technology.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Integration with Existing Systems</div>
+        <p>Native connection with current tools and platforms.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Team Training</div>
+        <p>Training to operate and maximize the solution's potential.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">1 Month Post-Launch Support</div>
+        <p>Technical and strategic support during the first month.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Monthly Maintenance & Optimization</div>
+        <p>Continuous support, infrastructure, and system optimization.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Payment terms:</strong> 50% upfront deposit at project start + 50% upon delivery of the functional solution. This proposal is valid for <strong>15 calendar days</strong> from the delivery date.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 10 - FINAL DECISION                                    -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="12,2 15,8 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,8"/></svg>
+      <span class="page-header-title">Next Steps</span>
+    </div>
+    <span class="page-header-num">PAGE 10</span>
+  </div>
+  <div class="inner-page">
+    <h4>Strategic Decision</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Pure Wellness Med Spa</strong> has medical excellence, premium services, and advanced technology. The opportunity is to ensure the <strong>digital experience reflects this same level of quality</strong>—capturing leads 24/7, centralizing management, and automating scheduling to free the team to focus on patient care.</p>
+    </div>
+
+    <div class="cost-block">
+      <div class="cost-label">Conclusion</div>
+      <div class="cost-value" style="font-size: 22px; line-height: 1.5;">The decision is not technological.<br>It is strategic.</div>
+      <div class="cost-desc" style="margin-top: 12px;">A digital presence that doesn't reflect clinical excellence is a missed opportunity. An integrated system ensures no lead is lost and every interaction is optimized.</div>
+    </div>
+
+    <h3>Contact Information</h3>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Contact:</strong><br>
+      Agustín Hoyos — Commercial Director<br>
+      ahoyosh@stayirrelevant.com | +57 316 056 7909<br>
+      <strong>stayirrelevant.com</strong></p>
+    </div>
+
+    <h3 style="margin-top: 36px;">Next Steps</h3>
+    <ol>
+      <li>Review and approval of this proposal</li>
+      <li>Kickoff meeting to align details and expectations</li>
+      <li>Week 1 start: Website UI/UX design and foundation</li>
+      <li>Continuous delivery with weekly progress updates and team feedback</li>
+      <li>Official launch after 8 weeks with full system operational</li>
+    </ol>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidential</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BACK COVER                                                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
