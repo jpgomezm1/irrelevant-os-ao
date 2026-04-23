@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JIT Sales OS — Flujo visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* JIT palette — navy + maya blue */
+    --bg: #050834;
+    --bg-canvas: #030620;
+    --card: #0c1250;
+    --card-hover: #0f164a;
+    --border: rgba(124, 184, 242, 0.18);
+    --text: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.65);
+    --text-secondary: rgba(255, 255, 255, 0.45);
+
+    /* Primary accent (replaces purple) */
+    --purple: #7CB8F2;
+    --purple-light: #a0c9f4;
+    --purple-glow: rgba(124, 184, 242, 0.32);
+    --purple-bg: rgba(124, 184, 242, 0.14);
+
+    /* Module accents — harmonized for navy bg */
+    --emerald: #5ee5a4;
+    --emerald-glow: rgba(94, 229, 164, 0.38);
+    --emerald-bg: rgba(94, 229, 164, 0.14);
+
+    --amber: #ffc95e;
+    --amber-glow: rgba(255, 201, 94, 0.38);
+    --amber-bg: rgba(255, 201, 94, 0.14);
+
+    --pink: #f29bd4;
+    --pink-glow: rgba(242, 155, 212, 0.38);
+    --pink-bg: rgba(242, 155, 212, 0.14);
+
+    --blue: #8fc4fb;
+    --blue-glow: rgba(143, 196, 251, 0.38);
+    --blue-bg: rgba(143, 196, 251, 0.14);
+
+    --red: #ff8a8a;
+    --red-glow: rgba(255, 138, 138, 0.38);
+    --red-bg: rgba(255, 138, 138, 0.14);
+
+    /* Contexto comercial (knowledge base layer) — teal */
+    --teal: #4fd1c5;
+    --teal-glow: rgba(79, 209, 197, 0.38);
+    --teal-bg: rgba(79, 209, 197, 0.14);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body, html {
+    width: 100%; height: 100%; overflow: hidden;
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    background: var(--bg-canvas);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ TOP BAR ═══════════════════════════════════════════ */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 60px;
+    background: rgba(17, 14, 26, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; z-index: 100;
+    transform: translateY(-100%);
+    transition: transform 0.6s cubic-bezier(.25,.46,.45,.94) 0.2s;
+  }
+  body.loaded .topbar { transform: translateY(0); }
+  .topbar-left { display: flex; align-items: center; gap: 18px; }
+  .topbar-title { display: flex; align-items: center; gap: 10px; }
+  .topbar-title .title-text {
+    font-size: 16px; font-weight: 800; letter-spacing: -0.3px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .topbar-title .badge {
+    font-size: 10px; font-weight: 700; color: var(--emerald);
+    background: var(--emerald-bg);
+    padding: 3px 9px; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: 1.2px;
+  }
+  .topbar-sep { height: 20px; width: 1px; background: var(--border); }
+  .topbar-label {
+    font-size: 12px; color: var(--text-muted); font-weight: 500;
+  }
+  .topbar-label strong { color: var(--text); font-weight: 600; }
+
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+  .tbtn {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    padding: 7px 12px; border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s;
+  }
+  .tbtn:hover { color: var(--text); border-color: var(--purple); background: var(--purple-bg); }
+  .tbtn kbd {
+    background: var(--border); color: var(--text-secondary);
+    padding: 1px 5px; border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-weight: 600;
+  }
+  .tbtn.primary {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; border-color: transparent;
+    box-shadow: 0 4px 16px rgba(124,184,242,0.3);
+    font-weight: 700;
+  }
+  .tbtn.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,184,242,0.5); }
+
+  /* ═══ PHASE RIBBON ═══════════════════════════════════════ */
+  .phase-ribbon {
+    position: fixed;
+    top: 60px; left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(17, 14, 26, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 10px 24px;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 60;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(.25,.46,.45,.94) 0.4s, opacity 0.6s ease 0.4s;
+  }
+  body.loaded .phase-ribbon { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .phase-ribbon .phase {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--text-muted);
+    padding: 4px 10px; border-radius: 6px;
+    transition: all 0.3s;
+  }
+  .phase-ribbon .phase .num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--purple-light); font-weight: 700;
+  }
+  .phase-ribbon .phase.active {
+    background: var(--purple-bg); color: var(--text);
+    transform: scale(1.05);
+  }
+  .phase-ribbon .arrow {
+    color: var(--text-secondary); font-size: 11px;
+  }
+
+  /* ═══ VIEWPORT ═══════════════════════════════════════════ */
+  #viewport {
+    position: absolute; top: 60px; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    cursor: grab;
+    background: var(--bg-canvas);
+  }
+  #viewport.grabbing { cursor: grabbing; }
+
+  /* Grid background */
+  .viewport-grid {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(139, 143, 163, 0.06) 1px, transparent 0);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Particles canvas */
+  #particles {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.7;
+  }
+
+  /* Ambient glow */
+  .viewport-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(600px circle at 30% 20%, rgba(124,184,242,0.12), transparent),
+      radial-gradient(500px circle at 70% 80%, rgba(58,99,168,0.08), transparent),
+      radial-gradient(400px circle at 50% 50%, rgba(94,229,164,0.04), transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Vignette */
+  .viewport-vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(10,7,20,0.6) 100%);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  #canvas {
+    position: absolute;
+    width: 3200px; height: 2600px;
+    transform-origin: 0 0;
+    z-index: 4;
+  }
+
+  /* ═══ SVG EDGES ═══════════════════════════════════════════ */
+  #edges {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .edge-path {
+    fill: none;
+    stroke-width: 2.5;
+    transition: opacity 0.3s, stroke-width 0.3s;
+  }
+  .edge-path.highlighted {
+    stroke-width: 4;
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+  /* Draw-in animation on load */
+  .edge-path.draw-in {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: drawIn 1.5s cubic-bezier(.25,.46,.45,.94) forwards;
+  }
+  @keyframes drawIn {
+    to { stroke-dashoffset: 0; }
+  }
+  .flow-dot {
+    fill: currentColor;
+    filter: drop-shadow(0 0 6px currentColor);
+  }
+  .edge-label-bg { fill: var(--bg-canvas); stroke-width: 1; }
+  .edge-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 700;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+
+  /* ═══ NODES ═══════════════════════════════════════════ */
+  .node {
+    position: absolute;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    width: 260px;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s, opacity 0.4s, border-color 0.25s;
+    user-select: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  body.loaded .node {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: var(--delay, 0s);
+    transition: opacity 0.6s ease var(--delay, 0s), transform 0.6s cubic-bezier(.25,1.4,.5,1) var(--delay, 0s),
+                box-shadow 0.25s, border-color 0.25s;
+  }
+  .node:hover {
+    transform: translateY(-4px) scale(1.02);
+    z-index: 10;
+  }
+
+  .node.m1 { border-color: rgba(94, 229, 164, 0.4); }
+  .node.m1:hover, .node.m1.highlighted { border-color: var(--emerald); box-shadow: 0 12px 32px var(--emerald-glow); }
+  .node.m2 { border-color: rgba(255, 201, 94, 0.4); }
+  .node.m2:hover, .node.m2.highlighted { border-color: var(--amber); box-shadow: 0 12px 32px var(--amber-glow); }
+  .node.m3 { border-color: rgba(143, 196, 251, 0.4); }
+  .node.m3:hover, .node.m3.highlighted { border-color: var(--blue); box-shadow: 0 12px 32px var(--blue-glow); }
+  .node.mem { border-color: rgba(242, 155, 212, 0.4); }
+  .node.mem:hover, .node.mem.highlighted { border-color: var(--pink); box-shadow: 0 12px 32px var(--pink-glow); }
+  .node.core { border-color: rgba(124, 184, 242, 0.5); }
+  .node.core:hover, .node.core.highlighted { border-color: var(--purple-light); box-shadow: 0 12px 32px var(--purple-glow); }
+  .node.context { border-color: rgba(79, 209, 197, 0.5); }
+  .node.context:hover, .node.context.highlighted { border-color: var(--teal); box-shadow: 0 12px 32px var(--teal-glow); }
+  .node.mesa {
+    border-color: rgba(255, 138, 138, 0.55);
+    background: linear-gradient(135deg, var(--card), rgba(255,138,138,0.1));
+  }
+  .node.mesa:hover, .node.mesa.highlighted { border-color: var(--red); box-shadow: 0 12px 32px var(--red-glow); }
+
+  /* Top color stripe on module cards */
+  .node.m1::before, .node.m2::before, .node.m3::before, .node.mem::before, .node.core::before, .node.mesa::before, .node.context::before {
+    content: ''; position: absolute; top: 0; left: 18px; right: 18px;
+    height: 2px; border-radius: 2px;
+  }
+  .node.m1::before { background: linear-gradient(90deg, transparent, var(--emerald), transparent); }
+  .node.m2::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+  .node.m3::before { background: linear-gradient(90deg, transparent, var(--blue), transparent); }
+  .node.mem::before { background: linear-gradient(90deg, transparent, var(--pink), transparent); }
+  .node.core::before { background: linear-gradient(90deg, transparent, var(--purple-light), transparent); }
+  .node.context::before { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+  .node.mesa::before { background: linear-gradient(90deg, transparent, var(--red), transparent); }
+
+  .node-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .step-badge {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 800;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+  .node.m1 .step-badge { background: var(--emerald-bg); color: var(--emerald); box-shadow: 0 0 0 1px rgba(94,229,164,0.3); }
+  .node.m2 .step-badge { background: var(--amber-bg); color: var(--amber); box-shadow: 0 0 0 1px rgba(255,201,94,0.3); }
+  .node.m3 .step-badge { background: var(--blue-bg); color: var(--blue); box-shadow: 0 0 0 1px rgba(143,196,251,0.3); }
+  .node.mem .step-badge { background: var(--pink-bg); color: var(--pink); box-shadow: 0 0 0 1px rgba(242,155,212,0.3); }
+  .node.core .step-badge { background: var(--purple-bg); color: var(--purple-light); box-shadow: 0 0 0 1px rgba(124,184,242,0.3); }
+  .node.context .step-badge { background: var(--teal-bg); color: var(--teal); box-shadow: 0 0 0 1px rgba(79,209,197,0.3); }
+  .node.mesa .step-badge { background: var(--red-bg); color: var(--red); box-shadow: 0 0 0 1px rgba(255,138,138,0.4); }
+
+  .node-icon { font-size: 22px; line-height: 1; flex-shrink: 0; }
+
+  .node-module-tag {
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    padding: 2px 7px; border-radius: 4px;
+    margin-left: auto;
+  }
+  .node.m1 .node-module-tag { background: var(--emerald-bg); color: var(--emerald); }
+  .node.m2 .node-module-tag { background: var(--amber-bg); color: var(--amber); }
+  .node.m3 .node-module-tag { background: var(--blue-bg); color: var(--blue); }
+  .node.mem .node-module-tag { background: var(--pink-bg); color: var(--pink); }
+  .node.core .node-module-tag { background: var(--purple-bg); color: var(--purple-light); }
+  .node.context .node-module-tag { background: var(--teal-bg); color: var(--teal); }
+  .node.mesa .node-module-tag { background: var(--red-bg); color: var(--red); }
+
+  .node-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .node.m1 .node-name { color: var(--emerald); }
+  .node.m2 .node-name { color: var(--amber); }
+  .node.m3 .node-name { color: var(--blue); }
+  .node.mem .node-name { color: var(--pink); }
+  .node.core .node-name { color: var(--purple-light); }
+  .node.context .node-name { color: var(--teal); }
+  .node.mesa .node-name { color: var(--red); }
+
+  .node-title {
+    font-size: 15px; font-weight: 700;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .node-desc {
+    font-size: 12px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .node.big { width: 300px; padding: 20px 22px; }
+  .node.big .node-title { font-size: 17px; }
+
+  /* Output preview chip on hover */
+  .node-output-chip {
+    position: absolute;
+    top: -10px; right: 20px;
+    transform: translateY(-100%);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    z-index: 20;
+  }
+  .node:hover .node-output-chip {
+    opacity: 1;
+    transform: translateY(-105%);
+  }
+  .node-output-chip strong { color: var(--text); }
+  .node.m1 .node-output-chip { border-color: rgba(94,229,164,0.4); }
+  .node.m2 .node-output-chip { border-color: rgba(255,201,94,0.4); }
+  .node.m3 .node-output-chip { border-color: rgba(143,196,251,0.4); }
+  .node.mem .node-output-chip { border-color: rgba(242,155,212,0.4); }
+  .node.core .node-output-chip { border-color: rgba(124,184,242,0.4); }
+  .node.context .node-output-chip { border-color: rgba(79,209,197,0.4); }
+  .node.mesa .node-output-chip { border-color: rgba(255,138,138,0.4); }
+
+  /* START badge */
+  .start-badge {
+    position: absolute;
+    top: -14px; right: -14px;
+    background: linear-gradient(135deg, var(--emerald), #10b981);
+    color: white;
+    font-weight: 800; font-size: 10px;
+    padding: 5px 12px; border-radius: 100px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px var(--emerald-glow);
+    display: flex; align-items: center; gap: 5px;
+    animation: startPulse 2s ease-in-out infinite;
+    z-index: 5;
+  }
+  @keyframes startPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 14px var(--emerald-glow); }
+    50% { transform: scale(1.08); box-shadow: 0 8px 28px var(--emerald-glow); }
+  }
+  .start-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: white; box-shadow: 0 0 8px white;
+  }
+
+  /* Memory file nodes */
+  .node.memfile {
+    width: 200px; padding: 12px 14px;
+    background: rgba(242, 155, 212, 0.05);
+    border-style: dashed;
+    border-color: rgba(242, 155, 212, 0.35);
+  }
+  .node.memfile::before { display: none; }
+  .node.memfile:hover, .node.memfile.highlighted {
+    border-style: solid; border-color: var(--pink);
+    background: rgba(242, 155, 212, 0.1);
+    box-shadow: 0 8px 20px var(--pink-glow);
+  }
+  .node.memfile .node-name { font-size: 11.5px; color: var(--pink); margin-bottom: 4px; }
+  .node.memfile .node-desc { font-size: 11px; }
+  .node.memfile .memfile-icon { font-size: 14px; margin-right: 6px; }
+
+  /* Focused state — strong dim */
+  #canvas.focused .node:not(.highlighted):not(:hover) {
+    opacity: 0.15;
+  }
+  #canvas.focused .edge-path:not(.highlighted) {
+    opacity: 0.05;
+  }
+  #canvas.focused .group {
+    opacity: 0.2;
+  }
+  #canvas.focused .flow-dot-anim { opacity: 0; }
+
+  /* Demo mode ultra-focused */
+  #canvas.demo-focused .node:not(.demo-active):not(.highlighted) {
+    opacity: 0.08;
+  }
+  #canvas.demo-focused .edge-path:not(.highlighted) {
+    opacity: 0.03;
+  }
+  #canvas.demo-focused .group { opacity: 0.12; }
+  #canvas.demo-focused .flow-dot-anim { opacity: 0; }
+
+  /* Breathing glow */
+  @keyframes breatheGlow {
+    0%, 100% { box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+    50% { box-shadow: 0 4px 14px rgba(0,0,0,0.35), 0 0 24px rgba(124,184,242,0.1); }
+  }
+  body.loaded .node:not(.memfile) {
+    animation: breatheGlow 6s ease-in-out infinite;
+    animation-delay: calc(1.5s + var(--delay, 0s));
+  }
+
+  /* Demo active node — dramatic spotlight */
+  .node.demo-active {
+    transform: scale(1.1) !important;
+    z-index: 30;
+    animation: demoPulse 2s ease-in-out infinite !important;
+  }
+  @keyframes demoPulse {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.15); }
+  }
+  .node.m1.demo-active { box-shadow: 0 0 0 3px var(--emerald), 0 0 80px var(--emerald-glow) !important; }
+  .node.m2.demo-active { box-shadow: 0 0 0 3px var(--amber), 0 0 80px var(--amber-glow) !important; }
+  .node.m3.demo-active { box-shadow: 0 0 0 3px var(--blue), 0 0 80px var(--blue-glow) !important; }
+  .node.mem.demo-active { box-shadow: 0 0 0 3px var(--pink), 0 0 80px var(--pink-glow) !important; }
+  .node.core.demo-active { box-shadow: 0 0 0 3px var(--purple-light), 0 0 80px var(--purple-glow) !important; }
+  .node.context.demo-active { box-shadow: 0 0 0 3px var(--teal), 0 0 80px var(--teal-glow) !important; }
+  .node.mesa.demo-active { box-shadow: 0 0 0 3px var(--red), 0 0 80px var(--red-glow) !important; }
+
+  /* ═══ GROUPS ═══════════════════════════════════════════ */
+  .group {
+    position: absolute;
+    border: 2px dashed;
+    border-radius: 22px;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.8s ease 1s, transform 0.8s ease 1s;
+  }
+  body.loaded .group { opacity: 1; transform: scale(1); }
+  .group.m1 { border-color: rgba(94, 229, 164, 0.18); background: rgba(94,229,164,0.02); }
+  .group.m2 { border-color: rgba(255, 201, 94, 0.18); background: rgba(255,201,94,0.02); }
+  .group.m3 { border-color: rgba(143, 196, 251, 0.18); background: rgba(143,196,251,0.02); }
+  .group.mem { border-color: rgba(242, 155, 212, 0.18); background: rgba(242,155,212,0.02); }
+
+  .group-label-wrap {
+    position: absolute;
+    top: -18px; left: 40px;
+    background: var(--bg-canvas);
+    padding: 5px 16px;
+    border-radius: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .group-label-wrap .group-persona {
+    font-size: 10px; font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding-right: 10px; border-right: 1px solid var(--border);
+  }
+  .group-label-wrap .group-label {
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .group.m1 .group-label-wrap { border: 1px solid rgba(94, 229, 164, 0.35); }
+  .group.m1 .group-label { color: var(--emerald); }
+  .group.m2 .group-label-wrap { border: 1px solid rgba(255, 201, 94, 0.35); }
+  .group.m2 .group-label { color: var(--amber); }
+  .group.m3 .group-label-wrap { border: 1px solid rgba(143, 196, 251, 0.35); }
+  .group.m3 .group-label { color: var(--blue); }
+  .group.mem .group-label-wrap { border: 1px solid rgba(242, 155, 212, 0.35); }
+  .group.mem .group-label { color: var(--pink); }
+
+  .group-arrow {
+    position: absolute; bottom: 10px; right: 16px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    opacity: 0.4; pointer-events: none;
+  }
+  .group.m1 .group-arrow { color: var(--emerald); }
+  .group.m2 .group-arrow { color: var(--amber); }
+  .group.m3 .group-arrow { color: var(--blue); }
+  .group.mem .group-arrow { color: var(--pink); }
+
+  /* ═══ LEGEND ═══════════════════════════════════════════ */
+  .legend {
+    position: fixed;
+    top: 130px; left: 24px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 12px;
+    max-width: 210px;
+    z-index: 50;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease 1.2s, transform 0.5s ease 1.2s;
+  }
+  body.loaded .legend { opacity: 1; transform: translateX(0); }
+  .legend-title {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 3px 0;
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+  .legend-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-dot.m1 { background: var(--emerald); box-shadow: 0 0 8px var(--emerald-glow); }
+  .legend-dot.m2 { background: var(--amber); box-shadow: 0 0 8px var(--amber-glow); }
+  .legend-dot.m3 { background: var(--blue); box-shadow: 0 0 8px var(--blue-glow); }
+  .legend-dot.mem { background: var(--pink); box-shadow: 0 0 8px var(--pink-glow); }
+  .legend-dot.core { background: var(--purple-light); box-shadow: 0 0 8px var(--purple-glow); }
+  .legend-dot.context { background: var(--teal); box-shadow: 0 0 8px var(--teal-glow); }
+  .legend-dot.mesa { background: var(--red); box-shadow: 0 0 8px var(--red-glow); }
+
+  /* ═══ HELP ═══════════════════════════════════════════ */
+  .help-panel {
+    position: fixed;
+    bottom: 24px; left: 24px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex; gap: 14px;
+    z-index: 50;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 1.4s, transform 0.5s ease 1.4s;
+  }
+  body.loaded .help-panel { opacity: 1; transform: translateY(0); }
+  .help-panel kbd {
+    background: var(--border); color: var(--text);
+    padding: 2px 6px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-weight: 600;
+    margin: 0 3px;
+  }
+
+  /* ═══ MINIMAP ═══════════════════════════════════════════ */
+  .minimap {
+    position: fixed;
+    bottom: 82px; right: 24px;
+    width: 200px; height: 160px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    z-index: 55;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 1.6s, transform 0.5s ease 1.6s;
+  }
+  body.loaded .minimap { opacity: 1; transform: translateY(0); }
+  .minimap canvas {
+    width: 100%; height: 100%;
+    display: block;
+    cursor: pointer;
+  }
+  .minimap-label {
+    position: absolute;
+    top: 6px; left: 8px;
+    font-size: 9px; font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ═══ ZOOM CONTROLS ═══════════════════════════════════════════ */
+  .zoom-controls {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    display: flex; flex-direction: row; gap: 4px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px;
+    z-index: 50;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 1.4s, transform 0.5s ease 1.4s;
+  }
+  body.loaded .zoom-controls { opacity: 1; transform: translateY(0); }
+  .zoom-btn {
+    width: 34px; height: 34px;
+    background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px; font-weight: 700;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .zoom-btn:hover { color: var(--text); background: var(--purple-bg); }
+  .zoom-level {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text-muted);
+    text-align: center;
+    padding: 0 10px;
+    display: flex; align-items: center;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  /* ═══ SIDE PANEL ═══════════════════════════════════════════ */
+  .side-panel {
+    position: fixed;
+    top: 60px; right: 0; bottom: 0;
+    width: 440px;
+    background: var(--card);
+    border-left: 1px solid var(--border);
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(.25,.46,.45,.94);
+    z-index: 80;
+    overflow-y: auto;
+    box-shadow: -20px 0 40px rgba(0,0,0,0.3);
+  }
+  .side-panel.open { transform: translateX(0); }
+  .side-panel-header {
+    padding: 26px 30px 22px;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: var(--card);
+    z-index: 5;
+  }
+  .side-panel-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 32px; height: 32px;
+    background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer;
+    border-radius: 6px;
+    font-size: 22px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .side-panel-close:hover { color: var(--text); background: var(--border); }
+  .side-panel-label {
+    display: inline-block;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 9px; border-radius: 4px;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .side-panel-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .side-panel-title {
+    font-size: 24px; font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.6px;
+  }
+  .side-panel-body { padding: 26px 30px 50px; }
+  .side-panel-section { margin-bottom: 24px; }
+  .side-panel-section-title {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--purple-light);
+    margin-bottom: 10px;
+  }
+  .side-panel-section p {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+  .side-panel-section strong { color: var(--text); font-weight: 600; }
+  .side-panel-section ul { list-style: none; padding: 0; }
+  .side-panel-section ul li {
+    position: relative; padding-left: 18px;
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.55;
+    margin: 6px 0;
+  }
+  .side-panel-section ul li::before {
+    content: "→"; position: absolute; left: 0;
+    color: var(--purple-light); font-weight: 700;
+  }
+  .side-panel .principle {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(124, 184, 242, 0.1), rgba(94, 229, 164, 0.04));
+    border: 1px solid rgba(124, 184, 242, 0.2);
+    border-radius: 10px;
+    font-size: 13px; color: var(--text);
+    font-style: italic;
+  }
+  .side-panel .principle strong {
+    font-style: normal;
+    color: var(--purple-light);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .side-panel code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--purple-light);
+    background: var(--purple-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* ═══ DEMO OVERLAY ═══════════════════════════════════════════ */
+  .demo-overlay {
+    position: fixed;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%) translateY(30px);
+    background: rgba(17,14,26,0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--purple);
+    border-radius: 16px;
+    padding: 20px 28px;
+    display: none;
+    align-items: center; gap: 20px;
+    max-width: 760px; min-width: 560px;
+    z-index: 90;
+    box-shadow: 0 20px 60px rgba(124,184,242,0.3);
+    opacity: 0;
+    transition: opacity 0.35s, transform 0.35s;
+  }
+  .demo-overlay.visible {
+    display: flex;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .demo-step-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple-light);
+    letter-spacing: 1.5px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+  .demo-step-count .current {
+    font-size: 30px; color: var(--text);
+    display: block; letter-spacing: -1px;
+  }
+  .demo-step-count .total {
+    color: var(--text-muted); font-size: 10px;
+  }
+  .demo-divider {
+    width: 1px; align-self: stretch;
+    background: var(--border); flex-shrink: 0;
+  }
+  .demo-content { flex: 1; min-width: 0; }
+  .demo-content h4 {
+    font-size: 15px; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .demo-content p {
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .demo-progress {
+    width: 100%; height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  .demo-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple), var(--pink));
+    transition: width 0.4s ease;
+  }
+  .demo-controls {
+    display: flex; gap: 6px; flex-shrink: 0;
+  }
+  .demo-controls button {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .demo-controls button:hover {
+    color: var(--text); border-color: var(--purple); background: var(--purple-bg);
+  }
+  .demo-controls button:disabled {
+    opacity: 0.3; cursor: not-allowed;
+  }
+  .demo-controls button.exit {
+    background: var(--red-bg); color: var(--red);
+    border-color: rgba(255,138,138,0.3);
+  }
+  .demo-controls button.exit:hover {
+    background: var(--red); color: white; border-color: var(--red);
+  }
+
+  /* ═══ WELCOME ═══════════════════════════════════════════ */
+  .welcome-tip {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(17,14,26,0.98);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--purple);
+    border-radius: 20px;
+    padding: 36px 44px;
+    text-align: center;
+    max-width: 520px;
+    z-index: 200;
+    box-shadow: 0 20px 80px rgba(124,184,242,0.4);
+    opacity: 0;
+    transition: opacity 0.5s ease 2s;
+    pointer-events: none;
+  }
+  body.loaded .welcome-tip { opacity: 1; pointer-events: auto; }
+  .welcome-tip.hidden { display: none; }
+  .welcome-tip .icon {
+    font-size: 44px; margin-bottom: 14px;
+    animation: iconBob 3s ease-in-out infinite;
+  }
+  @keyframes iconBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .welcome-tip h3 {
+    font-size: 22px; font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .welcome-tip p {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.65; margin-bottom: 22px;
+  }
+  .welcome-tip p kbd {
+    background: var(--border); padding: 2px 6px; border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--text);
+  }
+  .welcome-tip .actions {
+    display: flex; gap: 10px; justify-content: center;
+  }
+  .welcome-tip button {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    padding: 11px 22px; border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .welcome-tip button:hover { color: var(--text); border-color: var(--purple); }
+  .welcome-tip button.primary {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; border-color: transparent;
+    box-shadow: 0 4px 16px rgba(124,184,242,0.3);
+    font-weight: 700;
+  }
+  .welcome-tip button.primary:hover {
+    transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,184,242,0.5);
+  }
+
+  /* ═══ END-OF-DEMO STATS ═══════════════════════════════════════════ */
+  .demo-stats {
+    position: fixed; inset: 0;
+    background: rgba(10, 7, 20, 0.95);
+    backdrop-filter: blur(12px);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 150;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .demo-stats.visible { display: flex; opacity: 1; }
+  .demo-stats-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 40px;
+  }
+  .demo-stats .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 700; color: var(--emerald);
+    background: var(--emerald-bg);
+    border: 1px solid rgba(94,229,164,0.3);
+    padding: 7px 16px; border-radius: 100px;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .demo-stats h2 {
+    font-size: 48px; font-weight: 900;
+    line-height: 1.1; letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink), var(--emerald));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .demo-stats .subtitle {
+    font-size: 17px; color: var(--text-muted);
+    line-height: 1.5; margin-bottom: 40px;
+  }
+  .demo-stats .subtitle strong { color: var(--text); font-weight: 600; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card {
+    background: rgba(25, 22, 38, 0.7);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    transition: all 0.3s;
+  }
+  .stat-card:hover { border-color: var(--purple); }
+  .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px; font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-card:nth-child(1) .stat-value { color: var(--emerald); }
+  .stat-card:nth-child(2) .stat-value { color: var(--amber); }
+  .stat-card:nth-child(3) .stat-value { color: var(--blue); }
+  .stat-card:nth-child(4) .stat-value { color: var(--pink); }
+  .stat-label {
+    font-size: 11px; font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .demo-stats-actions {
+    display: flex; gap: 12px; justify-content: center;
+  }
+  .demo-stats-actions button {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 600;
+    padding: 13px 28px; border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .demo-stats-actions button:hover { color: var(--text); border-color: var(--purple); }
+  .demo-stats-actions button.primary {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; border-color: transparent;
+    box-shadow: 0 4px 16px rgba(124,184,242,0.4);
+    font-weight: 700;
+  }
+  .demo-stats-actions button.primary:hover {
+    transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,184,242,0.6);
+  }
+
+  @media (max-width: 900px) {
+    .legend, .help-panel, .phase-ribbon, .minimap { display: none; }
+    .side-panel { width: 100%; }
+    .demo-overlay { min-width: auto; max-width: calc(100% - 40px); left: 20px; right: 20px; transform: translateY(30px); }
+    .demo-overlay.visible { transform: translateY(0); }
+  }
+</style>
+</head>
+<body class="loading">
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-title">
+      <span class="title-text">JIT Sales OS</span>
+      <span class="badge">Flujo visual</span>
+    </div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-label"><strong>11 skills</strong> · 2 archivos de conocimiento · 1 memoria que aprende</div>
+  </div>
+  <div class="topbar-right">
+    <button class="tbtn primary" id="btn-play"><span>▶</span> Ver flujo guiado</button>
+    <button class="tbtn" id="btn-fit"><kbd>F</kbd> Ajustar</button>
+    <button class="tbtn" id="btn-help">?</button>
+  </div>
+</div>
+
+<!-- PHASE RIBBON -->
+<div class="phase-ribbon" id="phase-ribbon">
+  <div class="phase" data-phase="1"><span class="num">01</span> Preparar</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="2"><span class="num">02</span> Negociar</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="3"><span class="num">03</span> Analizar</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="4"><span class="num">04</span> Aprender</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-title">Base de conocimiento</div>
+  <div class="legend-item"><span class="legend-dot core"></span>Framework JIT (método)</div>
+  <div class="legend-item"><span class="legend-dot context"></span>Contexto comercial (terreno)</div>
+  <div class="legend-title" style="margin-top:14px;">Ciclo operacional</div>
+  <div class="legend-item"><span class="legend-dot m1"></span>Antes — preparación</div>
+  <div class="legend-item"><span class="legend-dot mesa"></span>La mesa real</div>
+  <div class="legend-item"><span class="legend-dot m2"></span>Después — análisis</div>
+  <div class="legend-item"><span class="legend-dot mem"></span>Memoria viva</div>
+  <div class="legend-item"><span class="legend-dot m3"></span>Coaching</div>
+</div>
+
+<!-- HELP -->
+<div class="help-panel">
+  <span><kbd>scroll</kbd> zoom</span>
+  <span><kbd>drag</kbd> mover</span>
+  <span><kbd>click</kbd> detalle</span>
+  <span><kbd>hover</kbd> resalta ruta</span>
+</div>
+
+<!-- MINIMAP -->
+<div class="minimap">
+  <div class="minimap-label">Minimapa</div>
+  <canvas id="minimap-canvas" width="400" height="320"></canvas>
+</div>
+
+<!-- ZOOM CONTROLS -->
+<div class="zoom-controls">
+  <button class="zoom-btn" id="btn-zoom-out">−</button>
+  <div class="zoom-level" id="zoom-level">100%</div>
+  <button class="zoom-btn" id="btn-zoom-in">+</button>
+</div>
+
+<!-- VIEWPORT -->
+<div id="viewport">
+  <canvas id="particles"></canvas>
+  <div class="viewport-grid"></div>
+  <div class="viewport-glow"></div>
+  <div class="viewport-vignette"></div>
+  <div id="canvas">
+    <svg id="edges"></svg>
+  </div>
+</div>
+
+<!-- SIDE PANEL -->
+<div class="side-panel" id="side-panel">
+  <div class="side-panel-header">
+    <button class="side-panel-close" id="side-panel-close">×</button>
+    <div id="side-panel-label"></div>
+    <div id="side-panel-name"></div>
+    <div id="side-panel-title"></div>
+  </div>
+  <div class="side-panel-body" id="side-panel-body"></div>
+</div>
+
+<!-- DEMO OVERLAY -->
+<div class="demo-overlay" id="demo-overlay">
+  <div class="demo-step-count">
+    <span class="current" id="demo-current">01</span>
+    <span class="total">de <span id="demo-total">11</span></span>
+  </div>
+  <div class="demo-divider"></div>
+  <div class="demo-content">
+    <h4 id="demo-title">Título</h4>
+    <p id="demo-desc">Descripción</p>
+    <div class="demo-progress"><div class="demo-progress-bar" id="demo-progress-bar"></div></div>
+  </div>
+  <div class="demo-controls">
+    <button id="demo-prev" title="Anterior (←)">‹</button>
+    <button id="demo-next" title="Siguiente (→)">›</button>
+    <button id="demo-exit" class="exit" title="Salir (Esc)">✕</button>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="welcome-tip" id="welcome-tip">
+  <div class="icon">🧭</div>
+  <h3>JIT Sales OS — el flujo completo</h3>
+  <p>Navega libre con <kbd>scroll</kbd> para zoom y <kbd>drag</kbd> para moverte. Haz click en cualquier nodo para ver su detalle. O déjate guiar paso a paso.</p>
+  <div class="actions">
+    <button id="welcome-explore">Explorar libre</button>
+    <button class="primary" id="welcome-play">▶ Ver flujo guiado</button>
+  </div>
+</div>
+
+<!-- END-OF-DEMO STATS -->
+<div class="demo-stats" id="demo-stats">
+  <div class="demo-stats-content">
+    <div class="eyebrow">🏆 Acabas de ver el flujo completo</div>
+    <h2>Un sistema que aprende<br>con cada negociación</h2>
+    <p class="subtitle">No es un asistente. Es <strong>infraestructura operacional</strong> para el método JIT:<br>reproducible, medible, verificable — y más inteligente cada día.</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" data-target="11">0</div>
+        <div class="stat-label">Skills especializados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" data-target="7">0</div>
+        <div class="stat-label">Huesos evaluados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" data-target="4">0</div>
+        <div class="stat-label">Fases del método</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" data-target="∞">0</div>
+        <div class="stat-label">Memoria que crece</div>
+      </div>
+    </div>
+    <div class="demo-stats-actions">
+      <button id="demo-stats-restart">↻ Ver otra vez</button>
+      <button class="primary" id="demo-stats-explore">Explorar el canvas →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════
+
+const NODES = [
+  {
+    id: 'framework', type: 'core', big: true,
+    x: 1060, y: 120,
+    icon: '📖', moduleTag: 'Método', step: '00',
+    name: 'framework-jose-ignacio.md',
+    title: 'Framework JIT',
+    desc: '7 huesos · 6 preguntas · tipologías · mandamientos. El método que todos los skills consultan.',
+    outputChip: '<strong>Output:</strong> método JIT versionado en 1 archivo',
+    phase: null,
+    detail: {
+      section: 'Capa de autoridad — Método',
+      intro: 'El archivo raíz del método. Contiene el método completo de José Ignacio Tobón: los 7 elementos estructurales, las 6 preguntas de planeación, la ecuación del estrés, la regla 95/5, las tipologías de negociadores, los mandamientos de creación de valor y las 5 razones de fracaso.',
+      input: 'Ninguno — es un documento estático curado por JIT.',
+      output: ['Toda la metodología JIT en un solo archivo versionado', 'Rúbrica de evaluación contra los 7 huesos', 'Hard caps aplicables a cada hueso', 'Glosario de conceptos JIT'],
+      principle: 'El framework es el método. Si JIT lo evoluciona, todo el sistema se recalibra.'
+    }
+  },
+  {
+    id: 'contexto', type: 'context', big: true,
+    x: 1780, y: 120,
+    icon: '🏢', moduleTag: 'Contexto', step: '00b',
+    name: 'contexto-comercial.md',
+    title: 'Base de conocimiento',
+    desc: 'Quiénes somos · qué vendemos · palancas · competencia · objeciones · clientes típicos. El terreno donde opera el método.',
+    outputChip: '<strong>Output:</strong> contexto Bancolombia Banca Empresarial',
+    phase: null,
+    detail: {
+      section: 'Capa de autoridad — Contexto',
+      intro: 'El archivo de contexto operacional del equipo. Define quiénes somos (Banca Empresarial Bancolombia), qué vendemos (Relación Bancaria Integral), a quién (empresas medianas-grandes colombianas), cómo competimos (vs BBVA, Davivienda, Scotiabank, Itaú, Citi), qué palancas tenemos (10 variables de rentabilidad infinita pre-catalogadas), y qué objeciones anticipamos con sus respuestas ya diseñadas.',
+      input: 'Ninguno — es un documento estático curado por el equipo comercial.',
+      output: [
+        'Identidad del equipo y portafolio integral',
+        'Perfil del cliente ideal (ICP) y sectores prioritarios',
+        'Mapa de la competencia con fortalezas y vulnerabilidades',
+        '10 palancas de negociación (rentabilidad infinita)',
+        '7 objeciones frecuentes con scripts JIT de respuesta',
+        'Fortalezas a anclar y debilidades a defender',
+        'Clientes típicos del mercado colombiano',
+        'Integración skill-por-skill con el framework JIT'
+      ],
+      principle: 'El framework es el método. El contexto es el terreno. Sin los dos, el mapa sale desenfocado.'
+    }
+  },
+  {
+    id: 'investigar', type: 'm1', x: 400, y: 520,
+    icon: '🔍', moduleTag: 'M1', step: '01', isStart: true,
+    name: '/investigar-prospecto', title: 'Inteligencia de negociación',
+    desc: 'Mapa de la mesa: intereses, BATNA, tipología y decisor real — contra los 7 huesos.',
+    outputChip: '<strong>Output:</strong> mapa de la negociación',
+    phase: 1,
+    detail: {
+      section: 'Módulo 1 — Preparación',
+      intro: 'No es un brief de empresa. Es un mapa de la mesa enfocado a negociación.',
+      input: 'Nombre del caso + URL / contexto básico',
+      output: ['Intereses probables (con evidencia) + miedos simétricos', 'BATNA estimado de la contraparte + costo de salida', '5+ variables de rentabilidad infinita', 'Criterios objetivos para defender cifras', 'Tipología estimada con evidencias', 'Decisor real mapeado: "qué significa victoria para él"', 'Información privilegiada faltante'],
+      principle: 'Sin mapa, se negocia a ciegas.'
+    }
+  },
+  {
+    id: 'disenar', type: 'm1', x: 1440, y: 520,
+    icon: '⚔️', moduleTag: 'M1', step: '02',
+    name: '/disenar-estrategia', title: 'Plan de batalla',
+    desc: 'Las 6 preguntas respondidas por escrito. ZOPA definida. Variables priorizadas.',
+    outputChip: '<strong>Output:</strong> plan de batalla escrito',
+    phase: 1,
+    detail: {
+      section: 'Módulo 1 — Preparación',
+      intro: 'Las 6 preguntas de planeación respondidas por escrito. Condición innegociable según JIT.',
+      input: 'El mapa de /investigar-prospecto',
+      output: ['Las 6 preguntas respondidas textualmente', 'ZOPA: excelente / bueno / aceptable con cifras', 'Anclaje inicial con guion palabra por palabra', 'Variables de rentabilidad infinita priorizadas', 'Tipología anticipada + plan contingente', 'Manejo de objeciones probables', 'Saving face pre-diseñado', 'Pre-mortem con 3 escenarios', 'Checklist de entrada a la mesa'],
+      principle: 'La improvisación es el error no forzado que destruye el margen.'
+    }
+  },
+  {
+    id: 'simular', type: 'm1', x: 2480, y: 520,
+    icon: '🥊', moduleTag: 'M1', step: '03',
+    name: '/simular-negociacion', title: 'Role-play vs tipología',
+    desc: 'Claude encarna al prospecto (HP, Soviético, Firme…). Entrenamiento contra el peor escenario.',
+    outputChip: '<strong>Output:</strong> simulación + feedback',
+    phase: 1,
+    detail: {
+      section: 'Módulo 1 — Preparación',
+      intro: 'El negociador enfrenta al peor escenario posible en ensayo para que la mesa real se sienta fácil.',
+      input: 'Caso + tipología (Firme / Suave / Duro / Soviético / HP) + intensidad',
+      output: ['Role-play en tiempo real — Claude encarna al prospecto', 'Comandos: pausa, stop, hint, reset', 'Evaluación final contra los 7 huesos', 'Momentos pivotales con veredicto', 'Errores críticos detectados', '3 acciones para la mesa real'],
+      principle: 'El HP admira el carácter, no la complacencia.'
+    }
+  },
+  {
+    id: 'mesa', type: 'mesa', big: true, x: 1420, y: 920,
+    icon: '⚔️', moduleTag: 'Ejecución', step: '04',
+    name: 'La mesa real', title: 'La negociación',
+    desc: 'La mesa ocurre. Fireflies graba el transcript para alimentar el análisis post-mesa.',
+    outputChip: '<strong>Output:</strong> transcript grabado',
+    phase: 2,
+    detail: {
+      section: 'La mesa real',
+      intro: 'El momento de la verdad. El sistema no interviene aquí — la negociación es humana, ejecutada con el plan.',
+      input: 'El plan de batalla mental del negociador',
+      output: ['Un transcript grabado (Fireflies MCP lo jala)', 'Un resultado de la mesa', 'Insumo para la radiografía del Módulo 2'],
+      principle: 'No basta con saber negociar. Hay que poder demostrarlo.'
+    }
+  },
+  {
+    id: 'procesar', type: 'm2', x: 400, y: 1280,
+    icon: '📥', moduleTag: 'M2', step: '05',
+    name: '/procesar-call-ji', title: 'Ingesta de transcripts',
+    desc: 'Conecta con Fireflies MCP, estructura por segmentos, diagnostica tipología express.',
+    outputChip: '<strong>Output:</strong> transcript estructurado',
+    phase: 3,
+    detail: {
+      section: 'Módulo 2 — Análisis',
+      intro: 'Preprocesador que prepara el material crudo para análisis forense.',
+      input: 'Transcript desde Fireflies (MCP), archivo o paste directo',
+      output: ['Transcript estructurado por segmentos', 'Highlights automáticos (cifras, anclas, objeciones, silencios)', 'Diagnóstico express de tipología con citas', 'Comparación preliminar plan vs ejecución'],
+      principle: 'Reproducible, medible, verificable.'
+    }
+  },
+  {
+    id: 'radiografia', type: 'm2', x: 1440, y: 1280,
+    icon: '🔬', moduleTag: 'M2', step: '06',
+    name: '/radiografia-negociacion', title: 'Análisis forense · 7 huesos',
+    desc: 'El corazón del sistema. Scorecard /10 por hueso, hard caps, momentos pivotales citados.',
+    outputChip: '<strong>Output:</strong> radiografía /10 por hueso',
+    phase: 3,
+    detail: {
+      section: 'Módulo 2 — Análisis',
+      intro: 'El corazón del sistema. Cirugía sobre cada intercambio.',
+      input: 'Transcript procesado',
+      output: ['Score global /10 con hard caps aplicables', 'Scorecard /10 por cada uno de los 7 huesos con evidencia', 'Análisis de las 6 preguntas', 'Errores críticos con citas (compra de paz, temor al conflicto…)', 'Momentos pivotales: GANADO / PERDIDO / TIBIO', 'Dinámica de poder analizada', 'Análisis de lenguaje (frases fuertes vs débiles)', 'Señales del otro (leídas y perdidas)', 'Tipología confirmada', '3 acciones para la próxima mesa'],
+      principle: 'No basta con saber negociar. Hay que poder demostrarlo.'
+    }
+  },
+  {
+    id: 'plan-accion', type: 'm2', x: 2480, y: 1280,
+    icon: '🎯', moduleTag: 'M2', step: '07',
+    name: '/plan-accion', title: 'Próximo movimiento',
+    desc: 'No es "gracias por el tiempo". Es el mensaje listo con timing táctico.',
+    outputChip: '<strong>Output:</strong> mensaje + próximo movimiento',
+    phase: 3,
+    detail: {
+      section: 'Módulo 2 — Análisis',
+      intro: 'Ningún "gracias por el tiempo". Estrategia operacional post-mesa.',
+      input: 'La radiografía',
+      output: ['Variables nuevas a meter en la mesa', 'Información privilegiada a conseguir', 'Objeciones residuales con manejo', 'Saving face pre-diseñado', 'Mensaje listo para enviar', 'Timing táctico justificado', 'Plan B (máx 3 pushes)', 'Si aplica: script de salida elegante'],
+      principle: 'A las personas se les conoce más por cómo salen que por cómo entran.'
+    }
+  },
+  {
+    id: 'memoria', type: 'mem', big: true, x: 1420, y: 1680,
+    icon: '🧠', moduleTag: 'Transversal', step: '08',
+    name: '/actualizar-memoria', title: 'La sangre del sistema',
+    desc: 'Después de cada radiografía alimenta la memoria organizacional. Cada caso hace al sistema más inteligente.',
+    outputChip: '<strong>Output:</strong> memoria viva actualizada',
+    phase: 4,
+    detail: {
+      section: 'Memoria transversal',
+      intro: 'Esto es lo que hace que el sistema no sea ChatGPT. Cada caso alimenta la memoria organizacional.',
+      input: 'La radiografía del caso',
+      output: ['aprendizajes.md — reglas empíricas', 'objeciones-frecuentes.md — biblioteca + respuestas ganadoras', 'tipologias-encontradas.md — mapa con win rate', 'casos-ejemplares.md — negociaciones ≥ 8/10'],
+      principle: 'Cada caso procesado hace al sistema más inteligente.'
+    }
+  },
+  { id: 'mem-apr', type: 'memfile', x: 450, y: 1720, name: 'aprendizajes.md', desc: 'Reglas empíricas del equipo' },
+  { id: 'mem-obj', type: 'memfile', x: 450, y: 1820, name: 'objeciones-frecuentes.md', desc: 'Objeciones + respuestas ganadoras' },
+  { id: 'mem-tip', type: 'memfile', x: 2560, y: 1720, name: 'tipologias-encontradas.md', desc: 'Mapa de contrapartes + win rate' },
+  { id: 'mem-caso', type: 'memfile', x: 2560, y: 1820, name: 'casos-ejemplares.md', desc: 'Negociaciones ≥ 8/10 para estudiar' },
+  {
+    id: 'coaching-personal', type: 'm3', x: 400, y: 2100,
+    icon: '👤', moduleTag: 'M3', step: '09',
+    name: '/coaching-personal', title: 'Tú vs. tú mismo',
+    desc: 'Trayectoria de un negociador. Blind spot único + plan de 90 días.',
+    outputChip: '<strong>Output:</strong> plan de desarrollo personal',
+    phase: 4,
+    detail: {
+      section: 'Módulo 3 — Coaching',
+      intro: 'Trayectoria de un negociador, no evaluación puntual.',
+      input: 'Nombre del negociador',
+      output: ['Scorecard histórico por hueso', 'Errores críticos recurrentes cuantificados', 'Tipologías que domina vs con las que lucha', 'Un único blind spot prioritario', 'Plan de 90 días operacional', 'Scripts para memorizar bajo presión', 'Ejercicio diario de reprogramación', 'Momentos ejemplares propios a replicar'],
+      principle: 'Es imposible no aprender si se tiene la disposición correcta.'
+    }
+  },
+  {
+    id: 'performance-equipo', type: 'm3', x: 1440, y: 2100,
+    icon: '📊', moduleTag: 'M3', step: '10',
+    name: '/performance-equipo', title: 'Vista director',
+    desc: 'Dashboard del equipo: scorecards, errores sistémicos, ranking, deals rojos.',
+    outputChip: '<strong>Output:</strong> dashboard director',
+    phase: 4,
+    detail: {
+      section: 'Módulo 3 — Coaching',
+      intro: 'Audita 50 negociaciones con la profundidad con la que antes auditaba 2.',
+      input: 'Todas las radiografías disponibles',
+      output: ['Scorecard agregado del equipo', 'Errores críticos sistémicos', 'Ranking de negociadores + blind spots', 'Semáforo de deals (🟢 / 🟡 / 🔴)', 'Análisis de Curva Ballena', '3 decisiones críticas de la semana', '3 negociadores que necesitan atención', '3 deals rojos que requieren intervención'],
+      principle: '80% de tus clientes generan el 150% de tu utilidad.'
+    }
+  },
+  {
+    id: 'patrones-equipo', type: 'm3', x: 2480, y: 2100,
+    icon: '🔗', moduleTag: 'M3', step: '11',
+    name: '/patrones-equipo', title: 'Análisis cruzado',
+    desc: 'Reglas empíricas emergentes. Qué ganó vs qué perdió, cross-case.',
+    outputChip: '<strong>Output:</strong> reglas empíricas del equipo',
+    phase: 4,
+    detail: {
+      section: 'Módulo 3 — Coaching',
+      intro: 'Las reglas empíricas que emergen del uso real del framework.',
+      input: 'Todas las radiografías + memoria actual',
+      output: ['10-15 reglas empíricas cuantificadas', 'Objeciones frecuentes + ganadoras', 'Performance por tipología', 'Anclas rotas vs defendidas', 'Casos ejemplares', 'Update a memoria organizacional'],
+      principle: 'Se puede aprender de cualquiera, incluso del que se equivoca.'
+    }
+  },
+  {
+    id: 'que-sigue', type: 'core', x: 2870, y: 120,
+    icon: '🧭', moduleTag: 'GPS', step: 'GPS',
+    name: '/que-sigue-ji', title: 'GPS del sistema',
+    desc: 'Lee el estado de un caso y te dice qué skill ejecutar ahora.',
+    outputChip: '<strong>Output:</strong> recomendación del siguiente skill',
+    phase: null,
+    detail: {
+      section: 'Meta-skill',
+      intro: 'Si el usuario se pierde, este skill le dice qué ejecutar ahora.',
+      input: 'Nombre de un caso (opcional)',
+      output: ['Diagnóstico de fase del caso', 'Recomendación del siguiente skill', 'Vista global del pipeline'],
+      principle: 'El sistema es poderoso solo si el operador sabe cuándo usar cada pieza.'
+    }
+  }
+];
+
+const GROUPS = [
+  { cls: 'm1',  persona: 'El Negociador',  label: 'Módulo 1 · ANTES',    arrow: 'flujo →', x: 340, y: 410,  w: 2360, h: 280 },
+  { cls: 'm2',  persona: 'El Negociador',  label: 'Módulo 2 · DESPUÉS',  arrow: 'flujo →', x: 340, y: 1170, w: 2360, h: 280 },
+  { cls: 'mem', persona: 'La Organización',label: 'Memoria viva',        arrow: 'aprende', x: 340, y: 1540, w: 2360, h: 360 },
+  { cls: 'm3',  persona: 'El Director',    label: 'Módulo 3 · COACHING', arrow: 'escala → ', x: 340, y: 1990, w: 2360, h: 280 }
+];
+
+const EDGES = [
+  { from: 'framework', to: 'investigar', type: 'consulta', color: 'purple' },
+  { from: 'framework', to: 'disenar', type: 'consulta', color: 'purple' },
+  { from: 'framework', to: 'simular', type: 'consulta', color: 'purple' },
+  { from: 'contexto', to: 'investigar', type: 'consulta', color: 'teal' },
+  { from: 'contexto', to: 'disenar', type: 'consulta', color: 'teal' },
+  { from: 'contexto', to: 'radiografia', type: 'consulta', color: 'teal' },
+  { from: 'investigar', to: 'disenar', type: 'solid', label: 'alimenta', color: 'emerald', animated: true },
+  { from: 'disenar', to: 'simular', type: 'solid', label: 'ensaya', color: 'emerald', animated: true },
+  { from: 'simular', to: 'mesa', type: 'solid', label: 'prepara', color: 'emerald', animated: true },
+  { from: 'mesa', to: 'procesar', type: 'solid', label: 'transcript', color: 'red', animated: true },
+  { from: 'procesar', to: 'radiografia', type: 'solid', label: 'ingesta', color: 'amber', animated: true },
+  { from: 'radiografia', to: 'plan-accion', type: 'solid', label: 'deriva', color: 'amber', animated: true },
+  { from: 'radiografia', to: 'memoria', type: 'solid', label: 'alimenta', color: 'pink', animated: true },
+  { from: 'plan-accion', to: 'memoria', type: 'dashed', color: 'pink' },
+  { from: 'memoria', to: 'mem-apr', type: 'dashed', color: 'pink' },
+  { from: 'memoria', to: 'mem-obj', type: 'dashed', color: 'pink' },
+  { from: 'memoria', to: 'mem-tip', type: 'dashed', color: 'pink' },
+  { from: 'memoria', to: 'mem-caso', type: 'dashed', color: 'pink' },
+  { from: 'mem-apr', to: 'coaching-personal', type: 'dotted', color: 'blue' },
+  { from: 'mem-obj', to: 'patrones-equipo', type: 'dotted', color: 'blue' },
+  { from: 'mem-tip', to: 'patrones-equipo', type: 'dotted', color: 'blue' },
+  { from: 'mem-caso', to: 'performance-equipo', type: 'dotted', color: 'blue' },
+  { from: 'coaching-personal', to: 'investigar', type: 'dotted', label: 'refuerza', color: 'blue', curve: 'left' },
+  { from: 'patrones-equipo', to: 'simular', type: 'dotted', label: 'actualiza', color: 'blue', curve: 'right' }
+];
+
+const DEMO_STEPS = [
+  {
+    overview: true,
+    nodes: ['framework', 'contexto'],
+    title: 'Base de conocimiento — el cimiento del sistema',
+    desc: 'Todo empieza aquí: dos archivos que son la autoridad del sistema. El Framework JIT (el método universal de José Ignacio — 7 huesos, 6 preguntas, tipologías) y el Contexto Comercial (quiénes somos, qué vendemos, cómo competimos — en este caso, Banca Empresarial Bancolombia). Los skills los consultan ambos antes de operar. Y esta capa es extensible: aquí caben playbooks del equipo, glosarios sectoriales, políticas internas, data histórica — lo que el equipo quiera que el sistema consulte siempre. A partir de esta base, empiezan las acciones.'
+  },
+  { node: 'investigar', title: 'Paso 1 · Levantar inteligencia', desc: 'Antes de tu próxima mesa, el sistema investiga al prospecto como un analista militar: quiénes son, qué necesitan, qué BATNA tienen, qué tipología son, quién decide de verdad. Lo hace aplicando método JIT sobre el contexto de Bancolombia.' },
+  { node: 'disenar', title: 'Paso 2 · Plan de batalla', desc: 'Las 6 preguntas de JIT respondidas por escrito. ZOPA con excelente/bueno/aceptable. Ancla con guion palabra por palabra. Variables de rentabilidad infinita priorizadas.' },
+  { node: 'simular', title: 'Paso 3 · Ensayar contra el peor caso', desc: 'Claude encarna al prospecto con la tipología anticipada (HP, Soviético, Firme…). Practicas contra el peor escenario antes de la mesa real.' },
+  { node: 'mesa', title: 'Paso 4 · La mesa real', desc: 'El momento de la verdad. El sistema no interviene aquí — la negociación es humana, ejecutada con el plan. Fireflies graba el transcript automáticamente.' },
+  { node: 'procesar', title: 'Paso 5 · Ingestar el transcript', desc: 'El sistema toma el transcript (desde Fireflies o archivo), lo estructura por segmentos y hace un diagnóstico express de la tipología confirmada.' },
+  { node: 'radiografia', title: 'Paso 6 · Radiografía forense', desc: 'El corazón del sistema. Analiza cada intercambio contra los 7 huesos, detecta errores críticos (compra de paz, temor al conflicto…), cita momentos exactos y devuelve un scorecard /10 con hard caps.' },
+  { node: 'plan-accion', title: 'Paso 7 · Próximo movimiento', desc: 'No un "gracias por tu tiempo". Un plan operacional: qué variables nuevas meter, qué objeciones residuales atacar, mensaje listo para enviar, timing táctico, saving face.' },
+  {
+    overview: true,
+    nodes: ['memoria', 'mem-apr', 'mem-obj', 'mem-tip', 'mem-caso'],
+    title: 'Paso 8 · El sistema aprende',
+    desc: 'Aquí está la magia. Cada caso procesado alimenta 4 archivos vivos que rodean al cerebro: aprendizajes (reglas empíricas), objeciones-frecuentes (biblioteca + respuestas ganadoras), tipologías-encontradas (mapa con win rate) y casos-ejemplares (negociaciones ≥ 8/10). La organización acumula inteligencia. Esto es lo que ChatGPT no puede hacer.'
+  },
+  { node: 'performance-equipo', title: 'Vista director · A escala', desc: 'El director audita 50 negociaciones con la profundidad con la que antes auditaba 2. Sabe quién necesita qué coaching, qué deals están atascados, dónde intervenir esta semana.' },
+  { node: 'patrones-equipo', title: 'Reglas empíricas emergentes', desc: '"En X% de los casos, cuando aparece la objeción Y, la respuesta Z ganó." Las heurísticas que el equipo va descubriendo por uso real, cuantificadas y listas para incorporar al playbook.' }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// PARTICLES (ambient)
+// ═══════════════════════════════════════════════════════════════
+
+const particlesCanvas = document.getElementById('particles');
+const pctx = particlesCanvas.getContext('2d');
+let particles = [];
+const PARTICLE_COUNT = 40;
+
+function resizeParticles() {
+  particlesCanvas.width = window.innerWidth;
+  particlesCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeParticles);
+resizeParticles();
+
+const particleColors = ['124,58,237', '52,211,153', '244,114,182', '96,165,250', '251,191,36'];
+
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
+      x: Math.random() * particlesCanvas.width,
+      y: Math.random() * particlesCanvas.height,
+      vx: (Math.random() - 0.5) * 0.15,
+      vy: (Math.random() - 0.5) * 0.15,
+      r: Math.random() * 1.4 + 0.5,
+      color: particleColors[Math.floor(Math.random() * particleColors.length)],
+      opacity: Math.random() * 0.4 + 0.1
+    });
+  }
+}
+initParticles();
+
+function drawParticles() {
+  pctx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0) p.x = particlesCanvas.width;
+    if (p.x > particlesCanvas.width) p.x = 0;
+    if (p.y < 0) p.y = particlesCanvas.height;
+    if (p.y > particlesCanvas.height) p.y = 0;
+    pctx.beginPath();
+    pctx.fillStyle = `rgba(${p.color}, ${p.opacity})`;
+    pctx.shadowColor = `rgba(${p.color}, ${p.opacity * 0.8})`;
+    pctx.shadowBlur = 8;
+    pctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    pctx.fill();
+  });
+  pctx.shadowBlur = 0;
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER NODES & GROUPS
+// ═══════════════════════════════════════════════════════════════
+
+const canvas = document.getElementById('canvas');
+const edgesSvg = document.getElementById('edges');
+edgesSvg.setAttribute('viewBox', '0 0 3200 2600');
+edgesSvg.setAttribute('width', '3200');
+edgesSvg.setAttribute('height', '2600');
+
+GROUPS.forEach(g => {
+  const div = document.createElement('div');
+  div.className = `group ${g.cls}`;
+  div.style.left = g.x + 'px';
+  div.style.top = g.y + 'px';
+  div.style.width = g.w + 'px';
+  div.style.height = g.h + 'px';
+  div.innerHTML = `
+    <div class="group-label-wrap">
+      <span class="group-persona">👤 ${g.persona}</span>
+      <span class="group-label">${g.label}</span>
+    </div>
+    <div class="group-arrow">${g.arrow}</div>
+  `;
+  canvas.appendChild(div);
+});
+
+const nodeElements = {};
+NODES.forEach((n, idx) => {
+  const el = document.createElement('div');
+  el.className = `node ${n.type}${n.big ? ' big' : ''}`;
+  el.style.left = n.x + 'px';
+  el.style.top = n.y + 'px';
+  el.style.setProperty('--delay', (idx * 0.05) + 's');
+  el.dataset.id = n.id;
+
+  if (n.type === 'memfile') {
+    el.innerHTML = `
+      <div class="node-name"><span class="memfile-icon">📄</span>${n.name}</div>
+      <div class="node-desc">${n.desc}</div>
+    `;
+  } else {
+    const stepBadgeHtml = n.step ? `<div class="step-badge">${n.step}</div>` : '';
+    const moduleTagHtml = n.moduleTag ? `<span class="node-module-tag">${n.moduleTag}</span>` : '';
+    const startBadgeHtml = n.isStart ? `<div class="start-badge"><span class="dot"></span>Empieza aquí</div>` : '';
+    const outputChipHtml = n.outputChip ? `<div class="node-output-chip">${n.outputChip}</div>` : '';
+
+    el.innerHTML = `
+      ${startBadgeHtml}
+      ${outputChipHtml}
+      <div class="node-head">
+        ${stepBadgeHtml}
+        <span class="node-icon">${n.icon}</span>
+        ${moduleTagHtml}
+      </div>
+      <div class="node-name">${n.name}</div>
+      <div class="node-title">${n.title}</div>
+      <div class="node-desc">${n.desc}</div>
+    `;
+  }
+
+  el.addEventListener('click', (e) => {
+    if (dragging || dragMoved) return;
+    if (n.detail) openPanel(n);
+  });
+  el.addEventListener('mouseenter', () => highlightNode(n.id));
+  el.addEventListener('mouseleave', () => clearHighlight());
+
+  canvas.appendChild(el);
+  nodeElements[n.id] = { el, node: n };
+});
+
+// ═══════════════════════════════════════════════════════════════
+// EDGES
+// ═══════════════════════════════════════════════════════════════
+
+function getNodeRect(nodeId) {
+  const { el, node } = nodeElements[nodeId];
+  const w = el.offsetWidth || 260;
+  const h = el.offsetHeight || 140;
+  return { x: node.x, y: node.y, w, h, cx: node.x + w / 2, cy: node.y + h / 2 };
+}
+
+function getAnchor(fromId, toId) {
+  const f = getNodeRect(fromId);
+  const t = getNodeRect(toId);
+  const dx = t.cx - f.cx;
+  const dy = t.cy - f.cy;
+  let fx, fy, tx, ty;
+  if (Math.abs(dy) > Math.abs(dx)) {
+    if (dy > 0) { fy = f.y + f.h; ty = t.y; } else { fy = f.y; ty = t.y + t.h; }
+    fx = f.cx; tx = t.cx;
+  } else {
+    if (dx > 0) { fx = f.x + f.w; tx = t.x; } else { fx = f.x; tx = t.x + t.w; }
+    fy = f.cy; ty = t.cy;
+  }
+  return { fx, fy, tx, ty, dx, dy };
+}
+
+function setupMarkers() {
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  const colors = { purple: '#7CB8F2', emerald: '#5ee5a4', amber: '#ffc95e', pink: '#f29bd4', blue: '#8fc4fb', red: '#ff8a8a', teal: '#4fd1c5' };
+  Object.entries(colors).forEach(([name, color]) => {
+    const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    marker.setAttribute('id', `arrow-${name}`);
+    marker.setAttribute('viewBox', '0 0 10 10');
+    marker.setAttribute('refX', '9');
+    marker.setAttribute('refY', '5');
+    marker.setAttribute('markerWidth', '7');
+    marker.setAttribute('markerHeight', '7');
+    marker.setAttribute('orient', 'auto-start-reverse');
+    marker.innerHTML = `<path d="M 0 0 L 10 5 L 0 10 Z" fill="${color}" />`;
+    defs.appendChild(marker);
+  });
+  edgesSvg.appendChild(defs);
+}
+setupMarkers();
+
+const colorMap = { purple: '#7CB8F2', emerald: '#5ee5a4', amber: '#ffc95e', pink: '#f29bd4', blue: '#8fc4fb', red: '#ff8a8a', teal: '#4fd1c5' };
+
+function renderEdges() {
+  [...edgesSvg.querySelectorAll('g.edges-layer')].forEach(g => g.remove());
+
+  const layer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  layer.setAttribute('class', 'edges-layer');
+
+  EDGES.forEach((e, idx) => {
+    const a = getAnchor(e.from, e.to);
+    const color = colorMap[e.color] || '#8b8fa3';
+
+    let dashArray = 'none';
+    if (e.type === 'dashed') dashArray = '8 4';
+    if (e.type === 'dotted' || e.type === 'consulta') dashArray = '2 6';
+
+    const midX = (a.fx + a.tx) / 2;
+    const midY = (a.fy + a.ty) / 2;
+    let c1x, c1y, c2x, c2y;
+
+    if (Math.abs(a.dy) > Math.abs(a.dx)) {
+      c1x = a.fx; c1y = midY;
+      c2x = a.tx; c2y = midY;
+    } else {
+      c1x = midX; c1y = a.fy;
+      c2x = midX; c2y = a.ty;
+    }
+
+    if (e.curve === 'left') {
+      const offset = Math.abs(a.fy - a.ty) * 0.4 + 250;
+      c1x = a.fx - offset; c1y = a.fy;
+      c2x = a.tx - offset; c2y = a.ty;
+    }
+    if (e.curve === 'right') {
+      const offset = Math.abs(a.fy - a.ty) * 0.4 + 250;
+      c1x = a.fx + offset; c1y = a.fy;
+      c2x = a.tx + offset; c2y = a.ty;
+    }
+
+    const pathD = `M ${a.fx} ${a.fy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${a.tx} ${a.ty}`;
+    const pathId = `edge-path-${idx}`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('id', pathId);
+    path.setAttribute('class', `edge-path`);
+    path.setAttribute('data-from', e.from);
+    path.setAttribute('data-to', e.to);
+    path.setAttribute('d', pathD);
+    path.setAttribute('stroke', color);
+    path.setAttribute('stroke-dasharray', dashArray);
+    path.setAttribute('marker-end', `url(#arrow-${e.color})`);
+    path.setAttribute('opacity', e.type === 'dotted' ? '0.5' : e.type === 'dashed' ? '0.65' : '0.8');
+    // Add draw-in animation with stagger
+    path.style.animationDelay = (0.3 + idx * 0.04) + 's';
+    path.classList.add('draw-in');
+    layer.appendChild(path);
+
+    if (e.animated) {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('class', 'flow-dot flow-dot-anim');
+      circle.setAttribute('r', '4');
+      circle.setAttribute('fill', color);
+      circle.setAttribute('style', `color: ${color}`);
+
+      const animMotion = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+      animMotion.setAttribute('dur', '3s');
+      animMotion.setAttribute('repeatCount', 'indefinite');
+      animMotion.setAttribute('begin', `${idx * 0.3 + 2}s`);
+      const mpath = document.createElementNS('http://www.w3.org/2000/svg', 'mpath');
+      mpath.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${pathId}`);
+      animMotion.appendChild(mpath);
+      circle.appendChild(animMotion);
+
+      layer.appendChild(circle);
+    }
+
+    if (e.label) {
+      const labelX = e.curve === 'left' ? (c1x + c2x) / 2 - 10 : e.curve === 'right' ? (c1x + c2x) / 2 + 10 : midX;
+      const labelY = midY;
+
+      const estWidth = e.label.length * 6.5 + 18;
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bg.setAttribute('class', 'edge-label-bg');
+      bg.setAttribute('x', labelX - estWidth / 2);
+      bg.setAttribute('y', labelY - 9);
+      bg.setAttribute('width', estWidth);
+      bg.setAttribute('height', 18);
+      bg.setAttribute('rx', 4);
+      bg.setAttribute('fill', '#0a0714');
+      bg.setAttribute('stroke', color);
+      bg.setAttribute('opacity', '0.95');
+
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('class', 'edge-label');
+      text.setAttribute('x', labelX);
+      text.setAttribute('y', labelY);
+      text.setAttribute('fill', color);
+      text.setAttribute('dy', '4');
+      text.textContent = e.label;
+
+      layer.appendChild(bg);
+      layer.appendChild(text);
+    }
+  });
+
+  edgesSvg.appendChild(layer);
+}
+
+requestAnimationFrame(() => renderEdges());
+
+// ═══════════════════════════════════════════════════════════════
+// HIGHLIGHT ON HOVER
+// ═══════════════════════════════════════════════════════════════
+
+function highlightNode(nodeId) {
+  const connected = new Set([nodeId]);
+  const relatedEdges = new Set();
+
+  EDGES.forEach((e, idx) => {
+    if (e.from === nodeId) { connected.add(e.to); relatedEdges.add(idx); }
+    if (e.to === nodeId) { connected.add(e.from); relatedEdges.add(idx); }
+  });
+
+  canvas.classList.add('focused');
+  Object.values(nodeElements).forEach(({ el, node }) => {
+    el.classList.toggle('highlighted', connected.has(node.id));
+  });
+  edgesSvg.querySelectorAll('.edge-path').forEach((path, idx) => {
+    path.classList.toggle('highlighted', relatedEdges.has(idx));
+  });
+}
+
+function clearHighlight() {
+  canvas.classList.remove('focused');
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('highlighted'));
+  edgesSvg.querySelectorAll('.edge-path').forEach(path => path.classList.remove('highlighted'));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PAN & ZOOM
+// ═══════════════════════════════════════════════════════════════
+
+const viewport = document.getElementById('viewport');
+const zoomLevel = document.getElementById('zoom-level');
+
+let scale = 1, tx = 0, ty = 0;
+let dragging = false, dragMoved = false;
+let dragStartX, dragStartY, dragStartTx, dragStartTy;
+
+function applyTransform() {
+  canvas.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  zoomLevel.textContent = Math.round(scale * 100) + '%';
+  drawMinimap();
+}
+
+function centerOnCanvas() {
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const s = Math.min(vw / 3400, vh / 2700);
+  scale = Math.max(0.2, Math.min(1, s));
+  tx = (vw - 3200 * scale) / 2;
+  ty = (vh - 2600 * scale) / 2;
+  applyTransform();
+}
+
+function panZoomTo(targetX, targetY, targetScale = null) {
+  const s = targetScale !== null ? targetScale : scale;
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const newTx = vw / 2 - targetX * s;
+  const newTy = vh / 2 - targetY * s;
+  animateTransform(newTx, newTy, s, 1000);
+}
+
+function animateTransform(toTx, toTy, toScale, duration) {
+  const startTx = tx, startTy = ty, startScale = scale;
+  const startTime = performance.now();
+  function frame(now) {
+    const elapsed = now - startTime;
+    const p = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    tx = startTx + (toTx - startTx) * eased;
+    ty = startTy + (toTy - startTy) * eased;
+    scale = startScale + (toScale - startScale) * eased;
+    applyTransform();
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('load', () => {
+  centerOnCanvas();
+  setTimeout(() => document.body.classList.add('loaded'), 50);
+  setTimeout(() => document.body.classList.remove('loading'), 100);
+});
+window.addEventListener('resize', centerOnCanvas);
+
+viewport.addEventListener('mousedown', (e) => {
+  if (e.target.closest('.node') || e.target.closest('.minimap')) return;
+  dragging = true; dragMoved = false;
+  dragStartX = e.clientX; dragStartY = e.clientY;
+  dragStartTx = tx; dragStartTy = ty;
+  viewport.classList.add('grabbing');
+});
+window.addEventListener('mousemove', (e) => {
+  if (!dragging) return;
+  const dx = e.clientX - dragStartX, dy = e.clientY - dragStartY;
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+  tx = dragStartTx + dx; ty = dragStartTy + dy;
+  applyTransform();
+});
+window.addEventListener('mouseup', () => {
+  if (dragging) setTimeout(() => { dragging = false; }, 50);
+  viewport.classList.remove('grabbing');
+});
+
+viewport.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const rect = viewport.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  const delta = e.deltaY < 0 ? 1.1 : 0.9;
+  const newScale = Math.max(0.15, Math.min(2.5, scale * delta));
+  tx = mx - (mx - tx) * (newScale / scale);
+  ty = my - (my - ty) * (newScale / scale);
+  scale = newScale;
+  applyTransform();
+}, { passive: false });
+
+document.getElementById('btn-zoom-in').addEventListener('click', () => {
+  const newScale = Math.min(2.5, scale * 1.2);
+  const vw = viewport.clientWidth / 2, vh = viewport.clientHeight / 2;
+  tx = vw - (vw - tx) * (newScale / scale);
+  ty = vh - (vh - ty) * (newScale / scale);
+  scale = newScale; applyTransform();
+});
+document.getElementById('btn-zoom-out').addEventListener('click', () => {
+  const newScale = Math.max(0.15, scale * 0.83);
+  const vw = viewport.clientWidth / 2, vh = viewport.clientHeight / 2;
+  tx = vw - (vw - tx) * (newScale / scale);
+  ty = vh - (vh - ty) * (newScale / scale);
+  scale = newScale; applyTransform();
+});
+document.getElementById('btn-fit').addEventListener('click', centerOnCanvas);
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'f' || e.key === 'F') centerOnCanvas();
+  if (e.key === '0') centerOnCanvas();
+  if (e.key === '+' || e.key === '=') document.getElementById('btn-zoom-in').click();
+  if (e.key === '-') document.getElementById('btn-zoom-out').click();
+  if (e.key === 'Escape') {
+    closePanel();
+    if (demoActive) exitDemo();
+    else if (document.getElementById('demo-stats').classList.contains('visible')) hideDemoStats();
+  }
+  if (demoActive) {
+    if (e.key === 'ArrowRight') demoNext();
+    if (e.key === 'ArrowLeft') demoPrev();
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// MINIMAP
+// ═══════════════════════════════════════════════════════════════
+
+const mmCanvas = document.getElementById('minimap-canvas');
+const mmCtx = mmCanvas.getContext('2d');
+const mmW = 400, mmH = 320;
+const CANVAS_W = 3200, CANVAS_H = 2600;
+const mmScale = Math.min(mmW / CANVAS_W, mmH / CANVAS_H);
+const mmOffsetX = (mmW - CANVAS_W * mmScale) / 2;
+const mmOffsetY = (mmH - CANVAS_H * mmScale) / 2;
+
+function drawMinimap() {
+  mmCtx.clearRect(0, 0, mmW, mmH);
+  mmCtx.fillStyle = 'rgba(10, 7, 20, 0.5)';
+  mmCtx.fillRect(0, 0, mmW, mmH);
+
+  // Draw simplified group boxes
+  GROUPS.forEach(g => {
+    const colors = { m1: 'rgba(94,229,164,0.2)', m2: 'rgba(255,201,94,0.2)', m3: 'rgba(143,196,251,0.2)', mem: 'rgba(242,155,212,0.2)' };
+    mmCtx.fillStyle = colors[g.cls] || 'rgba(124,184,242,0.1)';
+    mmCtx.fillRect(mmOffsetX + g.x * mmScale, mmOffsetY + g.y * mmScale, g.w * mmScale, g.h * mmScale);
+  });
+
+  // Draw nodes
+  NODES.forEach(n => {
+    const colors = {
+      m1: '#5ee5a4', m2: '#ffc95e', m3: '#8fc4fb',
+      mem: '#f29bd4', core: '#a0c9f4', mesa: '#ff8a8a',
+      context: '#4fd1c5',
+      memfile: 'rgba(242,155,212,0.5)'
+    };
+    const w = n.type === 'memfile' ? 180 : (n.big ? 300 : 260);
+    const h = n.type === 'memfile' ? 60 : (n.big ? 150 : 140);
+    mmCtx.fillStyle = colors[n.type] || '#888';
+    mmCtx.fillRect(
+      mmOffsetX + n.x * mmScale,
+      mmOffsetY + n.y * mmScale,
+      w * mmScale, h * mmScale
+    );
+  });
+
+  // Draw viewport rect
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const viewLeft = -tx / scale;
+  const viewTop = -ty / scale;
+  const viewW = vw / scale;
+  const viewH = vh / scale;
+
+  mmCtx.strokeStyle = 'rgba(124, 184, 242, 0.9)';
+  mmCtx.lineWidth = 2;
+  mmCtx.fillStyle = 'rgba(124, 184, 242, 0.08)';
+  mmCtx.fillRect(mmOffsetX + viewLeft * mmScale, mmOffsetY + viewTop * mmScale, viewW * mmScale, viewH * mmScale);
+  mmCtx.strokeRect(mmOffsetX + viewLeft * mmScale, mmOffsetY + viewTop * mmScale, viewW * mmScale, viewH * mmScale);
+}
+
+mmCanvas.addEventListener('click', (e) => {
+  const rect = mmCanvas.getBoundingClientRect();
+  const cx = (e.clientX - rect.left) * (mmW / rect.width);
+  const cy = (e.clientY - rect.top) * (mmH / rect.height);
+  // convert to canvas coords
+  const canvasX = (cx - mmOffsetX) / mmScale;
+  const canvasY = (cy - mmOffsetY) / mmScale;
+  panZoomTo(canvasX, canvasY);
+});
+
+// Update minimap every 100ms (cheap)
+setInterval(drawMinimap, 100);
+
+// ═══════════════════════════════════════════════════════════════
+// PHASE RIBBON
+// ═══════════════════════════════════════════════════════════════
+
+function highlightPhase(phase) {
+  document.querySelectorAll('.phase-ribbon .phase').forEach(p => {
+    p.classList.toggle('active', parseInt(p.dataset.phase) === phase);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SIDE PANEL
+// ═══════════════════════════════════════════════════════════════
+
+const sidePanel = document.getElementById('side-panel');
+const spLabel = document.getElementById('side-panel-label');
+const spName = document.getElementById('side-panel-name');
+const spTitle = document.getElementById('side-panel-title');
+const spBody = document.getElementById('side-panel-body');
+
+function openPanel(n) {
+  if (!n.detail) return;
+  const colorMap = { m1: 'emerald', m2: 'amber', m3: 'blue', mem: 'pink', core: 'purple', mesa: 'red' };
+  const c = colorMap[n.type];
+
+  spLabel.innerHTML = `<span class="side-panel-label" style="background: var(--${c}-bg); color: var(--${c === 'purple' ? 'purple-light' : c});">${n.detail.section}</span>`;
+  spName.innerHTML = `<div class="side-panel-name" style="color: var(--${c === 'purple' ? 'purple-light' : c});">${n.name}</div>`;
+  spTitle.innerHTML = `<div class="side-panel-title">${n.title}</div>`;
+
+  let body = '';
+  if (n.detail.intro) body += `<div class="side-panel-section"><p>${n.detail.intro}</p></div>`;
+  if (n.detail.input) body += `<div class="side-panel-section"><div class="side-panel-section-title">Input</div><p>${n.detail.input}</p></div>`;
+  if (n.detail.output) body += `<div class="side-panel-section"><div class="side-panel-section-title">Output</div><ul>${n.detail.output.map(o => `<li>${o}</li>`).join('')}</ul></div>`;
+  if (n.detail.principle) body += `<div class="side-panel-section"><div class="principle"><strong>Principio JIT aplicado</strong>${n.detail.principle}</div></div>`;
+
+  spBody.innerHTML = body;
+  sidePanel.classList.add('open');
+}
+
+function closePanel() { sidePanel.classList.remove('open'); }
+document.getElementById('side-panel-close').addEventListener('click', closePanel);
+
+// ═══════════════════════════════════════════════════════════════
+// DEMO MODE
+// ═══════════════════════════════════════════════════════════════
+
+let demoActive = false;
+let demoIndex = 0;
+
+const demoOverlay = document.getElementById('demo-overlay');
+const demoCurrent = document.getElementById('demo-current');
+const demoTotal = document.getElementById('demo-total');
+const demoTitle = document.getElementById('demo-title');
+const demoDesc = document.getElementById('demo-desc');
+const demoProgressBar = document.getElementById('demo-progress-bar');
+const demoPrevBtn = document.getElementById('demo-prev');
+const demoNextBtn = document.getElementById('demo-next');
+demoTotal.textContent = DEMO_STEPS.length;
+
+function startDemo() {
+  demoActive = true;
+  demoIndex = 0;
+  demoOverlay.classList.add('visible');
+  canvas.classList.add('demo-focused');
+  closePanel();
+  document.getElementById('welcome-tip').classList.add('hidden');
+  hideDemoStats();
+  runDemoStep();
+}
+
+function exitDemo() {
+  demoActive = false;
+  demoOverlay.classList.remove('visible');
+  canvas.classList.remove('demo-focused');
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('demo-active'));
+  highlightPhase(0);
+  clearHighlight();
+  setTimeout(centerOnCanvas, 200);
+}
+
+function runDemoStep() {
+  const step = DEMO_STEPS[demoIndex];
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('demo-active'));
+
+  demoCurrent.textContent = String(demoIndex + 1).padStart(2, '0');
+  demoTitle.textContent = step.title;
+  demoDesc.textContent = step.desc;
+  demoProgressBar.style.width = (((demoIndex + 1) / DEMO_STEPS.length) * 100) + '%';
+  demoPrevBtn.disabled = demoIndex === 0;
+
+  // Overview step — multiple nodes highlighted simultaneously
+  if (step.overview && Array.isArray(step.nodes) && step.nodes.length > 0) {
+    const rects = step.nodes.map(nid => getNodeRect(nid));
+    step.nodes.forEach(nid => {
+      if (nodeElements[nid]) nodeElements[nid].el.classList.add('demo-active');
+    });
+    // Pan to centroid, zoom out to fit all
+    const cx = rects.reduce((s, r) => s + r.cx, 0) / rects.length;
+    const cy = rects.reduce((s, r) => s + r.cy, 0) / rects.length;
+    // Compute the bounding box and pick a zoom that fits it
+    const minX = Math.min(...rects.map(r => r.x));
+    const maxX = Math.max(...rects.map(r => r.x + r.w));
+    const minY = Math.min(...rects.map(r => r.y));
+    const maxY = Math.max(...rects.map(r => r.y + r.h));
+    const spanX = maxX - minX;
+    const spanY = maxY - minY;
+    // Fit the bounding box with generous margin on both axes.
+    // Padding buffer handles labels/badges; ratios leave visual breathing room.
+    const padding = 180;
+    const targetScale = Math.min(
+      viewport.clientWidth / (spanX + padding * 2),
+      viewport.clientHeight / (spanY + padding * 2),
+      0.95
+    );
+    panZoomTo(cx, cy, Math.max(0.3, targetScale));
+    // Also highlight connected edges for all nodes in overview
+    canvas.classList.add('focused');
+    const connectedNodes = new Set(step.nodes);
+    const relatedEdges = new Set();
+    EDGES.forEach((e, idx) => {
+      if (step.nodes.includes(e.from)) { connectedNodes.add(e.to); relatedEdges.add(idx); }
+      if (step.nodes.includes(e.to))   { connectedNodes.add(e.from); relatedEdges.add(idx); }
+    });
+    Object.values(nodeElements).forEach(({ el, node }) => {
+      el.classList.toggle('highlighted', connectedNodes.has(node.id));
+    });
+    edgesSvg.querySelectorAll('.edge-path').forEach((path, idx) => {
+      path.classList.toggle('highlighted', relatedEdges.has(idx));
+    });
+    return;
+  }
+
+  // Single-node step (default)
+  const { el, node } = nodeElements[step.node];
+  el.classList.add('demo-active');
+  const rect = getNodeRect(step.node);
+  panZoomTo(rect.cx, rect.cy, 0.95);
+  if (node.phase) highlightPhase(node.phase);
+  highlightNode(step.node);
+}
+
+function demoNext() {
+  if (demoIndex < DEMO_STEPS.length - 1) {
+    demoIndex++;
+    runDemoStep();
+  } else {
+    // End of demo — zoom out to show all, then show stats
+    exitDemo();
+    setTimeout(showDemoStats, 1200);
+  }
+}
+
+function demoPrev() {
+  if (demoIndex > 0) { demoIndex--; runDemoStep(); }
+}
+
+document.getElementById('btn-play').addEventListener('click', startDemo);
+document.getElementById('demo-next').addEventListener('click', demoNext);
+document.getElementById('demo-prev').addEventListener('click', demoPrev);
+document.getElementById('demo-exit').addEventListener('click', exitDemo);
+
+// ═══════════════════════════════════════════════════════════════
+// END-OF-DEMO STATS
+// ═══════════════════════════════════════════════════════════════
+
+const demoStats = document.getElementById('demo-stats');
+
+function showDemoStats() {
+  demoStats.classList.add('visible');
+  // Animate numbers
+  demoStats.querySelectorAll('.stat-value').forEach(el => {
+    const target = el.dataset.target;
+    if (target === '∞') {
+      el.textContent = '0';
+      let frame = 0;
+      const interval = setInterval(() => {
+        frame++;
+        if (frame < 10) el.textContent = Math.floor(Math.random() * 99);
+        else { el.textContent = '∞'; clearInterval(interval); }
+      }, 50);
+      return;
+    }
+    const n = parseInt(target);
+    let v = 0;
+    const step = Math.max(1, Math.ceil(n / 20));
+    const interval = setInterval(() => {
+      v += step;
+      if (v >= n) { v = n; clearInterval(interval); }
+      el.textContent = v;
+    }, 40);
+  });
+}
+
+function hideDemoStats() {
+  demoStats.classList.remove('visible');
+}
+
+document.getElementById('demo-stats-restart').addEventListener('click', () => {
+  hideDemoStats();
+  setTimeout(startDemo, 300);
+});
+document.getElementById('demo-stats-explore').addEventListener('click', () => {
+  hideDemoStats();
+});
+
+// ═══════════════════════════════════════════════════════════════
+// WELCOME
+// ═══════════════════════════════════════════════════════════════
+
+const welcomeTip = document.getElementById('welcome-tip');
+document.getElementById('welcome-explore').addEventListener('click', () => welcomeTip.classList.add('hidden'));
+document.getElementById('welcome-play').addEventListener('click', () => {
+  welcomeTip.classList.add('hidden');
+  setTimeout(startDemo, 300);
+});
+document.getElementById('btn-help').addEventListener('click', () => welcomeTip.classList.remove('hidden'));
+
+setTimeout(() => {
+  if (!welcomeTip.classList.contains('hidden')) welcomeTip.classList.add('hidden');
+}, 20000);
+</script>
+
+</body>
+</html>

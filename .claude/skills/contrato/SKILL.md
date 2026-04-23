@@ -53,11 +53,14 @@ Pregunta al usuario:
 *- **Opcion B:** Dame los datos manualmente*
 
 *Tambien necesito:*
-*1. Servicio: Ops Layer, Edu Layer, o Core Layer?*
+*1. Servicio: Ops Layer (Capa 2) · Edu Empresarial (Capa 1a) · Core Layer (Capa 3) · Proyecto Custom (Capa 0)?*
+*   Nota: Cohort B2C (Capa 1b) no usa contrato formal · se maneja con terminos de servicio en landing.*
 *2. Precio acordado (si es diferente al estandar)*
 *3. Condiciones de pago (si son diferentes al 50/50)*
 *4. Fecha de inicio estimada*
 *5. Algun termino o condicion especial?"*
+
+**IMPORTANTE** (nota 2026-04-22 post cascade): si el servicio es Edu Empresarial o Proyecto Custom, avisar al usuario que los templates actuales son base pero requieren revision con abogado para ajustar scope y pricing al nuevo producto. Ver `docs/CASCADE_ALIGNMENT.md`.
 
 Espera la respuesta.
 
@@ -149,21 +152,29 @@ Pregunta al usuario:
 
 Segun el servicio, lee TODOS los archivos del paquete correspondiente:
 
-### AI Ops Layer:
+### AI Ops Layer (Capa 2):
 - `Templates/Contratos/AI Ops Layer/contrato-ops-layer.html`
 - `Templates/Contratos/AI Ops Layer/anexo-1-acuerdo-pago-ops.html`
 - `Templates/Contratos/AI Ops Layer/anexo-2-nda-ops.html`
 
-### AI Edu Layer:
-- `Templates/Contratos/AI Edu Layer/contrato-edu-layer.html`
-- `Templates/Contratos/AI Edu Layer/anexo-1-acuerdo-pago-edu.html`
-- `Templates/Contratos/AI Edu Layer/anexo-2-nda-edu.html`
+### AI Edu Empresarial / AI Edu Layer (Capa 1a):
+**Nota 2026-04-22**: el producto evolucionó de "Workshop Think AI 3 horas" a "Programa Edu Empresarial 4 sesiones × 3h (Soteco-style)". Los templates de contrato actuales sirven de base, pero **requieren revisión de scope/pricing con abogado** al usarse para el nuevo producto. Ver `Templates/Comercial/Programa Edu Empresarial/README.md`.
 
-### AI Core Layer:
+- `Templates/Contratos/AI Edu Layer/contrato-edu-layer.html` (base · ajustar scope a 4 sesiones)
+- `Templates/Contratos/AI Edu Layer/anexo-1-acuerdo-pago-edu.html` (base · ajustar pricing a ~$10M COP o ~$8M intensiva)
+- `Templates/Contratos/AI Edu Layer/anexo-2-nda-edu.html` (sin cambios)
+
+### AI Core Layer (Capa 3 · Embedded AI Operator):
 - `Templates/Contratos/AI Core Layer/contrato-prestacion-servicios.html`
 - `Templates/Contratos/AI Core Layer/anexo-1-acuerdo-pago.html`
 - `Templates/Contratos/AI Core Layer/anexo-2-nda.html`
 - `Templates/Contratos/AI Core Layer/anexo-3-alcance-solucion.html`
+
+### Capa 0 · Proyecto Custom (Badge) · NUEVO POST-CASCADE
+No tiene template estandarizado · cada proyecto es bespoke. Usar como base el contrato AI Ops Layer o AI Core Layer segun complejidad + retainer. Requerir revision con abogado.
+
+### Capa 1b · Cohort B2C · NUEVO POST-CASCADE
+**No usa contrato formal individual**. El enrollment es via pago con terminos de servicio en la landing page del cohort. Ver `Templates/Comercial/Cohort B2C/README.md`.
 
 ---
 

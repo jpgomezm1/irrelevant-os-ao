@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Demo — JIT Sales OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/caso.css">
+<link rel="stylesheet" href="/css/live.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="nav-logo">
+      <span class="logo-mark">JIT</span>
+      <span class="logo-text">Sales OS</span>
+      <span class="logo-badge">v1.0</span>
+    </a>
+    <div class="nav-sep"></div>
+    <div class="nav-breadcrumb">
+      <a href="/">Dashboard</a>
+      <span class="sep">›</span>
+      <strong>Live Demo</strong>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="/" class="btn">← Volver</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="live-hero">
+    <div class="live-badge"><span class="dot"></span>Live · ejecución real</div>
+    <h1>Corre una skill <span class="light">en vivo.</span></h1>
+    <p>Selecciona un skill, dale contexto del caso, y observa cómo el sistema lo ejecuta sobre el framework JIT en tiempo real.</p>
+  </section>
+
+  <!-- STEPPER -->
+  <div class="stepper" id="stepper">
+    <div class="step-dot active" data-step="1">
+      <span class="step-num">1</span>
+      <span>Elige skill</span>
+    </div>
+    <span class="step-connector">→</span>
+    <div class="step-dot" data-step="2">
+      <span class="step-num">2</span>
+      <span>Contexto del caso</span>
+    </div>
+    <span class="step-connector">→</span>
+    <div class="step-dot" data-step="3">
+      <span class="step-num">3</span>
+      <span>Ejecuta y guarda</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <section id="form-section" class="live-card">
+    <div class="live-card-header">
+      <div class="live-step-num">01</div>
+      <div>
+        <h3>Configura la ejecución</h3>
+        <p>Elige un skill del sistema y describe el caso con suficiente contexto para que Claude trabaje con precisión.</p>
+      </div>
+    </div>
+
+    <div class="live-form">
+      <div class="form-field">
+        <label>Skill a ejecutar</label>
+        <div id="skills-groups" class="skills-groups">
+          <div class="empty-state"><div class="loader"></div></div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="context">Contexto del caso</label>
+        <textarea id="context" placeholder="Ej: El prospecto es Bancolombia. Estamos negociando un contrato de transformación digital de $200M. Ya tuvimos 2 calls previas. El decisor nominal es el CTO, pero sospecho que la Junta decide. Necesito diseñar la estrategia para la próxima reunión."></textarea>
+        <div class="form-hint">
+          <span><span id="char-count">0</span> / 5000 caracteres</span>
+          <button id="load-example" type="button" class="link-btn">Cargar ejemplo del skill seleccionado</button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <span class="actions-hint" id="actions-hint">Selecciona un skill para continuar</span>
+        <button id="btn-run" class="btn primary lg" disabled>▶ Ejecutar skill</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXECUTION (hidden initially) -->
+  <section id="exec-section" class="live-card hidden">
+    <div class="live-card-header">
+      <div class="live-step-num" id="exec-step-num">
+        <span class="loader"></span>
+      </div>
+      <div class="exec-header-text">
+        <h3 id="exec-title">Ejecutando...</h3>
+        <p id="exec-subtitle">El sistema está procesando.</p>
+      </div>
+      <div class="exec-actions">
+        <button id="btn-stop" class="btn">✕ Detener</button>
+      </div>
+    </div>
+
+    <div class="exec-status-bar">
+      <div class="status-item">
+        <div class="status-label">Skill</div>
+        <div class="status-value" id="status-skill">—</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">Tiempo</div>
+        <div class="status-value" id="status-time">0s</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">Caracteres</div>
+        <div class="status-value" id="status-chars">0</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">Estado</div>
+        <div class="status-value" id="status-state">
+          <span class="status-dot running"></span>
+          Ejecutando
+        </div>
+      </div>
+    </div>
+
+    <article class="markdown-body exec-output" id="exec-output">
+      <div class="exec-waiting">
+        <div class="loader"></div>
+        <p>Claude está leyendo el framework JIT y preparando la respuesta.
+          <small>La primera palabra suele aparecer en 5–15 segundos.</small>
+        </p>
+      </div>
+    </article>
+
+    <div id="save-section" class="save-section hidden">
+      <div class="save-header">
+        <h4>Guardar como caso</h4>
+        <p>Persiste esta salida en <code>casos-demo/</code> para consultarla después desde el dashboard.</p>
+      </div>
+      <div class="save-form">
+        <input id="save-case-name" type="text" placeholder="Nombre del caso (ej: acme-corp)" />
+        <select id="save-artifact">
+          <option value="investigacion">Investigación</option>
+          <option value="estrategia">Estrategia</option>
+          <option value="radiografia">Radiografía</option>
+          <option value="plan-accion">Plan de acción</option>
+          <option value="coaching">Coaching</option>
+          <option value="simulacion">Simulación</option>
+        </select>
+        <button id="btn-save" class="btn primary">Guardar</button>
+        <button id="btn-new-run" class="btn">↻ Nueva ejecución</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="/js/live.js"></script>
+</body>
+</html>

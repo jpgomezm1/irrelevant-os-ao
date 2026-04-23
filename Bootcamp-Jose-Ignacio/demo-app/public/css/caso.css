@@ -1,0 +1,427 @@
+/* ═══════════════════════════════════════════════════════════════
+   Caso viewer — sidebar + markdown renderer
+   Estilo JIT: navy + maya blue + Montserrat
+   ═══════════════════════════════════════════════════════════════ */
+
+.caso-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  max-width: 1440px;
+  margin: 0 auto;
+  min-height: calc(100vh - 68px);
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══ SIDEBAR ═══════════════════════════════════════════════ */
+.caso-sidebar {
+  background: rgba(5, 8, 52, 0.6);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid var(--border);
+  padding: 40px 28px;
+  position: sticky;
+  top: 68px;
+  height: calc(100vh - 68px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar */
+.caso-sidebar::-webkit-scrollbar { width: 6px; }
+.caso-sidebar::-webkit-scrollbar-track { background: transparent; }
+.caso-sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+.caso-meta-card {
+  background: var(--navy-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.caso-meta-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--maya), var(--mariner));
+}
+.caso-meta-tag {
+  display: inline-block;
+  font-size: 9.5px; font-weight: 700;
+  color: var(--emerald);
+  background: var(--emerald-soft);
+  border: 1px solid rgba(94, 229, 164, 0.2);
+  padding: 4px 10px; border-radius: 100px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.caso-meta-card h2 {
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.4px; line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--white);
+}
+.caso-meta-grid {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.caso-meta-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  font-size: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border-soft);
+  gap: 12px;
+}
+.caso-meta-row:last-child { border-bottom: none; }
+.meta-key {
+  color: var(--text-dim); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1px;
+  font-size: 9.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.meta-val {
+  color: var(--white); font-weight: 500;
+  font-size: 12.5px;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.caso-nav-label {
+  font-size: 10px; font-weight: 700;
+  color: var(--maya);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 14px;
+  padding: 0 4px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.caso-nav-count {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.caso-nav {
+  display: flex; flex-direction: column; gap: 4px;
+  flex: 1;
+}
+.nav-loader {
+  display: flex; justify-content: center; padding: 20px 0;
+}
+.caso-nav-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  text-align: left;
+  transition: all 0.15s;
+  width: 100%;
+  position: relative;
+}
+.caso-nav-item:hover {
+  background: var(--maya-soft);
+  color: var(--white);
+}
+.caso-nav-item.active {
+  background: var(--maya-soft);
+  color: var(--white);
+  border-color: var(--maya-border);
+  font-weight: 600;
+}
+.caso-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -28px; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 20px;
+  background: var(--maya);
+  border-radius: 2px;
+  box-shadow: 0 0 12px var(--maya);
+}
+.caso-nav-item .nav-icon {
+  font-size: 18px; flex-shrink: 0;
+  width: 24px; text-align: center;
+}
+.caso-nav-item .nav-text { flex: 1; }
+.caso-nav-item .nav-module {
+  font-size: 9px; font-weight: 700;
+  padding: 2.5px 7px; border-radius: 4px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.caso-nav-item[data-module="m1"] .nav-module { background: var(--emerald-soft); color: var(--emerald); }
+.caso-nav-item[data-module="m2"] .nav-module { background: var(--amber-soft); color: var(--amber); }
+.caso-nav-item[data-module="m3"] .nav-module { background: var(--maya-soft); color: var(--maya); }
+.caso-nav-item[data-module="mesa"] .nav-module { background: var(--coral-soft); color: var(--coral); }
+
+.caso-actions {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* ═══ MAIN ═══════════════════════════════════════════════════ */
+.caso-main {
+  padding: 48px 56px 96px;
+  max-width: 920px;
+  width: 100%;
+}
+
+.caso-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 36px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.caso-header-tag {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; font-weight: 700;
+  color: var(--maya);
+  letter-spacing: 2.5px; text-transform: uppercase;
+}
+.caso-header-tag .tag-icon { font-size: 20px; }
+.caso-header-module {
+  font-size: 10px; font-weight: 700;
+  padding: 5px 12px; border-radius: 6px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  background: var(--maya-soft);
+  color: var(--maya);
+  border: 1px solid var(--maya-border);
+}
+
+/* Prev/next nav at bottom of main */
+.caso-pager {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.caso-pager-btn {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 18px 22px;
+  background: var(--navy-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  font-family: inherit;
+  text-align: left;
+}
+.caso-pager-btn:hover:not(:disabled) {
+  border-color: var(--maya-border);
+  background: var(--maya-soft);
+  transform: translateY(-2px);
+}
+.caso-pager-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.caso-pager-btn.next { text-align: right; }
+.caso-pager-label {
+  font-size: 10px; font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 1.5px;
+}
+.caso-pager-title {
+  font-size: 14px; font-weight: 600;
+  color: var(--white);
+  display: flex; align-items: center; gap: 8px;
+}
+.caso-pager-btn.next .caso-pager-title { justify-content: flex-end; }
+
+/* ═══ MARKDOWN BODY ═══════════════════════════════════════════ */
+.markdown-body {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--text);
+  font-weight: 400;
+}
+
+.markdown-body h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px; font-weight: 800;
+  letter-spacing: -1.2px; line-height: 1.1;
+  margin: 0 0 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  color: var(--white);
+}
+.markdown-body h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px; font-weight: 700;
+  letter-spacing: -0.5px; line-height: 1.25;
+  margin: 48px 0 18px;
+  color: var(--white);
+}
+.markdown-body h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 19px; font-weight: 700;
+  letter-spacing: -0.2px; line-height: 1.3;
+  margin: 32px 0 14px;
+  color: var(--white);
+}
+.markdown-body h4 {
+  font-size: 15.5px; font-weight: 700;
+  margin: 26px 0 12px;
+  color: var(--white);
+  letter-spacing: -0.1px;
+}
+.markdown-body h5, .markdown-body h6 {
+  font-size: 12.5px; font-weight: 700;
+  margin: 20px 0 10px;
+  color: var(--maya);
+  text-transform: uppercase; letter-spacing: 1.5px;
+}
+.markdown-body p {
+  margin: 0 0 16px;
+  color: var(--text-soft);
+}
+.markdown-body strong {
+  color: var(--white);
+  font-weight: 700;
+}
+.markdown-body em {
+  color: var(--maya);
+  font-style: italic;
+  font-weight: 400;
+}
+.markdown-body a {
+  color: var(--maya);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(124, 184, 242, 0.3);
+  transition: border-color 0.15s;
+}
+.markdown-body a:hover { border-color: var(--maya); }
+
+.markdown-body ul, .markdown-body ol {
+  margin: 0 0 18px;
+  padding-left: 28px;
+}
+.markdown-body li {
+  margin: 8px 0;
+  line-height: 1.7;
+  color: var(--text-soft);
+}
+.markdown-body ul li::marker { color: var(--maya); }
+.markdown-body ol li::marker { color: var(--maya); font-weight: 700; }
+
+.markdown-body blockquote {
+  margin: 24px 0;
+  padding: 16px 24px;
+  background: var(--maya-soft);
+  border-left: 3px solid var(--maya);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--white);
+}
+.markdown-body blockquote p:last-child { margin-bottom: 0; }
+
+.markdown-body code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88em;
+  background: var(--maya-soft);
+  color: var(--maya);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+.markdown-body pre {
+  background: var(--navy-darker);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+.markdown-body pre code {
+  background: transparent;
+  color: var(--text-soft);
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 26px 0;
+  background: var(--navy-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-size: 14px;
+}
+.markdown-body table thead {
+  background: rgba(124, 184, 242, 0.06);
+}
+.markdown-body table th {
+  text-align: left;
+  padding: 14px 20px;
+  font-size: 10.5px; font-weight: 700;
+  color: var(--maya);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid var(--border);
+}
+.markdown-body table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: top;
+  color: var(--text-soft);
+}
+.markdown-body table tr:last-child td { border-bottom: none; }
+.markdown-body table tr:hover td { background: rgba(124, 184, 242, 0.03); }
+.markdown-body table strong { color: var(--white); }
+
+.markdown-body hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 40px 0;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  margin: 20px 0;
+}
+
+.markdown-body input[type="checkbox"] {
+  margin-right: 10px;
+  accent-color: var(--maya);
+  width: 14px; height: 14px;
+}
+
+/* First paragraph after h1 has slight emphasis */
+.markdown-body h1 + p {
+  font-size: 17px;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+/* ═══ RESPONSIVE ═══════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .caso-layout { grid-template-columns: 1fr; }
+  .caso-sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 28px 20px;
+  }
+  .caso-main { padding: 32px 20px 64px; }
+  .markdown-body h1 { font-size: 30px; }
+  .markdown-body h2 { font-size: 22px; }
+  .caso-pager { grid-template-columns: 1fr; }
+}

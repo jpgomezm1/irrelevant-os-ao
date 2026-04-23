@@ -61,13 +61,24 @@ Claude Code detecta automáticamente las skills en `.claude/skills/` y las activ
 
 ---
 
-## Los 3 servicios de Irrelevant
+## Los productos de Irrelevant · 4 capas económicas
 
-| Servicio | Qué es | Precio COP | Precio USD |
-|----------|--------|-----------|-----------|
-| **AI Ops Layer** | Setup de IA: diagnóstico + motor de IA + stack + 5 procesos inteligentes. 1 semana. | $7.000.000 + IVA | $3,500 |
-| **AI Edu Layer** | Workshop Think AI: 3 horas (45 min conceptual + 2h15 práctico). Suite de Claude. | $4.500.000 + IVA | $2,500 |
-| **AI Core Layer** | Transformación del core del negocio. Fase 0 + implementación + fee mensual. 8-12 semanas. | Basado en impacto | Basado en impacto |
+> **ACTUALIZADO 2026-04-22** · post Sesión 1 Strategy Cascade (Roger Martin persona · CEO).
+> El modelo anterior de "3 servicios sueltos" evolucionó a **4 capas económicas integradas · 5 productos**. Ver `Assets Fijos/PROP_VALUE_IRRELEVANT.md` v2.0 y `docs/CASCADE_ALIGNMENT.md`.
+
+| Capa | Producto | Qué es | Precio | Modelo |
+|------|----------|--------|--------|--------|
+| **0 · Badge** | **Proyecto Custom** | Software custom construido con AI (tipo Indemneasy). Genera credibilidad. | $5-15M COP setup | One-shot + retainer opcional · 2-3/mes MAX |
+| **1a · Entrada B2B** | **AI Edu Empresarial** (Soteco-style) | Programa de formación empresarial · 4 sesiones × 3h mensual, o 3 sesiones × 3h intensiva. Personalizado vía Discovery + Form. Reemplaza Workshop Think AI antiguo. | $10M COP mensual · $8M intensiva | One-shot (50%+50%) |
+| **1b · Entrada B2C** | **AI Edu Cohorts** (por lanzamiento) | Cohorts digitales por vertical específico. Sales AI → Operations → Marketing. Mix 60% pregrabado + 30% live + 10% comunidad. | USD $300-400/persona | Por lanzamiento · fechas fijas |
+| **2 · Volumen** | **AI Ops Layer** | Setup completo de infraestructura AI para 1 área específica · 5 procesos inteligentes · 1 semana. | $7.000.000 COP + IVA / $3,500 USD | One-shot (50%+50%) · **sin retainer** |
+| **3 · MRR premium** | **AI Core Layer** (Embedded AI Operator) | Transformación completa · nos quedamos operando permanentemente · amplificamos propuesta de valor. | Basado en impacto + retainer mensual | **Embedded · min 12 meses** |
+
+### Deprecado (ya no ofrecer)
+- ❌ **Workshop Think AI** (Edu Layer antiguo · 3 horas · $4.5M COP). Reemplazado por Edu Empresarial (Capa 1a).
+
+### Primer paso antes de cotizar
+Ejecutar `/evaluar-fit-cascade [empresa]` para confirmar fit con WTP. Sin evaluación, no se cotiza · principio del refactor post-cascade.
 
 ---
 

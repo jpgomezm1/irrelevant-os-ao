@@ -85,11 +85,15 @@ base = 50
 Resultado = clamp(0, 100)
 ```
 
-### 1j. Valor Estimado
-- Ops Layer: $7.000.000 COP
-- Edu Layer: $4.500.000 COP
-- Core Layer: $15.000.000 COP
-- No definido: $0
+### 1j. Valor Estimado (actualizado 2026-04-22 post cascade)
+- **Capa 0 · Proyecto Custom:** $5.000.000 - $15.000.000 COP (usar promedio $10M si no hay dato)
+- **Capa 1a · Edu Empresarial (Soteco-style):** $10.000.000 COP mensual · $8.000.000 COP intensiva
+- **Capa 1b · Cohort B2C:** USD $300-400/persona (convertir con TRM vigente)
+- **Capa 2 · Ops Layer:** $7.000.000 COP
+- **Capa 3 · Core Layer:** $15.000.000 COP + retainer mensual (usar $15M base + $10M/mes esperado)
+- **No definido:** $0
+
+**NOTA**: cada deal debe estar clasificado en una capa. Si no encaja en ninguna, es señal de que esta fuera del WTP · ver `docs/PROTOCOLO_REJECT.md`.
 
 ### 1k. Siguiente Acción
 Basada en la etapa actual y lo que FALTA en la carpeta. Formato: { command: "/skill empresa", description: "texto" }
