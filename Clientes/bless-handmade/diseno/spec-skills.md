@@ -5,12 +5,12 @@
 | # | Skill | Fuente | Match |
 |---|-------|--------|-------|
 | 1 | programador-produccion | Showcase Combo 08 #52 + Combo 09 #58 | Adaptado |
-| 2 | coordinador-terceros | Nuevo | Nuevo |
+| 2 | coordinador-terceros-insumos | Nuevo (ampliado de coordinador-terceros) | Nuevo |
 | 3 | tablero-seguimiento | Showcase Combo 01 #06 | Adaptado |
 | 4 | alerta-atrasos | Nuevo | Nuevo |
 | 5 | procesador-mayoreo | Showcase Combo 09 #60B | Adaptado |
 
-Skills nuevos agregados al showcase: 2 (coordinador-terceros, alerta-atrasos en Combo 09)
+Skills nuevos agregados al showcase: 2 (coordinador-terceros-insumos, alerta-atrasos en Combo 09)
 
 ---
 
@@ -62,49 +62,62 @@ Media — requiere catalogo de referencias bien estructurado como prerequisito
 
 ---
 
-## Skill 2: coordinador-terceros
+## Skill 2: coordinador-terceros-insumos
 
 ### Frontmatter
 ```yaml
 ---
-name: coordinador-terceros
+name: coordinador-terceros-insumos
 description: >
-  Genera mensajes de WhatsApp listos para enviar a cada taller tercero con el
-  detalle de prendas asignadas, imagenes de referencia y fechas de entrega.
-  Usa cuando Juliana diga "mandar pedidos a terceros", "preparar mensajes",
-  o "coordinar talleres".
-argument-hint: "[nombre del taller o 'todos']"
+  Genera mensajes de WhatsApp listos para enviar a talleres terceros Y ordenes
+  de pedido para proveedores de telas y flecos. Incluye detalle de prendas,
+  imagenes, fechas y alertas de inventario bajo. Usa cuando Juliana diga
+  "mandar pedidos", "coordinar talleres", "pedir telas" o "revisar insumos".
+argument-hint: "[terceros/insumos/todos]"
 allowed-tools: [Read, Write, Glob]
 ---
 ```
 
 ### Categoria Anthropic
-Document & Asset Creation
+Document & Asset Creation + Workflow Automation
 
 ### Arquitectura
 - **Level 1 (YAML):** Trigger phrases, descripcion
-- **Level 2 (SKILL.md):** Template de mensaje por taller, reglas de formato, instrucciones para incluir imagenes
-- **Level 3 (references/):** terceros.md (datos de contacto, especialidad), templates-mensaje.md (formato preferido por cada taller)
+- **Level 2 (SKILL.md):** Templates de mensajes por taller, formato de ordenes de pedido, reglas de inventario minimo
+- **Level 3 (references/):**
+  - terceros.md (datos de contacto, especialidad)
+  - proveedores.md (datos de proveedores de telas/flecos, tiempos de entrega)
+  - inventario-minimos.md (niveles minimos por tipo de tela/insumo)
+  - templates-mensaje.md (formato preferido por taller/proveedor)
 
 ### Tools y MCPs
-- **Built-in tools:** Read (leer plan de produccion), Write (generar mensajes)
-- **MCPs necesarios:** Ninguno (los mensajes se copian manualmente a WhatsApp)
+- **Built-in tools:** Read (leer plan de produccion + inventario), Write (generar mensajes y ordenes)
+- **MCPs necesarios:** Airtable MCP (para leer inventario actual de telas/flecos)
 - **Hooks:** No
 - **Subagents:** No
 
 ### Workflow
+**PARTE A - Talleres terceros:**
 1. Leer plan de produccion del dia (output del skill 1)
 2. Filtrar pedidos por taller tercero
-3. Para cada taller, generar mensaje con: nombre del taller, lista de prendas, referencia, color, imagen, fecha limite
-4. Formatear para WhatsApp (texto plano, emojis si aplica)
-5. Presentar mensajes listos para copiar y enviar
+3. Para cada taller, generar mensaje con: lista de prendas, referencia, color, imagen, fecha limite
+4. Formatear para WhatsApp
+
+**PARTE B - Insumos:**
+1. Leer niveles actuales de inventario (telas y flecos) desde Airtable
+2. Comparar contra niveles minimos configurados
+3. Para cada insumo bajo minimo, generar orden de pedido con: tipo, cantidad, proveedor, urgencia
+4. Formatear orden lista para enviar a proveedor
 
 ### Input / Output
-- **Input:** Plan de produccion del dia
-- **Output:** Mensajes de WhatsApp por taller, listos para enviar
+- **Input:** Plan de produccion del dia + inventario actual
+- **Output:**
+  - Mensajes de WhatsApp para talleres (listos para enviar)
+  - Ordenes de pedido para proveedores (listas para enviar)
+  - Reporte de alertas de inventario
 
 ### Complejidad
-Baja — generacion de texto basada en datos estructurados
+Media — generacion de texto + logica de inventario minimos
 
 ---
 

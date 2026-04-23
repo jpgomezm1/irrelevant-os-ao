@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:purewellness.netlify.app)"
+      "WebFetch(domain:purewellness.netlify.app)",
+      "SlashCommand(/slides-propuesta-ops bless-handmade)",
+      "Skill(disenar-stack)",
+      "Bash(cp:*)",
+      "Bash(python3:*)",
+      "WebSearch",
+      "WebFetch(domain:cotizacionrenatapauta.netlify.app)",
+      "Bash(git pull:*)"
     ],
     "deny": [],
     "ask": []
