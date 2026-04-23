@@ -56,19 +56,66 @@ Claude_Code/
 
 ---
 
-## Servicios y Precios
+## Arquitectura de Productos · 4 Capas Económicas
 
-### AI Ops Layer (Setup de IA)
-- **Precio:** $7.000.000 COP + IVA / $3,500 USD
-- **Que es:** Setup completo de infraestructura de IA para operaciones. Implementacion de sistemas, flujos automatizados y stack de herramientas.
+**Actualizado 2026-04-22 post Sesión 1 Strategy Cascade (Roger Martin).**
 
-### AI Edu Layer (Workshop Think AI)
-- **Precio:** $4.500.000 COP + IVA / $2,500 USD
-- **Que es:** Workshop de capacitacion en IA para equipos. Entrenamiento practico en herramientas y mentalidad AI-first.
+Ver detalle completo en [`docs/CASCADE_ALIGNMENT.md`](docs/CASCADE_ALIGNMENT.md) y [`Assets Fijos/PROP_VALUE_IRRELEVANT.md`](Assets%20Fijos/PROP_VALUE_IRRELEVANT.md).
 
-### AI Core Layer (Transformation)
-- **Precio:** Basado en impacto (implementacion + fee mensual)
-- **Que es:** Transformacion completa. Diagnostico profundo (Fase 0), implementacion personalizada y acompanamiento continuo.
+### CAPA 0 · Proyectos Custom (Badge)
+- **Rol**: credibilidad · "construimos con AI, por eso enseñamos con autoridad"
+- **Precio**: $5-15M COP setup · retainer mantenimiento opcional
+- **Capacidad**: 2-3 proyectos/mes MAX
+- **Ejemplos**: Indemneasy · Fynder · Hotel Aramé · Grasshopper
+
+### CAPA 1a · AI Edu Empresarial (Soteco-style)
+- **Precio**: ~$10M COP + IVA (mensual) · ~$8M (intensiva)
+- **Qué es**: programa empresarial 4 sesiones × 3h · personalizado vía Discovery + Form · grupos max 10 personas · plan 30 días post-programa
+- **Template**: `Templates/Comercial/Programa Edu Empresarial/`
+- **Reemplaza al anterior Workshop Think AI de 3 horas**
+
+### CAPA 1b · AI Edu Cohorts (B2C por lanzamiento)
+- **Precio**: USD $300 early bird · $350 regular · $400 last minute
+- **Qué es**: cohort digital 1 mes · mix 60% pregrabado + 30% live + 10% comunidad · por vertical específico
+- **Lanzamientos**: Sales AI (1 jun 2026) · Operations AI (Q3) · Marketing AI (Q4)
+- **Modelo**: por lanzamiento · no siempre disponible
+- **Template**: `Templates/Comercial/Cohort B2C/`
+
+### CAPA 2 · AI Ops Layer (Setup de Claude)
+- **Precio**: $7.000.000 COP + IVA / $3,500 USD
+- **Qué es**: Setup completo de infraestructura AI para una área específica de operación · 5 skills · 1 semana
+- **Modelo**: **one-shot · sin retainer** (decisión JP 2026-04-22)
+- **Condiciones**: 50% anticipo + 50% entrega
+
+### CAPA 3 · AI Core Layer (Embedded AI Operator)
+- **Precio**: Basado en impacto · implementación inicial + **retainer mensual recurrente**
+- **Qué es**: transformación completa · nos quedamos adentro operando · producto-corazón · MRR premium
+- **Capacidad**: 3-5 cuentas simultáneas MAX
+- **Proceso**: Discovery → Fase 0 → Implementación → Embedded operation permanente
+
+---
+
+## A quién NO servimos (exclusiones explícitas)
+
+Ver [`docs/ICP.md`](docs/ICP.md) para detalle completo. Resumen:
+
+- ❌ Enterprise global ($50M+ USD revenue) · excepción tolerada Bancolombia
+- ❌ Startups pre-seed (<$100k revenue)
+- ❌ Audience "AI general" sin vertical
+- ❌ Consultoría pura sin implementación
+- ❌ SaaS genérico / integrador commodity
+- ❌ Empresas tradicionales sin champion interno
+- ❌ Pilotos/POCs sin compromiso
+
+Para ejecutar rechazos estructurados ver [`docs/PROTOCOLO_REJECT.md`](docs/PROTOCOLO_REJECT.md).
+
+---
+
+## Insight contrarian · ángulo comercial central
+
+> **"Las empresas que implementen AI sin comprensión + sin personalización NO generarán ventaja competitiva. La ventaja está en la especificidad."**
+
+Este es el ángulo en cada conversación comercial. Ver [`Assets Fijos/PROP_VALUE_IRRELEVANT.md`](Assets%20Fijos/PROP_VALUE_IRRELEVANT.md) sección 2 para objection handling.
 
 ---
 

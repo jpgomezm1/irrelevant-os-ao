@@ -55,23 +55,36 @@ Espera la respuesta.
 
 ### Datos Base
 - **Costo hora:** Si dan salario mensual, dividir por 160 (horas laborales/mes). Si dan salario en COP, convertir si es necesario.
-- **Precio del servicio:** Usar estandar si no se especifica:
-  - Ops Layer: $7.000.000 COP
-  - Edu Layer: $4.500.000 COP
-  - Core Layer: Pedir al usuario
+- **Precio del servicio:** Usar estandar si no se especifica (actualizado 2026-04-22 post cascade):
+  - **Capa 0 · Proyecto Custom:** $5M-$15M COP (variable · pedir a usuario)
+  - **Capa 1a · Edu Empresarial (Soteco-style):** ~$10M COP mensual · ~$8M COP intensiva
+  - **Capa 1b · Cohort B2C:** USD $300 early bird / $350 regular / $400 last minute
+  - **Capa 2 · Ops Layer:** $7.000.000 COP (one-shot, sin retainer)
+  - **Capa 3 · Core Layer:** Pedir al usuario (impact-based + retainer mensual)
 
 ### Benchmarks por Servicio
 
-**AI Ops Layer:**
+**Capa 0 · Proyecto Custom (Badge):**
+- Ahorro depende del scope especifico del proyecto
+- Usar datos del usuario — no hay benchmark estandar
+
+**Capa 1a · AI Edu Empresarial (Soteco-style):**
+- Mejora de productividad estimada post-programa: 20-30% de eficiencia (programa instala habito, no solo conocimiento)
+- Ademas: ≥3 procesos automatizados del equipo (entregable concreto)
+- Calcular: horas totales del equipo x % mejora = horas recuperadas
+
+**Capa 1b · Cohort B2C:**
+- Benchmark individual: 10-15 horas/semana recuperadas post-cohort (vertical-specific)
+- ROI personal se calcula contra salario del alumno, no contra empresa
+- Payback tipico: 1-2 meses personalmente
+
+**Capa 2 · AI Ops Layer:**
 - Ahorro tipico: 30-40 horas/semana para el equipo
 - Usar el dato del usuario si lo proporciona, sino usar 35 hrs/semana como default
 
-**AI Edu Layer:**
-- Mejora de productividad estimada: 15-20% de eficiencia
-- Calcular: horas totales del equipo x % mejora = horas recuperadas
-
-**AI Core Layer:**
+**Capa 3 · AI Core Layer (Embedded AI Operator):**
 - Ahorro depende del alcance — usar los datos del usuario
+- IMPORTANTE: Core tiene retainer mensual recurrente · incluir en calculo TCO (Total Cost of Ownership) 12 meses
 
 ### Calculos
 

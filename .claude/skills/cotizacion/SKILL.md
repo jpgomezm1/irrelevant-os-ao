@@ -2,8 +2,9 @@
 name: cotizacion
 description: >
   Genera cotizacion completa para un cliente. Triggers: "cotizacion", "cotizar",
-  "generar cotizacion", "quote", "/cotizacion". Usa /cotizacion [empresa] [servicio: ops|edu]
-argument-hint: "[empresa] [ops|edu]"
+  "generar cotizacion", "quote", "/cotizacion".
+  Usa /cotizacion [empresa] [servicio: ops|edu-empresarial|core|proyecto-custom]
+argument-hint: "[empresa] [ops|edu-empresarial|core|proyecto-custom]"
 allowed-tools: [Read, Write, Glob, AskUserQuestion]
 ---
 
@@ -88,15 +89,36 @@ NO procedas sin tener al menos: empresa, servicio e idioma.
 
 ## STEP 3: Leer Template Correcto
 
+**NOTA 2026-04-22 post cascade**: Antes de cotizar, se recomienda ejecutar `/evaluar-fit-cascade [empresa]` para confirmar que el prospect encaja en el WTP y que la capa economica seleccionada es correcta. Ver `docs/ICP.md`.
+
 Segun el servicio e idioma, lee el template correspondiente:
 
+### Ops Layer (Capa 2 · one-shot sin retainer)
 - **Ops Layer ES:** `Templates/Comercial/Cotizacion Ops Layer/cotizacion-ops-layer-es.html`
 - **Ops Layer EN:** `Templates/Comercial/Cotizacion Ops Layer/cotizacion-ops-layer-en.html`
-- **Edu Layer ES:** `Templates/Comercial/Cotizacion Edu Layer/cotizacion-edu-layer-es.html`
-- **Edu Layer EN:** `Templates/Comercial/Cotizacion Edu Layer/cotizacion-edu-layer-en.html`
+- Pricing estandar: $7.000.000 COP + IVA / $3.500 USD
 
-Tambien lee el ejemplo como referencia de calidad:
-- `Templates/Comercial/Cotizacion [Ops|Edu] Layer/ejemplo-escuela-ingenieria.html`
+### Edu Empresarial (Capa 1a · Soteco-style · reemplaza Edu Layer antiguo)
+- **Referencia base**: `Templates/Comercial/Programa Edu Empresarial/README.md`
+- **Template vivo de referencia**: `Clientes/soteco/comercial/cotizacion/index.html`
+- Pricing estandar: ~$10M COP mensual (4 sesiones × 3h en 4 semanas) o ~$8M COP intensiva (3 sesiones × 3h en 1 semana)
+- **IMPORTANTE**: el template antiguo `Templates/Comercial/_deprecated_/Cotizacion Edu Layer/` YA NO SE USA (era Workshop Think AI de 3 horas, deprecado post cascade 2026-04-22). Si el usuario pide "edu", preguntar si se refiere a Edu Empresarial (nuevo) y usar base Soteco como referencia · OR si insiste en el viejo, avisar que es deprecado y requiere decision explicita del CEO para reactivar.
+
+### Core Layer (Capa 3 · embedded operator)
+- Template: `Templates/Comercial/Fase 0 Core Layer/` (usar Fase 0 como base · Core no tiene cotizacion simple porque es impact-based)
+- Pricing: basado en impacto + retainer mensual · pedir al usuario
+
+### Proyecto Custom (Capa 0 · Badge)
+- **No hay template estandar** · cada proyecto es bespoke
+- Base: usar referencia de `Clientes/indemneasy/` o similar proyecto badge
+- Pricing: $5-15M setup · retainer mantenimiento opcional
+
+### Cohort B2C (Capa 1b)
+- **NO usa cotizacion individual** · se maneja con enrollment via Stripe/PayU + landing
+- Si el usuario pide cotizar un cohort, redirigir a skill `/vender-cohort [cohort-id]`
+
+Tambien lee el ejemplo como referencia de calidad cuando aplique:
+- `Templates/Comercial/Cotizacion Ops Layer/ejemplo-escuela-ingenieria.html`
 
 ---
 

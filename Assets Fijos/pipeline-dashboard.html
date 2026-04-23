@@ -16,7 +16,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .blob-1{width:500px;height:500px;background:var(--purple);top:-100px;right:-100px}
 .blob-2{width:400px;height:400px;background:var(--emerald);bottom:200px;left:-150px}
 
-/* NAV */
 .nav{position:fixed;top:0;left:0;right:0;height:56px;z-index:100;background:rgba(10,8,18,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px}
 .nav-brand{display:flex;align-items:center;gap:10px}
 .nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--purple);box-shadow:0 0 12px var(--purple)}
@@ -30,17 +29,14 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
 
-/* FADE IN */
 .fi{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .fi.v{opacity:1;transform:translateY(0)}
 
-/* HERO */
 .hero{padding:100px 0 32px;text-align:center}
 .hero h1{font-size:42px;font-weight:900;letter-spacing:-2px;margin-bottom:6px}
 .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--purple-light),var(--emerald));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero .sub{font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:2px;font-weight:600}
 
-/* STATS */
 .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:32px 0}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 16px;text-align:center;transition:border-color .2s}
 .stat:hover{border-color:var(--border-2)}
@@ -48,17 +44,14 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .stat .lbl{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;margin-top:6px;font-weight:600}
 .stat .extra{font-size:10px;color:var(--text-3);margin-top:2px}
 
-/* HEALTH CIRCLE */
 .health-circle{position:relative;width:44px;height:44px;display:inline-block}
 .health-circle svg{transform:rotate(-90deg)}
 .health-circle .val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700}
 
-/* SECTION */
 .sec{padding:40px 0;border-top:1px solid var(--border)}
 .sec-title{font-size:13px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;display:flex;align-items:center;gap:8px}
 .sec-title .dot{width:6px;height:6px;border-radius:50%}
 
-/* FUNNEL */
 .funnel{display:flex;flex-direction:column;gap:6px;margin-bottom:24px}
 .funnel-row{display:flex;align-items:center;gap:12px}
 .funnel-label{width:110px;font-size:11px;font-weight:600;text-align:right;flex-shrink:0}
@@ -66,7 +59,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .funnel-bar{height:100%;border-radius:6px;transition:width .8s ease-out;display:flex;align-items:center;padding-left:10px;font-size:10px;font-weight:700;color:rgba(0,0,0,.7);min-width:0}
 .funnel-meta{width:100px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-2);text-align:right;flex-shrink:0}
 
-/* CONTROLS */
 .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:20px}
 .search-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--text);font-size:12px;font-family:'Inter',sans-serif;width:220px;outline:none;transition:border-color .2s}
 .search-box:focus{border-color:var(--purple)}
@@ -77,7 +69,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .sort-select{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text-2);font-size:11px;font-family:'Inter',sans-serif;outline:none;cursor:pointer}
 .sort-select option{background:var(--bg)}
 
-/* TABS */
 .tab-bar{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0}
 .tab{padding:10px 18px;font-size:11px;font-weight:600;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;text-transform:uppercase;letter-spacing:.5px}
 .tab:hover{color:var(--text-2)}
@@ -85,7 +76,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .tab-content{display:none}
 .tab-content.active{display:block}
 
-/* CLIENT CARDS */
 .client-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .client-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .2s;cursor:pointer}
 .client-card:hover{border-color:var(--border-2);transform:translateY(-1px)}
@@ -108,7 +98,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .cc-chevron{margin-left:auto;font-size:14px;color:var(--text-3);transition:transform .3s}
 .client-card.expanded .cc-chevron{transform:rotate(180deg)}
 
-/* DETAIL PANEL */
 .cc-detail{max-height:0;overflow:hidden;transition:max-height .4s ease;border-top:0 solid var(--border)}
 .client-card.expanded .cc-detail{max-height:2000px;border-top-width:1px}
 .cc-detail-inner{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -118,7 +107,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .detail-section .ds-item code{font-size:10px;background:rgba(139,92,246,.1);padding:1px 5px;border-radius:3px;color:var(--purple-light)}
 .ds-tag{display:inline-block;font-size:9px;background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;margin:2px;color:var(--text-2);font-family:'JetBrains Mono',monospace}
 
-/* TIMELINE */
 .timeline{position:relative;padding-left:20px}
 .timeline::before{content:'';position:absolute;left:6px;top:4px;bottom:4px;width:1px;background:var(--border-2)}
 .tl-item{position:relative;margin-bottom:10px;padding-left:16px}
@@ -126,7 +114,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .tl-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-3)}
 .tl-event{font-size:11px;color:var(--text-2)}
 
-/* FORECAST */
 .fc-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
 .fc-row:last-child{border-bottom:none}
 .fc-name{width:140px;font-weight:600;font-size:13px;flex-shrink:0}
@@ -139,7 +126,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .fc-total .ft-label{font-size:12px;font-weight:700;color:var(--emerald);text-transform:uppercase;letter-spacing:1px}
 .fc-total .ft-value{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--emerald)}
 
-/* RISK */
 .risk-card{background:var(--surface);border:1px solid rgba(239,68,68,.15);border-left:3px solid var(--red);border-radius:10px;padding:18px 20px;margin-bottom:12px}
 .risk-card .rk-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .risk-card .rk-name{font-weight:700;font-size:14px}
@@ -151,7 +137,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .no-risk-card p{font-size:13px;color:var(--text-2)}
 .no-risk-card strong{color:var(--emerald)}
 
-/* ACTIVITY FEED */
 .feed-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)}
 .feed-item:last-child{border-bottom:none}
 .feed-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-3);width:80px;flex-shrink:0;padding-top:2px}
@@ -159,7 +144,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .feed-event{font-size:12px;color:var(--text-2);flex:1}
 .feed-file{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-3)}
 
-/* TEAM */
 .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
 .team-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
 .team-card h4{font-size:14px;font-weight:700;margin-bottom:8px}
@@ -168,7 +152,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .team-bar{height:6px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden;display:flex;margin-top:8px}
 .team-bar-seg{height:100%}
 
-/* QUICK ACTIONS */
 .qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .qa-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;transition:all .2s;cursor:default}
 .qa-card:hover{border-color:var(--purple);background:rgba(139,92,246,.04)}
@@ -177,18 +160,15 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .qa-card code{font-size:12px;color:var(--purple-light);font-weight:600;display:block;margin-bottom:4px}
 .qa-card p{font-size:10px;color:var(--text-3);line-height:1.4}
 
-/* EMPTY STATE */
 .empty{text-align:center;padding:80px 0}
 .empty svg{opacity:.2;margin-bottom:16px}
 .empty h2{font-size:20px;font-weight:700;color:var(--text-2);margin-bottom:8px}
 .empty p{font-size:13px;color:var(--text-3)}
 .empty code{color:var(--purple-light)}
 
-/* FOOTER */
 .footer{padding:32px 0;border-top:1px solid var(--border);text-align:center;font-size:10px;color:var(--text-3);letter-spacing:1px;text-transform:uppercase}
 .footer span{color:var(--text-2)}
 
-/* COLORS */
 .c-purple{color:var(--purple-light)}
 .c-emerald{color:var(--emerald)}
 .c-amber{color:var(--amber)}
@@ -208,7 +188,6 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .bg-red{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.2);color:var(--red)}
 .bg-gray{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:var(--text-3)}
 
-/* RESPONSIVE */
 @media(max-width:1024px){.stats{grid-template-columns:repeat(3,1fr)}.client-grid,.qa-grid{grid-template-columns:1fr 1fr}.cc-detail-inner{grid-template-columns:1fr}}
 @media(max-width:768px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:rgba(10,8,18,.96);padding:12px;border-bottom:1px solid var(--border)}.nav-toggle{display:block}.stats{grid-template-columns:repeat(2,1fr)}.client-grid,.qa-grid{grid-template-columns:1fr}.hero h1{font-size:28px}.controls{flex-direction:column;align-items:stretch}.search-box{width:100%}.fc-row{flex-wrap:wrap}.fc-name{width:100%}.fc-values{width:100%;justify-content:flex-start;gap:24px}.funnel-label{width:80px;font-size:10px}.funnel-meta{width:70px;font-size:10px}.tab-bar{overflow-x:auto;flex-wrap:nowrap}.tab{white-space:nowrap;flex-shrink:0}}
 @media(max-width:480px){.container{padding:0 16px}.hero{padding-top:80px}.stat .num{font-size:22px}.stat{padding:14px 10px}}
@@ -227,6 +206,7 @@ code,.mono{font-family:'JetBrains Mono',monospace}
     <a href="#risk">Riesgo</a>
     <a href="#activity">Actividad</a>
     <a href="#actions">Acciones</a>
+    <a href="#lost">Perdidos</a>
   </div>
   <div class="nav-meta" id="nav-meta"></div>
 </nav>
@@ -267,6 +247,11 @@ code,.mono{font-family:'JetBrains Mono',monospace}
     <div class="qa-grid" id="actions-container"></div>
   </section>
 
+  <section class="sec fi" id="lost">
+    <div class="sec-title"><div class="dot" style="background:var(--red)"></div> Deals Perdidos</div>
+    <div id="lost-container"></div>
+  </section>
+
   <div class="footer">Generado por <span>Irrelevant Sales OS</span> &bull; <span id="footer-date"></span></div>
 </div>
 
@@ -280,265 +265,49 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 
 <script>
 const D={
-  "generatedAt": "2026-04-18T10:30:00",
+  "generatedAt": "2026-04-20T14:00:00",
   "summary": {
-    "totalClients": 14,
-    "totalValue": 260500000,
-    "weightedValue": 128300000,
-    "atRisk": 5,
+    "totalClients": 15,
+    "totalValue": 201000000,
+    "weightedValue": 95550000,
+    "atRisk": 0,
     "avgHealthScore": 66,
-    "avgVelocity": 7,
-    "byStage": {
-      "nuevo": 1,
-      "preparacion": 3,
-      "discovery": 1,
-      "diseno": 2,
-      "cotizacion": 1,
-      "negociacion": 6,
-      "contratos": 0,
-      "produccion": 0,
-      "entrega": 0,
-      "post-entrega": 0,
-      "cerrado": 0
-    },
-    "byComercial": {
-      "JP": 7,
-      "Sara Garcés": 6,
-      "Agustín Hoyos": 1
-    }
+    "avgVelocity": 8,
+    "byStage": {"nuevo":1,"preparacion":1,"discovery":1,"diseno":2,"cotizacion":4,"negociacion":5,"contratos":1},
+    "byComercial": {"Sara Garces":7,"JP":5,"Agustín Hoyos":3}
   },
   "clients": [
     {
-      "id": "praxedes",
-      "empresa": "Praxedes (Midasoft)",
-      "industria": "Software — Softwarehouse",
-      "contacto": "Juan Guillermo, Dir. Operaciones",
-      "personasClave": ["Lucas Méndez (Puente comercial)", "Juan Guillermo (Decision maker técnico)"],
-      "comercial": "JP",
-      "servicio": "Core Layer",
-      "comoLlego": "Referido — amigo de Sara",
-      "stage": "negociacion",
-      "stageLabel": "Negociación",
-      "stageColor": "orange",
-      "value": 73000000,
-      "probability": 65,
-      "weightedValue": 47450000,
-      "daysInStage": 33,
-      "healthScore": 35,
-      "lastActivity": "2026-03-16",
-      "lastFile": "plan-reactivacion-piloto.md",
-      "nextAction": { "command": "/follow-up-writer praxedes", "description": "Deal estancado 33d — reactivar con piloto acotado" },
-      "painPoints": [
-        "Dependencia de pocas personas con conocimiento técnico clave",
-        "Deuda histórica de documentación (4 fuentes dispersas)",
-        "200K+ casos de help desk sin acceso estructurado",
-        "Conocimiento tácito de 'biblias' (30 años en la empresa)"
-      ],
-      "proposedSkills": ["RAG sobre Geldes", "Semantic Search", "Base de conocimiento", "Ingesta de webinars"],
-      "stackTools": ["RAG", "Vectorización"],
-      "callScore": null,
-      "followUpsSent": 1,
-      "contextoResumen": "Softwarehouse de ~30 años, software de gestión humana con módulo de nómina. Alcance creció de $22M → $73M sin cierre. Posible sticker shock. Lucas no es decision maker, Juan Guillermo sí. En C3 pidieron piloto y no se incluyó formal.",
-      "files": {
-        "discovery": [],
-        "contexto": [],
-        "diseno": [],
-        "comercial": ["plan-reactivacion-piloto.md"],
-        "contratos": [],
-        "fase0": [],
-        "entregable": [],
-        "produccion": [],
-        "evaluaciones": [],
-        "emails": []
-      },
-      "timeline": [
-        { "date": "2025-12-22", "event": "Lucas escribe por WhatsApp" },
-        { "date": "2025-12-29", "event": "C1+C2 con Juan Guillermo" },
-        { "date": "2026-01-25", "event": "Cotización v1 — $22M COP (1 fase)" },
-        { "date": "2026-02-02", "event": "Cotización v2 — $73M COP (3 fases)" },
-        { "date": "2026-02-25", "event": "C3 técnica — entraron a RAG/Semantic Search" },
-        { "date": "2026-03-16", "event": "Follow-up → 'tenemos preguntas pero en asamblea'" },
-        { "date": "2026-04-06", "event": "Plan de reactivación documentado — pivot a piloto" }
-      ]
-    },
-    {
-      "id": "acrecer",
-      "empresa": "Acrecer",
-      "industria": "Inmobiliario",
-      "contacto": "Sara, Directora de Proyectos",
-      "personasClave": ["Sara (Dir. Proyectos)", "Meli Restrepo (Dir. Mercadeo)"],
-      "comercial": "Sara Garcés",
-      "servicio": "Por definir (Core u Ops)",
-      "comoLlego": "Evento — Expoinmobiliaria 2026",
-      "stage": "discovery",
-      "stageLabel": "Discovery",
-      "stageColor": "blue",
-      "value": 0,
-      "probability": 20,
-      "weightedValue": 0,
-      "daysInStage": 25,
-      "healthScore": 45,
-      "lastActivity": "2026-03-24",
-      "lastFile": "call-review-c1.md",
-      "nextAction": { "command": "/procesar-call acrecer", "description": "C2 era 09-abril — procesar y reactivar" },
-      "painPoints": [
-        "Cotización de proyectos (interés alto — no confirmado como dolor)",
-        "Documentación comercial de proyectos",
-        "Nota: C1 fue approach, discovery no abrió dolor suficiente"
-      ],
-      "proposedSkills": [],
-      "stackTools": ["Paloma", "Movilia", "CRM", "Gemini"],
-      "callScore": 4,
-      "followUpsSent": 1,
-      "contextoResumen": "43+ años (fundada 1983), ~65 empleados, 12 sedes (5 Medellín, 5 área metropolitana, 2 Bogotá). Facturación ~$24.6M USD. C1 se convirtió en presentación en vez de discovery.",
-      "files": {
-        "discovery": ["discovery-notes.md", "prep-call-c1.md"],
-        "contexto": ["contexto-general.md", "transcript-2026-03-24-c1.md"],
-        "diseno": [],
-        "comercial": ["onepager-irrelevant-sara.html"],
-        "contratos": [],
-        "fase0": [],
-        "entregable": [],
-        "produccion": [],
-        "evaluaciones": ["call-review-c1.md"],
-        "emails": ["email-post-2026-03-24.md"]
-      },
-      "timeline": [
-        { "date": "2026-03-24", "event": "Carpeta creada" },
-        { "date": "2026-03-24", "event": "C1 realizada — C2 agendada para 2026-04-09" }
-      ]
-    },
-    {
-      "id": "crew-gym",
-      "empresa": "Crew Gym",
-      "industria": "Fitness y Wellness",
-      "contacto": "Julián Gómez, Gerente General",
-      "personasClave": ["Julián Gómez (GG)", "Valentina Mora (Pauta)", "Jorge (Operaciones)"],
-      "comercial": "Agustín Hoyos",
-      "servicio": "Core Layer",
-      "comoLlego": "Conocido",
-      "stage": "negociacion",
-      "stageLabel": "Negociación",
-      "stageColor": "orange",
-      "value": 15000000,
-      "probability": 65,
-      "weightedValue": 9750000,
-      "daysInStage": 24,
-      "healthScore": 72,
-      "lastActivity": "2026-03-25",
-      "lastFile": "slides-propuesta-core-crew-gym.html",
-      "nextAction": { "command": "/follow-up-writer crew-gym", "description": "Propuesta presentada sin respuesta — agendar C3 de cierre" },
-      "painPoints": [
-        "600 leads/mes pero respuesta >1h dependiendo de recepción",
-        "85% de leads que no convierten no reciben follow-up (510/mes)",
-        "Base de clientes inactivos completamente dormida",
-        "Revenue potencial perdido: $147M COP/año"
-      ],
-      "proposedSkills": ["Agente Comercial WhatsApp 24/7", "Motor Follow-up Inteligente", "Sistema Reactivación Clientes", "CRM Operativo + Dashboard"],
-      "stackTools": ["Fit Me Wise", "WhatsApp Business API", "Claude"],
-      "callScore": 6.5,
-      "followUpsSent": 0,
-      "contextoResumen": "Dos sedes (Medellín + Cali). Invierten consistentemente en pauta. 600 leads/mes, conversión 10-15%. Problema no es operativo — es comercial: sistema no procesa la demanda generada.",
-      "files": {
-        "discovery": ["prep-call-c3.md"],
-        "contexto": ["transcript-2026-03-25.md"],
-        "diseno": ["solucion.md", "spec-solucion.md"],
-        "comercial": ["cotizacion-core-layer.html", "slides-propuesta-core-crew-gym.html"],
-        "contratos": [],
-        "fase0": [],
-        "entregable": [],
-        "produccion": [],
-        "evaluaciones": ["call-review-c2.md"],
-        "emails": []
-      },
-      "timeline": [
-        { "date": "2026-03-25", "event": "Carpeta creada" },
-        { "date": "2026-03-25", "event": "Discovery C2 procesado (Valentina + Jorge)" },
-        { "date": "2026-03-25", "event": "Solución diseñada (4 componentes Core Layer)" },
-        { "date": "2026-03-25", "event": "Cotización + slides propuesta generados" }
-      ]
-    },
-    {
-      "id": "galco",
-      "empresa": "Galco",
-      "industria": "Metalmecánica",
-      "contacto": "Diego Saldarriaga, Director Operaciones",
-      "personasClave": ["Diego Saldarriaga (Dir. Ops)", "Jorge (Comprador, 14 años)", "Carolina (Contabilidad)", "Don Ignacio (Gerente General)"],
-      "comercial": "JP",
+      "id": "hexagono",
+      "empresa": "Hexagono Inmobiliario",
+      "industria": "Real Estate / Inmobiliaria",
+      "contacto": "Camilo Puerta",
+      "personasClave": ["Camilo","Mamá","Hermana (equipo decisor familiar)"],
+      "comercial": "Sara Garces",
       "servicio": "Ops Layer",
-      "comoLlego": "Referido",
+      "comoLlego": "Amigo de Sara",
       "stage": "negociacion",
       "stageLabel": "Negociación",
       "stageColor": "orange",
       "value": 7000000,
       "probability": 65,
       "weightedValue": 4550000,
-      "daysInStage": 23,
-      "healthScore": 80,
-      "lastActivity": "2026-03-26",
-      "lastFile": "transcript-2026-03-26-C3-propuesta.md",
-      "nextAction": { "command": "/follow-up-writer galco", "description": "Presionar decisión post-Semana Santa con Ignacio" },
-      "painPoints": [
-        "Registro de compras 100% en Excel ('la biblia') — copy/paste masivo",
-        "Legalización cajas menores/viáticos — 3h/semana manual",
-        "Calificación de 150-180 proveedores cada 6 meses — cualitativa y atrasada",
-        "Diligenciamiento de formularios — mismos datos repetidamente"
-      ],
-      "proposedSkills": ["Registro Inteligente de Compras", "Creador Masivo de Terceros", "Legalizador Cajas Menores (PUC)", "Comparador Cotizaciones", "Auto-llenador Formularios", "Generador Facturas Ilimitada"],
-      "stackTools": ["Claude Pro", "Claude Code", "Fireflies.ai", "NotebookLM"],
-      "callScore": 6,
-      "followUpsSent": 2,
-      "contextoResumen": "Planta metalmecánica, ~150-180 proveedores activos. Sistemas: Excel, SIGO (ERP), Ilimitada (contable), Word Manager, Jenguar. Propuesta bien recibida, pendiente aprobación de Ignacio y socios post-Semana Santa.",
-      "files": {
-        "discovery": ["discovery-notes.md"],
-        "contexto": ["transcript-2026-03-24-jorge-compras.md", "transcript-2026-03-24-carolina-contabilidad.md", "transcript-2026-03-26-C3-propuesta.md"],
-        "diseno": ["propuesta-skills.md", "spec-skills.md", "stack.md", "spec-stack.md"],
-        "comercial": ["cotizacion-ops.html", "slides-propuesta-ops.html"],
-        "contratos": [],
-        "fase0": [],
-        "entregable": [],
-        "produccion": [],
-        "evaluaciones": ["call-review-C2.md", "call-review-C3.md"],
-        "emails": ["email-post-2026-03-24.md", "follow-up-C2.md"]
-      },
-      "timeline": [
-        { "date": "2026-03-24", "event": "Carpeta creada + Discovery C2 (shadowing)" },
-        { "date": "2026-03-24", "event": "6 skills diseñados + stack ($50 USD/mes)" },
-        { "date": "2026-03-24", "event": "Cotización + slides propuesta generados" },
-        { "date": "2026-03-26", "event": "C3 presentada por Agustín a Diego y Felipe" }
-      ]
-    },
-    {
-      "id": "campuzano-group",
-      "empresa": "Campuzano Group",
-      "industria": "Servicios",
-      "contacto": "Tomás Campuzano, Gerente Comercial",
-      "personasClave": ["Tomás Campuzano (Gerente Comercial)"],
-      "comercial": "JP",
-      "servicio": "Por definir",
-      "comoLlego": "Referido",
-      "stage": "preparacion",
-      "stageLabel": "Preparación",
-      "stageColor": "cyan",
-      "value": 0,
-      "probability": 10,
-      "weightedValue": 0,
-      "daysInStage": 22,
-      "healthScore": 40,
-      "lastActivity": "2026-03-27",
-      "lastFile": "prep-call-c2.md",
-      "nextAction": { "command": "/procesar-call campuzano-group", "description": "Prep C2 hecho hace 22d — ejecutar call pendiente" },
-      "painPoints": [],
+      "daysInStage": 12,
+      "healthScore": 60,
+      "lastActivity": "2026-04-08",
+      "lastFile": "slides/index.html",
+      "nextAction": {"command":"/follow-up-writer hexagono","description":"Seguimiento post-C1 — cash flow apretado, cuidar pricing"},
+      "painPoints": ["Estrategia de redes manual","Guiones de contenido","Análisis de estadísticas","Usan ChatGPT informalmente, quieren algo más robusto"],
       "proposedSkills": [],
       "stackTools": [],
       "callScore": null,
       "followUpsSent": 0,
-      "contextoResumen": "Referido. Prep de C2 listo pero sin actividad hace 22 días. Discovery pendiente.",
+      "contextoResumen": "Empresa familiar. Inversión reciente en oficina → cash flow apretado. Año duro por elecciones Colombia. Sara posicionó Ops Layer vs. solo Claude.",
       "files": {
-        "discovery": ["prep-call-c2.md"],
+        "discovery": ["prep-call-c1.md"],
         "contexto": [],
         "diseno": [],
-        "comercial": [],
+        "comercial": ["cotizacion/index.html","slides/index.html"],
         "contratos": [],
         "fase0": [],
         "entregable": [],
@@ -547,15 +316,16 @@ const D={
         "emails": []
       },
       "timeline": [
-        { "date": "2026-03-27", "event": "Carpeta creada" }
+        {"date":"2026-04","event":"C1 agendada sin compromiso"},
+        {"date":"2026-04-08","event":"Prep-call + cotización + slides generados"}
       ]
     },
     {
       "id": "shake-studio",
       "empresa": "Shake.Studio",
-      "industria": "Marketing / Publicidad",
+      "industria": "Marketing/Publicidad",
       "contacto": "Amalia Gómez, Comercial",
-      "personasClave": ["Amalia Gómez (Comercial)"],
+      "personasClave": [],
       "comercial": "JP",
       "servicio": "Edu Layer",
       "comoLlego": "Referido",
@@ -565,19 +335,17 @@ const D={
       "value": 4500000,
       "probability": 50,
       "weightedValue": 2250000,
-      "daysInStage": 10,
-      "healthScore": 60,
+      "daysInStage": 12,
+      "healthScore": 55,
       "lastActivity": "2026-04-08",
       "lastFile": "cotización Shake/index.html",
-      "nextAction": { "command": "/follow-up-writer shake-studio", "description": "Cotización Edu enviada hace 10d — seguimiento de decisión" },
-      "painPoints": [
-        "Capacitación IA para equipo (workshop hasta 10 personas)"
-      ],
-      "proposedSkills": ["Workshop Think AI (Edu Layer)"],
+      "nextAction": {"command":"/follow-up-writer shake-studio","description":"Seguimiento cotización Edu ($6.5M, hasta 10 personas)"},
+      "painPoints": [],
+      "proposedSkills": [],
       "stackTools": [],
       "callScore": null,
       "followUpsSent": 0,
-      "contextoResumen": "Agencia de marketing/publicidad. Referido. Cotización Edu Layer generada ($6.500.000 hasta 10 personas).",
+      "contextoResumen": "Cotización Workshop Think AI enviada ($6.5M, hasta 10 personas).",
       "files": {
         "discovery": [],
         "contexto": [],
@@ -591,39 +359,172 @@ const D={
         "emails": []
       },
       "timeline": [
-        { "date": "2026-04-08", "event": "Carpeta creada + cotización Edu Layer generada" }
+        {"date":"2026-04-08","event":"Carpeta creada — servicio Edu Layer"},
+        {"date":"2026-04-08","event":"Cotización Edu generada"}
       ]
     },
     {
-      "id": "kuulmaz",
-      "empresa": "Kuulmaz",
-      "industria": "Ecommerce",
-      "contacto": "Martin, +573122226947",
-      "personasClave": ["Martin"],
-      "comercial": "JP",
-      "servicio": "Por definir",
-      "comoLlego": "Referido",
-      "stage": "preparacion",
-      "stageLabel": "Preparación",
-      "stageColor": "cyan",
-      "value": 0,
-      "probability": 10,
-      "weightedValue": 0,
-      "daysInStage": 9,
-      "healthScore": 68,
+      "id": "conaltura",
+      "empresa": "Conaltura",
+      "industria": "Construcción y vivienda",
+      "contacto": "Claudia Garces (Fundadora)",
+      "personasClave": ["Claudia Garces (Fundadora)","Holger (Gerente de Proyectos)"],
+      "comercial": "Sara Garces",
+      "servicio": "Core Layer",
+      "comoLlego": "Referido (tía de Sara)",
+      "stage": "diseno",
+      "stageLabel": "Diseño",
+      "stageColor": "purple",
+      "value": 35000000,
+      "probability": 35,
+      "weightedValue": 12250000,
+      "daysInStage": 11,
+      "healthScore": 78,
       "lastActivity": "2026-04-09",
-      "lastFile": "contexto-general.md",
-      "nextAction": { "command": "/prep-call kuulmaz", "description": "Contexto listo — agendar y preparar C1" },
-      "painPoints": [],
+      "lastFile": "fase0/Fase 0 conaltura/index.html",
+      "nextAction": {"command":"/cotizacion conaltura","description":"Armar propuesta Core + Fase 1 (agente reuniones quick win) y agendar C2"},
+      "painPoints": ["Desviaciones ~$2MM entre versiones de presupuesto","Sobrecarga de info para gerentes (+80 tableros)","Reuniones sin notas/accionables automáticos","Estandarización de modelos de proyectos"],
+      "proposedSkills": ["Agente conversacional sobre Sincosoft","Agente de reuniones (quick win)","Alertas inteligentes","Estandarización de modelos históricos"],
+      "stackTools": ["Sincosoft API","Power BI","Fireflies","Claude API"],
+      "callScore": null,
+      "followUpsSent": 0,
+      "contextoResumen": "🔥🔥🔥🔥 Muy caliente. Infraestructura tech avanzada (BIM, Sincosoft, 80+ tableros Power BI). Claudia pionera en BIM. NDA firmado. Próximo: C2 con JP + ingeniero.",
+      "files": {
+        "discovery": ["discovery-notes.md"],
+        "contexto": ["transcript-reunion-1.md"],
+        "diseno": [],
+        "comercial": [],
+        "contratos": [],
+        "fase0": ["Fase 0 conaltura/index.html"],
+        "entregable": [],
+        "produccion": [],
+        "evaluaciones": [],
+        "emails": []
+      },
+      "timeline": [
+        {"date":"2026-04-08","event":"Carpeta creada"},
+        {"date":"2026-04-09","event":"Primera reunión procesada (Claudia + Holger + Sara)"},
+        {"date":"2026-04-09","event":"Discovery notes completas"}
+      ]
+    },
+    {
+      "id": "acrecer",
+      "empresa": "Acrecer",
+      "industria": "Inmobiliario",
+      "contacto": "Sara, Directora de Proyectos",
+      "personasClave": ["Sara (Dir. Proyectos)","Meli Restrepo (Dir. Mercadeo)"],
+      "comercial": "Sara Garces",
+      "servicio": "Por definir",
+      "comoLlego": "Evento Expoinmobiliaria 2026",
+      "stage": "discovery",
+      "stageLabel": "Discovery",
+      "stageColor": "blue",
+      "value": 0,
+      "probability": 20,
+      "weightedValue": 0,
+      "daysInStage": 11,
+      "healthScore": 50,
+      "lastActivity": "2026-04-09",
+      "lastFile": "call-review-c1.md",
+      "nextAction": {"command":"/follow-up-writer acrecer","description":"C2 del 9 abril ya pasó — confirmar estado y próximos pasos"},
+      "painPoints": ["Cotizador inmobiliario","Documentación dispersa"],
       "proposedSkills": [],
       "stackTools": [],
       "callScore": null,
-      "followUpsSent": 0,
-      "contextoResumen": "Tienda online de prendas deportivas (medias, pantorrilleras Recovery+, toallas). B2C puro. Modelo COD + transferencia con descuento. Upsells post-compra integrados.",
+      "followUpsSent": 1,
+      "contextoResumen": "C1 realizada — interés en cotizador y documentación. C2 estaba agendada 9 abril 3PM.",
       "files": {
-        "discovery": ["prep-call-c1.md"],
-        "contexto": ["contexto-general.md"],
+        "discovery": ["discovery-notes.md","prep-call-c1.md"],
+        "contexto": ["contexto-general.md","transcript-2026-03-24-c1.md"],
         "diseno": [],
+        "comercial": ["onepager-irrelevant-sara.html"],
+        "contratos": [],
+        "fase0": [],
+        "entregable": [],
+        "produccion": [],
+        "evaluaciones": ["call-review-c1.md"],
+        "emails": ["email-post-2026-03-24.md"]
+      },
+      "timeline": [
+        {"date":"2026-03-24","event":"Carpeta creada"},
+        {"date":"2026-03-24","event":"C1 realizada — interés cotizador + documentación"},
+        {"date":"2026-04-09","event":"C2 agendada 3:00 PM"}
+      ]
+    },
+    {
+      "id": "crew-gym",
+      "empresa": "Crew Gym",
+      "industria": "Fitness y Wellness",
+      "contacto": "Julián Gómez, Gerente General",
+      "personasClave": [],
+      "comercial": "Agustín Hoyos",
+      "servicio": "Core Layer",
+      "comoLlego": "Conocido",
+      "stage": "negociacion",
+      "stageLabel": "Negociación",
+      "stageColor": "orange",
+      "value": 15000000,
+      "probability": 65,
+      "weightedValue": 9750000,
+      "daysInStage": 10,
+      "healthScore": 72,
+      "lastActivity": "2026-04-10",
+      "lastFile": "slides-propuesta-core-crew-gym.html",
+      "nextAction": {"command":"/follow-up-writer crew-gym","description":"Push cierre — propuesta presentada, precio cerrado $15M + $3.5M/mes"},
+      "painPoints": ["600 leads/mes pero 85% no recibe follow-up","Respuesta tardía >1h (depende de recepción)","Base de clientes dormida sin reactivación","Sin CRM (Fit Me Wise no lo trae)"],
+      "proposedSkills": ["Agente Comercial WhatsApp 24/7","Motor de Follow-up Inteligente","Sistema de Reactivación","CRM Operativo + Dashboard"],
+      "stackTools": [],
+      "callScore": null,
+      "followUpsSent": 0,
+      "contextoResumen": "Revenue adicional proyectado $147M/año por follow-up. 2 sedes (Medellín/Cali). Precio cerrado: $15M setup + $3.5M/mes.",
+      "files": {
+        "discovery": ["prep-call-c3.md"],
+        "contexto": ["transcript-2026-03-25.md"],
+        "diseno": ["solucion.md","spec-solucion.md"],
+        "comercial": ["cotizacion-core-layer.html","slides-propuesta-core-crew-gym.html"],
+        "contratos": [],
+        "fase0": [],
+        "entregable": [],
+        "produccion": [],
+        "evaluaciones": ["call-review-c2.md"],
+        "emails": []
+      },
+      "timeline": [
+        {"date":"2026-03-25","event":"Carpeta creada + discovery procesado"},
+        {"date":"2026-04","event":"Solución Core diseñada — 4 componentes"},
+        {"date":"2026-04","event":"Cotización + slides propuesta generados"}
+      ]
+    },
+    {
+      "id": "bless-handmade",
+      "empresa": "Bless Handmade",
+      "industria": "Moda / Confección femenina",
+      "contacto": "Gio (comercial/mercadeo)",
+      "personasClave": ["Gio (comercial/mercadeo)","Juliana (producción)"],
+      "comercial": "Sara Garces",
+      "servicio": "Ops Layer",
+      "comoLlego": "Grupo WhatsApp",
+      "stage": "diseno",
+      "stageLabel": "Diseño",
+      "stageColor": "purple",
+      "value": 7000000,
+      "probability": 35,
+      "weightedValue": 2450000,
+      "daysInStage": 10,
+      "healthScore": 70,
+      "lastActivity": "2026-04-10",
+      "lastFile": "spec-skills.md",
+      "nextAction": {"command":"/slides-propuesta-ops bless-handmade","description":"Generar slides propuesta + cotización para mandar"},
+      "painPoints": ["Coordinación manual con 4 talleres terceros sin trazabilidad","Falta de sistema de alertas para atrasos","Errores pequeños que generan devoluciones","Pedidos mayoreo B2B análogo (papel)"],
+      "proposedSkills": ["Programador de Producción","Coordinador de Terceros","Tablero de Seguimiento","Alarma de Atrasos","Procesador de Pedidos Mayoreo"],
+      "stackTools": [],
+      "callScore": null,
+      "followUpsSent": 0,
+      "contextoResumen": "~350 prendas/mes, ~200 referencias. Juliana coordina 4 talleres por WhatsApp sin trazabilidad. Discovery y skills listos — falta slides y cotización.",
+      "files": {
+        "discovery": ["discovery-notes.md"],
+        "contexto": [],
+        "diseno": ["propuesta-skills.md","spec-skills.md"],
         "comercial": [],
         "contratos": [],
         "fase0": [],
@@ -633,54 +534,9 @@ const D={
         "emails": []
       },
       "timeline": [
-        { "date": "2026-04-09", "event": "Carpeta creada + contexto consolidado" }
-      ]
-    },
-    {
-      "id": "conaltura",
-      "empresa": "Conaltura",
-      "industria": "Construcción y Vivienda",
-      "contacto": "Claudia Garcés, Fundadora",
-      "personasClave": ["Claudia Garcés (Fundadora)", "Holger (Gerente de Proyectos, Bogotá)"],
-      "comercial": "Sara Garcés",
-      "servicio": "Core Layer",
-      "comoLlego": "Referido — tía de Sara",
-      "stage": "diseno",
-      "stageLabel": "Diseño",
-      "stageColor": "purple",
-      "value": 45000000,
-      "probability": 35,
-      "weightedValue": 15750000,
-      "daysInStage": 9,
-      "healthScore": 80,
-      "lastActivity": "2026-04-09",
-      "lastFile": "discovery-notes.md",
-      "nextAction": { "command": "/disenar-solucion conaltura", "description": "Discovery hot — armar propuesta agente reuniones (quick win)" },
-      "painPoints": [
-        "No tienen agente conversacional sobre su data (80+ tableros Power BI)",
-        "Automatización de reuniones — se toman manual, se olvida el 70%",
-        "Resistencia interna histórica para adopción tech"
-      ],
-      "proposedSkills": ["Agente conversacional sobre data", "Agente de reuniones (quick win)"],
-      "stackTools": ["Sincosoft (ERP)", "Power BI", "Revit/BIM"],
-      "callScore": null,
-      "followUpsSent": 0,
-      "contextoResumen": "Constructora grande, proyectos Bogotá/Medellín. Infraestructura muy avanzada: BIM completo, ERP Sincosoft, 80+ tableros Power BI en tiempo real. Claudia pionera BIM en Colombia hace 10-12 años.",
-      "files": {
-        "discovery": ["discovery-notes.md"],
-        "contexto": ["transcript-reunion-1.md"],
-        "diseno": [],
-        "comercial": [],
-        "contratos": [],
-        "fase0": ["Fase 0 conaltura"],
-        "entregable": [],
-        "produccion": [],
-        "evaluaciones": [],
-        "emails": []
-      },
-      "timeline": [
-        { "date": "2026-04-08", "event": "Carpeta creada" },
-        { "date": "2026-04-09", "event": "Primera reunión procesada (Claudia + Holger + Sara)" }
+        {"date":"2026-04-10","event":"Carpeta creada"},
+        {"date":"2026-04-10","event":"Discovery procesada (Agustin + Gio + Juliana)"},
+        {"date":"2026-04-10","event":"5 skills diseñados para Ops Layer"}
       ]
     },
     {
@@ -688,7 +544,7 @@ const D={
       "empresa": "Diagnostioriente",
       "industria": "CDA Automotriz",
       "contacto": "Paola Gómez, Comercial",
-      "personasClave": ["Paola Gómez (Comercial)"],
+      "personasClave": [],
       "comercial": "JP",
       "servicio": "Por definir",
       "comoLlego": "Outbound",
@@ -698,17 +554,17 @@ const D={
       "value": 0,
       "probability": 5,
       "weightedValue": 0,
-      "daysInStage": 8,
-      "healthScore": 55,
+      "daysInStage": 10,
+      "healthScore": 35,
       "lastActivity": "2026-04-10",
       "lastFile": "README.md",
-      "nextAction": { "command": "/prep-call diagnostioriente", "description": "Sin actividad post-creación — iniciar prep de C1" },
+      "nextAction": {"command":"/prep-call diagnostioriente","description":"Agendar y preparar C1 — discovery pendiente"},
       "painPoints": [],
       "proposedSkills": [],
       "stackTools": [],
       "callScore": null,
       "followUpsSent": 0,
-      "contextoResumen": "Centro de Diagnóstico Automotriz. Outbound. Discovery pendiente, sin trabajo iniciado.",
+      "contextoResumen": "Solo carpeta creada. Sin discovery.",
       "files": {
         "discovery": [],
         "contexto": [],
@@ -721,110 +577,14 @@ const D={
         "evaluaciones": [],
         "emails": []
       },
-      "timeline": [
-        { "date": "2026-04-10", "event": "Carpeta creada" }
-      ]
-    },
-    {
-      "id": "bless-handmade",
-      "empresa": "Bless Handmade",
-      "industria": "Moda / Confección femenina",
-      "contacto": "Gio (Comercial/Mercadeo)",
-      "personasClave": ["Gio (Comercial/Mercadeo)", "Juliana (Producción)"],
-      "comercial": "Sara Garcés",
-      "servicio": "Ops Layer",
-      "comoLlego": "Grupo de WhatsApp",
-      "stage": "diseno",
-      "stageLabel": "Diseño",
-      "stageColor": "purple",
-      "value": 7000000,
-      "probability": 35,
-      "weightedValue": 2450000,
-      "daysInStage": 8,
-      "healthScore": 75,
-      "lastActivity": "2026-04-10",
-      "lastFile": "spec-skills.md",
-      "nextAction": { "command": "/slides-propuesta-ops bless-handmade", "description": "Skills diseñados — generar slides y cotización" },
-      "painPoints": [
-        "Coordinación manual con 4 talleres terceros por WhatsApp sin trazabilidad",
-        "Falta sistema de alertas y seguimiento de pedidos en producción",
-        "Revisión manual de 15 ventas/día (30-40 min) para clasificar talleres"
-      ],
-      "proposedSkills": ["Programador de Producción", "Coordinador de Terceros", "Alertas de Seguimiento", "Dashboard Producción", "Gestor de Insumos"],
-      "stackTools": [],
-      "callScore": null,
-      "followUpsSent": 0,
-      "contextoResumen": "Marca de moda femenina. ~350 prendas/mes, 200 referencias. 3 comerciales + equipo producción + 4 talleres terceros (crochet, recamado, teñido, pedrería). Volumen manejable pero coordinación caótica.",
-      "files": {
-        "discovery": ["discovery-notes.md"],
-        "contexto": [],
-        "diseno": ["propuesta-skills.md", "spec-skills.md"],
-        "comercial": [],
-        "contratos": [],
-        "fase0": [],
-        "entregable": [],
-        "produccion": [],
-        "evaluaciones": [],
-        "emails": []
-      },
-      "timeline": [
-        { "date": "2026-04-10", "event": "Carpeta creada" },
-        { "date": "2026-04-10", "event": "Discovery procesada (Agustín + Gio + Juliana)" },
-        { "date": "2026-04-10", "event": "5 skills diseñados para Ops Layer" }
-      ]
-    },
-    {
-      "id": "hexagono",
-      "empresa": "Hexagono Inmobiliario",
-      "industria": "Real Estate / Inmobiliaria",
-      "contacto": "Camilo Puerta",
-      "personasClave": ["Camilo Puerta", "Mamá de Camilo", "Hermana de Camilo"],
-      "comercial": "Sara Garcés",
-      "servicio": "Ops Layer",
-      "comoLlego": "Amigo de Sara",
-      "stage": "negociacion",
-      "stageLabel": "Negociación",
-      "stageColor": "orange",
-      "value": 7000000,
-      "probability": 65,
-      "weightedValue": 4550000,
-      "daysInStage": 7,
-      "healthScore": 70,
-      "lastActivity": "2026-04-11",
-      "lastFile": "cotizacion/index.html",
-      "nextAction": { "command": "/prep-call hexagono", "description": "C1 agendada — preparar presentación con slides + cotización" },
-      "painPoints": [
-        "Usan ChatGPT informalmente, quieren algo más robusto",
-        "Necesitan IA para: estrategia de redes, guiones, ideas, análisis",
-        "Cash flow apretado por inversión reciente en oficina + año electoral"
-      ],
-      "proposedSkills": ["Estrategia de Contenido IA", "Guiones de Redes", "Análisis de Estadísticas"],
-      "stackTools": ["ChatGPT (actual)", "Claude"],
-      "callScore": null,
-      "followUpsSent": 0,
-      "contextoResumen": "Empresa familiar (Camilo + mamá + hermana). Real estate Medellín. @hexagonoinmobiliario. Camilo aceptó reunión sin compromiso. Sara posicionó Ops Layer como solución ideal vs solo comprar Claude.",
-      "files": {
-        "discovery": ["prep-call-c1.md"],
-        "contexto": [],
-        "diseno": [],
-        "comercial": ["cotizacion/index.html", "slides/index.html"],
-        "contratos": [],
-        "fase0": [],
-        "entregable": [],
-        "produccion": [],
-        "evaluaciones": [],
-        "emails": []
-      },
-      "timeline": [
-        { "date": "2026-04-11", "event": "Carpeta creada + materiales pre-C1 listos" }
-      ]
+      "timeline": [{"date":"2026-04-10","event":"Carpeta creada"}]
     },
     {
       "id": "escuela-de-ingenieria-julio-garavito",
       "empresa": "Escuela Julio Garavito",
       "industria": "Educación / Universidad",
       "contacto": "Jimmy Ruiz, Director de Tecnología",
-      "personasClave": ["Jimmy Ruiz (Dir. Tecnología)", "Angela Maria Guerron (Dir. Comunicaciones y Mercadeo)", "Julian Fernando Rondon (Coord. Mercadeo)"],
+      "personasClave": ["Jimmy Ruiz (Dir. Tecnología)","Angela Maria Guerron (Dir. Comunicaciones y Mercadeo)","Julian Rondon (Coord. Mercadeo)"],
       "comercial": "JP",
       "servicio": "Core Layer",
       "comoLlego": "Outbound",
@@ -834,66 +594,62 @@ const D={
       "value": 45000000,
       "probability": 65,
       "weightedValue": 29250000,
-      "daysInStage": 5,
-      "healthScore": 85,
+      "daysInStage": 7,
+      "healthScore": 82,
       "lastActivity": "2026-04-13",
       "lastFile": "slides-fase0-julio-garavito.html",
-      "nextAction": { "command": "/contrato escuela-de-ingenieria-julio-garavito", "description": "Precio acordado $45M + $5.5M/mes — preparar contratos" },
-      "painPoints": [
-        "Funnel de admisiones pregrado sin agente conversacional",
-        "Procesos de marketing y ventas manuales",
-        "Respuesta a prospectos lenta, sin automatización"
-      ],
-      "proposedSkills": ["Agente Conversacional Admisiones", "Automatización Funnel Marketing", "Sistema de Nurturing Candidatos"],
-      "stackTools": ["Claude", "WhatsApp Business", "CRM"],
+      "nextAction": {"command":"/follow-up-writer escuela-de-ingenieria-julio-garavito","description":"Post-C3 check-in — precio acordado $45M + $5.5M/mes, esperando decisión"},
+      "painPoints": ["Funnel admisiones pregrado — 13.000 leads/semestre con 4% conversión","Agente de admisiones inteligente","Integración HubSpot"],
+      "proposedSkills": ["Agente Admisiones HubSpot","Funnel inteligente","Reactivación de leads fríos"],
+      "stackTools": ["HubSpot","Claude API"],
       "callScore": null,
       "followUpsSent": 0,
-      "contextoResumen": "Universidad (Bogotá). Fase 0 entregada 2026-04-08 con sección inversión: $45M implementación + $5.5M/mes fee. C3 programado para presentación de demo + propuesta formal.",
+      "contextoResumen": "Fase 0 entregado con sección de inversión completa. C3 programado 2026-04-13 para presentar demo + propuesta formal. ROI +$3.120M COP por cada 1% de mejora.",
       "files": {
         "discovery": [],
         "contexto": ["contexto-general.md"],
         "diseno": [],
         "comercial": [],
         "contratos": [],
-        "fase0": ["fase0-julio-garavito.html", "slides-fase0-julio-garavito.html"],
+        "fase0": ["fase0-julio-garavito.html","slides-fase0-julio-garavito.html"],
         "entregable": [],
         "produccion": [],
         "evaluaciones": [],
         "emails": []
       },
       "timeline": [
-        { "date": "2026-02-25", "event": "C1 presencial en Bogotá (no grabado)" },
-        { "date": "2026-04-08", "event": "Fase 0 entregado — diagnóstico funnel admisiones" },
-        { "date": "2026-04-08", "event": "Slides Fase 0 (20 slides, con ROI y costo inacción)" },
-        { "date": "2026-04-13", "event": "C3 programado — presentación demo + propuesta" }
+        {"date":"2026-02-25","event":"C1 presencial Bogotá con Jimmy Ruiz"},
+        {"date":"2026-03","event":"C2 virtual con Angela + Jimmy + Julian"},
+        {"date":"2026-04-08","event":"Fase 0 entregado (diagnóstico funnel admisiones)"},
+        {"date":"2026-04-13","event":"C3 programado — presentación demo + propuesta formal"}
       ]
     },
     {
       "id": "clinica-clofan",
       "empresa": "Clínica Clofan",
       "industria": "Salud",
-      "contacto": "Victor Hugo Ardila",
-      "personasClave": ["Victor Hugo Ardila"],
-      "comercial": "Sara Garcés",
+      "contacto": "Víctor Hugo Ardila",
+      "personasClave": [],
+      "comercial": "Sara Garces",
       "servicio": "Core Layer",
       "comoLlego": "Referido",
       "stage": "preparacion",
       "stageLabel": "Preparación",
       "stageColor": "cyan",
-      "value": 45000000,
+      "value": 35000000,
       "probability": 10,
-      "weightedValue": 4500000,
-      "daysInStage": 4,
-      "healthScore": 65,
+      "weightedValue": 3500000,
+      "daysInStage": 6,
+      "healthScore": 42,
       "lastActivity": "2026-04-14",
       "lastFile": "contexto-general.md",
-      "nextAction": { "command": "/prep-call clinica-clofan", "description": "Contexto inicial listo — preparar discovery call" },
+      "nextAction": {"command":"/prep-call clinica-clofan","description":"Agendar discovery C1 con Víctor Hugo"},
       "painPoints": [],
       "proposedSkills": [],
       "stackTools": [],
       "callScore": null,
       "followUpsSent": 0,
-      "contextoResumen": "Clínica oftalmológica. Referido. Discovery pendiente. Web: clofan.com",
+      "contextoResumen": "Solo contexto inicial. Discovery pendiente. Core Layer interés.",
       "files": {
         "discovery": [],
         "contexto": ["contexto-general.md"],
@@ -906,18 +662,104 @@ const D={
         "evaluaciones": [],
         "emails": []
       },
+      "timeline": [{"date":"2026-04-14","event":"Carpeta creada + contexto inicial"}]
+    },
+    {
+      "id": "ganaderia-sq",
+      "empresa": "Ganadería SQ",
+      "industria": "Ganadería",
+      "contacto": "Santiago Giraldo, Gerente y Socio",
+      "personasClave": [],
+      "comercial": "Agustín Hoyos",
+      "servicio": "Core Layer",
+      "comoLlego": "Referido",
+      "stage": "contratos",
+      "stageLabel": "Contratos",
+      "stageColor": "emerald",
+      "value": 7000000,
+      "probability": 85,
+      "weightedValue": 5950000,
+      "daysInStage": 5,
+      "healthScore": 90,
+      "lastActivity": "2026-04-15",
+      "lastFile": "propuesta-whatsapp-bot.md",
+      "nextAction": {"command":"/contrato ganaderia-sq core","description":"APROBADA — generar paquete completo de contratos Core"},
+      "painPoints": ["Gestión manual de leads WhatsApp","Calificación de prospectos"],
+      "proposedSkills": ["Bot WhatsApp Calificación de Leads","Agente conversacional 24/7"],
+      "stackTools": ["WhatsApp API","Claude API"],
+      "callScore": null,
+      "followUpsSent": 0,
+      "contextoResumen": "Propuesta aprobada por Santiago — $7M setup + $1M/mes. Timeline 8 semanas. Bot WhatsApp + calificación de leads.",
+      "files": {
+        "discovery": [],
+        "contexto": [],
+        "diseno": ["propuesta-whatsapp-bot.md"],
+        "comercial": [],
+        "contratos": [],
+        "fase0": [],
+        "entregable": [],
+        "produccion": [],
+        "evaluaciones": [],
+        "emails": []
+      },
       "timeline": [
-        { "date": "2026-04-14", "event": "Carpeta creada" }
+        {"date":"2026-04-15","event":"Carpeta creada"},
+        {"date":"2026-04-15","event":"Propuesta presentada"},
+        {"date":"2026-04-15","event":"Propuesta aprobada por Santiago"}
+      ]
+    },
+    {
+      "id": "nivel",
+      "empresa": "Nivel Propiedad Raíz",
+      "industria": "Construcción y desarrollo inmobiliario",
+      "contacto": "Martin Nicholls, Director de Proyectos",
+      "personasClave": ["Martin Nicholls (voz de dueño, familia fundadora)"],
+      "comercial": "Sara Garces",
+      "servicio": "Ops Layer",
+      "comoLlego": "Referido por Claudia Garces (Conaltura)",
+      "stage": "negociacion",
+      "stageLabel": "Negociación",
+      "stageColor": "orange",
+      "value": 7000000,
+      "probability": 65,
+      "weightedValue": 4550000,
+      "daysInStage": 3,
+      "healthScore": 80,
+      "lastActivity": "2026-04-17",
+      "lastFile": "fase0-documento.html",
+      "nextAction": {"command":"/prep-call nivel","description":"Prep C2 semana 28 abril 7am Col — validar API Paco antes"},
+      "painPoints": ["Pedir cotizaciones a proveedores manual","Comparar propuestas (alcances distintos)","Redactar OCs manual","Clasificación contra PUC","Cronograma de pagos"],
+      "proposedSkills": ["Solicitud automática de cotizaciones","Cuadro comparativo con recomendación","Generador de OC","Clasificador PUC","Cronograma de pagos"],
+      "stackTools": ["Claude Desktop (Team)","Claude Code","Correo corporativo","Google Drive / OneDrive","PUC de Nivel"],
+      "callScore": null,
+      "followUpsSent": 1,
+      "contextoResumen": "🔥🔥🔥 Caliente. Referido de Conaltura (socios, no competencia). Operan Colombia + USA. Stack: Paco + HubSpot + Sico + World Office. ⚠️ NO mencionar specifics Conaltura.",
+      "files": {
+        "discovery": ["prep-call-c1.md"],
+        "contexto": ["transcript-2026-04-17.md"],
+        "diseno": ["propuesta-skills.md","stack.md"],
+        "comercial": ["slides-propuesta-ops.html"],
+        "contratos": [],
+        "fase0": ["fase0-documento.html","fase0-slides.html"],
+        "entregable": [],
+        "produccion": [],
+        "evaluaciones": [],
+        "emails": ["email-post-2026-04-17.md"]
+      },
+      "timeline": [
+        {"date":"2026-04-17","event":"Carpeta creada + prep-call C1"},
+        {"date":"2026-04-17","event":"C1 realizada (~45 min) — C2 agendada"},
+        {"date":"2026-04-18","event":"Propuesta skills + stack + fase0 generados"}
       ]
     },
     {
       "id": "colegio-marymount-medellin",
-      "empresa": "Colegio Marymount",
+      "empresa": "Colegio Marymount Medellín",
       "industria": "Educación",
       "contacto": "María Luisa Muñoz, Gerente Administrativa",
-      "personasClave": ["María Luisa Muñoz (Gerente Admin.)", "Dorita (Contadora, se pensiona 2027)", "Sara (Firma facturas)"],
-      "comercial": "Sara Garcés",
-      "servicio": "Ops Layer (pivot desde Core)",
+      "personasClave": ["María Luisa Muñoz (Gerente Admin)","Sara (firma facturas)","Alexander + Dorita (contadores)"],
+      "comercial": "Sara Garces",
+      "servicio": "Ops Layer",
       "comoLlego": "Outbound",
       "stage": "negociacion",
       "stageLabel": "Negociación",
@@ -925,27 +767,22 @@ const D={
       "value": 12000000,
       "probability": 65,
       "weightedValue": 7800000,
-      "daysInStage": 2,
+      "daysInStage": 0,
       "healthScore": 88,
-      "lastActivity": "2026-04-16",
-      "lastFile": "propuesta-ops-marymount.html",
-      "nextAction": { "command": "/contrato colegio-marymount-medellin", "description": "Propuesta Ops $12M presentada 04-16 — cerrar contratos" },
-      "painPoints": [
-        "Aprobación de facturas (recurrentes pasan flujo completo igual)",
-        "6 cuentas con conciliación mensual manual (Logro + bancos + Fidias)",
-        "Cobro cartera personalizado: Fidias no logra impacto, Olguita sí",
-        "Presupuesto vs ejecución: calendario académico vs fiscal descuadrados"
-      ],
-      "proposedSkills": ["Auto-aprobación facturas recurrentes", "Conciliador bancario multi-cuenta", "Agente cobro cartera personalizado", "Dashboard presupuesto vs ejecución"],
-      "stackTools": ["Claude (Ops setup)", "Logro", "Fidias"],
+      "lastActivity": "2026-04-20",
+      "lastFile": "audio-2026-04-20-maria-luisa-loggro.md",
+      "nextAction": {"command":"/contrato colegio-marymount-medellin ops","description":"Mandar propuesta final HOY + preparar contratos Ops"},
+      "painPoints": ["Aprobación de facturas manual consume tiempo","Conciliaciones bancarias/contables (6 cuentas, >1 día cuadrar)","Cobro de cartera personalizado (Fidias sin impacto)","Presupuesto vs. ejecución en Excel"],
+      "proposedSkills": ["Workflow facturas con Loggro (ruteo + 2 firmas + causación)","Auto-aprobación por monto (histórico)","Conciliaciones automáticas 6 cuentas","Cobro cartera personalizado","Presupuesto visual"],
+      "stackTools": ["Loggro Enterprise API","Claude","Fidias","Adobe Acrobat"],
       "callScore": null,
       "followUpsSent": 0,
-      "contextoResumen": "Colegio privado femenino. Madurez IA muy baja. Pivot desde Core Layer a Ops Layer ($12M) — setup de Claude sin agentes custom. Urgencia real: Dorita (contadora, 30 años) se pensiona en 2027.",
+      "contextoResumen": "Pivot de Core a Ops Layer ($12M). Urgencia: Dorita (contadora 30 años) se pensiona el próximo año. Loggro Enterprise confirmado. María Luisa aportó lógica causación por histórico.",
       "files": {
         "discovery": ["discovery-brief-2026-04-10.md"],
-        "contexto": ["transcript-2026-04-10.md"],
-        "diseno": ["slides-propuesta-marymount.html", "solucion.md", "spec-solucion.md"],
-        "comercial": [],
+        "contexto": ["audio-2026-04-20-maria-luisa-loggro.md","transcript-2026-04-10.md","transcript-2026-04-16.md"],
+        "diseno": ["solucion.md","spec-solucion.md","slides-propuesta-marymount.html"],
+        "comercial": ["whatsapp-2026-04-18-maria-luisa.md"],
         "contratos": [],
         "fase0": ["propuesta-ops-marymount.html"],
         "entregable": [],
@@ -954,49 +791,203 @@ const D={
         "emails": []
       },
       "timeline": [
-        { "date": "2026-04-10", "event": "Discovery call con María Luisa (45 min)" },
-        { "date": "2026-04-14", "event": "Carpeta creada + procesamiento discovery" },
-        { "date": "2026-04-16", "event": "Pivot a Ops Layer — propuesta $12M presentada" }
+        {"date":"2026-04-10","event":"Discovery call con María Luisa (45 min)"},
+        {"date":"2026-04-14","event":"Carpeta creada + procesamiento discovery"},
+        {"date":"2026-04-16","event":"Pivot a Ops Layer — propuesta inicial"},
+        {"date":"2026-04-16","event":"Reunión propuesta 2PM — bien recibida, pide ajustes"},
+        {"date":"2026-04-18","event":"Investigación API Loggro + WhatsApp con 3 preguntas"},
+        {"date":"2026-04-20","event":"Audio confirma Loggro Enterprise + lógica causación histórica"}
+      ]
+    },
+    {
+      "id": "campuzano-group",
+      "empresa": "Campuzano Group",
+      "industria": "Servicios",
+      "contacto": "Tomás Campuzano, Gerente Comercial",
+      "personasClave": [],
+      "comercial": "JP",
+      "servicio": "Ops Layer",
+      "comoLlego": "Referido",
+      "stage": "cotizacion",
+      "stageLabel": "Cotización",
+      "stageColor": "amber",
+      "value": 10000000,
+      "probability": 50,
+      "weightedValue": 5000000,
+      "daysInStage": 0,
+      "healthScore": 70,
+      "lastActivity": "2026-04-20",
+      "lastFile": "propuesta.html",
+      "nextAction": {"command":"/follow-up-writer campuzano-group","description":"Propuesta enviada hoy ($10M) — follow-up en 3-5 días"},
+      "painPoints": [],
+      "proposedSkills": [],
+      "stackTools": [],
+      "callScore": null,
+      "followUpsSent": 0,
+      "contextoResumen": "Propuesta Ops Layer enviada hoy 20 abril por $10.000.000 COP. Pipeline dormido 24 días y reactivado con envío de propuesta formal.",
+      "files": {
+        "discovery": ["prep-call-c2.md"],
+        "contexto": [],
+        "diseno": [],
+        "comercial": [],
+        "contratos": [],
+        "fase0": [],
+        "entregable": [],
+        "produccion": [],
+        "evaluaciones": [],
+        "emails": []
+      },
+      "timeline": [
+        {"date":"2026-03-27","event":"Carpeta creada + prep-call C2"},
+        {"date":"2026-04-20","event":"Propuesta enviada — $10M COP"}
+      ]
+    },
+    {
+      "id": "soteco",
+      "empresa": "Soteco",
+      "industria": "Industrial / Operaciones",
+      "contacto": "Santiago Mejía, Gerente",
+      "personasClave": [],
+      "comercial": "JP",
+      "servicio": "Edu Layer",
+      "comoLlego": "Outbound",
+      "stage": "cotizacion",
+      "stageLabel": "Cotización",
+      "stageColor": "amber",
+      "value": 9500000,
+      "probability": 50,
+      "weightedValue": 4750000,
+      "daysInStage": 0,
+      "healthScore": 65,
+      "lastActivity": "2026-04-20",
+      "lastFile": "cotizacion/index.html",
+      "nextAction": {"command":"/follow-up-writer soteco","description":"Confirmar modalidad — A (mensual $12M) o B (intensiva $9.5M)"},
+      "painPoints": [],
+      "proposedSkills": ["Programa Claude Suite para operaciones intensivas en tiempo"],
+      "stackTools": ["Suite Claude (Anthropic)"],
+      "callScore": null,
+      "followUpsSent": 0,
+      "contextoResumen": "Programa Edu Layer personalizado enfocado en Suite Claude. 2 modalidades: A (4 sesiones 3h = 12h, $12M) / B (3 sesiones intensivas 3h = 9h, $9.5M).",
+      "files": {
+        "discovery": [],
+        "contexto": [],
+        "diseno": [],
+        "comercial": ["cotizacion/index.html"],
+        "contratos": [],
+        "fase0": [],
+        "entregable": [],
+        "produccion": [],
+        "evaluaciones": [],
+        "emails": []
+      },
+      "timeline": [{"date":"2026-04-20","event":"Carpeta creada + cotización draft con precio"}]
+    },
+    {
+      "id": "renata-dapena-pauta-digital",
+      "empresa": "Renata Dapena Pauta Digital",
+      "industria": "Agencia de publicidad",
+      "contacto": "Renata Dapena, Gerente/Dueña",
+      "personasClave": [],
+      "comercial": "Agustín Hoyos",
+      "servicio": "Ops Layer",
+      "comoLlego": "Referido",
+      "stage": "cotizacion",
+      "stageLabel": "Cotización",
+      "stageColor": "amber",
+      "value": 7000000,
+      "probability": 50,
+      "weightedValue": 3500000,
+      "daysInStage": 0,
+      "healthScore": 60,
+      "lastActivity": "2026-04-20",
+      "lastFile": "cotización_Renata/index.html",
+      "nextAction": {"command":"/follow-up-writer renata-dapena-pauta-digital","description":"Seguimiento cotización — automatización reportes email marketing"},
+      "painPoints": ["Reportes de email marketing manuales"],
+      "proposedSkills": ["Automatización de Reportes de Email Marketing"],
+      "stackTools": [],
+      "callScore": null,
+      "followUpsSent": 0,
+      "contextoResumen": "Cotización generada. Requerimiento: automatización de reportes de email marketing.",
+      "files": {
+        "discovery": [],
+        "contexto": ["Requerimiento – Automatización de Reportes de Email Marketing.txt"],
+        "diseno": [],
+        "comercial": ["cotización_Renata/index.html"],
+        "contratos": [],
+        "fase0": [],
+        "entregable": [],
+        "produccion": [],
+        "evaluaciones": [],
+        "emails": []
+      },
+      "timeline": [
+        {"date":"2026-04-20","event":"Carpeta creada"},
+        {"date":"2026-04-20","event":"Cotización generada"}
       ]
     }
   ],
+  "lostDeals": [
+    {
+      "id": "praxedes",
+      "empresa": "Praxedes (Midasoft)",
+      "industria": "Software / SaaS",
+      "servicio": "Core Layer",
+      "comercial": "JP",
+      "value": 73000000,
+      "lastStage": "Negociación",
+      "lostDate": "2026-04-20",
+      "reason": "Deal dormido desde marzo. Cotización v2 creció de $22M a $73M — sticker shock. Lucas no era decision maker. 'Tenemos preguntas' que nunca llegaron — objeción no verbalizada.",
+      "learnings": "No escalar alcance sin confirmar apetito presupuestal del decision maker real. Cuando el cliente pide piloto, incluirlo formalmente en la propuesta. El puente (Lucas) no reemplaza al dueño del proyecto (Juan Guillermo)."
+    },
+    {
+      "id": "galco",
+      "empresa": "Galco",
+      "industria": "Metalmecánica",
+      "servicio": "Ops Layer",
+      "comercial": "JP",
+      "value": 7000000,
+      "lastStage": "Negociación",
+      "lostDate": "2026-04-20",
+      "reason": "C3 presentada a Diego y Felipe (bien recibida). Esperábamos aprobación de Don Ignacio + socios post-Semana Santa y nunca llegó. Deal completo (discovery, skills, cotización, slides) pero sin buy-in del decisor final.",
+      "learnings": "Shadowing con operativos no reemplaza la validación temprana con el decisor final. Don Ignacio debía estar en la conversación antes de presentar propuesta completa."
+    }
+  ],
   "activityFeed": [
-    { "date": "2026-04-16", "client": "Marymount", "clientId": "colegio-marymount-medellin", "event": "Pivot a Ops Layer — propuesta $12M presentada", "file": "propuesta-ops-marymount.html" },
-    { "date": "2026-04-14", "client": "Marymount", "clientId": "colegio-marymount-medellin", "event": "Carpeta creada + procesamiento discovery", "file": "discovery-brief-2026-04-10.md" },
-    { "date": "2026-04-14", "client": "Clofan", "clientId": "clinica-clofan", "event": "Carpeta creada — referido entrante", "file": "contexto-general.md" },
-    { "date": "2026-04-13", "client": "Julio Garavito", "clientId": "escuela-de-ingenieria-julio-garavito", "event": "C3 programado — presentación demo + propuesta", "file": "" },
-    { "date": "2026-04-11", "client": "Hexagono", "clientId": "hexagono", "event": "Carpeta + materiales pre-C1 listos", "file": "cotizacion/index.html" },
-    { "date": "2026-04-10", "client": "Marymount", "clientId": "colegio-marymount-medellin", "event": "Discovery call con María Luisa (45 min)", "file": "transcript-2026-04-10.md" },
-    { "date": "2026-04-10", "client": "Bless Handmade", "clientId": "bless-handmade", "event": "5 skills diseñados para Ops Layer", "file": "propuesta-skills.md" },
-    { "date": "2026-04-10", "client": "Bless Handmade", "clientId": "bless-handmade", "event": "Discovery procesada (Agustín + Gio + Juliana)", "file": "discovery-notes.md" },
-    { "date": "2026-04-10", "client": "Diagnostioriente", "clientId": "diagnostioriente", "event": "Carpeta creada — outbound", "file": "README.md" },
-    { "date": "2026-04-09", "client": "Conaltura", "clientId": "conaltura", "event": "Primera reunión procesada (Claudia + Holger)", "file": "discovery-notes.md" },
-    { "date": "2026-04-09", "client": "Kuulmaz", "clientId": "kuulmaz", "event": "Carpeta + contexto consolidado (web ecommerce)", "file": "contexto-general.md" },
-    { "date": "2026-04-08", "client": "Julio Garavito", "clientId": "escuela-de-ingenieria-julio-garavito", "event": "Fase 0 entregado — $45M + $5.5M/mes acordado", "file": "fase0-julio-garavito.html" },
-    { "date": "2026-04-08", "client": "Shake.Studio", "clientId": "shake-studio", "event": "Cotización Edu Layer generada ($6.5M, 10 personas)", "file": "cotización Shake/index.html" },
-    { "date": "2026-04-08", "client": "Conaltura", "clientId": "conaltura", "event": "Carpeta creada — referido hot", "file": "README.md" },
-    { "date": "2026-04-06", "client": "Praxedes", "clientId": "praxedes", "event": "Plan reactivación documentado — pivot piloto", "file": "plan-reactivacion-piloto.md" },
-    { "date": "2026-03-27", "client": "Campuzano Group", "clientId": "campuzano-group", "event": "Carpeta creada — referido", "file": "prep-call-c2.md" },
-    { "date": "2026-03-26", "client": "Galco", "clientId": "galco", "event": "C3 propuesta presentada por Agustín a Diego y Felipe", "file": "transcript-2026-03-26-C3-propuesta.md" },
-    { "date": "2026-03-25", "client": "Crew Gym", "clientId": "crew-gym", "event": "Cotización + slides propuesta generados", "file": "slides-propuesta-core-crew-gym.html" },
-    { "date": "2026-03-25", "client": "Crew Gym", "clientId": "crew-gym", "event": "Solución Core Layer diseñada (4 componentes)", "file": "solucion.md" },
-    { "date": "2026-03-25", "client": "Crew Gym", "clientId": "crew-gym", "event": "Discovery C2 procesado + call-review (6.5/10)", "file": "call-review-c2.md" },
-    { "date": "2026-03-24", "client": "Galco", "clientId": "galco", "event": "Cotización + slides Ops Layer generados", "file": "cotizacion-ops.html" },
-    { "date": "2026-03-24", "client": "Galco", "clientId": "galco", "event": "6 skills + stack ($50 USD/mes) diseñados", "file": "propuesta-skills.md" },
-    { "date": "2026-03-24", "client": "Galco", "clientId": "galco", "event": "Discovery C2 shadowing (Jorge + Carolina)", "file": "discovery-notes.md" },
-    { "date": "2026-03-24", "client": "Acrecer", "clientId": "acrecer", "event": "C1 realizada (approach) — score 4/10", "file": "call-review-c1.md" },
-    { "date": "2026-03-16", "client": "Praxedes", "clientId": "praxedes", "event": "Follow-up → 'tenemos preguntas pero en asamblea'", "file": "" },
-    { "date": "2026-02-25", "client": "Praxedes", "clientId": "praxedes", "event": "C3 técnica con Juan David — entraron a RAG", "file": "" },
-    { "date": "2026-02-02", "client": "Praxedes", "clientId": "praxedes", "event": "Cotización v2 — $73M COP (3 fases)", "file": "" },
-    { "date": "2026-01-25", "client": "Praxedes", "clientId": "praxedes", "event": "Cotización v1 — $22M COP (1 fase)", "file": "" }
+    {"date":"2026-04-20","client":"Campuzano Group","clientId":"campuzano-group","event":"Propuesta Ops Layer enviada — $10M COP","file":"propuesta.html"},
+    {"date":"2026-04-20","client":"Colegio Marymount","clientId":"colegio-marymount-medellin","event":"Audio María Luisa confirma Loggro Enterprise","file":"audio-2026-04-20-maria-luisa-loggro.md"},
+    {"date":"2026-04-20","client":"Colegio Marymount","clientId":"colegio-marymount-medellin","event":"Propuesta final Ops actualizada (causación histórica)","file":"propuesta-ops-marymount.html"},
+    {"date":"2026-04-20","client":"Soteco","clientId":"soteco","event":"Cotización Edu con precio (A $12M / B $9.5M)","file":"cotizacion/index.html"},
+    {"date":"2026-04-20","client":"Renata Dapena","clientId":"renata-dapena-pauta-digital","event":"Carpeta creada + cotización generada","file":"cotización_Renata/index.html"},
+    {"date":"2026-04-18","client":"Nivel","clientId":"nivel","event":"Propuesta skills + stack + fase0 generados","file":"fase0-documento.html"},
+    {"date":"2026-04-18","client":"Colegio Marymount","clientId":"colegio-marymount-medellin","event":"Investigación API Loggro + WhatsApp con 3 preguntas","file":"whatsapp-2026-04-18-maria-luisa.md"},
+    {"date":"2026-04-17","client":"Nivel","clientId":"nivel","event":"C1 realizada — C2 agendada semana 28 abril","file":"transcript-2026-04-17.md"},
+    {"date":"2026-04-17","client":"Nivel","clientId":"nivel","event":"Carpeta creada + prep-call C1","file":"prep-call-c1.md"},
+    {"date":"2026-04-16","client":"Colegio Marymount","clientId":"colegio-marymount-medellin","event":"Reunión propuesta 2PM — bien recibida","file":"transcript-2026-04-16.md"},
+    {"date":"2026-04-16","client":"Colegio Marymount","clientId":"colegio-marymount-medellin","event":"Pivot a Ops Layer — propuesta inicial","file":"solucion.md"},
+    {"date":"2026-04-15","client":"Ganadería SQ","clientId":"ganaderia-sq","event":"Propuesta aprobada por Santiago","file":"propuesta-whatsapp-bot.md"},
+    {"date":"2026-04-15","client":"Ganadería SQ","clientId":"ganaderia-sq","event":"Propuesta presentada","file":"propuesta-whatsapp-bot.md"},
+    {"date":"2026-04-14","client":"Clínica Clofan","clientId":"clinica-clofan","event":"Carpeta creada + contexto inicial","file":"contexto-general.md"},
+    {"date":"2026-04-14","client":"Colegio Marymount","clientId":"colegio-marymount-medellin","event":"Carpeta creada + procesamiento discovery","file":"discovery-brief-2026-04-10.md"},
+    {"date":"2026-04-13","client":"Escuela Julio Garavito","clientId":"escuela-de-ingenieria-julio-garavito","event":"C3 programado — demo + propuesta formal","file":"slides-fase0-julio-garavito.html"},
+    {"date":"2026-04-10","client":"Bless Handmade","clientId":"bless-handmade","event":"5 skills diseñados para Ops Layer","file":"propuesta-skills.md"},
+    {"date":"2026-04-10","client":"Bless Handmade","clientId":"bless-handmade","event":"Discovery procesado (Agustin + Gio + Juliana)","file":"discovery-notes.md"},
+    {"date":"2026-04-10","client":"Colegio Marymount","clientId":"colegio-marymount-medellin","event":"Discovery call con María Luisa (45 min)","file":"transcript-2026-04-10.md"},
+    {"date":"2026-04-10","client":"Diagnostioriente","clientId":"diagnostioriente","event":"Carpeta creada","file":"README.md"},
+    {"date":"2026-04-09","client":"Conaltura","clientId":"conaltura","event":"Discovery notes completas + transcript","file":"discovery-notes.md"},
+    {"date":"2026-04-09","client":"Acrecer","clientId":"acrecer","event":"C2 agendada 3:00 PM","file":"prep-call-c1.md"},
+    {"date":"2026-04-08","client":"Escuela Julio Garavito","clientId":"escuela-de-ingenieria-julio-garavito","event":"Fase 0 entregado al cliente","file":"fase0-julio-garavito.html"},
+    {"date":"2026-04-08","client":"Conaltura","clientId":"conaltura","event":"Carpeta creada","file":"README.md"},
+    {"date":"2026-04-08","client":"Shake.Studio","clientId":"shake-studio","event":"Cotización Edu generada ($6.5M, hasta 10 personas)","file":"cotización Shake/index.html"},
+    {"date":"2026-04-08","client":"Hexagono","clientId":"hexagono","event":"Prep-call + cotización + slides generados","file":"slides/index.html"},
+    {"date":"2026-03-25","client":"Crew Gym","clientId":"crew-gym","event":"Solución Core diseñada — cotización + slides","file":"cotizacion-core-layer.html"}
   ],
   "quickActions": [
-    { "command": "/follow-up-writer praxedes", "reason": "Praxedes estancado 33 días — pivot a piloto acotado $8-12M antes de que el deal de $73M muera", "priority": "high" },
-    { "command": "/contrato escuela-de-ingenieria-julio-garavito", "reason": "Escuela Julio Garavito — precio $45M + $5.5M/mes acordado, C3 ya ejecutada, preparar contratos", "priority": "high" },
-    { "command": "/contrato colegio-marymount-medellin", "reason": "Marymount — propuesta Ops $12M presentada 04-16, cerrar contratos antes de perder momentum", "priority": "high" },
-    { "command": "/follow-up-writer galco", "reason": "Galco — decisión post-Semana Santa llegó hace 10+ días, presionar con Ignacio y socios", "priority": "high" },
-    { "command": "/follow-up-writer crew-gym", "reason": "Crew Gym — propuesta Core presentada hace 24 días sin respuesta, agendar C3 de cierre", "priority": "high" },
-    { "command": "/disenar-solucion conaltura", "reason": "Conaltura hot — armar propuesta agente de reuniones (quick win) antes de enfriarse", "priority": "normal" }
+    {"command":"/contrato ganaderia-sq core","reason":"APROBADA. Santiago aprobó propuesta WhatsApp Bot — generar contratos Core","priority":"high"},
+    {"command":"/contrato colegio-marymount-medellin ops","reason":"Loggro confirmado hoy. Mandar propuesta final + preparar contratos Ops ($12M)","priority":"high"},
+    {"command":"/follow-up-writer campuzano-group","reason":"Propuesta enviada hoy por $10M — programar follow-up en 3-5 días","priority":"high"},
+    {"command":"/follow-up-writer escuela-de-ingenieria-julio-garavito","reason":"C3 hace 7d con precio acordado — check-in sobre decisión","priority":"normal"},
+    {"command":"/slides-propuesta-ops bless-handmade","reason":"Skills listos hace 10d. Falta slides y cotización para avanzar","priority":"normal"},
+    {"command":"/prep-call nivel","reason":"C2 agendada semana 28 abril. Validar API Paco con JP antes","priority":"normal"}
   ]
 };
 const STAGES=['nuevo','preparacion','discovery','diseno','cotizacion','negociacion','contratos','produccion','entrega','post-entrega','cerrado'];
@@ -1107,24 +1098,36 @@ function renderActions(){
   el.innerHTML=html;
 }
 
+function renderLostDeals(){
+  const el=document.getElementById('lost-container');
+  if(!D.lostDeals||!D.lostDeals.length){el.innerHTML='<div class="no-risk-card"><p><strong>Sin deals perdidos registrados.</strong></p></div>';return}
+  const totalLost=D.lostDeals.reduce((a,c)=>a+c.value,0);
+  let html=`<div style="background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.15);border-radius:10px;padding:14px 20px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center"><div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:700">${D.lostDeals.length} deals perdidos</div><div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:800;color:var(--red)">${fmtFull(totalLost)} COP perdidos</div></div>`;
+  html+='<div class="client-grid">';
+  D.lostDeals.forEach(c=>{
+    html+=`<div class="client-card risk" style="opacity:.78">
+      <div class="cc-top"><div class="cc-info"><h3 style="text-decoration:line-through;text-decoration-color:rgba(239,68,68,.5)">${c.empresa}</h3><div class="cc-industry">${c.industria}</div></div><span class="badge bg-red">PERDIDO</span></div>
+      <div class="cc-meta">${badge(c.servicio||'—','gray')} <span style="font-size:10px;color:var(--text-3)">Comercial: ${c.comercial}</span></div>
+      <div class="cc-values"><div><div class="cc-val c-red">${fmtFull(c.value)}</div><div class="cc-val-label">Valor perdido</div></div><div><div class="cc-val-sub">${c.lastStage}</div><div class="cc-val-label">Última etapa</div></div><div><div class="cc-val-sub">${c.lostDate}</div><div class="cc-val-label">Fecha pérdida</div></div></div>
+      <div class="cc-action" style="background:rgba(239,68,68,.04)"><span style="font-size:11px;color:var(--text-2);line-height:1.5"><strong style="color:var(--red)">Razón:</strong> ${c.reason}</span></div>
+      ${c.learnings?`<div style="padding:12px 20px;border-top:1px solid var(--border);background:rgba(251,191,36,.03)"><div style="font-size:9px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">💡 Aprendizaje</div><div style="font-size:11px;color:var(--text-2);line-height:1.5">${c.learnings}</div></div>`:''}
+    </div>`;
+  });
+  html+='</div>';el.innerHTML=html;
+}
+
 function setupInteractivity(){
-  // Tabs
   document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById('tab-'+t.dataset.tab).classList.add('active')})});
-  // Search
-  const si=document.getElementById('search-input');if(si)si.addEventListener('input',()=>{const q=si.value.toLowerCase();document.querySelectorAll('.client-card').forEach(c=>{c.style.display=c.dataset.name.toLowerCase().includes(q)?'':'none'})});
-  // Filters
+  const si=document.getElementById('search-input');if(si)si.addEventListener('input',()=>{const q=si.value.toLowerCase();document.querySelectorAll('#client-grid .client-card').forEach(c=>{c.style.display=c.dataset.name.toLowerCase().includes(q)?'':'none'})});
   document.querySelectorAll('.filter-btn').forEach(b=>{b.addEventListener('click',()=>{b.classList.toggle('on');applyFilters()})});
-  // Sort
   const ss=document.getElementById('sort-select');if(ss)ss.addEventListener('change',()=>sortCards(ss.value));
-  // Accordions
   document.querySelectorAll('.client-card').forEach(c=>{c.addEventListener('click',e=>{if(e.target.closest('.filter-btn,.search-box,.sort-select'))return;c.classList.toggle('expanded')})});
-  // Nav links
   document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click',()=>{document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));a.classList.add('active')})});
 }
 
 function applyFilters(){
   const active=[...document.querySelectorAll('.filter-btn.on')].map(b=>b.dataset.stage);
-  document.querySelectorAll('.client-card').forEach(c=>{const match=active.includes(c.dataset.stage);c.style.display=match?'':'none'});
+  document.querySelectorAll('#client-grid .client-card').forEach(c=>{const match=active.includes(c.dataset.stage);c.style.display=match?'':'none'});
 }
 
 function sortCards(by){
@@ -1142,8 +1145,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('nav-meta').innerHTML=`<span>${D.summary.totalClients}</span> clientes &bull; ${new Date(D.generatedAt).toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}`;
   document.getElementById('footer-date').textContent=new Date(D.generatedAt).toLocaleString('es-CO');
   if(!D.clients||!D.clients.length){document.querySelector('.container').style.display='none';document.getElementById('empty-state').style.display='block';return}
-  renderStats();renderFunnel();renderControls();renderClientCards();renderForecast();renderRisk();renderActivity();renderTeam();renderActions();setupInteractivity();setupAnimations();
-  // Animate funnel bars after render
+  renderStats();renderFunnel();renderControls();renderClientCards();renderForecast();renderRisk();renderActivity();renderTeam();renderActions();renderLostDeals();setupInteractivity();setupAnimations();
   setTimeout(()=>{document.querySelectorAll('.funnel-bar').forEach(b=>{const w=b.style.width;b.style.width='0';requestAnimationFrame(()=>{b.style.width=w})})},100);
 });
 </script>

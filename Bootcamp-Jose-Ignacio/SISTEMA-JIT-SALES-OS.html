@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JIT Sales OS — Propuesta para José Ignacio Tobón</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #110e1a;
+    --bg-soft: rgba(25, 22, 38, 0.4);
+    --card: #191626;
+    --card-hover: #1e1a2e;
+    --border: #2a2640;
+    --border-soft: rgba(42,38,64,0.3);
+    --text: #e8eaed;
+    --text-muted: #8b8fa3;
+    --text-secondary: #6b6894;
+    --purple: #7c3aed;
+    --purple-light: #a78bfa;
+    --purple-glow: rgba(124, 58, 237, 0.3);
+    --purple-bg: rgba(124, 58, 237, 0.08);
+    --emerald: #34d399;
+    --emerald-bg: rgba(52, 211, 153, 0.1);
+    --amber: #fbbf24;
+    --amber-bg: rgba(251, 191, 36, 0.1);
+    --pink: #f472b6;
+    --pink-bg: rgba(244, 114, 182, 0.1);
+    --blue: #60a5fa;
+    --blue-bg: rgba(96, 165, 250, 0.1);
+    --red: #f87171;
+    --red-bg: rgba(248, 113, 113, 0.1);
+    --orange: #fb923c;
+    --orange-bg: rgba(251, 146, 60, 0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── Background gradient ambience ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(124,58,237,0.12), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(52,211,153,0.06), transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Sticky Navigation ─── */
+  .top-nav {
+    position: fixed; top: 0; left: 0; right: 0; height: 64px;
+    background: rgba(17, 14, 26, 0.85); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; z-index: 1000;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo span {
+    font-size: 16px; font-weight: 800;
+    background: linear-gradient(135deg, var(--purple-light), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    letter-spacing: -0.3px;
+  }
+  .nav-badge {
+    font-size: 10px; font-weight: 600; color: var(--emerald);
+    background: var(--emerald-bg); padding: 3px 8px; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .nav-links { display: flex; gap: 4px; align-items: center; flex-wrap: nowrap; overflow-x: auto; }
+  .nav-links a {
+    font-size: 11px; font-weight: 500; color: var(--text-muted);
+    text-decoration: none; padding: 6px 10px; border-radius: 8px;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--purple-bg); }
+
+  /* ── Section Layout ─── */
+  .section {
+    width: 100%; padding: 80px 40px;
+    display: flex; flex-direction: column; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .section:first-of-type { padding-top: 140px; }
+  .section-alt { background: var(--bg-soft); }
+  .section-inner { width: 100%; max-width: 1100px; }
+  .section-header { text-align: center; margin-bottom: 48px; }
+  .section-number {
+    font-size: 11px; font-weight: 700; color: var(--purple-light);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  /* ── Typography ─── */
+  h1 { font-size: 64px; font-weight: 900; line-height: 1.02; letter-spacing: -2px; margin-bottom: 20px; }
+  h2 { font-size: 40px; font-weight: 800; line-height: 1.15; letter-spacing: -1.2px; margin-bottom: 16px; }
+  h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.3px; }
+  h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.1px; }
+  .subtitle { font-size: 19px; color: var(--text-muted); line-height: 1.55; max-width: 720px; font-weight: 400; }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--purple-light), var(--purple), var(--emerald));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .gradient-text-purple {
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* ── Hero ─── */
+  .hero-section {
+    min-height: 70vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 600; color: var(--purple-light);
+    background: var(--purple-bg); border: 1px solid rgba(124,58,237,0.2);
+    padding: 8px 16px; border-radius: 100px;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow .pulse {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--emerald); box-shadow: 0 0 8px var(--emerald);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero-subtitle {
+    max-width: 700px;
+    font-size: 21px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-top: 12px;
+    font-weight: 400;
+  }
+  .hero-subtitle strong { color: var(--text); font-weight: 600; }
+  .hero-meta {
+    margin-top: 48px;
+    display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .hero-meta span strong { color: var(--text); font-weight: 500; }
+  .hero-meta .divider { color: var(--border); }
+
+  /* ── Cards & Grids ─── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; transition: all 0.3s ease;
+    position: relative;
+  }
+  .card:hover { border-color: rgba(124, 58, 237, 0.3); box-shadow: 0 0 30px rgba(124, 58, 237, 0.08); }
+  .card-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 16px;
+  }
+  .card-icon.purple { background: var(--purple-bg); }
+  .card-icon.emerald { background: var(--emerald-bg); }
+  .card-icon.amber { background: var(--amber-bg); }
+  .card-icon.pink { background: var(--pink-bg); }
+  .card-icon.blue { background: var(--blue-bg); }
+  .card-icon.red { background: var(--red-bg); }
+  .card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 8px; }
+
+  /* ── Highlight box ─── */
+  .highlight-box {
+    background: var(--purple-bg); border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: 12px; padding: 20px 24px; margin-top: 16px;
+  }
+  .highlight-box p { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .highlight-box ul, .highlight-box ol { margin-top: 8px; padding-left: 22px; }
+  .highlight-box li { font-size: 14px; color: var(--text); padding: 3px 0; line-height: 1.5; }
+  .highlight-box.emerald { background: var(--emerald-bg); border-color: rgba(52, 211, 153, 0.15); }
+  .highlight-box.amber { background: var(--amber-bg); border-color: rgba(251, 191, 36, 0.15); }
+  .highlight-box.red { background: var(--red-bg); border-color: rgba(248, 113, 113, 0.15); }
+  .highlight-box.pink { background: var(--pink-bg); border-color: rgba(244, 114, 182, 0.15); }
+  .highlight-box.blue { background: var(--blue-bg); border-color: rgba(96, 165, 250, 0.15); }
+
+  .highlight-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+    color: var(--purple-light);
+  }
+  .highlight-box.emerald .highlight-label { color: var(--emerald); }
+  .highlight-box.amber .highlight-label { color: var(--amber); }
+  .highlight-box.red .highlight-label { color: var(--red); }
+  .highlight-box.pink .highlight-label { color: var(--pink); }
+  .highlight-box.blue .highlight-label { color: var(--blue); }
+
+  /* ── Tags ─── */
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    padding: 3px 10px; border-radius: 6px; letter-spacing: 0.5px;
+  }
+  .tag-purple { background: var(--purple-bg); color: var(--purple-light); }
+  .tag-emerald { background: var(--emerald-bg); color: var(--emerald); }
+  .tag-amber { background: var(--amber-bg); color: var(--amber); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-pink { background: var(--pink-bg); color: var(--pink); }
+  .tag-blue { background: var(--blue-bg); color: var(--blue); }
+
+  /* ── Feature list ─── */
+  .feature-list { list-style: none; }
+  .feature-list li {
+    font-size: 14px; color: var(--text-muted); padding: 7px 0;
+    display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;
+  }
+  .feature-list li .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; margin-top: 7px; }
+  .feature-list li .dot.emerald { background: var(--emerald); }
+  .feature-list li .dot.red { background: var(--red); }
+  .feature-list li .dot.amber { background: var(--amber); }
+  .feature-list li .dot.blue { background: var(--blue); }
+  .feature-list li .dot.pink { background: var(--pink); }
+
+  /* ── Data table ─── */
+  .data-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; font-size: 13px;
+  }
+  .data-table th {
+    font-size: 11px; font-weight: 700; color: var(--purple-light);
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 14px 18px; text-align: left;
+    background: rgba(124, 58, 237, 0.06);
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    font-size: 13px; color: var(--text-muted);
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-soft);
+    line-height: 1.5;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(124, 58, 237, 0.03); color: var(--text); }
+  .data-table td strong { color: var(--text); font-weight: 600; }
+
+  /* ── Pipeline timeline ─── */
+  .pipeline-timeline { display: flex; flex-direction: column; gap: 0; width: 100%; position: relative; padding-left: 40px; }
+  .pipeline-timeline::before {
+    content: ''; position: absolute; top: 0; bottom: 0; left: 19px;
+    width: 3px; background: linear-gradient(180deg, var(--purple), var(--emerald), var(--amber), var(--pink));
+    border-radius: 2px;
+  }
+  .pipeline-step { position: relative; padding: 20px 0 20px 32px; }
+  .pipeline-dot {
+    position: absolute; left: -31px; top: 24px;
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 3px solid var(--purple); background: var(--bg); z-index: 2;
+  }
+  .pipeline-dot.active { background: var(--purple); box-shadow: 0 0 12px var(--purple-glow); }
+  .pipeline-dot.emerald { border-color: var(--emerald); background: var(--emerald); box-shadow: 0 0 12px rgba(52, 211, 153, 0.3); }
+  .pipeline-dot.amber { border-color: var(--amber); background: var(--amber); box-shadow: 0 0 12px rgba(251, 191, 36, 0.3); }
+  .pipeline-dot.red { border-color: var(--red); background: var(--red); box-shadow: 0 0 12px rgba(248, 113, 113, 0.3); }
+  .pipeline-dot.pink { border-color: var(--pink); background: var(--pink); box-shadow: 0 0 12px rgba(244, 114, 182, 0.3); }
+  .pipeline-dot.blue { border-color: var(--blue); background: var(--blue); box-shadow: 0 0 12px rgba(96, 165, 250, 0.3); }
+  .pipeline-day {
+    font-size: 11px; font-weight: 700; color: var(--purple-light);
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .pipeline-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.2px; }
+  .pipeline-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .pipeline-desc code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--purple-light); background: var(--purple-bg); padding: 2px 6px; border-radius: 4px; }
+
+  /* ── Skill block (collapsible) ─── */
+  .skill-block {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; margin-bottom: 14px; overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .skill-block:hover { border-color: rgba(124, 58, 237, 0.3); }
+  .skill-block[open] {
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.08);
+    border-color: rgba(124, 58, 237, 0.4);
+  }
+  .skill-header {
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 16px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .skill-header::-webkit-details-marker { display: none; }
+  .skill-header::before {
+    content: "›";
+    font-size: 22px; color: var(--text-muted);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .skill-block[open] .skill-header::before { transform: rotate(90deg); color: var(--purple-light); }
+  .skill-number {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .skill-block[data-mod="m1"] .skill-number { background: var(--emerald-bg); color: var(--emerald); }
+  .skill-block[data-mod="m2"] .skill-number { background: var(--amber-bg); color: var(--amber); }
+  .skill-block[data-mod="m3"] .skill-number { background: var(--blue-bg); color: var(--blue); }
+  .skill-block[data-mod="mem"] .skill-number { background: var(--pink-bg); color: var(--pink); }
+  .skill-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 600; color: var(--purple-light);
+  }
+  .skill-title {
+    font-size: 15px; font-weight: 600; color: var(--text);
+    margin-left: auto;
+    text-align: right;
+  }
+  .skill-body {
+    padding: 0 28px 24px 28px;
+    border-top: 1px solid var(--border-soft);
+    padding-top: 20px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .skill-body strong { color: var(--text); font-weight: 600; }
+  .skill-body p { margin-bottom: 10px; }
+  .skill-body .input-label, .skill-body .output-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--purple-light);
+    margin-top: 16px; margin-bottom: 8px;
+    display: block;
+  }
+  .skill-body ul { list-style: none; padding: 0; }
+  .skill-body ul li {
+    position: relative; padding-left: 18px; padding-top: 5px; padding-bottom: 5px;
+    font-size: 13.5px;
+  }
+  .skill-body ul li::before {
+    content: "→"; position: absolute; left: 0;
+    color: var(--purple-light); font-weight: 700;
+  }
+  .skill-principle {
+    margin-top: 16px; padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(52, 211, 153, 0.04));
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: 10px;
+    font-size: 13px; color: var(--text);
+    font-style: italic;
+  }
+  .skill-principle strong { font-style: normal; color: var(--purple-light); }
+
+  /* ── Module divider ─── */
+  .module-divider {
+    display: flex; align-items: center; gap: 16px;
+    margin: 40px 0 20px;
+  }
+  .module-divider .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 700;
+    padding: 8px 16px; border-radius: 100px;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .module-divider .badge.m1 { background: var(--emerald-bg); color: var(--emerald); border: 1px solid rgba(52,211,153,0.2); }
+  .module-divider .badge.m2 { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+  .module-divider .badge.m3 { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(96,165,250,0.2); }
+  .module-divider .badge.mem { background: var(--pink-bg); color: var(--pink); border: 1px solid rgba(244,114,182,0.2); }
+  .module-divider .line {
+    flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ── Aha cards ─── */
+  .aha-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 24px 24px;
+    position: relative; transition: all 0.3s ease;
+  }
+  .aha-card:hover { border-color: rgba(124, 58, 237, 0.3); box-shadow: 0 0 30px rgba(124, 58, 237, 0.08); }
+  .aha-number {
+    position: absolute; top: -14px; left: 24px;
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: var(--text); font-weight: 800; font-size: 12px;
+    padding: 4px 12px; border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+  }
+  .aha-card h4 {
+    margin: 4px 0 12px;
+    font-size: 17px; line-height: 1.3; color: var(--text);
+    letter-spacing: -0.3px;
+  }
+  .aha-card p {
+    font-size: 13.5px; color: var(--text-muted); line-height: 1.6;
+    margin: 0;
+  }
+  .aha-card code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--purple-light); background: var(--purple-bg); padding: 2px 6px; border-radius: 4px; }
+  .aha-card em { color: var(--text); font-style: italic; }
+
+  /* ── Metric grid ─── */
+  .metric-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 24px; text-align: center;
+  }
+  .metric-value { font-size: 36px; font-weight: 800; margin-bottom: 4px; letter-spacing: -1px; }
+  .metric-label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .metric-value.purple { color: var(--purple-light); }
+  .metric-value.emerald { color: var(--emerald); }
+  .metric-value.amber { color: var(--amber); }
+  .metric-value.pink { color: var(--pink); }
+
+  /* ── Copy blocks (quotes) ─── */
+  .copy-block {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 28px; margin: 20px 0;
+    border-left: 4px solid var(--purple);
+    position: relative;
+  }
+  .copy-block::before {
+    content: "❝";
+    position: absolute; top: 14px; right: 24px;
+    font-size: 48px; color: var(--purple);
+    opacity: 0.15; font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .copy-label {
+    font-size: 11px; font-weight: 700; color: var(--purple-light);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;
+  }
+  .copy-text {
+    font-size: 18px; color: var(--text); line-height: 1.5;
+    font-style: italic;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+  .copy-attribution {
+    font-size: 12px; color: var(--text-muted);
+    margin-top: 10px; font-style: normal;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Next step box ─── */
+  .next-step {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(52, 211, 153, 0.06));
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 14px; padding: 20px 24px; margin-top: 16px;
+  }
+  .next-step-label {
+    font-size: 11px; font-weight: 700; color: var(--emerald);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px;
+  }
+  .next-step p { font-size: 14px; color: var(--text); line-height: 1.55; }
+  .next-step ol, .next-step ul { padding-left: 22px; margin-top: 8px; }
+  .next-step li { font-size: 14px; color: var(--text); line-height: 1.55; padding: 3px 0; }
+
+  /* ── Rule cards ─── */
+  .rule-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 24px; margin-bottom: 12px;
+    display: flex; align-items: flex-start; gap: 16px;
+    border-left: 4px solid var(--red);
+  }
+  .rule-number {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--red-bg); color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .rule-content h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .rule-content p { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin: 0; }
+
+  /* ── Mermaid container ─── */
+  .mermaid-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 24px 0;
+    overflow-x: auto;
+    text-align: center;
+  }
+  .mermaid { font-family: 'Inter', sans-serif !important; }
+
+  /* ── Schedule row ─── */
+  .schedule-list {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px 28px;
+  }
+  .schedule-row {
+    display: flex; align-items: flex-start; gap: 18px;
+    padding: 14px 0; border-bottom: 1px solid var(--border-soft);
+  }
+  .schedule-row:last-child { border-bottom: none; }
+  .schedule-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700; color: var(--purple-light);
+    min-width: 64px; flex-shrink: 0;
+    background: var(--purple-bg);
+    padding: 5px 10px; border-radius: 6px;
+    text-align: center;
+  }
+  .schedule-content {
+    font-size: 14px; color: var(--text-muted); line-height: 1.55;
+  }
+  .schedule-content strong { color: var(--text); font-weight: 600; }
+  .schedule-content code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--purple-light); background: var(--purple-bg); padding: 2px 6px; border-radius: 4px; }
+
+  /* ── Closing quote ─── */
+  .closing-section {
+    padding: 100px 40px 80px;
+    text-align: center;
+    position: relative;
+  }
+  .closing-quote {
+    max-width: 720px; margin: 0 auto;
+  }
+  .closing-quote .quote-mark {
+    font-size: 72px; color: var(--purple);
+    opacity: 0.3; font-family: Georgia, serif;
+    line-height: 1; margin-bottom: -20px;
+  }
+  .closing-quote blockquote {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 32px;
+    line-height: 1.3;
+    color: var(--text);
+    margin: 0 0 20px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+  }
+  .closing-quote .attribution {
+    font-size: 12px; color: var(--purple-light);
+    letter-spacing: 3px; text-transform: uppercase;
+    font-weight: 600;
+  }
+  .closing-tagline {
+    margin-top: 40px;
+    padding: 24px;
+    font-size: 17px;
+    color: var(--text);
+    background: linear-gradient(135deg, var(--purple-bg), var(--emerald-bg));
+    border: 1px solid rgba(124,58,237,0.2);
+    border-radius: 14px;
+    font-weight: 500;
+    max-width: 620px;
+    margin-left: auto; margin-right: auto;
+  }
+
+  /* ── Footer ─── */
+  .footer {
+    padding: 40px; text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary); font-size: 12px;
+    line-height: 1.8;
+  }
+  .footer strong { color: var(--text); }
+
+  /* ── Helpers ─── */
+  .text-center { text-align: center; }
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .mb-32 { margin-bottom: 32px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+    color: var(--purple-light);
+    background: var(--purple-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* ── Scroll animations ─── */
+  .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    h1 { font-size: 42px; }
+    h2 { font-size: 28px; }
+    .section { padding: 60px 20px; }
+    .section:first-of-type { padding-top: 100px; }
+    .top-nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .pipeline-timeline { padding-left: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <div class="nav-logo">
+    <span>JIT Sales OS</span>
+    <span class="nav-badge">v1.0</span>
+  </div>
+  <div class="nav-links">
+    <a href="#resumen">Resumen</a>
+    <a href="#problema">Problema</a>
+    <a href="#arquitectura">Arquitectura</a>
+    <a href="#flujo">Flujo</a>
+    <a href="#skills">Skills</a>
+    <a href="#huesos">Huesos</a>
+    <a href="#aha">Aha</a>
+    <a href="#bootcamp">Bootcamp</a>
+    <a href="#validacion">Validación</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="section hero-section">
+  <div class="section-inner">
+    <div class="hero-eyebrow">
+      <span class="pulse"></span>
+      Propuesta · Bootcamp JIT · 29 abr · 6 may
+    </div>
+    <h1>
+      <span class="gradient-text">JIT Sales OS</span>
+    </h1>
+    <p class="hero-subtitle">
+      Sistema operativo de negociación construido sobre el método de <strong>José Ignacio Tobón</strong>.
+      Un asistente que acompaña el ciclo completo de una mesa:
+      <strong>antes, durante, después y a nivel organizacional</strong>.
+    </p>
+    <div class="hero-meta">
+      <span><strong>Para:</strong> José Ignacio Tobón</span>
+      <span class="divider">·</span>
+      <span><strong>De:</strong> Irrelevant</span>
+      <span class="divider">·</span>
+      <span><strong>Autor:</strong> Juan Pablo Gómez</span>
+      <span class="divider">·</span>
+      <span><strong>Fecha:</strong> 21 abril 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE OPENING -->
+<section class="section">
+  <div class="section-inner">
+    <div class="copy-block">
+      <div class="copy-label">José Ignacio Tobón</div>
+      <div class="copy-text">"Estructura, no improvisación. Sin mapa, se negocia a ciegas."</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUMEN -->
+<section class="section section-alt" id="resumen">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">01 · Resumen</div>
+      <h2>Resumen en una página</h2>
+    </div>
+
+    <div class="card mb-24">
+      <div class="card-icon purple">📋</div>
+      <h3>Qué es</h3>
+      <p style="font-size: 15px; color: var(--text); line-height: 1.65;">
+        <strong style="color: var(--purple-light);">JIT Sales OS</strong> es una capa de inteligencia aplicada que toma el método JIT —los 7 huesos, las 6 preguntas, la ecuación del estrés, la regla 95/5, las tipologías, los mandamientos— y lo convierte en un asistente operacional para el negociador, el director y la organización.
+      </p>
+      <p style="font-size: 15px; color: var(--text); line-height: 1.65; margin-top: 12px;">
+        No es ChatGPT ni una herramienta genérica. Es un sistema donde <strong style="color: var(--emerald);">el método JIT es la única autoridad</strong>: cada acción del sistema consulta el framework antes de operar. Si el framework evoluciona, el sistema se recalibra.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon emerald">🎯</div>
+        <h3>Al negociador</h3>
+        <p>Entra a cada mesa con un <strong style="color: var(--text);">plan de batalla escrito</strong>, ensaya contra el peor escenario y recibe una radiografía forense de su desempeño.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon amber">📊</div>
+        <h3>Al director</h3>
+        <p>Audita <strong style="color: var(--text);">50 negociaciones con la profundidad</strong> con la que antes auditaba 2. Sabe quién necesita qué coaching y con qué urgencia.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon pink">🧠</div>
+        <h3>A la organización</h3>
+        <p>Cada negociación procesada hace al sistema <strong style="color: var(--text);">más inteligente</strong>. La memoria corporativa acumula objeciones, tipologías y patrones ganadores.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="section" id="problema">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">02 · El Punto de Partida</div>
+      <h2>El problema que este sistema <span class="gradient-text-purple">resuelve</span></h2>
+    </div>
+
+    <div class="highlight-box red mb-32">
+      <div class="highlight-label">⚠ Las 5 razones por las que fracasan las negociaciones · JIT</div>
+      <ul class="feature-list" style="list-style: none;">
+        <li><span class="dot red"></span>Temor al conflicto</li>
+        <li><span class="dot red"></span>Falta de planificación estructurada</li>
+        <li><span class="dot red"></span>Anclarse en posiciones rígidas</li>
+        <li><span class="dot red"></span>No crear ni capturar valor adicional</li>
+        <li><span class="dot red"></span>No identificar suficientemente el poder disponible</li>
+      </ul>
+    </div>
+
+    <p style="font-size: 16px; color: var(--text-muted); line-height: 1.7; max-width: 900px;">
+      El método JIT diagnostica estos errores con precisión quirúrgica. El problema práctico es que <strong style="color: var(--text);">aplicar el método en cada negociación requiere una disciplina que pocas organizaciones sostienen</strong>: las 6 preguntas rara vez se responden por escrito, las tipologías rara vez se mapean antes de la mesa, y las calls rara vez se analizan contra los 7 huesos después.
+    </p>
+
+    <div class="highlight-box emerald mt-32">
+      <div class="highlight-label">💡 La tesis</div>
+      <p>
+        Si el método es <strong>reproducible, medible y verificable</strong> (los principios rectores del método JIT), entonces puede <strong>operacionalizarse en un sistema asistido por IA</strong> que garantiza la disciplina y acumula aprendizaje.
+      </p>
+      <p style="margin-top: 16px;">
+        El sistema no reemplaza al negociador. <strong>Le sube las capacidades</strong> — exactamente como la ecuación del estrés lo prescribe:
+      </p>
+      <p style="font-family: Georgia, serif; font-style: italic; font-size: 22px; text-align: center; margin: 20px 0; color: var(--emerald); font-weight: 600;">
+        Estrés = Metas − Capacidades
+      </p>
+      <p>
+        El mediocre baja sus metas. El estratega sube sus capacidades. <strong>El sistema sube las capacidades sistemáticamente.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ARQUITECTURA -->
+<section class="section section-alt" id="arquitectura">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">03 · Arquitectura</div>
+      <h2>Tres módulos + <span class="gradient-text">memoria viva</span></h2>
+      <p class="subtitle" style="margin: 16px auto 0;">Cubren las 4 fases del método JIT: Diagnóstico · Preparación · Negociación · Captura.</p>
+    </div>
+
+    <div class="mermaid-wrap">
+      <pre class="mermaid">
+flowchart TB
+    subgraph M1["🎯 MODULO 1 · ANTES"]
+        direction TB
+        I["/investigar-prospecto<br/>Inteligencia de negociacion"]
+        E["/disenar-estrategia<br/>Plan de batalla"]
+        S["/simular-negociacion<br/>Role-play vs tipologia"]
+        I --> E --> S
+    end
+
+    MESA["⚔️ LA MESA REAL<br/>Negociacion"]
+
+    subgraph M2["🔬 MODULO 2 · DESPUES"]
+        direction TB
+        P["/procesar-call-ji<br/>Ingesta transcript"]
+        R["/radiografia-negociacion<br/>Analisis forense"]
+        A["/plan-accion<br/>Proximo movimiento"]
+        P --> R --> A
+    end
+
+    subgraph M3["🧑‍🏫 MODULO 3 · COACHING"]
+        direction LR
+        C["/coaching-personal"]
+        PE["/performance-equipo"]
+        PAT["/patrones-equipo"]
+    end
+
+    subgraph MEM["🧠 MEMORIA TRANSVERSAL"]
+        direction LR
+        AM["/actualizar-memoria"]
+        GPS["/que-sigue-ji"]
+    end
+
+    S --> MESA
+    MESA --> P
+    A --> AM
+    AM --> M3
+    M3 -.refuerza.-> M1
+      </pre>
+    </div>
+
+    <div class="grid-2 mt-32">
+      <div class="card">
+        <div class="card-icon emerald">🎯</div>
+        <h3>Módulo 1 — Antes</h3>
+        <p>Se ejecuta antes de la mesa. Produce un <strong style="color: var(--text);">plan de batalla escrito</strong> que responde las 6 preguntas de JIT y mapea las tipologías anticipables.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon amber">🔬</div>
+        <h3>Módulo 2 — Después</h3>
+        <p>Se ejecuta después de la mesa. Produce una <strong style="color: var(--text);">radiografía forense</strong> contra los 7 huesos, con scores, hard caps y momentos pivotales citados.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon blue">🧑‍🏫</div>
+        <h3>Módulo 3 — Coaching</h3>
+        <p>Se ejecuta periódicamente. Mira la <strong style="color: var(--text);">trayectoria</strong> del negociador y del equipo para generar coaching individualizado y detectar patrones cruzados.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon pink">🧠</div>
+        <h3>Memoria transversal</h3>
+        <p>Vive en el centro: cada caso la <strong style="color: var(--text);">alimenta</strong>, y cada nuevo caso la <strong style="color: var(--text);">consulta</strong> antes de operar. Esto es la ventaja definitiva sobre cualquier herramienta genérica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLUJO -->
+<section class="section" id="flujo">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">04 · Flujo Operacional</div>
+      <h2>De la preparación al <span class="gradient-text-purple">aprendizaje</span></h2>
+    </div>
+
+    <div class="pipeline-timeline">
+      <div class="pipeline-step">
+        <div class="pipeline-dot active"></div>
+        <div class="pipeline-day">Paso 01 · Preparación</div>
+        <div class="pipeline-title">Mapa + Plan + Ensayo</div>
+        <div class="pipeline-desc">
+          <code>/investigar-prospecto</code> levanta la inteligencia.
+          <code>/disenar-estrategia</code> responde las 6 preguntas y define la ZOPA.
+          <code>/simular-negociacion</code> entrena contra la tipología anticipada.
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="pipeline-dot red"></div>
+        <div class="pipeline-day" style="color: var(--red);">Paso 02 · Ejecución</div>
+        <div class="pipeline-title">La mesa real</div>
+        <div class="pipeline-desc">La negociación ocurre. Fireflies u otro sistema graba el transcript.</div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="pipeline-dot amber"></div>
+        <div class="pipeline-day" style="color: var(--amber);">Paso 03 · Radiografía</div>
+        <div class="pipeline-title">Análisis forense</div>
+        <div class="pipeline-desc">
+          <code>/procesar-call-ji</code> ingesta el transcript desde Fireflies.
+          <code>/radiografia-negociacion</code> evalúa cada uno de los 7 huesos con citas textuales y scores.
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="pipeline-dot amber"></div>
+        <div class="pipeline-day" style="color: var(--amber);">Paso 04 · Plan de Acción</div>
+        <div class="pipeline-title">Próximo movimiento</div>
+        <div class="pipeline-desc">
+          <code>/plan-accion</code> diseña el mensaje listo para enviar, las variables nuevas a meter, el timing táctico, y — si aplica — el script de salida elegante.
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="pipeline-dot pink"></div>
+        <div class="pipeline-day" style="color: var(--pink);">Paso 05 · Memoria</div>
+        <div class="pipeline-title">El sistema aprende</div>
+        <div class="pipeline-desc">
+          <code>/actualizar-memoria</code> indexa la objeción que apareció, la respuesta que ganó y la tipología confirmada. Cada caso procesado hace al sistema más inteligente.
+        </div>
+      </div>
+
+      <div class="pipeline-step">
+        <div class="pipeline-dot emerald"></div>
+        <div class="pipeline-day" style="color: var(--emerald);">Paso 06 · Coaching</div>
+        <div class="pipeline-title">Individual + equipo</div>
+        <div class="pipeline-desc">
+          <code>/coaching-personal</code> analiza la trayectoria del negociador.
+          <code>/performance-equipo</code> entrega la vista director.
+          <code>/patrones-equipo</code> extrae las reglas empíricas cross-case.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box blue mt-32">
+      <div class="highlight-label">📖 Un caso real de principio a fin</div>
+      <p style="margin-bottom: 12px;"><strong>Lunes 10 am.</strong> El negociador tiene mesa crítica el jueves. Corre <code>/investigar-prospecto</code> → en 5 min tiene <strong>mapa de la negociación</strong>: intereses probables, BATNA estimado, tipología proyectada, decisor real identificado.</p>
+      <p style="margin-bottom: 12px;"><strong>Lunes 11 am.</strong> <code>/disenar-estrategia</code> → en 10 min, <strong>plan de batalla</strong> con las 6 preguntas respondidas, ZOPA con excelente/bueno/aceptable, 5 variables de rentabilidad infinita priorizadas.</p>
+      <p style="margin-bottom: 12px;"><strong>Miércoles 3 pm.</strong> <code>/simular-negociacion --tipologia hp --intensidad combate</code> → 30 min practicando contra el prospecto más difícil posible.</p>
+      <p style="margin-bottom: 12px;"><strong>Jueves 10 am.</strong> Ejecuta la mesa real. Fireflies graba.</p>
+      <p style="margin-bottom: 12px;"><strong>Jueves 11 am.</strong> <code>/procesar-call-ji</code> → transcript estructurado por segmentos.</p>
+      <p style="margin-bottom: 12px;"><strong>Jueves 2 pm.</strong> <code>/radiografia-negociacion</code> → radiografía forense con scorecards por hueso, errores críticos, momentos pivotales, 3 acciones.</p>
+      <p style="margin-bottom: 12px;"><strong>Jueves 3 pm.</strong> <code>/plan-accion</code> → próximo movimiento con timing táctico, script listo para enviar.</p>
+      <p><strong>Jueves 3:15 pm.</strong> <code>/actualizar-memoria</code> → lo aprendido queda indexado. <strong style="color: var(--text);">El próximo caso del equipo empieza con esa inteligencia ya puesta.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section section-alt" id="skills">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">05 · Los 10 Skills</div>
+      <h2>La <span class="gradient-text">materia operacional</span> del sistema</h2>
+      <p class="subtitle" style="margin: 16px auto 0;">Cada skill expansible para revisar input, output y principio JIT aplicado.</p>
+    </div>
+
+    <!-- MODULO 1 -->
+    <div class="module-divider">
+      <span class="badge m1">🎯 Módulo 1 · Antes</span>
+      <div class="line"></div>
+    </div>
+
+    <details class="skill-block" data-mod="m1">
+      <summary class="skill-header">
+        <div class="skill-number">01</div>
+        <div class="skill-name">/investigar-prospecto</div>
+        <div class="skill-title">Inteligencia de negociación</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>No es un brief de empresa. Es un mapa de la mesa.</strong></p>
+        <span class="input-label">Input</span>
+        <p>Nombre del caso + URL / contexto básico del prospecto.</p>
+        <span class="output-label">Output — Mapa de la Negociación (contra los 7 huesos)</span>
+        <ul>
+          <li>Intereses probables (con evidencia) + miedos simétricos del otro</li>
+          <li>BATNA estimado de la contraparte + costo de salida</li>
+          <li>5+ variables de rentabilidad infinita pre-identificadas</li>
+          <li>Criterios objetivos disponibles para defender tus cifras</li>
+          <li>Tipología estimada con nivel de confianza y evidencias</li>
+          <li>Decisor real mapeado con "qué significa victoria para él"</li>
+          <li>Información privilegiada faltante — qué preguntar en la próxima interacción</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> Sin mapa, se negocia a ciegas.</div>
+      </div>
+    </details>
+
+    <details class="skill-block" data-mod="m1">
+      <summary class="skill-header">
+        <div class="skill-number">02</div>
+        <div class="skill-name">/disenar-estrategia</div>
+        <div class="skill-title">Plan de batalla</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>Las 6 preguntas respondidas por escrito. Condición innegociable según JIT.</strong></p>
+        <span class="input-label">Input</span>
+        <p>El mapa del skill anterior.</p>
+        <span class="output-label">Output — Plan de Batalla operacional</span>
+        <ul>
+          <li>Las 6 preguntas respondidas textualmente</li>
+          <li>ZOPA definitiva: excelente / bueno / aceptable con cifras</li>
+          <li>Anclaje inicial preparado con guion palabra por palabra + criterio que lo defiende</li>
+          <li>Variables de rentabilidad infinita priorizadas con orden táctico</li>
+          <li>Tipología anticipada con plan de juego contingente</li>
+          <li>Manejo de objeciones probables con scripts JIT</li>
+          <li>Saving face pre-diseñado para la contraparte</li>
+          <li>Pre-mortem con 3 escenarios</li>
+          <li>Checklist de entrada a la mesa</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> La improvisación es el error no forzado que destruye el margen.</div>
+      </div>
+    </details>
+
+    <details class="skill-block" data-mod="m1">
+      <summary class="skill-header">
+        <div class="skill-number">03</div>
+        <div class="skill-name">/simular-negociacion</div>
+        <div class="skill-title">Role-play contra tipología</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>El negociador enfrenta al peor escenario posible en ensayo para que la mesa real se sienta fácil.</strong></p>
+        <span class="input-label">Input</span>
+        <p>El caso + tipología a simular (Firme / Suave / Duro / Soviético / HP) + intensidad (ensayo / combate / pesadilla).</p>
+        <span class="output-label">Comportamiento</span>
+        <p>Claude encarna al prospecto con sus intereses, tipología, tics conductuales y lenguaje característico. No rompe personaje salvo con comandos explícitos (<code>pausa</code>, <code>stop</code>, <code>hint</code>, <code>reset</code>).</p>
+        <span class="output-label">Output final</span>
+        <ul>
+          <li>Evaluación contra los 7 huesos</li>
+          <li>Momentos pivotales</li>
+          <li>Errores críticos detectados</li>
+          <li>3 acciones para la mesa real</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> El HP admira el carácter, no la complacencia. Se entrena contra el HP real, no contra una versión suavizada.</div>
+      </div>
+    </details>
+
+    <!-- MODULO 2 -->
+    <div class="module-divider">
+      <span class="badge m2">🔬 Módulo 2 · Después</span>
+      <div class="line"></div>
+    </div>
+
+    <details class="skill-block" data-mod="m2">
+      <summary class="skill-header">
+        <div class="skill-number">04</div>
+        <div class="skill-name">/procesar-call-ji</div>
+        <div class="skill-title">Ingesta de transcripts</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>Preprocesador que prepara el material crudo para análisis forense.</strong></p>
+        <span class="input-label">Input</span>
+        <p>Transcript desde Fireflies (MCP), archivo, o paste directo.</p>
+        <span class="output-label">Output</span>
+        <ul>
+          <li>Transcript estructurado por segmentos (apertura / exploración / propuesta / objeciones / cierre)</li>
+          <li>Highlights automáticos (cifras, anclas, objeciones, silencios, ratio de palabras)</li>
+          <li>Diagnóstico express de tipología con citas textuales</li>
+          <li>Comparación preliminar plan vs ejecución</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> Reproducible, medible, verificable.</div>
+      </div>
+    </details>
+
+    <details class="skill-block" data-mod="m2">
+      <summary class="skill-header">
+        <div class="skill-number">05</div>
+        <div class="skill-name">/radiografia-negociacion</div>
+        <div class="skill-title">Análisis forense · 7 huesos</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>El corazón del sistema. Cirugía sobre cada intercambio.</strong></p>
+        <span class="input-label">Input</span>
+        <p>Transcript procesado.</p>
+        <span class="output-label">Output — Radiografía completa</span>
+        <ul>
+          <li>Score global /10 con hard caps aplicables</li>
+          <li>Scorecard /10 por cada uno de los 7 huesos con evidencia textual</li>
+          <li>Análisis de las 6 preguntas (respondidas antes / visibles en la call)</li>
+          <li>Errores críticos detectados con citas (temor al conflicto, compra de paz, ancla débil, sin criterio, pérdida de autoridad, decisor nominal vs real)</li>
+          <li>Momentos pivotales con veredicto GANADO / PERDIDO / TIBIO</li>
+          <li>Dinámica de poder analizada</li>
+          <li>Análisis de lenguaje (frases fuertes vs débiles con citas)</li>
+          <li>Señales del otro (leídas y perdidas)</li>
+          <li>Tipología confirmada o ajustada</li>
+          <li>Plan vs ejecución (si existe estrategia previa)</li>
+          <li>3 acciones concretas para la próxima mesa</li>
+          <li>Role-play recomendado para practicar el momento más débil</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> No basta con saber negociar. Hay que poder demostrarlo.</div>
+      </div>
+    </details>
+
+    <details class="skill-block" data-mod="m2">
+      <summary class="skill-header">
+        <div class="skill-number">06</div>
+        <div class="skill-name">/plan-accion</div>
+        <div class="skill-title">Próximo movimiento</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>Ningún "gracias por el tiempo". Estrategia operacional post-mesa.</strong></p>
+        <span class="input-label">Input</span>
+        <p>La radiografía.</p>
+        <span class="output-label">Output</span>
+        <ul>
+          <li>Variables nuevas a meter en la mesa priorizadas</li>
+          <li>Información privilegiada a conseguir (cómo y cuándo)</li>
+          <li>Objeciones residuales con estrategia de manejo</li>
+          <li>Saving face pre-diseñado para la próxima interacción</li>
+          <li>Mensaje / llamada / documento listo para enviar</li>
+          <li>Timing táctico justificado</li>
+          <li>Plan B si no hay respuesta (máximo 3 pushes → dignidad JIT)</li>
+          <li>Si aplica: script de salida elegante (perro y cola)</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> A las personas se les conoce más por cómo salen que por cómo entran.</div>
+      </div>
+    </details>
+
+    <!-- MODULO 3 -->
+    <div class="module-divider">
+      <span class="badge m3">🧑‍🏫 Módulo 3 · Coaching</span>
+      <div class="line"></div>
+    </div>
+
+    <details class="skill-block" data-mod="m3">
+      <summary class="skill-header">
+        <div class="skill-number">07</div>
+        <div class="skill-name">/coaching-personal</div>
+        <div class="skill-title">Tú vs. tú mismo</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>Trayectoria de un negociador, no evaluación puntual.</strong></p>
+        <span class="input-label">Input</span>
+        <p>Nombre del negociador (cruza su historial de casos).</p>
+        <span class="output-label">Output</span>
+        <ul>
+          <li>Scorecard histórico por hueso con tendencia</li>
+          <li>Errores críticos recurrentes cuantificados</li>
+          <li>Tipologías que domina vs con las que lucha</li>
+          <li><strong>Un único blind spot prioritario</strong> (no lista de 10)</li>
+          <li>Plan de 90 días operacional (no inspiracional)</li>
+          <li>Scripts para memorizar bajo presión</li>
+          <li>Ejercicio diario de reprogramación</li>
+          <li>Momentos ejemplares propios a replicar</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> Es imposible no aprender si se tiene la disposición correcta (Humildad Estratégica).</div>
+      </div>
+    </details>
+
+    <details class="skill-block" data-mod="m3">
+      <summary class="skill-header">
+        <div class="skill-number">08</div>
+        <div class="skill-name">/performance-equipo</div>
+        <div class="skill-title">Vista director</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>El panorama operacional del que dirige.</strong></p>
+        <span class="input-label">Input</span>
+        <p>Agrega todas las radiografías disponibles.</p>
+        <span class="output-label">Output</span>
+        <ul>
+          <li>Scorecard agregado del equipo por hueso</li>
+          <li>Errores críticos sistémicos</li>
+          <li>Ranking de negociadores con fortaleza + blind spot</li>
+          <li>Semáforo de deals activos (🟢 / 🟡 / 🔴)</li>
+          <li>Análisis de Curva Ballena (qué clientes retener / soltar)</li>
+          <li>Las 3 decisiones que el director debe tomar esta semana</li>
+          <li>Los 3 negociadores que necesitan atención AHORA</li>
+          <li>Los 3 deals rojos que requieren intervención</li>
+          <li>HTML visual opcional para presentación</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> 80% de tus clientes generan el 150% de tu utilidad. Aprende a vender menos a los clientes correctos.</div>
+      </div>
+    </details>
+
+    <details class="skill-block" data-mod="m3">
+      <summary class="skill-header">
+        <div class="skill-number">09</div>
+        <div class="skill-name">/patrones-equipo</div>
+        <div class="skill-title">Análisis cruzado</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>Las reglas empíricas que emergen del uso real del framework.</strong></p>
+        <span class="input-label">Input</span>
+        <p>Todas las radiografías + memoria actual.</p>
+        <span class="output-label">Output</span>
+        <ul>
+          <li><strong>10-15 reglas empíricas</strong> extraídas del uso (con evidencia cuantificada)</li>
+          <li>Objeciones más frecuentes con respuestas ganadoras vs perdedoras</li>
+          <li>Performance por tipología (con quién gana / con quién pierde el equipo)</li>
+          <li>Anclas rotas vs defendidas (qué las sostiene)</li>
+          <li>Casos ejemplares identificados</li>
+          <li>Update sugerido a la memoria organizacional</li>
+        </ul>
+        <div class="skill-principle"><strong>Principio JIT aplicado:</strong> Se puede aprender de cualquiera, incluso del que se equivoca.</div>
+      </div>
+    </details>
+
+    <!-- MEMORIA -->
+    <div class="module-divider">
+      <span class="badge mem">🧠 Memoria transversal</span>
+      <div class="line"></div>
+    </div>
+
+    <details class="skill-block" data-mod="mem">
+      <summary class="skill-header">
+        <div class="skill-number">10</div>
+        <div class="skill-name">/actualizar-memoria</div>
+        <div class="skill-title">La sangre del sistema</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>Esto es lo que hace que el sistema no sea ChatGPT.</strong></p>
+        <p>Después de cada radiografía, este skill alimenta cuatro archivos vivos:</p>
+        <ul>
+          <li><code>aprendizajes.md</code> — reglas empíricas nuevas con evidencia</li>
+          <li><code>objeciones-frecuentes.md</code> — biblioteca creciente de objeciones + respuestas ganadoras</li>
+          <li><code>tipologias-encontradas.md</code> — mapa de tipologías encontradas por el equipo con win rate</li>
+          <li><code>casos-ejemplares.md</code> — negociaciones ≥ 8/10 que el equipo debe estudiar</li>
+        </ul>
+        <p>Cada caso procesado <strong>hace al sistema más inteligente.</strong> Esto no existe en ChatGPT ni en ninguna herramienta genérica — es la ventaja definitiva.</p>
+      </div>
+    </details>
+
+    <details class="skill-block" data-mod="mem">
+      <summary class="skill-header">
+        <div class="skill-number">11</div>
+        <div class="skill-name">/que-sigue-ji</div>
+        <div class="skill-title">GPS del sistema</div>
+      </summary>
+      <div class="skill-body">
+        <p><strong>Si el usuario se pierde, este skill le dice qué ejecutar ahora.</strong></p>
+        <p>Lee los archivos existentes de un caso, diagnostica en qué fase del método JIT está, y recomienda el siguiente skill con justificación. Es también la puerta de entrada pedagógica para quien no conoce el sistema.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- HUESOS -->
+<section class="section" id="huesos">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">06 · Conexión con el método</div>
+      <h2>Los 7 huesos, <span class="gradient-text">hueso por hueso</span></h2>
+      <p class="subtitle" style="margin: 16px auto 0;">Cada uno de los huesos JIT aparece operacionalizado en múltiples skills.</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 24%;">Hueso JIT</th>
+          <th style="width: 36%;">Skills que lo operacionalizan</th>
+          <th>Cómo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1 · Intereses</strong></td>
+          <td><code>/investigar-prospecto</code><br><code>/disenar-estrategia</code><br><code>/radiografia-negociacion</code></td>
+          <td>Ranking de intereses probables con evidencia + evaluación de si se exploraron con lateralidad</td>
+        </tr>
+        <tr>
+          <td><strong>2 · Alternativas (BATNA)</strong></td>
+          <td><code>/investigar-prospecto</code><br><code>/disenar-estrategia</code><br><code>/radiografia-negociacion</code></td>
+          <td>Estimación del costo de salida del otro + diseño del segundo túnel propio + evaluación del BATNA en la mesa</td>
+        </tr>
+        <tr>
+          <td><strong>3 · Opciones (rentabilidad infinita)</strong></td>
+          <td><code>/disenar-estrategia</code><br><code>/plan-accion</code><br><code>/patrones-equipo</code></td>
+          <td>Lluvia de variables priorizadas + orden táctico de concesiones + detección de qué variables ganan más en el equipo</td>
+        </tr>
+        <tr>
+          <td><strong>4 · Criterios</strong></td>
+          <td><code>/disenar-estrategia</code><br><code>/radiografia-negociacion</code></td>
+          <td>Criterios objetivos pre-preparados + evaluación de "cambiar pelea por explicación" en la mesa</td>
+        </tr>
+        <tr>
+          <td><strong>5 · Compromiso (ZOPA)</strong></td>
+          <td><code>/disenar-estrategia</code><br><code>/radiografia-negociacion</code></td>
+          <td>Excelente / bueno / aceptable con cifras + evaluación de ancla puesta + movimiento en la zona</td>
+        </tr>
+        <tr>
+          <td><strong>6 · Relación</strong></td>
+          <td><code>/investigar-prospecto</code><br><code>/plan-accion</code><br><code>/radiografia-negociacion</code></td>
+          <td>Estado de confianza + información privilegiada a conseguir + evaluación de depósitos hechos</td>
+        </tr>
+        <tr>
+          <td><strong>7 · Comunicación</strong></td>
+          <td><em>Todos los skills</em></td>
+          <td>Preguntas de surfing, ratio de palabras, regla 95/5, neurociencia aplicada</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid-3 mt-32">
+      <div class="highlight-box purple" style="margin: 0;">
+        <div class="highlight-label">💡 6 preguntas</div>
+        <p style="font-size: 13.5px;">Son el núcleo de <code>/disenar-estrategia</code>. El sistema no deja pasar ningún caso a la mesa sin las 6 respondidas por escrito.</p>
+      </div>
+      <div class="highlight-box emerald" style="margin: 0;">
+        <div class="highlight-label">💡 Tipologías</div>
+        <p style="font-size: 13.5px;">Suave, Duro, Firme, Soviético, HP — aparecen en cada skill. Se estiman, se anticipan, se practican, se confirman, se tabulan.</p>
+      </div>
+      <div class="highlight-box red" style="margin: 0;">
+        <div class="highlight-label">💡 Errores críticos</div>
+        <p style="font-size: 13.5px;">Temor al conflicto, compra de paz. Checklist explícito en cada radiografía y ciclo de corrección en el coaching personal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AHA MOMENTS -->
+<section class="section section-alt" id="aha">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">07 · Los 4 aha moments</div>
+      <h2>Lo que el público <span class="gradient-text-purple">va a sentir</span></h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="aha-card">
+        <span class="aha-number">#01</span>
+        <h4>"Esto no es research, es una estrategia de negociación"</h4>
+        <p>Cuando <code>/disenar-estrategia</code> devuelve un plan de batalla que un coach JIT firmaría —con las 6 preguntas respondidas, ZOPA definida, variables priorizadas y anclaje con guion listo—, el público entiende que el sistema <em>no le da información, le opera el método</em>.</p>
+      </div>
+      <div class="aha-card">
+        <span class="aha-number">#02</span>
+        <h4>"Esto no es un resumen, es una radiografía"</h4>
+        <p>Cuando <code>/radiografia-negociacion</code> dice <em>"en el minuto 24 cediste el precio antes de indagar el interés real — violaste el hueso 4 y activaste el hard cap de compra de paz"</em>, el público entiende la diferencia entre un transcript y un análisis forense.</p>
+      </div>
+      <div class="aha-card">
+        <span class="aha-number">#03</span>
+        <h4>"Puedo auditar 50 negociaciones con la profundidad con que antes auditaba 2"</h4>
+        <p>Cuando el director ve en <code>/performance-equipo</code> que Juan cae en descuento temprano el 70% de las veces con un plan específico para él, entiende que el sistema <em>multiplica su capacidad de coach sin multiplicar sus horas</em>.</p>
+      </div>
+      <div class="aha-card">
+        <span class="aha-number">#04</span>
+        <h4>"El sistema aprende. La organización se vuelve más inteligente con cada venta"</h4>
+        <p>Cuando <code>/patrones-equipo</code> muestra que la objeción X apareció en 9 de 12 calls con la respuesta ganadora extraída como regla empírica, el público entiende que <em>cada negociación deposita capital en un activo que no se deprecia</em>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPIOS -->
+<section class="section" id="principios">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">08 · Principios rectores</div>
+      <h2><span class="gradient-text">Reproducible · Medible · Verificable</span></h2>
+      <p class="subtitle" style="margin: 16px auto 0;">Los tres principios del método JIT aplican al sistema.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon emerald">✓</div>
+        <h3>Reproducible</h3>
+        <p>Cualquier negociador del equipo puede correr el mismo flujo y obtener outputs estructuralmente idénticos, porque cada skill lee el mismo framework y sigue la misma secuencia de análisis.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon amber">📊</div>
+        <h3>Medible</h3>
+        <p>Cada negociación produce un scorecard numérico contra los 7 huesos, con hard caps explícitos, evidencia textual en cada afirmación, y trayectoria histórica por negociador y equipo.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon blue">🔍</div>
+        <h3>Verificable</h3>
+        <p>Toda observación cita el momento exacto del transcript. El análisis es auditable por cualquier humano con acceso al caso. El framework es un archivo único y versionado, no un prompt oculto.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box mt-32">
+      <div class="highlight-label">🔐 Dato técnico</div>
+      <p>Todo corre <strong>localmente en el equipo del cliente</strong>. Los transcripts, casos y memoria organizacional nunca salen del entorno del cliente. Ideal para negociación B2B con confidencialidad estricta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOOTCAMP -->
+<section class="section section-alt" id="bootcamp">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">09 · Propuesta del Bootcamp</div>
+      <h2>Dos sesiones. <span class="gradient-text-purple">Una tesis.</span></h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="tag tag-emerald mb-16" style="display: inline-block;">Sesión 1 · 29 abril</span>
+        <h3 style="margin-top: 8px;">De improvisar a operar con método</h3>
+        <div class="schedule-list mt-24" style="padding: 0; background: transparent; border: none;">
+          <div class="schedule-row">
+            <div class="schedule-time">10 min</div>
+            <div class="schedule-content"><strong>Apertura</strong> — el problema: por qué el método JIT requiere un asistente para ser sostenido en la práctica.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time">30 min</div>
+            <div class="schedule-content"><strong>Demo Módulo 1</strong> — caso real en vivo: <code>/investigar-prospecto</code> → <code>/disenar-estrategia</code> → <code>/simular-negociacion</code> con un voluntario del público.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time">30 min</div>
+            <div class="schedule-content"><strong>Demo Módulo 2</strong> — call real traída por el público: <code>/procesar-call-ji</code> → <code>/radiografia-negociacion</code>.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time">10 min</div>
+            <div class="schedule-content"><strong>Cierre</strong> — mostrar cómo la memoria se alimenta con este caso.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag tag-pink mb-16" style="display: inline-block;">Sesión 2 · 6 mayo</span>
+        <h3 style="margin-top: 8px;">El coach a escala</h3>
+        <div class="schedule-list mt-24" style="padding: 0; background: transparent; border: none;">
+          <div class="schedule-row">
+            <div class="schedule-time">10 min</div>
+            <div class="schedule-content"><strong>Recapitulación</strong> — lo que acumuló el sistema entre el 29 y el 6.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time">40 min</div>
+            <div class="schedule-content"><strong>Demo Módulo 3</strong> — 3 casos reales de asistentes del 29: <code>/performance-equipo</code> + <code>/patrones-equipo</code> con data real.</div>
+          </div>
+          <div class="schedule-row">
+            <div class="schedule-time">30 min</div>
+            <div class="schedule-content"><strong>Co-diseño abierto</strong> — oportunidades con JIT: <em>"¿qué skill construimos para la próxima ola de bootcamps?"</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="copy-block mt-32">
+      <div class="copy-label">La apuesta estratégica</div>
+      <div class="copy-text">Co-crear con José Ignacio Tobón un <strong style="font-style: normal;">JIT Skill Pack</strong> oficial que se integre como componente digital de sus bootcamps. JIT aporta metodología y audiencia; Irrelevant aporta la infraestructura técnica y el mantenimiento.</div>
+      <div class="copy-attribution">El asistente que los alumnos se llevan del bootcamp a casa — no notas, no PDFs: un sistema operativo que les garantiza aplicar el método en cada mesa futura.</div>
+    </div>
+
+    <h3 class="mt-32 mb-16" style="text-align: center;">Condiciones propuestas</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 30%;">Tema</th>
+          <th>Propuesta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Autoría del framework</strong></td>
+          <td>100% JIT. El archivo <code>framework-jose-ignacio.md</code> cita a JIT como única autoridad metodológica.</td>
+        </tr>
+        <tr>
+          <td><strong>Autoría del sistema</strong></td>
+          <td>Irrelevant construye y mantiene.</td>
+        </tr>
+        <tr>
+          <td><strong>Distribución</strong></td>
+          <td>Coordinada con JIT — el sistema se entrega como parte de bootcamps in-house y consultorías.</td>
+        </tr>
+        <tr>
+          <td><strong>Licenciamiento</strong></td>
+          <td>A definir conjuntamente — modelo SaaS, sharing o licencia por alumno.</td>
+        </tr>
+        <tr>
+          <td><strong>Roadmap</strong></td>
+          <td>Sesiones trimestrales de co-diseño para incorporar refinamientos de JIT al framework y al sistema.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- VALIDACIÓN -->
+<section class="section" id="validacion">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">10 · Lo que necesito de JIT</div>
+      <h2>Tres validaciones para <span class="gradient-text">avanzar</span></h2>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-number">1</div>
+      <div class="rule-content">
+        <h4>¿El framework capturado es fiel al método?</h4>
+        <p>Revisión del documento <code>framework/framework-jose-ignacio.md</code>. Cualquier refinamiento se aplica en un solo archivo y todo el sistema se recalibra.</p>
+      </div>
+    </div>
+    <div class="rule-card" style="border-left-color: var(--amber);">
+      <div class="rule-number" style="background: var(--amber-bg); color: var(--amber);">2</div>
+      <div class="rule-content">
+        <h4>¿La arquitectura operacional tiene sentido?</h4>
+        <p>Los 3 módulos + memoria cubren las 4 fases del método JIT (Diagnóstico, Preparación, Negociación, Captura).</p>
+      </div>
+    </div>
+    <div class="rule-card" style="border-left-color: var(--emerald);">
+      <div class="rule-number" style="background: var(--emerald-bg); color: var(--emerald);">3</div>
+      <div class="rule-content">
+        <h4>¿Entramos al 29 y al 6 con este sistema como demo central?</h4>
+        <p>Si sí, afinamos el guion del workshop esta semana.</p>
+      </div>
+    </div>
+
+    <div class="next-step">
+      <div class="next-step-label">→ Próximos pasos propuestos</div>
+      <ol>
+        <li>Revisión del framework por parte de JIT</li>
+        <li>Incorporar refinamientos metodológicos</li>
+        <li>Seleccionar un caso real como hilo conductor del demo del 29</li>
+        <li>Alineación final del guion de las dos sesiones</li>
+        <li>Si aplica: conversación comercial sobre la co-creación del JIT Skill Pack</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing-section">
+  <div class="closing-quote">
+    <div class="quote-mark">❝</div>
+    <blockquote>No basta con saber negociar. Hay que poder demostrarlo.</blockquote>
+    <div class="attribution">— José Ignacio Tobón</div>
+  </div>
+  <div class="closing-tagline">
+    Este sistema existe para que lo demuestren<br>
+    cada día · en cada mesa · en cada equipo.
+  </div>
+</section>
+
+<footer class="footer">
+  <p><strong>Irrelevant</strong> · Juan Pablo Gómez · jpgomez@stayirrelevant.com<br>
+  Preparado para <strong>José Ignacio Tobón</strong> · 21 abril 2026 · <strong>JIT Sales OS v1.0</strong></p>
+</footer>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '13px',
+      darkMode: true,
+      background: '#191626',
+      primaryColor: '#191626',
+      primaryTextColor: '#e8eaed',
+      primaryBorderColor: '#7c3aed',
+      lineColor: '#a78bfa',
+      secondaryColor: '#2a2640',
+      tertiaryColor: '#110e1a',
+      mainBkg: '#191626',
+      clusterBkg: '#1e1a2e',
+      clusterBorder: '#7c3aed',
+      edgeLabelBackground: '#191626',
+      nodeTextColor: '#e8eaed',
+      titleColor: '#a78bfa'
+    },
+    flowchart: {
+      curve: 'basis',
+      padding: 24,
+      nodeSpacing: 50,
+      rankSpacing: 70,
+      htmlLabels: true
+    }
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+  // Sticky nav hide on scroll down
+  let lastScroll = 0;
+  const nav = document.querySelector('.top-nav');
+  window.addEventListener('scroll', () => {
+    const cur = window.scrollY;
+    if (cur > lastScroll && cur > 200) {
+      nav.style.transform = 'translateY(-100%)';
+    } else {
+      nav.style.transform = 'translateY(0)';
+    }
+    lastScroll = cur;
+  });
+</script>
+
+</body>
+</html>

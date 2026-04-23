@@ -144,15 +144,21 @@ Reemplaza TODOS los `{{PLACEHOLDER}}` con contenido real:
 - {{COMERCIAL_EMAIL}} — por defecto "jpgomez@stayirrelevant.com"
 - {{COMERCIAL_TELEFONO}} — por defecto "+57 318 335 1733"
 
-**Del Edu Layer (OBLIGATORIO — slides 16 y 17):**
-- {{EDU_LAYER_BENEFICIO_1}} — por defecto "Entienden qué es IA y qué no"
-- {{EDU_LAYER_BENEFICIO_2}} — por defecto "Practican con Claude sobre SUS procesos"
-- {{EDU_LAYER_BENEFICIO_3}} — por defecto "Salen con ideas concretas"
-- {{EDU_LAYER_BENEFICIO_4}} — por defecto "Usan las herramientas al 100%"
-- {{EDU_LAYER_CASO}} — por defecto "Bancolombia"
-- {{EDU_LAYER_PRECIO}} — por defecto "$4.500.000 COP + IVA"
+**Del Edu Empresarial (OBLIGATORIO — slides 16 y 17):**
 
-**NOTA:** Los slides de Edu Layer son OBLIGATORIOS en cada presentacion de Ops Layer. Son el upsell natural — el cliente siente lo que su equipo se lleva despues del workshop. Solo se remueven si el comercial lo pide explicitamente.
+**NOTA 2026-04-22 post cascade**: el producto Edu evolucionó del Workshop Think AI de 3 horas a **Programa Edu Empresarial (Soteco-style · 4 sesiones × 3h)**. El pricing y scope son distintos. Los templates de slides existentes (`Templates/Comercial/Slides Propuesta Ops/`) todavia mencionan el producto viejo. Cuando un comercial genere nuevos slides, reemplazar estos valores:
+
+- {{EDU_LAYER_BENEFICIO_1}} — por defecto "Equipo pasa de 'he oido de IA' a operar con AI-first"
+- {{EDU_LAYER_BENEFICIO_2}} — por defecto "Ejercicios con casos REALES del equipo (Discovery + Form previo)"
+- {{EDU_LAYER_BENEFICIO_3}} — por defecto "Entregable: ≥3 procesos automatizados + biblioteca de prompts"
+- {{EDU_LAYER_BENEFICIO_4}} — por defecto "Plan 30 dias post-programa para instalar habito"
+- {{EDU_LAYER_CASO}} — por defecto "Bancolombia"
+- {{EDU_LAYER_PRECIO}} — por defecto "$10.000.000 COP + IVA (4 sesiones mensual) o $8.000.000 intensiva"
+- {{EDU_LAYER_DURACION}} — por defecto "4 semanas (mensual) o 1 semana (intensiva)"
+
+**NOTA:** Los slides de Edu Empresarial son OBLIGATORIOS en cada presentacion de Ops Layer. Son el upsell natural — el cliente siente lo que su equipo se lleva despues del programa. Solo se remueven si el comercial lo pide explicitamente.
+
+**Ademas del Edu Empresarial**, ahora existe Cohort B2C como producto paralelo (ver `docs/CASCADE_ALIGNMENT.md`) · pero Cohort B2C NO se menciona en slides de propuesta Ops porque es producto distinto para target distinto (individuos, no empresas).
 
 ### Reglas de generacion:
 

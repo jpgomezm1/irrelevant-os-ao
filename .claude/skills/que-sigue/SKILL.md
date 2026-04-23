@@ -120,9 +120,21 @@ Si es **Core Layer:**
 ➡️ /disenar-stack [empresa] — Define las herramientas
 ```
 
-Si es **Edu Layer:**
+Si es **Edu Empresarial (Capa 1a · Soteco-style)**:
 ```
-➡️ /cotizacion [empresa] edu — El Edu Layer no necesita diseño, directo a cotizar
+➡️ /cotizacion [empresa] edu-empresarial — Usar base Soteco · 4 sesiones × 3h mensual ($10M) o intensiva 1 semana ($8M)
+   Nota: Edu Layer antiguo (Workshop Think AI 3h · $4.5M) esta deprecado post cascade 2026-04-22
+```
+
+Si es **Cohort B2C (Capa 1b · por lanzamiento)**:
+```
+➡️ /vender-cohort [cohort-id] — Enrollment individual · USD $300-400/persona · no usa cotizacion formal
+```
+
+Si es **Proyecto Custom (Capa 0 · Badge)**:
+```
+➡️ /disenar-solucion [empresa] — Bespoke · usar referencias de proyectos badge como Indemneasy
+➡️ /cotizacion [empresa] proyecto-custom — $5-15M setup · retainer opcional
 ```
 
 Si **no se sabe el servicio:**
@@ -218,13 +230,16 @@ Si el comercial pregunta algo general:
 Listo. Desde ahí el sistema te dice qué sigue.
 ```
 
-### "¿Qué servicio le ofrezco?"
+### "¿Qué servicio le ofrezco?" (actualizado 2026-04-22 · 4 capas económicas)
 ```
 Depende de lo que encontraste en el discovery:
-- Procesos manuales y repetitivos → Ops Layer ($7M COP)
-- Quieren capacitar al equipo → Edu Layer ($4.5M COP)
-- Problema en el core del negocio → Core Layer (basado en impacto)
-💡 Lee: Assets Fijos/PROP_VALUE_IRRELEVANT.md para el detalle de cada servicio.
+- Construcción técnica custom (software dedicado) → Proyecto Custom / Capa 0 ($5-15M setup)
+- Capacitar al equipo de una empresa → Edu Empresarial / Capa 1a ($10M mensual · $8M intensiva)
+- Profesional individual quiere aprender por vertical → Cohort B2C / Capa 1b (USD $300-400)
+- Automatizar un área específica con AI → Ops Layer / Capa 2 ($7M COP · one-shot)
+- Amplificar propuesta de valor con AI (relación permanente) → Core Layer / Capa 3 (impact + retainer)
+💡 Primero ejecuta: /evaluar-fit-cascade [empresa] para confirmar fit con WTP antes de cotizar.
+💡 Lee: Assets Fijos/PROP_VALUE_IRRELEVANT.md + docs/CASCADE_ALIGNMENT.md para detalle.
 ```
 
 ### "¿Cómo hago una buena call?"

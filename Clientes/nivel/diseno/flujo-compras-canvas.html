@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nivel — Ciclo de compras · Flujo visual</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #110e1a;
+    --bg-canvas: #0a0714;
+    --card: #191626;
+    --card-hover: #1e1a2e;
+    --border: #2a2640;
+    --text: #e8eaed;
+    --text-muted: #8b8fa3;
+    --text-secondary: #6b6894;
+    --purple: #7c3aed;
+    --purple-light: #a78bfa;
+    --purple-glow: rgba(124, 58, 237, 0.3);
+    --purple-bg: rgba(124, 58, 237, 0.12);
+    --emerald: #34d399;
+    --emerald-glow: rgba(52, 211, 153, 0.35);
+    --emerald-bg: rgba(52, 211, 153, 0.12);
+    --amber: #fbbf24;
+    --amber-glow: rgba(251, 191, 36, 0.35);
+    --amber-bg: rgba(251, 191, 36, 0.12);
+    --pink: #f472b6;
+    --pink-glow: rgba(244, 114, 182, 0.35);
+    --pink-bg: rgba(244, 114, 182, 0.12);
+    --blue: #60a5fa;
+    --blue-glow: rgba(96, 165, 250, 0.35);
+    --blue-bg: rgba(96, 165, 250, 0.12);
+    --red: #f87171;
+    --red-glow: rgba(248, 113, 113, 0.35);
+    --red-bg: rgba(248, 113, 113, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body, html {
+    width: 100%; height: 100%; overflow: hidden;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-canvas);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* ═══ TOP BAR ═══════════════════════════════════ */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 68px;
+    background: rgba(17, 14, 26, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; z-index: 100;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 18px; }
+  .topbar-title {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .topbar-title .title-text {
+    font-size: 16px; font-weight: 800; letter-spacing: -0.3px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .topbar-title .badge {
+    font-size: 10px; font-weight: 700; color: var(--emerald);
+    background: var(--emerald-bg);
+    padding: 3px 9px; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: 1.2px;
+  }
+  .topbar-sep { height: 20px; width: 1px; background: var(--border); }
+  .topbar-label {
+    font-size: 12px; color: var(--text-muted); font-weight: 500;
+  }
+  .topbar-label strong { color: var(--text); font-weight: 600; }
+
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+  .tbtn {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    padding: 7px 12px; border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s;
+  }
+  .tbtn:hover { color: var(--text); border-color: var(--purple); background: var(--purple-bg); }
+  .tbtn kbd {
+    background: var(--border); color: var(--text-secondary);
+    padding: 1px 5px; border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-weight: 600;
+  }
+  .tbtn.primary {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; border-color: transparent;
+    box-shadow: 0 4px 16px rgba(124,58,237,0.3);
+  }
+  .tbtn.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.5); }
+  .tbtn.primary .play-icon { font-size: 10px; }
+
+  /* ═══ PHASE RIBBON ═══════════════════════════════════ */
+  .phase-ribbon {
+    position: fixed;
+    top: 68px; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(17, 14, 26, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 10px 24px;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 60;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .phase-ribbon .phase {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--text-muted);
+    padding: 4px 10px; border-radius: 6px;
+    transition: all 0.3s;
+  }
+  .phase-ribbon .phase .num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--purple-light); font-weight: 700;
+  }
+  .phase-ribbon .phase.active {
+    background: var(--purple-bg);
+    color: var(--text);
+  }
+  .phase-ribbon .arrow {
+    color: var(--text-secondary); font-size: 11px;
+  }
+
+  /* ═══ VIEWPORT & CANVAS ═══════════════════════════════════ */
+  #viewport {
+    position: absolute; top: 68px; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    cursor: grab;
+    background: var(--bg-canvas);
+  }
+  #viewport.grabbing { cursor: grabbing; }
+  #viewport::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(139, 143, 163, 0.06) 1px, transparent 0);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+  #viewport::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(600px circle at 30% 20%, rgba(124,58,237,0.08), transparent),
+      radial-gradient(500px circle at 70% 80%, rgba(52,211,153,0.05), transparent);
+    pointer-events: none;
+  }
+
+  #canvas {
+    position: absolute;
+    width: 3400px; height: 2400px;
+    transform-origin: 0 0;
+  }
+
+  /* ═══ SVG EDGES ═══════════════════════════════════ */
+  #edges {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .edge-path {
+    fill: none;
+    stroke-width: 2.5;
+    transition: opacity 0.3s, stroke-width 0.3s;
+  }
+  .edge-path.highlighted {
+    stroke-width: 4;
+    filter: drop-shadow(0 0 6px currentColor);
+  }
+  .flow-dot {
+    fill: currentColor;
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+  .edge-label-bg {
+    fill: var(--bg-canvas);
+    stroke-width: 1;
+  }
+  .edge-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+
+  /* ═══ NODES ═══════════════════════════════════ */
+  .node {
+    position: absolute;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    width: 260px;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s, opacity 0.3s, border-color 0.25s;
+    user-select: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  }
+  .node:hover {
+    transform: translateY(-3px) scale(1.02);
+    z-index: 10;
+  }
+
+  .node.m1 { border-color: rgba(52, 211, 153, 0.4); }
+  .node.m1:hover, .node.m1.highlighted { border-color: var(--emerald); box-shadow: 0 10px 30px var(--emerald-glow); }
+  .node.m2 { border-color: rgba(251, 191, 36, 0.4); }
+  .node.m2:hover, .node.m2.highlighted { border-color: var(--amber); box-shadow: 0 10px 30px var(--amber-glow); }
+  .node.m3 { border-color: rgba(96, 165, 250, 0.4); }
+  .node.m3:hover, .node.m3.highlighted { border-color: var(--blue); box-shadow: 0 10px 30px var(--blue-glow); }
+  .node.mem { border-color: rgba(244, 114, 182, 0.4); }
+  .node.mem:hover, .node.mem.highlighted { border-color: var(--pink); box-shadow: 0 10px 30px var(--pink-glow); }
+  .node.core { border-color: rgba(124, 58, 237, 0.5); }
+  .node.core:hover, .node.core.highlighted { border-color: var(--purple-light); box-shadow: 0 10px 30px var(--purple-glow); }
+  .node.mesa {
+    border-color: rgba(248, 113, 113, 0.55);
+    background: linear-gradient(135deg, var(--card), rgba(248,113,113,0.1));
+  }
+  .node.mesa:hover, .node.mesa.highlighted { border-color: var(--red); box-shadow: 0 10px 30px var(--red-glow); }
+
+  .node-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .step-badge {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 800;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+  .node.m1 .step-badge { background: var(--emerald-bg); color: var(--emerald); box-shadow: 0 0 0 1px rgba(52,211,153,0.3); }
+  .node.m2 .step-badge { background: var(--amber-bg); color: var(--amber); box-shadow: 0 0 0 1px rgba(251,191,36,0.3); }
+  .node.m3 .step-badge { background: var(--blue-bg); color: var(--blue); box-shadow: 0 0 0 1px rgba(96,165,250,0.3); }
+  .node.mem .step-badge { background: var(--pink-bg); color: var(--pink); box-shadow: 0 0 0 1px rgba(244,114,182,0.3); }
+  .node.core .step-badge { background: var(--purple-bg); color: var(--purple-light); box-shadow: 0 0 0 1px rgba(124,58,237,0.3); }
+  .node.mesa .step-badge { background: var(--red-bg); color: var(--red); box-shadow: 0 0 0 1px rgba(248,113,113,0.4); }
+
+  .node-icon {
+    font-size: 22px; line-height: 1; flex-shrink: 0;
+  }
+
+  .node-module-tag {
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    padding: 2px 7px; border-radius: 4px;
+    margin-left: auto;
+  }
+  .node.m1 .node-module-tag { background: var(--emerald-bg); color: var(--emerald); }
+  .node.m2 .node-module-tag { background: var(--amber-bg); color: var(--amber); }
+  .node.m3 .node-module-tag { background: var(--blue-bg); color: var(--blue); }
+  .node.mem .node-module-tag { background: var(--pink-bg); color: var(--pink); }
+  .node.core .node-module-tag { background: var(--purple-bg); color: var(--purple-light); }
+  .node.mesa .node-module-tag { background: var(--red-bg); color: var(--red); }
+
+  .node-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .node.m1 .node-name { color: var(--emerald); }
+  .node.m2 .node-name { color: var(--amber); }
+  .node.m3 .node-name { color: var(--blue); }
+  .node.mem .node-name { color: var(--pink); }
+  .node.core .node-name { color: var(--purple-light); }
+  .node.mesa .node-name { color: var(--red); }
+
+  .node-title {
+    font-size: 15px; font-weight: 700;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .node-desc {
+    font-size: 12px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .node.big { width: 300px; padding: 20px 22px; }
+  .node.big .node-title { font-size: 17px; }
+
+  .start-badge {
+    position: absolute;
+    top: -14px; right: -14px;
+    background: linear-gradient(135deg, var(--red), #dc2626);
+    color: white;
+    font-weight: 800; font-size: 10px;
+    padding: 5px 12px; border-radius: 100px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px var(--red-glow);
+    display: flex; align-items: center; gap: 5px;
+    animation: startPulse 2s ease-in-out infinite;
+    z-index: 5;
+  }
+  @keyframes startPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 14px var(--red-glow); }
+    50% { transform: scale(1.08); box-shadow: 0 6px 24px var(--red-glow); }
+  }
+  .start-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 8px white;
+  }
+
+  .node.memfile {
+    width: 200px; padding: 12px 14px;
+    background: rgba(244, 114, 182, 0.05);
+    border-style: dashed;
+    border-color: rgba(244, 114, 182, 0.35);
+  }
+  .node.memfile:hover, .node.memfile.highlighted {
+    border-style: solid; border-color: var(--pink);
+    background: rgba(244, 114, 182, 0.1);
+    box-shadow: 0 8px 20px var(--pink-glow);
+  }
+  .node.memfile .node-name { font-size: 11.5px; color: var(--pink); margin-bottom: 4px; }
+  .node.memfile .node-desc { font-size: 11px; }
+  .node.memfile .memfile-icon {
+    font-size: 14px; margin-right: 6px;
+  }
+
+  #canvas.focused .node:not(.highlighted):not(:hover) { opacity: 0.25; }
+  #canvas.focused .edge-path:not(.highlighted) { opacity: 0.08; }
+  #canvas.focused .group { opacity: 0.3; }
+  #canvas.focused .flow-dot-anim { opacity: 0; }
+
+  @keyframes breatheGlow {
+    0%, 100% { box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+    50% { box-shadow: 0 4px 14px rgba(0,0,0,0.35), 0 0 20px rgba(124,58,237,0.08); }
+  }
+  .node:not(.memfile) { animation: breatheGlow 6s ease-in-out infinite; }
+
+  .node.demo-active {
+    transform: scale(1.08);
+    z-index: 20;
+  }
+  .node.m1.demo-active { box-shadow: 0 0 0 3px var(--emerald), 0 0 60px var(--emerald-glow); }
+  .node.m2.demo-active { box-shadow: 0 0 0 3px var(--amber), 0 0 60px var(--amber-glow); }
+  .node.m3.demo-active { box-shadow: 0 0 0 3px var(--blue), 0 0 60px var(--blue-glow); }
+  .node.mem.demo-active { box-shadow: 0 0 0 3px var(--pink), 0 0 60px var(--pink-glow); }
+  .node.core.demo-active { box-shadow: 0 0 0 3px var(--purple-light), 0 0 60px var(--purple-glow); }
+  .node.mesa.demo-active { box-shadow: 0 0 0 3px var(--red), 0 0 60px var(--red-glow); }
+
+  /* ═══ GROUPS ═══════════════════════════════════ */
+  .group {
+    position: absolute;
+    border: 2px dashed;
+    border-radius: 22px;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .group.m1 { border-color: rgba(52, 211, 153, 0.18); background: rgba(52,211,153,0.02); }
+  .group.m2 { border-color: rgba(251, 191, 36, 0.18); background: rgba(251,191,36,0.02); }
+  .group.m3 { border-color: rgba(96, 165, 250, 0.18); background: rgba(96,165,250,0.02); }
+  .group.mem { border-color: rgba(244, 114, 182, 0.18); background: rgba(244,114,182,0.02); }
+  .group.mesa { border-color: rgba(248, 113, 113, 0.22); background: rgba(248,113,113,0.03); }
+
+  .group-label-wrap {
+    position: absolute;
+    top: -18px; left: 40px;
+    background: var(--bg-canvas);
+    padding: 5px 16px;
+    border-radius: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .group-label-wrap .group-persona {
+    font-size: 10px; font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding-right: 10px; border-right: 1px solid var(--border);
+  }
+  .group-label-wrap .group-label {
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .group.m1 .group-label-wrap { border: 1px solid rgba(52, 211, 153, 0.35); }
+  .group.m1 .group-label { color: var(--emerald); }
+  .group.m2 .group-label-wrap { border: 1px solid rgba(251, 191, 36, 0.35); }
+  .group.m2 .group-label { color: var(--amber); }
+  .group.m3 .group-label-wrap { border: 1px solid rgba(96, 165, 250, 0.35); }
+  .group.m3 .group-label { color: var(--blue); }
+  .group.mem .group-label-wrap { border: 1px solid rgba(244, 114, 182, 0.35); }
+  .group.mem .group-label { color: var(--pink); }
+  .group.mesa .group-label-wrap { border: 1px solid rgba(248, 113, 113, 0.4); }
+  .group.mesa .group-label { color: var(--red); }
+
+  .group-arrow {
+    position: absolute;
+    bottom: 10px; right: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .group.m1 .group-arrow { color: var(--emerald); }
+  .group.m2 .group-arrow { color: var(--amber); }
+  .group.m3 .group-arrow { color: var(--blue); }
+  .group.mem .group-arrow { color: var(--pink); }
+  .group.mesa .group-arrow { color: var(--red); }
+
+  /* ═══ LEGEND ═══════════════════════════════════ */
+  .legend {
+    position: fixed;
+    top: 140px; left: 24px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 12px;
+    max-width: 230px;
+    z-index: 50;
+  }
+  .legend-title {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 3px 0;
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+  .legend-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-dot.m1 { background: var(--emerald); box-shadow: 0 0 8px var(--emerald-glow); }
+  .legend-dot.m2 { background: var(--amber); box-shadow: 0 0 8px var(--amber-glow); }
+  .legend-dot.m3 { background: var(--blue); box-shadow: 0 0 8px var(--blue-glow); }
+  .legend-dot.mem { background: var(--pink); box-shadow: 0 0 8px var(--pink-glow); }
+  .legend-dot.core { background: var(--purple-light); box-shadow: 0 0 8px var(--purple-glow); }
+  .legend-dot.mesa { background: var(--red); box-shadow: 0 0 8px var(--red-glow); }
+
+  .help-panel {
+    position: fixed;
+    bottom: 24px; left: 24px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex; gap: 14px;
+    z-index: 50;
+  }
+  .help-panel kbd {
+    background: var(--border); color: var(--text);
+    padding: 2px 6px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-weight: 600;
+    margin: 0 3px;
+  }
+
+  .zoom-controls {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    display: flex; flex-direction: column; gap: 4px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px;
+    z-index: 50;
+  }
+  .zoom-btn {
+    width: 34px; height: 34px;
+    background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer;
+    border-radius: 6px;
+    font-size: 18px; font-weight: 700;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .zoom-btn:hover { color: var(--text); background: var(--purple-bg); }
+  .zoom-level {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text-muted);
+    text-align: center;
+    padding: 4px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .side-panel {
+    position: fixed;
+    top: 68px; right: 0; bottom: 0;
+    width: 440px;
+    background: var(--card);
+    border-left: 1px solid var(--border);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(.25,.46,.45,.94);
+    z-index: 80;
+    overflow-y: auto;
+    box-shadow: -20px 0 40px rgba(0,0,0,0.3);
+  }
+  .side-panel.open { transform: translateX(0); }
+  .side-panel-header {
+    padding: 26px 30px 22px;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: var(--card);
+    z-index: 5;
+  }
+  .side-panel-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 32px; height: 32px;
+    background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer;
+    border-radius: 6px;
+    font-size: 22px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .side-panel-close:hover { color: var(--text); background: var(--border); }
+  .side-panel-label {
+    display: inline-block;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 9px; border-radius: 4px;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .side-panel-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .side-panel-title {
+    font-size: 24px; font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.6px;
+  }
+  .side-panel-body { padding: 26px 30px 50px; }
+  .side-panel-section { margin-bottom: 24px; }
+  .side-panel-section-title {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--purple-light);
+    margin-bottom: 10px;
+  }
+  .side-panel-section p {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+  .side-panel-section strong { color: var(--text); font-weight: 600; }
+  .side-panel-section ul { list-style: none; padding: 0; }
+  .side-panel-section ul li {
+    position: relative; padding-left: 18px;
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.55;
+    margin: 6px 0;
+  }
+  .side-panel-section ul li::before {
+    content: "→"; position: absolute; left: 0;
+    color: var(--purple-light); font-weight: 700;
+  }
+  .side-panel .principle {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(52, 211, 153, 0.04));
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 10px;
+    font-size: 13px; color: var(--text);
+    font-style: italic;
+  }
+  .side-panel .principle strong {
+    font-style: normal;
+    color: var(--purple-light);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .side-panel code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--purple-light);
+    background: var(--purple-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .demo-overlay {
+    position: fixed;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(17,14,26,0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--purple);
+    border-radius: 16px;
+    padding: 20px 28px;
+    display: none;
+    align-items: center; gap: 20px;
+    max-width: 720px;
+    z-index: 90;
+    box-shadow: 0 20px 60px rgba(124,58,237,0.3);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .demo-overlay.visible {
+    display: flex;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .demo-step-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple-light);
+    letter-spacing: 1.5px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+  .demo-step-count .current {
+    font-size: 28px;
+    color: var(--text);
+    display: block;
+    letter-spacing: -1px;
+  }
+  .demo-step-count .total {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+  .demo-divider {
+    width: 1px;
+    align-self: stretch;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .demo-content { flex: 1; }
+  .demo-content h4 {
+    font-size: 15px; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .demo-content p {
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .demo-controls {
+    display: flex; gap: 6px;
+    flex-shrink: 0;
+  }
+  .demo-controls button {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .demo-controls button:hover { color: var(--text); border-color: var(--purple); background: var(--purple-bg); }
+  .demo-controls button.exit {
+    background: var(--red-bg); color: var(--red); border-color: rgba(248,113,113,0.3);
+  }
+  .demo-controls button.exit:hover { background: var(--red); color: white; border-color: var(--red); }
+
+  .welcome-tip {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(17,14,26,0.98);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--purple);
+    border-radius: 20px;
+    padding: 32px 40px;
+    text-align: center;
+    max-width: 480px;
+    z-index: 200;
+    box-shadow: 0 20px 80px rgba(124,58,237,0.4);
+  }
+  .welcome-tip.hidden { display: none; }
+  .welcome-tip .icon {
+    font-size: 40px; margin-bottom: 12px;
+  }
+  .welcome-tip h3 {
+    font-size: 20px; font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .welcome-tip p {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.6; margin-bottom: 20px;
+  }
+  .welcome-tip .actions {
+    display: flex; gap: 10px; justify-content: center;
+  }
+  .welcome-tip button {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    padding: 10px 20px; border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .welcome-tip button:hover { color: var(--text); border-color: var(--purple); }
+  .welcome-tip button.primary {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; border-color: transparent;
+    box-shadow: 0 4px 16px rgba(124,58,237,0.3);
+  }
+  .welcome-tip button.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.5); }
+
+  /* The logo PNG has ~22% transparent padding on top and bottom.
+     We render it large and clip those transparent areas with clip-path,
+     then pull the clipped space back with negative margins so the
+     logo visually fills the bar without forcing a taller bar. */
+  .brand-logo {
+    height: 140px;
+    width: auto;
+    display: block;
+    opacity: 1;
+    clip-path: inset(24% 0 24% 0);
+    margin: -33px 0;
+  }
+  .brand-logo-welcome {
+    height: 180px;
+    width: auto;
+    display: block;
+    margin: -40px auto -20px;
+    opacity: 1;
+    clip-path: inset(22% 0 22% 0);
+  }
+
+  @media (max-width: 900px) {
+    .legend, .help-panel, .phase-ribbon { display: none; }
+    .side-panel { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <img class="brand-logo" src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="Irrelevant">
+    <div class="topbar-sep"></div>
+    <div class="topbar-title">
+      <span class="title-text">Nivel · Ciclo de compras</span>
+      <span class="badge">Flujo P2P</span>
+    </div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-label"><strong>5 skills</strong> · 5 pasos manuales · 1 memoria viva</div>
+  </div>
+  <div class="topbar-right">
+    <button class="tbtn primary" id="btn-play"><span class="play-icon">▶</span> Ver flujo guiado</button>
+    <button class="tbtn" id="btn-fit"><kbd>F</kbd> Ajustar</button>
+    <button class="tbtn" id="btn-help">?</button>
+  </div>
+</div>
+
+<div class="phase-ribbon" id="phase-ribbon">
+  <div class="phase" data-phase="1"><span class="num">01</span> Requerir</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="2"><span class="num">02</span> Comprar</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="3"><span class="num">03</span> Pagar</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="4"><span class="num">04</span> Aprender</div>
+</div>
+
+<div class="legend">
+  <div class="legend-title">Leyenda</div>
+  <div class="legend-item"><span class="legend-dot core"></span>Base documental (autoridad)</div>
+  <div class="legend-item"><span class="legend-dot m1"></span>Compras — skills</div>
+  <div class="legend-item"><span class="legend-dot m2"></span>Pago — skills</div>
+  <div class="legend-item"><span class="legend-dot mesa"></span>Paso manual / Paco / banco</div>
+  <div class="legend-item"><span class="legend-dot mem"></span>Memoria viva (aprende)</div>
+  <div class="legend-item"><span class="legend-dot m3"></span>Retroalimenta skills</div>
+</div>
+
+<div class="help-panel">
+  <span><kbd>scroll</kbd> zoom</span>
+  <span><kbd>drag</kbd> mover</span>
+  <span><kbd>click</kbd> detalle</span>
+  <span><kbd>hover</kbd> resalta ruta</span>
+</div>
+
+<div class="zoom-controls">
+  <button class="zoom-btn" id="btn-zoom-in">+</button>
+  <div class="zoom-level" id="zoom-level">100%</div>
+  <button class="zoom-btn" id="btn-zoom-out">−</button>
+</div>
+
+<div id="viewport">
+  <div id="canvas">
+    <svg id="edges"></svg>
+  </div>
+</div>
+
+<div class="side-panel" id="side-panel">
+  <div class="side-panel-header">
+    <button class="side-panel-close" id="side-panel-close">×</button>
+    <div id="side-panel-label"></div>
+    <div id="side-panel-name"></div>
+    <div id="side-panel-title"></div>
+  </div>
+  <div class="side-panel-body" id="side-panel-body"></div>
+</div>
+
+<div class="demo-overlay" id="demo-overlay">
+  <div class="demo-step-count">
+    <span class="current" id="demo-current">01</span>
+    <span class="total">de <span id="demo-total">12</span></span>
+  </div>
+  <div class="demo-divider"></div>
+  <div class="demo-content">
+    <h4 id="demo-title">Título del paso</h4>
+    <p id="demo-desc">Descripción del paso en el flujo.</p>
+  </div>
+  <div class="demo-controls">
+    <button id="demo-prev" title="Anterior">‹</button>
+    <button id="demo-next" title="Siguiente">›</button>
+    <button id="demo-exit" class="exit" title="Salir">✕</button>
+  </div>
+</div>
+
+<div class="welcome-tip" id="welcome-tip">
+  <img class="brand-logo-welcome" src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="Irrelevant">
+  <div class="icon">🔄</div>
+  <h3>Ciclo de compras de Nivel</h3>
+  <p>El ciclo completo <strong>requisición → pago → conciliación</strong> en un solo mapa. 5 skills automatizados + 5 pasos manuales + 1 memoria viva que enriquece el sistema en cada vuelta. Navega con <kbd style="background:var(--border);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">scroll</kbd> y <kbd style="background:var(--border);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">drag</kbd>.</p>
+  <div class="actions">
+    <button id="welcome-explore">Explorar libremente</button>
+    <button class="primary" id="welcome-play">▶ Ver flujo guiado</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA — NIVEL · CICLO DE COMPRAS
+// ═══════════════════════════════════════════════════════════════
+
+const NODES = [
+  // ── BASE DOCUMENTAL (autoridad) ──
+  {
+    id: 'base-docs', type: 'core', big: true,
+    x: 1550, y: 100,
+    icon: '📚', moduleTag: 'Autoridad', step: '00',
+    name: 'base-documental',
+    title: 'PUC + criterios tácitos',
+    desc: 'Plan Único de Cuentas · criterios de selección de proveedores · tabla histórica · políticas de aprobación. La fuente que cada skill consulta.',
+    phase: null,
+    detail: {
+      section: 'Capa de autoridad',
+      intro: 'La base documental es la memoria congelada de Nivel: todo lo que el equipo sabe hoy sobre cómo se compra, a quién, y cómo se causa. Cada skill del ciclo la consulta antes de operar.',
+      input: 'Curada por el equipo de Nivel una sola vez, luego versionada.',
+      output: [
+        'PUC de Nivel (Plan Único de Cuentas) — cuentas contables y cuándo usar cada una',
+        'Criterios tácitos de selección de proveedores — ej. plazo de pago ≥ 30 días, cumplimiento histórico, cercanía a obra, capacidad de respaldo',
+        'Tabla maestra de proveedores por categoría (cemento, acero, mano de obra, servicios…)',
+        'Políticas de aprobación (montos, firmas, flujos burocráticos)',
+        'Plantillas estándar: OC, correo de solicitud, archivo plano Paco'
+      ],
+      principle: 'Lo que hoy vive en la cabeza de Martin, María del Rosario o el contable, aquí queda versionado y consultable por todos los skills.'
+    }
+  },
+
+  // ── REQUISICIÓN (manual, disparador) ──
+  {
+    id: 'requisicion', type: 'mesa',
+    x: 140, y: 460,
+    icon: '📝', moduleTag: 'Manual', step: '01', isStart: true,
+    name: 'requisicion',
+    title: 'Detectar la necesidad',
+    desc: 'Alguien detecta una necesidad de compra (cemento para proyecto X, equipo para oficina…). Input humano — no automatizable.',
+    phase: 1,
+    detail: {
+      section: 'Paso manual — entrada al ciclo',
+      intro: 'El disparador del ciclo. Un líder de obra, el director de proyecto o el administrativo identifica que algo se necesita comprar.',
+      input: 'Observación humana en terreno u operación.',
+      output: [
+        'Requisición con qué se necesita comprar',
+        'Cantidades',
+        'Plazo requerido',
+        'Proyecto al que se imputa',
+        'Nivel de urgencia'
+      ],
+      principle: 'Este paso nunca se automatiza — requiere juicio humano sobre la operación. A partir de aquí, la IA hace el trabajo repetitivo.'
+    }
+  },
+
+  // ── COMPRAS · SKILLS ──
+  {
+    id: 'skill-1', type: 'm1',
+    x: 820, y: 460,
+    icon: '✉️', moduleTag: 'Skill 1', step: '02',
+    name: '/solicitar-cotizaciones',
+    title: 'Pedir cotizaciones',
+    desc: 'Toma la requisición, selecciona proveedores de la tabla y manda correos personalizados. Organiza respuestas en la carpeta del ciclo.',
+    phase: 2,
+    detail: {
+      section: 'Compras — Skill 1',
+      intro: 'Automatiza el paso más repetitivo de compras: pedir cotizaciones a 3+ proveedores relevantes para cada requisición.',
+      input: 'La requisición del paso 01.',
+      output: [
+        'Lista de proveedores seleccionados según categoría y criterios tácitos',
+        'Correos personalizados enviados (plantilla + contexto específico)',
+        'Carpeta del ciclo creada con todas las cotizaciones entrantes organizadas',
+        'Seguimiento automático a proveedores que no responden'
+      ],
+      principle: 'Ahorro estimado: 3–5 horas/semana del área de compras.'
+    }
+  },
+  {
+    id: 'skill-2', type: 'm1',
+    x: 1500, y: 460,
+    icon: '📊', moduleTag: 'Skill 2', step: '03',
+    name: '/comparar-cotizaciones',
+    title: 'Cuadro comparativo + recomendación',
+    desc: 'Normaliza alcances línea por línea, flag de discrepancias ("línea 17, este incluye, este no"), cuadro consolidado y recomendación razonada.',
+    phase: 2,
+    detail: {
+      section: 'Compras — Skill 2',
+      intro: 'El dolor grande de Martin: "te traen tres proponentes, garantizar que el alcance sea el mismo es difícil". Esto lo resuelve.',
+      input: 'Las N cotizaciones recibidas en la carpeta del ciclo.',
+      output: [
+        'Extracción de ítems, cantidades, precios, plazos, condiciones de pago',
+        'Normalización de alcances (qué incluye cada uno, qué no, qué es opcional)',
+        'Cuadro comparativo consolidado',
+        'Flags línea por línea de discrepancias',
+        'Recomendación razonada ("Clemente gana por 30 días de crédito vs. 15 de Pergamino") — aplica los criterios tácitos cargados'
+      ],
+      principle: 'Ahorro estimado: 2–4 horas por ciclo de compra.'
+    }
+  },
+  {
+    id: 'skill-3', type: 'm1',
+    x: 2180, y: 460,
+    icon: '📄', moduleTag: 'Skill 3', step: '04',
+    name: '/generar-oc',
+    title: 'Orden de compra lista',
+    desc: 'Con la cotización ganadora, arma la OC poblada contra plantilla de Nivel. Lista para revisar y cargar a Paco.',
+    phase: 2,
+    detail: {
+      section: 'Compras — Skill 3',
+      intro: 'Cierra el bloque de compras: traduce la decisión del comparativo en la OC formal, con todos los campos poblados.',
+      input: 'La cotización ganadora + plantilla de OC de Nivel.',
+      output: [
+        'OC con todos los campos poblados: ítems, precios, plazos, condiciones',
+        'Validación cruzada: alcance de la OC contra alcance de la cotización ganadora',
+        'Documento listo para revisión humana antes de carga a Paco'
+      ],
+      principle: 'Ahorro estimado: 15–30 minutos por OC. La carga a Paco sigue siendo humana mientras Paco no tenga API abierta.'
+    }
+  },
+
+  // ── CARGA OC A PACO (manual) ──
+  {
+    id: 'carga-paco', type: 'mesa',
+    x: 2860, y: 460,
+    icon: '⬆️', moduleTag: 'Manual', step: '05',
+    name: 'cargar-oc-paco',
+    title: 'Cargar OC a Paco',
+    desc: 'Un humano sube la OC manualmente a Paco. Paco no tiene API abierta — este paso sigue siendo humano.',
+    phase: 2,
+    detail: {
+      section: 'Paso manual — interfaz con Paco',
+      intro: 'Paco (ERP inmobiliario) no expone API pública documentada. Mientras eso no cambie, este paso sigue siendo humano.',
+      input: 'La OC generada por el Skill 3.',
+      output: [
+        'OC registrada en Paco',
+        'Flujo burocrático de aprobación corre dentro de Paco'
+      ],
+      principle: 'Si en algún momento Paco habilita API (ya está en la conversación con el dueño), este paso se automatiza y queda end-to-end.'
+    }
+  },
+
+  // ── RECEPCIÓN DIAN (Paco auto) ──
+  {
+    id: 'recepcion-dian', type: 'mesa',
+    x: 1500, y: 860,
+    icon: '📥', moduleTag: 'Paco', step: '06',
+    name: 'recepcion-factura-dian',
+    title: 'Factura DIAN recibida',
+    desc: 'Paco jala la factura electrónica automáticamente desde la DIAN. Ya resuelto — no requiere skill.',
+    phase: 3,
+    detail: {
+      section: 'Paso automatizado por Paco',
+      intro: 'Cuando el proveedor emite la factura electrónica, Paco la jala automáticamente vía DIAN. Esto ya funciona en Nivel.',
+      input: 'Factura electrónica del proveedor en la DIAN.',
+      output: [
+        'Factura electrónica (XML + PDF) recibida en Paco',
+        'Metadatos extraídos: proveedor, valor, fecha, items'
+      ],
+      principle: 'No todo hay que automatizarlo dos veces. Si Paco ya lo hace, no lo tocamos.'
+    }
+  },
+
+  // ── PAGO · SKILLS ──
+  {
+    id: 'skill-4', type: 'm2',
+    x: 820, y: 1240,
+    icon: '🧾', moduleTag: 'Skill 4', step: '07',
+    name: '/causar-factura',
+    title: 'Causación con PUC',
+    desc: 'Recibe la factura, consulta el PUC de Nivel y propone la cuenta contable con justificación. "Café puede ser viáticos o gastos de representación" — el skill decide con criterio.',
+    phase: 3,
+    detail: {
+      section: 'Contabilidad — Skill 4',
+      intro: 'Quita del cerebro del contable la decisión repetitiva de cuenta contable. El PUC de Nivel se carga una vez como referencia.',
+      input: 'La factura recibida desde Paco (XML o descripción) + PUC de Nivel.',
+      output: [
+        'Cuenta contable propuesta con justificación textual',
+        'Validación cruzada contra reglas del PUC',
+        'Alertas si la factura no tiene match claro (casos borde para revisar)',
+        'El contable valida (humano en el loop) y registra en Paco'
+      ],
+      principle: 'Ahorro estimado: 3–5 horas/semana del área contable. Si Paco habilita API, esto se automatiza end-to-end.'
+    }
+  },
+  {
+    id: 'skill-5', type: 'm2',
+    x: 1500, y: 1240,
+    icon: '💸', moduleTag: 'Skill 5', step: '08',
+    name: '/cronograma-pagos',
+    title: 'Cronograma + archivo plano',
+    desc: 'Jala facturas pendientes, cruza con flujo de caja disponible, prioriza vencimientos y genera el archivo plano que Paco acepta.',
+    phase: 3,
+    detail: {
+      section: 'Tesorería — Skill 5',
+      intro: 'Tesorería deja de priorizar a mano. El skill cruza vencimientos con caja disponible y deja el archivo plano listo para cargar.',
+      input: 'Facturas causadas + flujo de caja disponible del período.',
+      output: [
+        'Cronograma de pagos priorizado ("hoy estas, mañana estas")',
+        'Respeto a vencimientos y caja disponible',
+        'Archivo plano en el formato exacto que Paco acepta',
+        'Listo para que un humano lo cargue'
+      ],
+      principle: 'Ahorro estimado: 2–3 horas/semana de tesorería.'
+    }
+  },
+
+  // ── EJECUCIÓN PAGO (manual banco) ──
+  {
+    id: 'ejecucion-pago', type: 'mesa',
+    x: 2180, y: 1240,
+    icon: '🏦', moduleTag: 'Manual', step: '09',
+    name: 'ejecucion-pago-banco',
+    title: 'Ejecutar pagos en banco',
+    desc: 'Un humano carga el archivo plano al banco y ejecuta los pagos. Sin conexión directa banco ↔ Paco.',
+    phase: 3,
+    detail: {
+      section: 'Paso manual — interfaz con banco',
+      intro: 'La ejecución del pago en el banco queda como paso humano. No hay conexión directa estructural entre Paco y el banco.',
+      input: 'Archivo plano generado por el Skill 5.',
+      output: [
+        'Pagos dispersados a proveedores',
+        'Confirmaciones bancarias'
+      ],
+      principle: 'Automatizar este paso requiere integración bancaria aparte — no entra en este paquete.'
+    }
+  },
+
+  // ── CONCILIACIÓN (manual, propuesto paquete 2) ──
+  {
+    id: 'conciliacion', type: 'mesa',
+    x: 2860, y: 1240,
+    icon: '🔍', moduleTag: 'Futuro', step: '10',
+    name: 'conciliacion-bancaria',
+    title: 'Conciliación bancaria',
+    desc: 'Cruza extractos bancarios vs. pagos registrados. Queda manual hoy — se propone como segundo paquete (agente Paco / Core Layer).',
+    phase: 3,
+    detail: {
+      section: 'Paso manual — candidato a 2º paquete',
+      intro: 'Dolor enorme que Martin mencionó en la C1. No es automatizable estructuralmente con el stack actual: extractos no identifican al pagador, hay pagos parciales, pagos desde cuentas personales…',
+      input: 'Extractos bancarios + registros de pagos en Paco.',
+      output: [
+        'Conciliación manual hoy',
+        'En un segundo paquete: agente conversacional sobre Paco que use el historial + reglas tácitas para sugerir matches'
+      ],
+      principle: 'Este es el hook natural al Core Layer. Primer paquete cierra el ciclo operativo; segundo paquete ataca esto.'
+    }
+  },
+
+  // ── MEMORIA VIVA ──
+  {
+    id: 'memoria', type: 'mem', big: true,
+    x: 1550, y: 1640,
+    icon: '🧠', moduleTag: 'Transversal', step: '11',
+    name: 'memoria-viva',
+    title: 'Aprende de cada ciclo',
+    desc: 'Cada vuelta del ciclo alimenta la base documental. Criterios tácitos se vuelven explícitos. Precios históricos se acumulan. El sistema es más inteligente en el ciclo 100 que en el 1.',
+    phase: 4,
+    detail: {
+      section: 'Memoria viva',
+      intro: 'Esto es lo que hace que el sistema no sea un ChatGPT con plantillas. Cada ciclo procesado alimenta cuatro archivos vivos que los skills consultan en la siguiente vuelta.',
+      input: 'Resultado de cada ciclo: qué proveedor ganó y por qué, qué cuenta contable se usó para qué tipo de factura, qué precio tuvo tal ítem en tal proyecto…',
+      output: [
+        'tabla-proveedores.md — tabla enriquecida con cumplimiento histórico, plazos reales, precio promedio',
+        'criterios-seleccion.md — los criterios tácitos se vuelven reglas explícitas ("para cemento priorizamos…")',
+        'puc-enriquecido.md — casos resueltos de causación con ejemplos textuales',
+        'historial-precios.md — precios pagados por ítem, por proyecto, por proveedor — permite "compáreme el cemento en todos los proyectos"'
+      ],
+      principle: 'Cada ciclo procesado hace al sistema más inteligente. En 6 meses, la tabla de proveedores de Nivel es un activo estratégico que hoy no existe.'
+    }
+  },
+
+  // ── MEMORY FILES ──
+  { id: 'mem-prov', type: 'memfile', x: 500, y: 1960, name: 'tabla-proveedores.md', desc: 'Proveedores + cumplimiento histórico' },
+  { id: 'mem-crit', type: 'memfile', x: 1080, y: 1960, name: 'criterios-seleccion.md', desc: 'Criterios tácitos → explícitos' },
+  { id: 'mem-puc',  type: 'memfile', x: 1880, y: 1960, name: 'puc-enriquecido.md', desc: 'PUC + casos resueltos' },
+  { id: 'mem-hist', type: 'memfile', x: 2460, y: 1960, name: 'historial-precios.md', desc: 'Precios por ítem · proyecto · proveedor' }
+];
+
+// Groups
+const GROUPS = [
+  { cls: 'm1',   persona: 'Compras',       label: 'Módulo 1 · COMPRAS',    arrow: 'flujo →', x: 760,  y: 360,  w: 1720, h: 260 },
+  { cls: 'mesa', persona: 'Paco / Banco',  label: 'Pasos manuales',        arrow: 'humano',  x: 80,   y: 780,  w: 3240, h: 240 },
+  { cls: 'm2',   persona: 'Contabilidad',  label: 'Módulo 2 · PAGO',       arrow: 'flujo →', x: 760,  y: 1140, w: 1060, h: 260 },
+  { cls: 'mem',  persona: 'Organización',  label: 'Memoria viva',          arrow: 'aprende', x: 80,   y: 1540, w: 3240, h: 560 }
+];
+
+// Edges
+const EDGES = [
+  // base docs consulta por cada skill
+  { from: 'base-docs', to: 'skill-1', type: 'consulta', color: 'purple' },
+  { from: 'base-docs', to: 'skill-2', type: 'consulta', color: 'purple' },
+  { from: 'base-docs', to: 'skill-3', type: 'consulta', color: 'purple' },
+  { from: 'base-docs', to: 'skill-4', type: 'consulta', color: 'purple' },
+  { from: 'base-docs', to: 'skill-5', type: 'consulta', color: 'purple' },
+
+  // flujo principal de compras
+  { from: 'requisicion', to: 'skill-1', type: 'solid', label: 'dispara', color: 'emerald', animated: true },
+  { from: 'skill-1', to: 'skill-2', type: 'solid', label: 'cotizaciones', color: 'emerald', animated: true },
+  { from: 'skill-2', to: 'skill-3', type: 'solid', label: 'ganador', color: 'emerald', animated: true },
+  { from: 'skill-3', to: 'carga-paco', type: 'solid', label: 'OC', color: 'emerald', animated: true },
+
+  // interfaz Paco
+  { from: 'carga-paco', to: 'recepcion-dian', type: 'dashed', color: 'red' },
+
+  // flujo pago
+  { from: 'recepcion-dian', to: 'skill-4', type: 'solid', label: 'factura', color: 'amber', animated: true },
+  { from: 'skill-4', to: 'skill-5', type: 'solid', label: 'causada', color: 'amber', animated: true },
+  { from: 'skill-5', to: 'ejecucion-pago', type: 'solid', label: 'archivo plano', color: 'amber', animated: true },
+  { from: 'ejecucion-pago', to: 'conciliacion', type: 'dashed', color: 'red' },
+
+  // alimenta memoria
+  { from: 'skill-2', to: 'memoria', type: 'dashed', color: 'pink' },
+  { from: 'skill-4', to: 'memoria', type: 'dashed', color: 'pink' },
+  { from: 'conciliacion', to: 'memoria', type: 'dashed', color: 'pink' },
+
+  // memoria a memfiles
+  { from: 'memoria', to: 'mem-prov', type: 'dashed', color: 'pink' },
+  { from: 'memoria', to: 'mem-crit', type: 'dashed', color: 'pink' },
+  { from: 'memoria', to: 'mem-puc',  type: 'dashed', color: 'pink' },
+  { from: 'memoria', to: 'mem-hist', type: 'dashed', color: 'pink' },
+
+  // memfiles retroalimentan skills
+  { from: 'mem-prov', to: 'skill-1', type: 'dotted', label: 'enriquece', color: 'blue', curve: 'left' },
+  { from: 'mem-crit', to: 'skill-2', type: 'dotted', label: 'enriquece', color: 'blue', curve: 'left' },
+  { from: 'mem-puc',  to: 'skill-4', type: 'dotted', label: 'enriquece', color: 'blue', curve: 'left' },
+  { from: 'mem-hist', to: 'skill-2', type: 'dotted', color: 'blue', curve: 'right' },
+
+  // CICLO CIERRA — conciliación vuelve a requisición (nueva vuelta)
+  { from: 'conciliacion', to: 'requisicion', type: 'dotted', label: 'nuevo ciclo', color: 'blue', curve: 'bottom' }
+];
+
+// Demo sequence
+const DEMO_STEPS = [
+  { node: 'base-docs', title: 'La base documental es la autoridad', desc: 'Antes de que la IA haga nada, existe la base documental: el PUC, los criterios tácitos de selección de proveedores, la tabla histórica. Todo lo que hoy vive en la cabeza de Martin, acá queda versionado.' },
+  { node: 'requisicion', title: 'Paso 1 · Alguien detecta la necesidad', desc: 'El ciclo arranca cuando un humano identifica que algo se necesita comprar. Input humano, no automatizable — requiere juicio sobre la operación.' },
+  { node: 'skill-1', title: 'Paso 2 · Pedir cotizaciones', desc: 'El sistema toma la requisición, selecciona proveedores según la tabla + criterios tácitos, y manda correos personalizados a los 3+ relevantes. Ahorra 3–5 h/semana.' },
+  { node: 'skill-2', title: 'Paso 3 · Comparar sin que se te escape línea 17', desc: 'Normaliza los alcances, flag de discrepancias ("este incluye, este no"), cuadro consolidado y recomendación razonada. El dolor grande que Martin mencionó — resuelto.' },
+  { node: 'skill-3', title: 'Paso 4 · OC lista para revisar', desc: 'Con la cotización ganadora, arma la OC poblada contra plantilla de Nivel. Validada alcance vs. cotización. Lista para carga humana a Paco.' },
+  { node: 'carga-paco', title: 'Paso 5 · Humano carga a Paco', desc: 'Paco no tiene API abierta hoy. La carga sigue siendo humana. Si Paco habilita API, este paso se automatiza y el flujo queda end-to-end.' },
+  { node: 'recepcion-dian', title: 'Paso 6 · Paco recibe la factura DIAN solo', desc: 'Paco ya jala la factura electrónica de la DIAN automáticamente. No todo hay que automatizarlo dos veces.' },
+  { node: 'skill-4', title: 'Paso 7 · Causar con el PUC', desc: '"Café puede ser viáticos o gastos de representación." El skill consulta el PUC de Nivel y propone la cuenta con justificación. El contable valida y registra en Paco.' },
+  { node: 'skill-5', title: 'Paso 8 · Cronograma + archivo plano', desc: 'Tesorería deja de priorizar a mano. Cruce de vencimientos con caja disponible, prioridad automática, y archivo plano listo en el formato de Paco.' },
+  { node: 'ejecucion-pago', title: 'Paso 9 · Humano ejecuta en el banco', desc: 'La ejecución bancaria queda humana. No hay integración directa estructural. Automatizarlo requiere un paquete aparte.' },
+  { node: 'conciliacion', title: 'Paso 10 · Conciliación (paquete 2)', desc: 'Dolor enorme que Martin mencionó. No es automatizable con el stack actual (extractos no identifican pagador, pagos parciales…). Se propone como hook al Core Layer.' },
+  { node: 'memoria', title: 'Paso 11 · El sistema aprende', desc: 'Aquí está el compounding. Cada ciclo alimenta 4 archivos vivos: tabla de proveedores con cumplimiento histórico, criterios tácitos vueltos explícitos, PUC con casos resueltos, y precios por ítem/proyecto. En 6 meses, la tabla de proveedores es un activo estratégico que hoy no existe.' }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════
+
+const canvas = document.getElementById('canvas');
+const edgesSvg = document.getElementById('edges');
+edgesSvg.setAttribute('viewBox', '0 0 3400 2400');
+edgesSvg.setAttribute('width', '3400');
+edgesSvg.setAttribute('height', '2400');
+
+GROUPS.forEach(g => {
+  const div = document.createElement('div');
+  div.className = `group ${g.cls}`;
+  div.style.left = g.x + 'px';
+  div.style.top = g.y + 'px';
+  div.style.width = g.w + 'px';
+  div.style.height = g.h + 'px';
+  div.innerHTML = `
+    <div class="group-label-wrap">
+      <span class="group-persona">👤 ${g.persona}</span>
+      <span class="group-label">${g.label}</span>
+    </div>
+    <div class="group-arrow">${g.arrow}</div>
+  `;
+  canvas.appendChild(div);
+});
+
+const nodeElements = {};
+NODES.forEach(n => {
+  const el = document.createElement('div');
+  el.className = `node ${n.type}${n.big ? ' big' : ''}`;
+  el.style.left = n.x + 'px';
+  el.style.top = n.y + 'px';
+  el.dataset.id = n.id;
+
+  if (n.type === 'memfile') {
+    el.innerHTML = `
+      <div class="node-name"><span class="memfile-icon">📄</span>${n.name}</div>
+      <div class="node-desc">${n.desc}</div>
+    `;
+  } else {
+    const stepBadgeHtml = n.step ? `<div class="step-badge">${n.step}</div>` : '';
+    const moduleTagHtml = n.moduleTag ? `<span class="node-module-tag">${n.moduleTag}</span>` : '';
+    const startBadgeHtml = n.isStart ? `<div class="start-badge"><span class="dot"></span>Empieza aquí</div>` : '';
+
+    el.innerHTML = `
+      ${startBadgeHtml}
+      <div class="node-head">
+        ${stepBadgeHtml}
+        <span class="node-icon">${n.icon}</span>
+        ${moduleTagHtml}
+      </div>
+      <div class="node-name">${n.name}</div>
+      <div class="node-title">${n.title}</div>
+      <div class="node-desc">${n.desc}</div>
+    `;
+  }
+
+  el.addEventListener('click', () => {
+    if (dragging || dragMoved) return;
+    if (n.detail) openPanel(n);
+  });
+
+  el.addEventListener('mouseenter', () => highlightNode(n.id));
+  el.addEventListener('mouseleave', () => clearHighlight());
+
+  canvas.appendChild(el);
+  nodeElements[n.id] = { el, node: n };
+});
+
+function getNodeRect(nodeId) {
+  const { el, node } = nodeElements[nodeId];
+  const w = el.offsetWidth || 260;
+  const h = el.offsetHeight || 140;
+  return { x: node.x, y: node.y, w, h, cx: node.x + w / 2, cy: node.y + h / 2 };
+}
+
+function getAnchor(fromId, toId) {
+  const f = getNodeRect(fromId);
+  const t = getNodeRect(toId);
+  const dx = t.cx - f.cx;
+  const dy = t.cy - f.cy;
+  let fx, fy, tx, ty;
+  if (Math.abs(dy) > Math.abs(dx)) {
+    if (dy > 0) { fy = f.y + f.h; ty = t.y; } else { fy = f.y; ty = t.y + t.h; }
+    fx = f.cx; tx = t.cx;
+  } else {
+    if (dx > 0) { fx = f.x + f.w; tx = t.x; } else { fx = f.x; tx = t.x + t.w; }
+    fy = f.cy; ty = t.cy;
+  }
+  return { fx, fy, tx, ty, dx, dy };
+}
+
+function setupMarkers() {
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  const colors = { purple: '#7c3aed', emerald: '#34d399', amber: '#fbbf24', pink: '#f472b6', blue: '#60a5fa', red: '#f87171' };
+  Object.entries(colors).forEach(([name, color]) => {
+    const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    marker.setAttribute('id', `arrow-${name}`);
+    marker.setAttribute('viewBox', '0 0 10 10');
+    marker.setAttribute('refX', '9');
+    marker.setAttribute('refY', '5');
+    marker.setAttribute('markerWidth', '7');
+    marker.setAttribute('markerHeight', '7');
+    marker.setAttribute('orient', 'auto-start-reverse');
+    marker.innerHTML = `<path d="M 0 0 L 10 5 L 0 10 Z" fill="${color}" />`;
+    defs.appendChild(marker);
+  });
+  edgesSvg.appendChild(defs);
+}
+setupMarkers();
+
+const colorMap = { purple: '#7c3aed', emerald: '#34d399', amber: '#fbbf24', pink: '#f472b6', blue: '#60a5fa', red: '#f87171' };
+
+function renderEdges() {
+  [...edgesSvg.querySelectorAll('g.edges-layer')].forEach(g => g.remove());
+
+  const layer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  layer.setAttribute('class', 'edges-layer');
+
+  EDGES.forEach((e, idx) => {
+    let a;
+    // Override anchor for "bottom" curve so path exits from bottom of source and enters bottom of target
+    if (e.curve === 'bottom') {
+      const f = getNodeRect(e.from);
+      const t = getNodeRect(e.to);
+      a = { fx: f.cx, fy: f.y + f.h, tx: t.cx, ty: t.y + t.h, dx: t.cx - f.cx, dy: 0 };
+    } else {
+      a = getAnchor(e.from, e.to);
+    }
+    const color = colorMap[e.color] || '#8b8fa3';
+
+    let dashArray = 'none';
+    if (e.type === 'dashed') dashArray = '8 4';
+    if (e.type === 'dotted' || e.type === 'consulta') dashArray = '2 6';
+
+    const midX = (a.fx + a.tx) / 2;
+    const midY = (a.fy + a.ty) / 2;
+    let c1x, c1y, c2x, c2y;
+
+    if (Math.abs(a.dy) > Math.abs(a.dx)) {
+      c1x = a.fx; c1y = midY;
+      c2x = a.tx; c2y = midY;
+    } else {
+      c1x = midX; c1y = a.fy;
+      c2x = midX; c2y = a.ty;
+    }
+
+    if (e.curve === 'left') {
+      const offset = Math.abs(a.fy - a.ty) * 0.4 + 250;
+      c1x = a.fx - offset; c1y = a.fy;
+      c2x = a.tx - offset; c2y = a.ty;
+    }
+    if (e.curve === 'right') {
+      const offset = Math.abs(a.fy - a.ty) * 0.4 + 250;
+      c1x = a.fx + offset; c1y = a.fy;
+      c2x = a.tx + offset; c2y = a.ty;
+    }
+    if (e.curve === 'bottom') {
+      const offset = Math.abs(a.fx - a.tx) * 0.18 + 260;
+      c1x = a.fx; c1y = a.fy + offset;
+      c2x = a.tx; c2y = a.ty + offset;
+    }
+
+    const pathD = `M ${a.fx} ${a.fy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${a.tx} ${a.ty}`;
+    const pathId = `edge-path-${idx}`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('id', pathId);
+    path.setAttribute('class', `edge-path edge-${e.from}-${e.to}`);
+    path.setAttribute('data-from', e.from);
+    path.setAttribute('data-to', e.to);
+    path.setAttribute('d', pathD);
+    path.setAttribute('stroke', color);
+    path.setAttribute('stroke-dasharray', dashArray);
+    path.setAttribute('marker-end', `url(#arrow-${e.color})`);
+    path.setAttribute('opacity', e.type === 'dotted' ? '0.55' : e.type === 'dashed' ? '0.65' : '0.85');
+    layer.appendChild(path);
+
+    if (e.animated) {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('class', 'flow-dot flow-dot-anim');
+      circle.setAttribute('r', '4');
+      circle.setAttribute('fill', color);
+      circle.setAttribute('style', `color: ${color}`);
+
+      const animMotion = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+      animMotion.setAttribute('dur', '3s');
+      animMotion.setAttribute('repeatCount', 'indefinite');
+      animMotion.setAttribute('begin', `${idx * 0.3}s`);
+      const mpath = document.createElementNS('http://www.w3.org/2000/svg', 'mpath');
+      mpath.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${pathId}`);
+      animMotion.appendChild(mpath);
+      circle.appendChild(animMotion);
+
+      layer.appendChild(circle);
+    }
+
+    if (e.label) {
+      let labelX = midX;
+      let labelY = midY;
+      if (e.curve === 'left') labelX = (c1x + c2x) / 2 - 10;
+      if (e.curve === 'right') labelX = (c1x + c2x) / 2 + 10;
+      if (e.curve === 'bottom') { labelX = midX; labelY = (c1y + c2y) / 2; }
+
+      const estWidth = e.label.length * 6.5 + 18;
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bg.setAttribute('class', 'edge-label-bg');
+      bg.setAttribute('x', labelX - estWidth / 2);
+      bg.setAttribute('y', labelY - 9);
+      bg.setAttribute('width', estWidth);
+      bg.setAttribute('height', 18);
+      bg.setAttribute('rx', 4);
+      bg.setAttribute('fill', '#0a0714');
+      bg.setAttribute('stroke', color);
+      bg.setAttribute('opacity', '0.95');
+
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('class', 'edge-label');
+      text.setAttribute('x', labelX);
+      text.setAttribute('y', labelY);
+      text.setAttribute('fill', color);
+      text.setAttribute('dy', '4');
+      text.textContent = e.label;
+
+      layer.appendChild(bg);
+      layer.appendChild(text);
+    }
+  });
+
+  edgesSvg.appendChild(layer);
+}
+
+requestAnimationFrame(() => { renderEdges(); });
+
+// ═══════════════════════════════════════════════════════════════
+// HIGHLIGHT
+// ═══════════════════════════════════════════════════════════════
+
+function highlightNode(nodeId) {
+  const connected = new Set([nodeId]);
+  const relatedEdges = new Set();
+
+  EDGES.forEach((e, idx) => {
+    if (e.from === nodeId) { connected.add(e.to); relatedEdges.add(idx); }
+    if (e.to === nodeId)   { connected.add(e.from); relatedEdges.add(idx); }
+  });
+
+  canvas.classList.add('focused');
+
+  Object.values(nodeElements).forEach(({ el, node }) => {
+    if (connected.has(node.id)) el.classList.add('highlighted');
+    else el.classList.remove('highlighted');
+  });
+
+  edgesSvg.querySelectorAll('.edge-path').forEach((path, idx) => {
+    if (relatedEdges.has(idx)) path.classList.add('highlighted');
+    else path.classList.remove('highlighted');
+  });
+}
+
+function clearHighlight() {
+  canvas.classList.remove('focused');
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('highlighted'));
+  edgesSvg.querySelectorAll('.edge-path').forEach(path => path.classList.remove('highlighted'));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PAN & ZOOM
+// ═══════════════════════════════════════════════════════════════
+
+const viewport = document.getElementById('viewport');
+const zoomLevel = document.getElementById('zoom-level');
+
+let scale = 1;
+let tx = 0, ty = 0;
+let dragging = false;
+let dragMoved = false;
+let dragStartX, dragStartY, dragStartTx, dragStartTy;
+
+function applyTransform() {
+  canvas.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  zoomLevel.textContent = Math.round(scale * 100) + '%';
+}
+
+function centerOnCanvas() {
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const s = Math.min(vw / 3600, vh / 2500);
+  scale = Math.max(0.2, Math.min(1, s));
+  tx = (vw - 3400 * scale) / 2;
+  ty = (vh - 2400 * scale) / 2;
+  applyTransform();
+}
+
+function panZoomTo(targetX, targetY, targetScale = null, animate = true) {
+  const s = targetScale !== null ? targetScale : scale;
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const newTx = vw / 2 - targetX * s;
+  const newTy = vh / 2 - targetY * s;
+
+  if (animate) animateTransform(newTx, newTy, s, 800);
+  else { tx = newTx; ty = newTy; scale = s; applyTransform(); }
+}
+
+function animateTransform(toTx, toTy, toScale, duration) {
+  const startTx = tx, startTy = ty, startScale = scale;
+  const startTime = performance.now();
+
+  function frame(now) {
+    const elapsed = now - startTime;
+    const p = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    tx = startTx + (toTx - startTx) * eased;
+    ty = startTy + (toTy - startTy) * eased;
+    scale = startScale + (toScale - startScale) * eased;
+    applyTransform();
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('load', centerOnCanvas);
+window.addEventListener('resize', centerOnCanvas);
+
+viewport.addEventListener('mousedown', (e) => {
+  if (e.target.closest('.node')) return;
+  dragging = true;
+  dragMoved = false;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  dragStartTx = tx;
+  dragStartTy = ty;
+  viewport.classList.add('grabbing');
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!dragging) return;
+  const dx = e.clientX - dragStartX;
+  const dy = e.clientY - dragStartY;
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+  tx = dragStartTx + dx;
+  ty = dragStartTy + dy;
+  applyTransform();
+});
+
+window.addEventListener('mouseup', () => {
+  if (dragging) setTimeout(() => { dragging = false; }, 50);
+  viewport.classList.remove('grabbing');
+});
+
+viewport.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const rect = viewport.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const delta = e.deltaY < 0 ? 1.1 : 0.9;
+  const newScale = Math.max(0.15, Math.min(2.5, scale * delta));
+  tx = mx - (mx - tx) * (newScale / scale);
+  ty = my - (my - ty) * (newScale / scale);
+  scale = newScale;
+  applyTransform();
+}, { passive: false });
+
+document.getElementById('btn-zoom-in').addEventListener('click', () => {
+  const newScale = Math.min(2.5, scale * 1.2);
+  const vw = viewport.clientWidth / 2, vh = viewport.clientHeight / 2;
+  tx = vw - (vw - tx) * (newScale / scale);
+  ty = vh - (vh - ty) * (newScale / scale);
+  scale = newScale;
+  applyTransform();
+});
+
+document.getElementById('btn-zoom-out').addEventListener('click', () => {
+  const newScale = Math.max(0.15, scale * 0.83);
+  const vw = viewport.clientWidth / 2, vh = viewport.clientHeight / 2;
+  tx = vw - (vw - tx) * (newScale / scale);
+  ty = vh - (vh - ty) * (newScale / scale);
+  scale = newScale;
+  applyTransform();
+});
+
+document.getElementById('btn-fit').addEventListener('click', centerOnCanvas);
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'f' || e.key === 'F') centerOnCanvas();
+  if (e.key === '0') centerOnCanvas();
+  if (e.key === '+' || e.key === '=') document.getElementById('btn-zoom-in').click();
+  if (e.key === '-') document.getElementById('btn-zoom-out').click();
+  if (e.key === 'Escape') { closePanel(); exitDemo(); }
+  if (demoActive) {
+    if (e.key === 'ArrowRight') demoNext();
+    if (e.key === 'ArrowLeft') demoPrev();
+  }
+});
+
+function highlightPhase(phase) {
+  document.querySelectorAll('.phase-ribbon .phase').forEach(p => {
+    p.classList.toggle('active', parseInt(p.dataset.phase) === phase);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SIDE PANEL
+// ═══════════════════════════════════════════════════════════════
+
+const sidePanel = document.getElementById('side-panel');
+const spLabel = document.getElementById('side-panel-label');
+const spName = document.getElementById('side-panel-name');
+const spTitle = document.getElementById('side-panel-title');
+const spBody = document.getElementById('side-panel-body');
+
+function openPanel(n) {
+  if (!n.detail) return;
+  const cm = { m1: 'emerald', m2: 'amber', m3: 'blue', mem: 'pink', core: 'purple', mesa: 'red' };
+  const c = cm[n.type];
+
+  spLabel.innerHTML = `<span class="side-panel-label" style="background: var(--${c}-bg); color: var(--${c === 'purple' ? 'purple-light' : c});">${n.detail.section}</span>`;
+  spName.innerHTML = `<div class="side-panel-name" style="color: var(--${c === 'purple' ? 'purple-light' : c});">${n.name}</div>`;
+  spTitle.innerHTML = `<div class="side-panel-title">${n.title}</div>`;
+
+  let body = '';
+  if (n.detail.intro) body += `<div class="side-panel-section"><p>${n.detail.intro}</p></div>`;
+  if (n.detail.input) body += `<div class="side-panel-section"><div class="side-panel-section-title">Input</div><p>${n.detail.input}</p></div>`;
+  if (n.detail.output) body += `<div class="side-panel-section"><div class="side-panel-section-title">Output</div><ul>${n.detail.output.map(o => `<li>${o}</li>`).join('')}</ul></div>`;
+  if (n.detail.principle) body += `<div class="side-panel-section"><div class="principle"><strong>Principio</strong>${n.detail.principle}</div></div>`;
+
+  spBody.innerHTML = body;
+  sidePanel.classList.add('open');
+}
+
+function closePanel() {
+  sidePanel.classList.remove('open');
+}
+document.getElementById('side-panel-close').addEventListener('click', closePanel);
+
+// ═══════════════════════════════════════════════════════════════
+// DEMO MODE
+// ═══════════════════════════════════════════════════════════════
+
+let demoActive = false;
+let demoIndex = 0;
+
+const demoOverlay = document.getElementById('demo-overlay');
+const demoCurrent = document.getElementById('demo-current');
+const demoTotal = document.getElementById('demo-total');
+const demoTitle = document.getElementById('demo-title');
+const demoDesc = document.getElementById('demo-desc');
+demoTotal.textContent = DEMO_STEPS.length;
+
+function startDemo() {
+  demoActive = true;
+  demoIndex = 0;
+  demoOverlay.classList.add('visible');
+  closePanel();
+  document.getElementById('welcome-tip').classList.add('hidden');
+  runDemoStep();
+}
+
+function exitDemo() {
+  demoActive = false;
+  demoOverlay.classList.remove('visible');
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('demo-active'));
+  highlightPhase(0);
+  clearHighlight();
+  setTimeout(centerOnCanvas, 200);
+}
+
+function runDemoStep() {
+  const step = DEMO_STEPS[demoIndex];
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('demo-active'));
+
+  const { el, node } = nodeElements[step.node];
+  el.classList.add('demo-active');
+
+  demoCurrent.textContent = String(demoIndex + 1).padStart(2, '0');
+  demoTitle.textContent = step.title;
+  demoDesc.textContent = step.desc;
+
+  const rect = getNodeRect(step.node);
+  panZoomTo(rect.cx, rect.cy, 0.9, true);
+
+  if (node.phase) highlightPhase(node.phase);
+  highlightNode(step.node);
+}
+
+function demoNext() {
+  if (demoIndex < DEMO_STEPS.length - 1) {
+    demoIndex++;
+    runDemoStep();
+  } else {
+    centerOnCanvas();
+    setTimeout(exitDemo, 1500);
+  }
+}
+
+function demoPrev() {
+  if (demoIndex > 0) {
+    demoIndex--;
+    runDemoStep();
+  }
+}
+
+document.getElementById('btn-play').addEventListener('click', startDemo);
+document.getElementById('demo-next').addEventListener('click', demoNext);
+document.getElementById('demo-prev').addEventListener('click', demoPrev);
+document.getElementById('demo-exit').addEventListener('click', exitDemo);
+
+const welcomeTip = document.getElementById('welcome-tip');
+document.getElementById('welcome-explore').addEventListener('click', () => {
+  welcomeTip.classList.add('hidden');
+});
+document.getElementById('welcome-play').addEventListener('click', () => {
+  welcomeTip.classList.add('hidden');
+  startDemo();
+});
+document.getElementById('btn-help').addEventListener('click', () => {
+  welcomeTip.classList.remove('hidden');
+});
+
+setTimeout(() => {
+  if (!welcomeTip.classList.contains('hidden')) welcomeTip.classList.add('hidden');
+}, 15000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caso — JIT Sales OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/caso.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="nav-logo">
+      <span class="logo-mark">JIT</span>
+      <span class="logo-text">Sales OS</span>
+      <span class="logo-badge">v1.0</span>
+    </a>
+    <div class="nav-sep"></div>
+    <div class="nav-breadcrumb">
+      <a href="/">Dashboard</a>
+      <span class="sep">›</span>
+      <strong id="bc-case-name">Caso</strong>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="/live" class="btn">▶ Live Demo</a>
+    <a href="/" class="btn">← Volver</a>
+  </div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="caso-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="caso-sidebar">
+    <div class="caso-meta-card">
+      <div class="caso-meta-tag" id="caso-tag">Caso</div>
+      <h2 id="caso-nombre">Cargando...</h2>
+      <div class="caso-meta-grid">
+        <div class="caso-meta-row"><span class="meta-key">Industria</span><span class="meta-val" id="caso-industria">—</span></div>
+        <div class="caso-meta-row"><span class="meta-key">Tipología</span><span class="meta-val" id="caso-tipologia">—</span></div>
+        <div class="caso-meta-row"><span class="meta-key">Fase</span><span class="meta-val" id="caso-fase">—</span></div>
+        <div class="caso-meta-row"><span class="meta-key">Deal size</span><span class="meta-val" id="caso-dealsize">—</span></div>
+        <div class="caso-meta-row"><span class="meta-key">Fecha</span><span class="meta-val" id="caso-fecha">—</span></div>
+      </div>
+    </div>
+
+    <div class="caso-nav-label">
+      <span>Artefactos</span>
+      <span class="caso-nav-count" id="caso-nav-count"></span>
+    </div>
+    <nav class="caso-nav" id="caso-nav">
+      <div class="nav-loader"><div class="loader"></div></div>
+    </nav>
+
+    <div class="caso-actions">
+      <a href="/live" class="btn primary" style="width:100%; justify-content: center;">▶ Generar otro caso</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="caso-main">
+    <div class="caso-header">
+      <div class="caso-header-tag" id="artifact-tag">
+        <span class="tag-icon" id="artifact-icon">📄</span>
+        <span id="artifact-label">Artefacto</span>
+      </div>
+      <div class="caso-header-module" id="artifact-module"></div>
+    </div>
+
+    <article class="markdown-body" id="markdown-body">
+      <div class="empty-state">
+        <div class="loader"></div>
+        <h3 style="margin-top:16px;">Cargando contenido...</h3>
+      </div>
+    </article>
+
+    <!-- Prev / Next pager -->
+    <nav class="caso-pager" id="caso-pager" style="display:none;">
+      <button class="caso-pager-btn prev" id="pager-prev">
+        <span class="caso-pager-label">Anterior</span>
+        <span class="caso-pager-title"><span>←</span> <span id="prev-title">—</span></span>
+      </button>
+      <button class="caso-pager-btn next" id="pager-next">
+        <span class="caso-pager-label">Siguiente</span>
+        <span class="caso-pager-title"><span id="next-title">—</span> <span>→</span></span>
+      </button>
+    </nav>
+  </main>
+
+</div>
+
+<script src="/js/caso.js"></script>
+</body>
+</html>

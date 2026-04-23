@@ -1,0 +1,16 @@
+{
+  "name": "jit-sales-os-demo",
+  "version": "1.0.0",
+  "description": "Dashboard local para demostrar el sistema JIT Sales OS en vivo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
