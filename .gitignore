@@ -27,6 +27,9 @@ Clientes/npd-inc/
 # External repos
 Sales-AI-irrelevant/
 
-# Video assets (too heavy for git — keep local only)
+# Video assets (too heavy for git — keep local only, originals in GCS)
+Redes/virales-irrelevant/
+Redes/referentes/
 Redes/videos irrelevant/
 Redes/videos referentes/
+Redes/.DS_Store
