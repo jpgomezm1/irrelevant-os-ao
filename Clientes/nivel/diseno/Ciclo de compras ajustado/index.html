@@ -765,7 +765,7 @@
       <span class="badge">Flujo P2P</span>
     </div>
     <div class="topbar-sep"></div>
-    <div class="topbar-label"><strong>5 skills</strong> · 5 pasos manuales · 1 memoria viva</div>
+    <div class="topbar-label"><strong>3 skills</strong> · 3 pasos manuales · 1 memoria viva</div>
   </div>
   <div class="topbar-right">
     <button class="tbtn primary" id="btn-play"><span class="play-icon">▶</span> Ver flujo guiado</button>
@@ -779,17 +779,14 @@
   <span class="arrow">→</span>
   <div class="phase" data-phase="2"><span class="num">02</span> Comprar</div>
   <span class="arrow">→</span>
-  <div class="phase" data-phase="3"><span class="num">03</span> Pagar</div>
-  <span class="arrow">→</span>
-  <div class="phase" data-phase="4"><span class="num">04</span> Aprender</div>
+  <div class="phase" data-phase="3"><span class="num">03</span> Aprender</div>
 </div>
 
 <div class="legend">
   <div class="legend-title">Leyenda</div>
   <div class="legend-item"><span class="legend-dot core"></span>Base documental (autoridad)</div>
-  <div class="legend-item"><span class="legend-dot m1"></span>Compras — skills</div>
-  <div class="legend-item"><span class="legend-dot m2"></span>Pago — skills</div>
-  <div class="legend-item"><span class="legend-dot mesa"></span>Paso manual / Paco / banco</div>
+  <div class="legend-item"><span class="legend-dot m1"></span>Skills de compras (3)</div>
+  <div class="legend-item"><span class="legend-dot mesa"></span>Paso manual / Paco</div>
   <div class="legend-item"><span class="legend-dot mem"></span>Memoria viva (aprende)</div>
   <div class="legend-item"><span class="legend-dot m3"></span>Retroalimenta skills</div>
 </div>
@@ -826,7 +823,7 @@
 <div class="demo-overlay" id="demo-overlay">
   <div class="demo-step-count">
     <span class="current" id="demo-current">01</span>
-    <span class="total">de <span id="demo-total">12</span></span>
+    <span class="total">de <span id="demo-total">9</span></span>
   </div>
   <div class="demo-divider"></div>
   <div class="demo-content">
@@ -844,7 +841,7 @@
   <img class="brand-logo-welcome" src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="Irrelevant">
   <div class="icon">🔄</div>
   <h3>Ciclo de compras de Nivel</h3>
-  <p>El ciclo completo <strong>requisición → pago → conciliación</strong> en un solo mapa. 5 skills automatizados + 5 pasos manuales + 1 memoria viva que enriquece el sistema en cada vuelta. Navega con <kbd style="background:var(--border);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">scroll</kbd> y <kbd style="background:var(--border);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">drag</kbd>.</p>
+  <p>El front del ciclo <strong>requisición → cotización → OC</strong> en un solo mapa. 3 skills de alta densidad + 3 pasos manuales + base documental + memoria viva que enriquece el sistema en cada vuelta. Paco hace el back-office (DIAN, causación, pagos). Navega con <kbd style="background:var(--border);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">scroll</kbd> y <kbd style="background:var(--border);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">drag</kbd>.</p>
   <div class="actions">
     <button id="welcome-explore">Explorar libremente</button>
     <button class="primary" id="welcome-play">▶ Ver flujo guiado</button>
@@ -863,21 +860,21 @@ const NODES = [
     x: 1550, y: 100,
     icon: '📚', moduleTag: 'Autoridad', step: '00',
     name: 'base-documental',
-    title: 'PUC + criterios tácitos',
-    desc: 'Plan Único de Cuentas · criterios de selección de proveedores · tabla histórica · políticas de aprobación. La fuente que cada skill consulta.',
+    title: 'PUC + criterios + tabla proveedores',
+    desc: 'Todo lo que hoy vive disperso en la cabeza del equipo, acá queda versionado y consultable por cada skill. La autoridad de Nivel, escrita una sola vez y viva.',
     phase: null,
     detail: {
       section: 'Capa de autoridad',
-      intro: 'La base documental es la memoria congelada de Nivel: todo lo que el equipo sabe hoy sobre cómo se compra, a quién, y cómo se causa. Cada skill del ciclo la consulta antes de operar.',
-      input: 'Curada por el equipo de Nivel una sola vez, luego versionada.',
+      intro: 'La base documental es la memoria congelada de Nivel: todo lo que el equipo sabe sobre cómo se compra, a quién, con qué criterios. Cada skill la consulta antes de operar.',
+      input: 'Curada por el equipo de Nivel una sola vez. La memoria viva la enriquece sola en cada ciclo.',
       output: [
-        'PUC de Nivel (Plan Único de Cuentas) — cuentas contables y cuándo usar cada una',
-        'Criterios tácitos de selección de proveedores — ej. plazo de pago ≥ 30 días, cumplimiento histórico, cercanía a obra, capacidad de respaldo',
+        'Plan Único de Cuentas (PUC) de Nivel',
+        'Criterios tácitos de selección: plazo ≥30 días, cumplimiento histórico, cercanía a obra, capacidad de respaldo',
         'Tabla maestra de proveedores por categoría (cemento, acero, mano de obra, servicios…)',
-        'Políticas de aprobación (montos, firmas, flujos burocráticos)',
-        'Plantillas estándar: OC, correo de solicitud, archivo plano Paco'
+        'Políticas de aprobación (montos, firmas, flujos)',
+        'Plantillas estándar: requisición, correo al proveedor, OC'
       ],
-      principle: 'Lo que hoy vive en la cabeza de Martin, María del Rosario o el contable, aquí queda versionado y consultable por todos los skills.'
+      principle: 'Hoy esto vive disperso entre personas. Acá queda como activo consultable — y se enriquece solo en cada ciclo.'
     }
   },
 
@@ -888,74 +885,99 @@ const NODES = [
     icon: '📝', moduleTag: 'Manual', step: '01', isStart: true,
     name: 'requisicion',
     title: 'Detectar la necesidad',
-    desc: 'Alguien detecta una necesidad de compra (cemento para proyecto X, equipo para oficina…). Input humano — no automatizable.',
+    desc: 'Alguien en obra, sala de ventas o la oficina detecta una necesidad de compra. Input humano — requiere juicio sobre la operación.',
     phase: 1,
     detail: {
       section: 'Paso manual — entrada al ciclo',
       intro: 'El disparador del ciclo. Un líder de obra, el director de proyecto o el administrativo identifica que algo se necesita comprar.',
       input: 'Observación humana en terreno u operación.',
       output: [
-        'Requisición con qué se necesita comprar',
-        'Cantidades',
-        'Plazo requerido',
+        'Necesidad expresada en lenguaje natural',
         'Proyecto al que se imputa',
+        'Plazo requerido',
         'Nivel de urgencia'
       ],
       principle: 'Este paso nunca se automatiza — requiere juicio humano sobre la operación. A partir de aquí, la IA hace el trabajo repetitivo.'
     }
   },
 
-  // ── COMPRAS · SKILLS ──
+  // ── SKILL 1 — PREPARAR SOLICITUD ──
   {
     id: 'skill-1', type: 'm1',
     x: 820, y: 460,
-    icon: '✉️', moduleTag: 'Skill 1', step: '02',
-    name: '/solicitar-cotizaciones',
-    title: 'Pedir cotizaciones',
-    desc: 'Toma la requisición, selecciona proveedores de la tabla y manda correos personalizados. Organiza respuestas en la carpeta del ciclo.',
+    icon: '📋', moduleTag: 'Skill 1', step: '02',
+    name: '/preparar-solicitud',
+    title: 'Requisición estándar + proveedores sugeridos',
+    desc: 'Estandariza la requisición al formato Nivel, selecciona los proveedores a contactar según tabla histórica + criterios tácitos, y deja la plantilla de correo lista.',
     phase: 2,
     detail: {
       section: 'Compras — Skill 1',
-      intro: 'Automatiza el paso más repetitivo de compras: pedir cotizaciones a 3+ proveedores relevantes para cada requisición.',
-      input: 'La requisición del paso 01.',
+      intro: 'Traduce la necesidad informal en una requisición formal + lista priorizada de proveedores a contactar. El humano lleva el correo o la llamada — la IA le ahorra el trabajo de cabeza.',
+      input: 'Necesidad del paso 01 + base documental.',
       output: [
-        'Lista de proveedores seleccionados según categoría y criterios tácitos',
-        'Correos personalizados enviados (plantilla + contexto específico)',
-        'Carpeta del ciclo creada con todas las cotizaciones entrantes organizadas',
-        'Seguimiento automático a proveedores que no responden'
+        'Requisición en formato estándar de Nivel (qué, cantidades, plazo, proyecto, urgencia)',
+        'Lista priorizada de proveedores a contactar, con contacto y razón ("recomendado por tabla histórica + criterios tácitos")',
+        'Plantilla de correo personalizada para cada proveedor',
+        'Carpeta del ciclo creada para recibir respuestas'
       ],
-      principle: 'Ahorro estimado: 3–5 horas/semana del área de compras.'
+      principle: 'La cotización no se dispara automática al proveedor (la mayoría son informales). El jefe de compras llama. El skill le ahorra decidir a quién y cómo pedir.'
     }
   },
+
+  // ── PEDIR COTIZACIONES (manual, paso humano explícito) ──
+  {
+    id: 'pedir-cot', type: 'mesa',
+    x: 1500, y: 460,
+    icon: '📞', moduleTag: 'Manual', step: '03',
+    name: 'gestionar-cotizaciones',
+    title: 'Jefe de compras llama al proveedor',
+    desc: 'Con la lista y la plantilla listas, el jefe de compras contacta a los proveedores (teléfono o correo), recibe respuestas y las sube a la carpeta del ciclo.',
+    phase: 2,
+    detail: {
+      section: 'Paso manual — contacto con proveedores',
+      intro: '80-90% de los proveedores son informales (pintores, servicios tipo Éxito). No van a responder correos automatizados. Este paso se queda humano a propósito.',
+      input: 'Requisición estandarizada + lista de proveedores + plantilla de correo del Skill 1.',
+      output: [
+        'Cotizaciones recibidas de 3+ proveedores',
+        'Cotizaciones subidas a la carpeta del ciclo (PDF, Excel, correo)',
+        'Seguimiento humano a los que no responden'
+      ],
+      principle: 'No todo debe automatizarse. Este paso es donde el criterio humano y la relación con el proveedor importan — lo dejamos humano a propósito.'
+    }
+  },
+
+  // ── SKILL 2 — COMPARAR ──
   {
     id: 'skill-2', type: 'm1',
-    x: 1500, y: 460,
-    icon: '📊', moduleTag: 'Skill 2', step: '03',
+    x: 2180, y: 460,
+    icon: '📊', moduleTag: 'Skill 2', step: '04',
     name: '/comparar-cotizaciones',
     title: 'Cuadro comparativo + recomendación',
-    desc: 'Normaliza alcances línea por línea, flag de discrepancias ("línea 17, este incluye, este no"), cuadro consolidado y recomendación razonada.',
+    desc: 'Normaliza alcances línea por línea, flag de discrepancias ("línea 17, este incluye, este no"), cuadro consolidado y recomendación razonada aplicando los criterios tácitos.',
     phase: 2,
     detail: {
       section: 'Compras — Skill 2',
-      intro: 'El dolor grande de Martin: "te traen tres proponentes, garantizar que el alcance sea el mismo es difícil". Esto lo resuelve.',
-      input: 'Las N cotizaciones recibidas en la carpeta del ciclo.',
+      intro: 'El dolor grande que Martin mencionó: "te traen tres proponentes, garantizar que el alcance sea el mismo es difícil". Esto lo resuelve con lectura línea por línea de cada PDF.',
+      input: 'Las N cotizaciones subidas a la carpeta del ciclo.',
       output: [
         'Extracción de ítems, cantidades, precios, plazos, condiciones de pago',
         'Normalización de alcances (qué incluye cada uno, qué no, qué es opcional)',
         'Cuadro comparativo consolidado',
         'Flags línea por línea de discrepancias',
-        'Recomendación razonada ("Clemente gana por 30 días de crédito vs. 15 de Pergamino") — aplica los criterios tácitos cargados'
+        'Recomendación razonada aplicando criterios tácitos'
       ],
-      principle: 'Ahorro estimado: 2–4 horas por ciclo de compra.'
+      principle: 'El cuadro comparativo se construye en minutos en vez de 2–4 horas. Y la recomendación viene con la razón explícita — el humano aprueba, no reconstruye.'
     }
   },
+
+  // ── SKILL 3 — ORDEN DE COMPRA ──
   {
     id: 'skill-3', type: 'm1',
-    x: 2180, y: 460,
-    icon: '📄', moduleTag: 'Skill 3', step: '04',
+    x: 2860, y: 460,
+    icon: '📄', moduleTag: 'Skill 3', step: '05',
     name: '/generar-oc',
-    title: 'Orden de compra lista',
-    desc: 'Con la cotización ganadora, arma la OC poblada contra plantilla de Nivel. Lista para revisar y cargar a Paco.',
+    title: 'Orden de compra lista para Paco',
+    desc: 'Con la cotización ganadora arma la OC poblada contra plantilla de Nivel, valida alcance cotización vs. OC, y deja el documento listo para revisión humana.',
     phase: 2,
     detail: {
       section: 'Compras — Skill 3',
@@ -966,174 +988,87 @@ const NODES = [
         'Validación cruzada: alcance de la OC contra alcance de la cotización ganadora',
         'Documento listo para revisión humana antes de carga a Paco'
       ],
-      principle: 'Ahorro estimado: 15–30 minutos por OC. La carga a Paco sigue siendo humana mientras Paco no tenga API abierta.'
+      principle: 'Ahorro estimado: 15–30 minutos por OC. Si Paco habilita API (ya está en la conversación con el dueño), este paso se conecta end-to-end.'
     }
   },
 
   // ── CARGA OC A PACO (manual) ──
   {
     id: 'carga-paco', type: 'mesa',
-    x: 2860, y: 460,
-    icon: '⬆️', moduleTag: 'Manual', step: '05',
+    x: 2860, y: 900,
+    icon: '⬆️', moduleTag: 'Manual', step: '06',
     name: 'cargar-oc-paco',
     title: 'Cargar OC a Paco',
-    desc: 'Un humano sube la OC manualmente a Paco. Paco no tiene API abierta — este paso sigue siendo humano.',
+    desc: 'Un humano sube la OC manualmente a Paco. Paco no tiene API abierta hoy — este paso se queda humano por ahora.',
     phase: 2,
     detail: {
       section: 'Paso manual — interfaz con Paco',
-      intro: 'Paco (ERP inmobiliario) no expone API pública documentada. Mientras eso no cambie, este paso sigue siendo humano.',
+      intro: 'Paco (ERP inmobiliario) no expone API pública documentada. Mientras eso no cambie, este paso se queda humano.',
       input: 'La OC generada por el Skill 3.',
       output: [
         'OC registrada en Paco',
         'Flujo burocrático de aprobación corre dentro de Paco'
       ],
-      principle: 'Si en algún momento Paco habilita API (ya está en la conversación con el dueño), este paso se automatiza y queda end-to-end.'
+      principle: 'Martin es amigo del dueño de Paco. Si se habilita API, este paso se automatiza y el flujo queda end-to-end.'
     }
   },
 
-  // ── RECEPCIÓN DIAN (Paco auto) ──
+  // ── PACO HACE EL RESTO (fuera de scope, valor del diseño) ──
   {
-    id: 'recepcion-dian', type: 'mesa',
-    x: 1500, y: 860,
-    icon: '📥', moduleTag: 'Paco', step: '06',
-    name: 'recepcion-factura-dian',
-    title: 'Factura DIAN recibida',
-    desc: 'Paco jala la factura electrónica automáticamente desde la DIAN. Ya resuelto — no requiere skill.',
-    phase: 3,
+    id: 'paco-scope', type: 'mesa', big: true,
+    x: 1500, y: 900,
+    icon: '🔒', moduleTag: 'Fuera de scope', step: null,
+    name: 'paco-back-office',
+    title: 'Paco hace el resto',
+    desc: 'Factura DIAN · causación con PUC · cronograma de pagos · archivo plano al banco. Paco ya está parametrizado para construcción colombiana — no lo duplicamos. Esa es la inteligencia del diseño.',
+    phase: 2,
     detail: {
-      section: 'Paso automatizado por Paco',
-      intro: 'Cuando el proveedor emite la factura electrónica, Paco la jala automáticamente vía DIAN. Esto ya funciona en Nivel.',
-      input: 'Factura electrónica del proveedor en la DIAN.',
+      section: 'Fuera de scope — y esa es la inteligencia del diseño',
+      intro: 'Paco está parametrizado para construcción colombiana: recibe la factura DIAN automáticamente, aplica el PUC, arma el cronograma de vencimientos y genera el archivo plano para el banco. La intervención correcta no es duplicar Paco. Es cerrar la pieza que Paco no hace bien: todo el front del ciclo — requisición, selección de proveedor, comparativo, OC — antes de que la información llegue a Paco.',
+      input: 'OC cargada en Paco.',
       output: [
-        'Factura electrónica (XML + PDF) recibida en Paco',
-        'Metadatos extraídos: proveedor, valor, fecha, items'
+        'Recepción automática de factura DIAN (Paco)',
+        'Causación contable aplicando PUC de Nivel (Paco)',
+        'Cronograma de pagos priorizado (Paco)',
+        'Archivo plano para el banco (Paco)'
       ],
-      principle: 'No todo hay que automatizarlo dos veces. Si Paco ya lo hace, no lo tocamos.'
+      principle: 'El diseño inteligente no es hacer más. Es no duplicar lo que ya funciona. Cuando Paco habilite API → Track B futuro: agente conversacional sobre Paco para consultas, conciliación asistida y alertas proactivas.'
     }
   },
 
-  // ── PAGO · SKILLS ──
-  {
-    id: 'skill-4', type: 'm2',
-    x: 820, y: 1240,
-    icon: '🧾', moduleTag: 'Skill 4', step: '07',
-    name: '/causar-factura',
-    title: 'Causación con PUC',
-    desc: 'Recibe la factura, consulta el PUC de Nivel y propone la cuenta contable con justificación. "Café puede ser viáticos o gastos de representación" — el skill decide con criterio.',
-    phase: 3,
-    detail: {
-      section: 'Contabilidad — Skill 4',
-      intro: 'Quita del cerebro del contable la decisión repetitiva de cuenta contable. El PUC de Nivel se carga una vez como referencia.',
-      input: 'La factura recibida desde Paco (XML o descripción) + PUC de Nivel.',
-      output: [
-        'Cuenta contable propuesta con justificación textual',
-        'Validación cruzada contra reglas del PUC',
-        'Alertas si la factura no tiene match claro (casos borde para revisar)',
-        'El contable valida (humano en el loop) y registra en Paco'
-      ],
-      principle: 'Ahorro estimado: 3–5 horas/semana del área contable. Si Paco habilita API, esto se automatiza end-to-end.'
-    }
-  },
-  {
-    id: 'skill-5', type: 'm2',
-    x: 1500, y: 1240,
-    icon: '💸', moduleTag: 'Skill 5', step: '08',
-    name: '/cronograma-pagos',
-    title: 'Cronograma + archivo plano',
-    desc: 'Jala facturas pendientes, cruza con flujo de caja disponible, prioriza vencimientos y genera el archivo plano que Paco acepta.',
-    phase: 3,
-    detail: {
-      section: 'Tesorería — Skill 5',
-      intro: 'Tesorería deja de priorizar a mano. El skill cruza vencimientos con caja disponible y deja el archivo plano listo para cargar.',
-      input: 'Facturas causadas + flujo de caja disponible del período.',
-      output: [
-        'Cronograma de pagos priorizado ("hoy estas, mañana estas")',
-        'Respeto a vencimientos y caja disponible',
-        'Archivo plano en el formato exacto que Paco acepta',
-        'Listo para que un humano lo cargue'
-      ],
-      principle: 'Ahorro estimado: 2–3 horas/semana de tesorería.'
-    }
-  },
-
-  // ── EJECUCIÓN PAGO (manual banco) ──
-  {
-    id: 'ejecucion-pago', type: 'mesa',
-    x: 2180, y: 1240,
-    icon: '🏦', moduleTag: 'Manual', step: '09',
-    name: 'ejecucion-pago-banco',
-    title: 'Ejecutar pagos en banco',
-    desc: 'Un humano carga el archivo plano al banco y ejecuta los pagos. Sin conexión directa banco ↔ Paco.',
-    phase: 3,
-    detail: {
-      section: 'Paso manual — interfaz con banco',
-      intro: 'La ejecución del pago en el banco queda como paso humano. No hay conexión directa estructural entre Paco y el banco.',
-      input: 'Archivo plano generado por el Skill 5.',
-      output: [
-        'Pagos dispersados a proveedores',
-        'Confirmaciones bancarias'
-      ],
-      principle: 'Automatizar este paso requiere integración bancaria aparte — no entra en este paquete.'
-    }
-  },
-
-  // ── CONCILIACIÓN (manual, propuesto paquete 2) ──
-  {
-    id: 'conciliacion', type: 'mesa',
-    x: 2860, y: 1240,
-    icon: '🔍', moduleTag: 'Futuro', step: '10',
-    name: 'conciliacion-bancaria',
-    title: 'Conciliación bancaria',
-    desc: 'Cruza extractos bancarios vs. pagos registrados. Queda manual hoy — se propone como segundo paquete (agente Paco / Core Layer).',
-    phase: 3,
-    detail: {
-      section: 'Paso manual — candidato a 2º paquete',
-      intro: 'Dolor enorme que Martin mencionó en la C1. No es automatizable estructuralmente con el stack actual: extractos no identifican al pagador, hay pagos parciales, pagos desde cuentas personales…',
-      input: 'Extractos bancarios + registros de pagos en Paco.',
-      output: [
-        'Conciliación manual hoy',
-        'En un segundo paquete: agente conversacional sobre Paco que use el historial + reglas tácitas para sugerir matches'
-      ],
-      principle: 'Este es el hook natural al Core Layer. Primer paquete cierra el ciclo operativo; segundo paquete ataca esto.'
-    }
-  },
-
-  // ── MEMORIA VIVA ──
+  // ── MEMORIA VIVA (transversal) ──
   {
     id: 'memoria', type: 'mem', big: true,
-    x: 1550, y: 1640,
-    icon: '🧠', moduleTag: 'Transversal', step: '11',
+    x: 1550, y: 1300,
+    icon: '🧠', moduleTag: 'Transversal', step: '07',
     name: 'memoria-viva',
     title: 'Aprende de cada ciclo',
-    desc: 'Cada vuelta del ciclo alimenta la base documental. Criterios tácitos se vuelven explícitos. Precios históricos se acumulan. El sistema es más inteligente en el ciclo 100 que en el 1.',
-    phase: 4,
+    desc: 'Cada vuelta del ciclo enriquece la base documental. Criterios tácitos se vuelven explícitos. Precios históricos se acumulan. En 6 meses, Nivel tiene un activo estratégico que hoy no existe.',
+    phase: 3,
     detail: {
-      section: 'Memoria viva',
-      intro: 'Esto es lo que hace que el sistema no sea un ChatGPT con plantillas. Cada ciclo procesado alimenta cuatro archivos vivos que los skills consultan en la siguiente vuelta.',
-      input: 'Resultado de cada ciclo: qué proveedor ganó y por qué, qué cuenta contable se usó para qué tipo de factura, qué precio tuvo tal ítem en tal proyecto…',
+      section: 'Memoria viva — el compounding',
+      intro: 'Esto es lo que hace que el sistema no sea un ChatGPT con plantillas. Cada ciclo procesado alimenta tres archivos vivos que los skills consultan en la siguiente vuelta. El sistema del ciclo 100 es más inteligente que el del ciclo 1.',
+      input: 'Resultado de cada ciclo: qué proveedor ganó y por qué, qué precio tuvo tal ítem, qué criterio se aplicó.',
       output: [
-        'tabla-proveedores.md — tabla enriquecida con cumplimiento histórico, plazos reales, precio promedio',
-        'criterios-seleccion.md — los criterios tácitos se vuelven reglas explícitas ("para cemento priorizamos…")',
-        'puc-enriquecido.md — casos resueltos de causación con ejemplos textuales',
-        'historial-precios.md — precios pagados por ítem, por proyecto, por proveedor — permite "compáreme el cemento en todos los proyectos"'
+        'tabla-proveedores.md — cumplimiento histórico, plazos reales, precio promedio',
+        'criterios-seleccion.md — criterios tácitos vueltos reglas explícitas',
+        'historial-precios.md — precios por ítem, por proyecto, por proveedor'
       ],
-      principle: 'Cada ciclo procesado hace al sistema más inteligente. En 6 meses, la tabla de proveedores de Nivel es un activo estratégico que hoy no existe.'
+      principle: 'En 6 meses, "¿cómo está el cemento de Argos en todos los proyectos?" se responde en 10 segundos. Hoy se responde en horas o no se responde.'
     }
   },
 
-  // ── MEMORY FILES ──
-  { id: 'mem-prov', type: 'memfile', x: 500, y: 1960, name: 'tabla-proveedores.md', desc: 'Proveedores + cumplimiento histórico' },
-  { id: 'mem-crit', type: 'memfile', x: 1080, y: 1960, name: 'criterios-seleccion.md', desc: 'Criterios tácitos → explícitos' },
-  { id: 'mem-puc',  type: 'memfile', x: 1880, y: 1960, name: 'puc-enriquecido.md', desc: 'PUC + casos resueltos' },
-  { id: 'mem-hist', type: 'memfile', x: 2460, y: 1960, name: 'historial-precios.md', desc: 'Precios por ítem · proyecto · proveedor' }
+  // ── MEMORY FILES (3) ──
+  { id: 'mem-prov', type: 'memfile', x: 500, y: 1660, name: 'tabla-proveedores.md', desc: 'Cumplimiento · plazos · precio promedio' },
+  { id: 'mem-crit', type: 'memfile', x: 1550, y: 1660, name: 'criterios-seleccion.md', desc: 'Tácitos → explícitos · reglas por categoría' },
+  { id: 'mem-hist', type: 'memfile', x: 2500, y: 1660, name: 'historial-precios.md', desc: 'Precios por ítem · proyecto · proveedor' }
 ];
 
 // Groups
 const GROUPS = [
-  { cls: 'm1',   persona: 'Compras',       label: 'Módulo 1 · COMPRAS',    arrow: 'flujo →', x: 760,  y: 360,  w: 1720, h: 260 },
-  { cls: 'mesa', persona: 'Paco / Banco',  label: 'Pasos manuales',        arrow: 'humano',  x: 80,   y: 780,  w: 3240, h: 240 },
-  { cls: 'm2',   persona: 'Contabilidad',  label: 'Módulo 2 · PAGO',       arrow: 'flujo →', x: 760,  y: 1140, w: 1060, h: 260 },
-  { cls: 'mem',  persona: 'Organización',  label: 'Memoria viva',          arrow: 'aprende', x: 80,   y: 1540, w: 3240, h: 560 }
+  { cls: 'm1',   persona: 'Equipo de compras', label: 'Ciclo de compras · 3 skills + 2 pasos manuales', arrow: 'flujo →',     x: 80,   y: 360,  w: 3240, h: 260 },
+  { cls: 'mesa', persona: 'Paco',              label: 'Paco toma el relevo',                            arrow: 'fuera scope', x: 1420, y: 800,  w: 1780, h: 280 },
+  { cls: 'mem',  persona: 'Organización',      label: 'Memoria viva · aprende cada ciclo',              arrow: 'compounding', x: 80,   y: 1200, w: 3240, h: 620 }
 ];
 
 // Edges
@@ -1142,59 +1077,45 @@ const EDGES = [
   { from: 'base-docs', to: 'skill-1', type: 'consulta', color: 'purple' },
   { from: 'base-docs', to: 'skill-2', type: 'consulta', color: 'purple' },
   { from: 'base-docs', to: 'skill-3', type: 'consulta', color: 'purple' },
-  { from: 'base-docs', to: 'skill-4', type: 'consulta', color: 'purple' },
-  { from: 'base-docs', to: 'skill-5', type: 'consulta', color: 'purple' },
 
-  // flujo principal de compras
+  // flujo principal (L→R)
   { from: 'requisicion', to: 'skill-1', type: 'solid', label: 'dispara', color: 'emerald', animated: true },
-  { from: 'skill-1', to: 'skill-2', type: 'solid', label: 'cotizaciones', color: 'emerald', animated: true },
+  { from: 'skill-1', to: 'pedir-cot', type: 'solid', label: 'plantilla', color: 'emerald', animated: true },
+  { from: 'pedir-cot', to: 'skill-2', type: 'solid', label: 'cotizaciones', color: 'emerald', animated: true },
   { from: 'skill-2', to: 'skill-3', type: 'solid', label: 'ganador', color: 'emerald', animated: true },
   { from: 'skill-3', to: 'carga-paco', type: 'solid', label: 'OC', color: 'emerald', animated: true },
-
-  // interfaz Paco
-  { from: 'carga-paco', to: 'recepcion-dian', type: 'dashed', color: 'red' },
-
-  // flujo pago
-  { from: 'recepcion-dian', to: 'skill-4', type: 'solid', label: 'factura', color: 'amber', animated: true },
-  { from: 'skill-4', to: 'skill-5', type: 'solid', label: 'causada', color: 'amber', animated: true },
-  { from: 'skill-5', to: 'ejecucion-pago', type: 'solid', label: 'archivo plano', color: 'amber', animated: true },
-  { from: 'ejecucion-pago', to: 'conciliacion', type: 'dashed', color: 'red' },
+  { from: 'carga-paco', to: 'paco-scope', type: 'dashed', label: 'entra a Paco', color: 'red' },
 
   // alimenta memoria
+  { from: 'skill-1', to: 'memoria', type: 'dashed', color: 'pink' },
   { from: 'skill-2', to: 'memoria', type: 'dashed', color: 'pink' },
-  { from: 'skill-4', to: 'memoria', type: 'dashed', color: 'pink' },
-  { from: 'conciliacion', to: 'memoria', type: 'dashed', color: 'pink' },
+  { from: 'skill-3', to: 'memoria', type: 'dashed', color: 'pink' },
 
   // memoria a memfiles
   { from: 'memoria', to: 'mem-prov', type: 'dashed', color: 'pink' },
   { from: 'memoria', to: 'mem-crit', type: 'dashed', color: 'pink' },
-  { from: 'memoria', to: 'mem-puc',  type: 'dashed', color: 'pink' },
   { from: 'memoria', to: 'mem-hist', type: 'dashed', color: 'pink' },
 
-  // memfiles retroalimentan skills
+  // memfiles retroalimentan skills (compounding)
   { from: 'mem-prov', to: 'skill-1', type: 'dotted', label: 'enriquece', color: 'blue', curve: 'left' },
   { from: 'mem-crit', to: 'skill-2', type: 'dotted', label: 'enriquece', color: 'blue', curve: 'left' },
-  { from: 'mem-puc',  to: 'skill-4', type: 'dotted', label: 'enriquece', color: 'blue', curve: 'left' },
   { from: 'mem-hist', to: 'skill-2', type: 'dotted', color: 'blue', curve: 'right' },
 
-  // CICLO CIERRA — conciliación vuelve a requisición (nueva vuelta)
-  { from: 'conciliacion', to: 'requisicion', type: 'dotted', label: 'nuevo ciclo', color: 'blue', curve: 'bottom' }
+  // CICLO CIERRA — memoria alimenta siguiente requisición
+  { from: 'memoria', to: 'requisicion', type: 'dotted', label: 'nuevo ciclo', color: 'blue', curve: 'bottom' }
 ];
 
 // Demo sequence
 const DEMO_STEPS = [
-  { node: 'base-docs', title: 'La base documental es la autoridad', desc: 'Antes de que la IA haga nada, existe la base documental: el PUC, los criterios tácitos de selección de proveedores, la tabla histórica. Todo lo que hoy vive en la cabeza de Martin, acá queda versionado.' },
-  { node: 'requisicion', title: 'Paso 1 · Alguien detecta la necesidad', desc: 'El ciclo arranca cuando un humano identifica que algo se necesita comprar. Input humano, no automatizable — requiere juicio sobre la operación.' },
-  { node: 'skill-1', title: 'Paso 2 · Pedir cotizaciones', desc: 'El sistema toma la requisición, selecciona proveedores según la tabla + criterios tácitos, y manda correos personalizados a los 3+ relevantes. Ahorra 3–5 h/semana.' },
-  { node: 'skill-2', title: 'Paso 3 · Comparar sin que se te escape línea 17', desc: 'Normaliza los alcances, flag de discrepancias ("este incluye, este no"), cuadro consolidado y recomendación razonada. El dolor grande que Martin mencionó — resuelto.' },
-  { node: 'skill-3', title: 'Paso 4 · OC lista para revisar', desc: 'Con la cotización ganadora, arma la OC poblada contra plantilla de Nivel. Validada alcance vs. cotización. Lista para carga humana a Paco.' },
-  { node: 'carga-paco', title: 'Paso 5 · Humano carga a Paco', desc: 'Paco no tiene API abierta hoy. La carga sigue siendo humana. Si Paco habilita API, este paso se automatiza y el flujo queda end-to-end.' },
-  { node: 'recepcion-dian', title: 'Paso 6 · Paco recibe la factura DIAN solo', desc: 'Paco ya jala la factura electrónica de la DIAN automáticamente. No todo hay que automatizarlo dos veces.' },
-  { node: 'skill-4', title: 'Paso 7 · Causar con el PUC', desc: '"Café puede ser viáticos o gastos de representación." El skill consulta el PUC de Nivel y propone la cuenta con justificación. El contable valida y registra en Paco.' },
-  { node: 'skill-5', title: 'Paso 8 · Cronograma + archivo plano', desc: 'Tesorería deja de priorizar a mano. Cruce de vencimientos con caja disponible, prioridad automática, y archivo plano listo en el formato de Paco.' },
-  { node: 'ejecucion-pago', title: 'Paso 9 · Humano ejecuta en el banco', desc: 'La ejecución bancaria queda humana. No hay integración directa estructural. Automatizarlo requiere un paquete aparte.' },
-  { node: 'conciliacion', title: 'Paso 10 · Conciliación (paquete 2)', desc: 'Dolor enorme que Martin mencionó. No es automatizable con el stack actual (extractos no identifican pagador, pagos parciales…). Se propone como hook al Core Layer.' },
-  { node: 'memoria', title: 'Paso 11 · El sistema aprende', desc: 'Aquí está el compounding. Cada ciclo alimenta 4 archivos vivos: tabla de proveedores con cumplimiento histórico, criterios tácitos vueltos explícitos, PUC con casos resueltos, y precios por ítem/proyecto. En 6 meses, la tabla de proveedores es un activo estratégico que hoy no existe.' }
+  { node: 'base-docs', title: 'La base documental es la autoridad', desc: 'Antes de que la IA haga nada, existe la base documental: el PUC, los criterios tácitos de selección de proveedores, la tabla histórica. Todo lo que hoy vive en la cabeza del equipo acá queda versionado y consultable por cada skill.' },
+  { node: 'requisicion', title: 'Paso 1 · Detectar la necesidad', desc: 'El ciclo arranca cuando un humano identifica que algo se necesita comprar. Input humano, no automatizable — requiere juicio sobre la operación.' },
+  { node: 'skill-1', title: 'Paso 2 · Requisición estándar + proveedores sugeridos', desc: 'El sistema traduce la necesidad informal en una requisición formato estándar, selecciona los proveedores a contactar por tabla histórica + criterios tácitos, y deja la plantilla de correo lista.' },
+  { node: 'pedir-cot', title: 'Paso 3 · El jefe de compras llama', desc: '80-90% de proveedores son informales. Martin fue explícito: este paso se queda humano. El skill anterior le ahorra a quién y cómo pedir — pero levantar el teléfono sigue siendo humano, a propósito.' },
+  { node: 'skill-2', title: 'Paso 4 · Comparar sin que se te escape línea 17', desc: 'Normaliza los alcances línea por línea, flag de discrepancias ("este incluye, este no"), cuadro consolidado y recomendación razonada aplicando los criterios tácitos. El dolor grande que Martin mencionó — resuelto.' },
+  { node: 'skill-3', title: 'Paso 5 · OC lista para Paco', desc: 'Con la cotización ganadora arma la OC poblada contra plantilla de Nivel. Validada alcance cotización vs. OC. Lista para carga humana a Paco.' },
+  { node: 'carga-paco', title: 'Paso 6 · Humano carga a Paco', desc: 'Paco no tiene API abierta hoy. La carga sigue siendo humana. Si Paco habilita API (Martin ya está en esa conversación), este paso se automatiza.' },
+  { node: 'paco-scope', title: 'Fuera de scope · Paco hace el resto', desc: 'DIAN, causación con PUC, cronograma de pagos, archivo plano al banco. Paco ya está parametrizado para construcción colombiana. No lo duplicamos — esa es la inteligencia del diseño. Track B futuro: agente conversacional sobre Paco para consultas y conciliación asistida.' },
+  { node: 'memoria', title: 'El compounding · cada ciclo hace al sistema más inteligente', desc: 'Cada ciclo procesado alimenta tres archivos vivos: cumplimiento histórico de proveedores, criterios tácitos vueltos explícitos, y precios por ítem/proyecto. En 6 meses, "¿cómo está el cemento en todos los proyectos?" se responde en 10 segundos. Hoy se responde en horas o no se responde.' }
 ];
 
 // ═══════════════════════════════════════════════════════════════

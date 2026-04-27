@@ -8,6 +8,8 @@ Stack comercial de **Irrelevant** para generar documentos, procesar calls, y ges
 
 ## Datos Fijos de Irrelevant
 
+### Datos legales de la empresa (SOLO para contratos, NIT, razón social)
+
 | Campo | Valor |
 |---|---|
 | **Razon social** | IRRELEVANT CLUB S.A.S. |
@@ -15,10 +17,25 @@ Stack comercial de **Irrelevant** para generar documentos, procesar calls, y ges
 | **Representante Legal** | Juan Pablo Gomez Mejia |
 | **CC** | 1006972309 |
 | **Domicilio** | Medellin, Antioquia |
-| **Email** | jpgomez@stayirrelevant.com |
-| **Telefono** | +57 318 335 1733 |
+| **Email legal** | jpgomez@stayirrelevant.com |
+| **Telefono empresa** | +57 318 335 1733 |
 | **Web** | stayirrelevant.com |
-| **Cal.com** | https://cal.com/juan-irrelevant/discovery |
+
+### Equipo comercial de Irrelevant
+
+El workspace lo usan varias personas del equipo. **El contacto que aparece en un documento de cliente debe ser el de quien lo está generando**, no un default fijo.
+
+| Persona | Cargo | Email | Celular |
+|---|---|---|---|
+| **Juan Pablo Gómez Mejía** | CEO | jpgomez@stayirrelevant.com | +57 318 335 1733 |
+| **Sara Garcés Tobón** (con tilde en la e y la o — NUNCA "Sara Garces" ni "Sara Garcia") | Directora de Marketing | marketing@stayirrelevant.com | +57 321 846 4652 |
+| **Agustín Hoyos** | Director Comercial | ahoyosh@stayirrelevant.com | *(pendiente)* |
+
+**REGLAS DURAS:**
+1. En cualquier documento dirigido a un cliente (cotización, Fase 0, entregable, slides, propuestas, emails, follow-ups, contactos, firmas) usar los datos de **la persona que está generando el documento**, no un default fijo.
+2. Si no es claro quién lo está haciendo, **preguntar antes de poner contacto** — no adivinar.
+3. Los datos de JP solo aparecen automáticamente en la sección legal de contratos (razón social, NIT, representante legal). Como contacto comercial depende de quién esté atendiendo al cliente.
+4. Nunca escribir "Sara Garces" sin tilde, "Sara Garcia", ni "Agustin" sin tilde.
 
 ### Logo URLs
 
