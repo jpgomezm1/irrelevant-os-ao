@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Desglose Fee Mensual — Escenario 1 Grasshopper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050834;
+    --bg-canvas: #030620;
+    --card: #0c1250;
+    --card-hover: #0f164a;
+    --border: rgba(124, 184, 242, 0.18);
+    --border-strong: rgba(124, 184, 242, 0.45);
+    --text: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.65);
+    --text-secondary: rgba(255, 255, 255, 0.45);
+
+    --purple: #a78bfa;
+    --purple-light: #c4b5fd;
+    --purple-glow: rgba(167, 139, 250, 0.38);
+
+    --emerald: #5ee5a4;
+    --emerald-glow: rgba(94, 229, 164, 0.38);
+
+    --amber: #ffc95e;
+    --amber-glow: rgba(255, 201, 94, 0.38);
+
+    --pink: #f29bd4;
+    --pink-glow: rgba(242, 155, 212, 0.38);
+
+    --blue: #8fc4fb;
+    --blue-glow: rgba(143, 196, 251, 0.38);
+
+    --teal: #4fd1c5;
+    --teal-glow: rgba(79, 209, 197, 0.38);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    background: var(--bg-canvas);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .header .subtitle {
+    font-size: 15px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .header .badge {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--emerald);
+    background: rgba(94, 229, 164, 0.14);
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--emerald);
+  }
+
+  /* Summary Card */
+  .summary-card {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(242, 155, 212, 0.08));
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .summary-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .summary-card .amount {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+
+  .summary-card .with-iva {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .summary-card .with-iva .iva-amount {
+    color: var(--purple-light);
+    font-weight: 700;
+  }
+
+  /* Breakdown Table */
+  .breakdown-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .breakdown-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .breakdown-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .breakdown-table thead {
+    border-bottom: 2px solid var(--border-strong);
+  }
+
+  .breakdown-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-align: left;
+    padding: 12px 16px;
+  }
+
+  .breakdown-table th:last-child {
+    text-align: right;
+  }
+
+  .breakdown-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.2s;
+  }
+
+  .breakdown-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .breakdown-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .breakdown-table td {
+    padding: 16px;
+    vertical-align: top;
+  }
+
+  .item-icon {
+    font-size: 24px;
+    margin-right: 12px;
+    vertical-align: middle;
+  }
+
+  .item-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .item-description {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .item-description ul {
+    margin: 8px 0 0 0;
+    padding-left: 18px;
+  }
+
+  .item-description li {
+    margin-bottom: 4px;
+  }
+
+  .item-amount {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--purple-light);
+    white-space: nowrap;
+  }
+
+  .item-percentage {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* Total Row */
+  .breakdown-table tfoot {
+    border-top: 2px solid var(--border-strong);
+  }
+
+  .breakdown-table tfoot td {
+    padding: 20px 16px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .breakdown-table tfoot .total-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .breakdown-table tfoot .total-amount {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Note Box */
+  .note-box {
+    background: rgba(94, 229, 164, 0.06);
+    border: 1px solid rgba(94, 229, 164, 0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 30px;
+  }
+
+  .note-box .note-icon {
+    font-size: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  .note-box .note-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--emerald);
+    margin-bottom: 8px;
+  }
+
+  .note-box .note-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .note-box .note-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Highlight Row */
+  .highlight-row {
+    background: rgba(94, 229, 164, 0.04) !important;
+  }
+
+  .highlight-row .item-name {
+    color: var(--emerald);
+  }
+
+  .highlight-row .item-amount {
+    color: var(--emerald);
+  }
+
+  /* Responsive */
+  @media (max-width: 767px) {
+    body {
+      padding: 20px 12px;
+    }
+
+    .header h1 {
+      font-size: 26px;
+    }
+
+    .header .subtitle {
+      font-size: 13px;
+    }
+
+    .summary-card {
+      padding: 24px 20px;
+    }
+
+    .summary-card .amount {
+      font-size: 42px;
+    }
+
+    .breakdown-section {
+      padding: 20px 16px;
+    }
+
+    .breakdown-section h2 {
+      font-size: 18px;
+    }
+
+    .breakdown-table {
+      font-size: 13px;
+    }
+
+    .breakdown-table th {
+      font-size: 9px;
+      padding: 10px 8px;
+    }
+
+    .breakdown-table td {
+      padding: 14px 8px;
+    }
+
+    .item-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .item-name {
+      font-size: 14px;
+    }
+
+    .item-description {
+      font-size: 11px;
+    }
+
+    .item-amount {
+      font-size: 16px;
+      text-align: left;
+      margin-top: 8px;
+    }
+
+    .item-percentage {
+      display: inline;
+      margin-left: 8px;
+    }
+
+    .breakdown-table tfoot .total-amount {
+      font-size: 20px;
+      text-align: left;
+    }
+
+    .note-box {
+      padding: 16px 18px;
+    }
+
+    .note-box .note-text {
+      font-size: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <h1>Desglose del Fee Mensual</h1>
+    <p class="subtitle">Plataforma Hopper MVP + Bitrix CRM · Escenario 1</p>
+    <span class="badge">Modelo de Retainer</span>
+  </div>
+
+  <!-- Summary Card -->
+  <div class="summary-card">
+    <div class="label">Fee Mensual</div>
+    <div class="amount">$2.000.000</div>
+    <div class="with-iva">+ IVA 19% = <span class="iva-amount">$2.380.000 COP/mes</span></div>
+  </div>
+
+  <!-- Breakdown Section -->
+  <div class="breakdown-section">
+    <h2>Desglose Detallado por Componente</h2>
+
+    <table class="breakdown-table">
+      <thead>
+        <tr>
+          <th style="width: 70%;">Concepto</th>
+          <th style="width: 30%;">Monto Mensual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Item 1: Margen Irrelevant -->
+        <tr class="highlight-row">
+          <td>
+            <span class="item-icon">💎</span>
+            <div class="item-name">Margen Irrelevant</div>
+            <div class="item-description">
+              Margen comercial de Irrelevant que cubre:
+              <ul>
+                <li><strong>Gestión de proyecto:</strong> coordinación, planning, seguimiento de roadmap y comunicación con stakeholders</li>
+                <li><strong>Account management:</strong> punto de contacto dedicado, revisiones periódicas, gestión de escalaciones</li>
+                <li><strong>Innovación continua:</strong> investigación de mejoras, nuevas funcionalidades, optimizaciones de producto</li>
+                <li><strong>Contingencias y estabilidad financiera:</strong> buffer para imprevistos técnicos, picos de demanda o cambios regulatorios</li>
+              </ul>
+            </div>
+          </td>
+          <td class="item-amount">
+            $500.000
+            <span class="item-percentage">25%</span>
+          </td>
+        </tr>
+
+        <!-- Item 2: Mano de Obra -->
+        <tr>
+          <td>
+            <span class="item-icon">👨‍💻</span>
+            <div class="item-name">Mano de Obra: Mantenimiento y Soporte Técnico</div>
+            <div class="item-description">
+              Equipo técnico dedicado para garantizar operación continua de la plataforma:
+              <ul>
+                <li><strong>Soporte técnico reactivo:</strong> atención a incidencias reportadas por usuarios o asesores (bugs, errores, comportamientos inesperados)</li>
+                <li><strong>Monitoreo proactivo:</strong> supervisión de logs, uptime, performance de base de datos y alertas automáticas</li>
+                <li><strong>Hotfixes y parches:</strong> corrección de bugs críticos y de alta prioridad detectados en producción</li>
+                <li><strong>Actualizaciones de seguridad:</strong> aplicación de parches de seguridad en dependencias, librerías y frameworks</li>
+                <li><strong>Tiempo de respuesta:</strong> SLA de 24 horas en días hábiles para issues críticos</li>
+              </ul>
+            </div>
+          </td>
+          <td class="item-amount">
+            $400.000
+            <span class="item-percentage">20%</span>
+          </td>
+        </tr>
+
+        <!-- Item 3: Infraestructura Cloud -->
+        <tr>
+          <td>
+            <span class="item-icon">☁️</span>
+            <div class="item-name">Infraestructura Cloud y Hosting</div>
+            <div class="item-description">
+              Costos de servidores, base de datos, storage y servicios cloud necesarios para operación 24/7:
+              <ul>
+                <li><strong>Servidores de aplicación:</strong> instancias escalables para frontend y backend (2-3 instancias con load balancing)</li>
+                <li><strong>Base de datos PostgreSQL:</strong> instancia managed con backups automáticos diarios y replicación</li>
+                <li><strong>Object Storage (S3):</strong> almacenamiento de documentos subidos (CVs, tests psicométricos, certificados, diplomas)</li>
+                <li><strong>CDN (CloudFront/Cloudflare):</strong> distribución de contenido estático con caché global</li>
+                <li><strong>SSL/Certificados:</strong> certificados SSL/TLS para conexiones seguras HTTPS</li>
+              </ul>
+            </div>
+          </td>
+          <td class="item-amount">
+            $550.000
+            <span class="item-percentage">27.5%</span>
+          </td>
+        </tr>
+
+        <!-- Item 4: Servicios de AI -->
+        <tr>
+          <td>
+            <span class="item-icon">🧠</span>
+            <div class="item-name">Servicios de AI y Procesamiento</div>
+            <div class="item-description">
+              Costos de APIs de inteligencia artificial para análisis de documentos y recomendaciones:
+              <ul>
+                <li><strong>API de LLM (Claude/GPT):</strong> procesamiento de documentos psicométricos subidos (MBTI, iStrong, Big 5) para extracción de personalidad, fortalezas e intereses</li>
+                <li><strong>Motor de recomendaciones AI:</strong> consolidación de tests + perfil + presupuesto para matching con portafolio institucional</li>
+                <li><strong>Procesamiento de lenguaje natural:</strong> análisis de CVs y documentos de texto para generación de perfiles</li>
+                <li><strong>Integración O*NET:</strong> consultas a base de datos ocupacional para tests RIASEC, profesiones y salarios esperados</li>
+                <li><strong>Costos estimados:</strong> ~5.000-8.000 análisis de documentos/mes + ~3.000-5.000 recomendaciones AI/mes</li>
+              </ul>
+            </div>
+          </td>
+          <td class="item-amount">
+            $450.000
+            <span class="item-percentage">22.5%</span>
+          </td>
+        </tr>
+
+        <!-- Item 5: Bitrix CRM Sync -->
+        <tr>
+          <td>
+            <span class="item-icon">🔄</span>
+            <div class="item-name">Sincronización Bitrix CRM</div>
+            <div class="item-description">
+              Mantenimiento de integración bidireccional con Bitrix CRM:
+              <ul>
+                <li><strong>Webhooks automáticos:</strong> sincronización de usuarios calificados desde Hopper hacia Bitrix con perfil completo (nombre, email, intereses, programas recomendados)</li>
+                <li><strong>Monitoreo de sincronización:</strong> logs, reintentos automáticos, manejo de errores y notificaciones de fallos</li>
+                <li><strong>Mantenimiento de credenciales:</strong> renovación de tokens de API, actualización de endpoints si Bitrix cambia configuración</li>
+              </ul>
+            </div>
+          </td>
+          <td class="item-amount">
+            $100.000
+            <span class="item-percentage">5%</span>
+          </td>
+        </tr>
+
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="total-label">Total Fee Mensual (sin IVA)</td>
+          <td class="total-amount">$2.000.000</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- Note Box -->
+    <div class="note-box">
+      <div class="note-title">
+        <span class="note-icon">💡</span>
+        Condiciones del Fee Mensual
+      </div>
+      <div class="note-text">
+        <strong>Cancelación flexible:</strong> El fee mensual se puede cancelar con <strong>30 días de aviso previo</strong>, sin compromiso mínimo de permanencia. No hay penalidades por cancelación anticipada.<br><br>
+        <strong>Facturación:</strong> Se factura mensualmente por adelantado el primer día hábil de cada mes. El primer mes se factura proporcionalmente desde la fecha de go-live.<br><br>
+        <strong>Ajuste anual:</strong> El fee mensual se ajusta anualmente según IPC (Índice de Precios al Consumidor) de Colombia para mantener poder adquisitivo.
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
