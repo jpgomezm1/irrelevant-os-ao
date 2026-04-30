@@ -33,3 +33,15 @@ Redes/referentes/
 Redes/videos irrelevant/
 Redes/videos referentes/
 Redes/.DS_Store
+
+# Heavy media (>50MB suele romper push de GitHub — subir a Drive/GCS y linkear)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wav
+*.zip
+*.dmg
+
+# Archivos pesados específicos ya commiteados (evita resubir si los regeneran)
+Clientes/conaltura/iniciativas/03-presupuesto-negociacion/contexto/pitch-hackathon-conaltura-v8.pptx
