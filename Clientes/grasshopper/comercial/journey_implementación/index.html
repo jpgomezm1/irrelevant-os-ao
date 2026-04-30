@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Journey de Implementación — Grasshopper Escenario 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050834;
+    --bg-canvas: #030620;
+    --card: #0c1250;
+    --card-hover: #0f164a;
+    --border: rgba(124, 184, 242, 0.18);
+    --border-strong: rgba(124, 184, 242, 0.45);
+    --text: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.65);
+    --text-secondary: rgba(255, 255, 255, 0.45);
+
+    --purple: #a78bfa;
+    --purple-light: #c4b5fd;
+    --purple-glow: rgba(167, 139, 250, 0.38);
+
+    --emerald: #5ee5a4;
+    --emerald-glow: rgba(94, 229, 164, 0.38);
+
+    --amber: #ffc95e;
+    --amber-glow: rgba(255, 201, 94, 0.38);
+
+    --pink: #f29bd4;
+    --pink-glow: rgba(242, 155, 212, 0.38);
+
+    --blue: #8fc4fb;
+    --blue-glow: rgba(143, 196, 251, 0.38);
+
+    --teal: #4fd1c5;
+    --teal-glow: rgba(79, 209, 197, 0.38);
+
+    --coral: #ffa584;
+    --indigo: #818cf8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    background: var(--bg-canvas);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─── PROGRESS RAIL ─────────────────────────────────────── */
+  .rail {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .rail-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .rail-dot:hover { background: rgba(255,255,255,0.4); transform: scale(1.2); }
+  .rail-dot.active {
+    background: var(--purple);
+    box-shadow: 0 0 12px var(--purple-glow);
+    border-color: var(--purple);
+    transform: scale(1.3);
+  }
+  .rail-dot::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .rail-dot:hover::after, .rail-dot.active::after { opacity: 1; }
+
+  /* ─── TOP BAR ────────────────────────────────────────────── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 56px;
+    background: rgba(5, 8, 52, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px; z-index: 100;
+  }
+  .topbar-title .title-text {
+    font-size: 16px; font-weight: 800; letter-spacing: -0.3px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .topbar-title .badge {
+    font-size: 10px; font-weight: 700; color: var(--emerald);
+    background: rgba(94, 229, 164, 0.14);
+    padding: 3px 9px; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    margin-left: 10px;
+  }
+  .topbar-right { display: flex; align-items: center; gap: 14px; font-size: 11px; color: var(--text-muted); }
+  .topbar-right kbd {
+    background: var(--border); color: var(--text);
+    padding: 1px 6px; border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 600;
+  }
+
+  /* ─── SCENE ─────────────────────────────────────────────── */
+  .scene {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .scene::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(139, 143, 163, 0.05) 1px, transparent 0);
+    background-size: 30px 30px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .scene-glow {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .scene-glow::before {
+    content: '';
+    position: absolute;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+  }
+  .scene-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1180px;
+    text-align: center;
+  }
+
+  .scene-step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--scene-color, var(--purple));
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .scene.visible .scene-step { opacity: 1; transform: translateY(0); }
+
+  .scene h1 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+  }
+  .scene.visible h1 { opacity: 1; transform: translateY(0); }
+  .scene h1 .accent {
+    background: linear-gradient(135deg, var(--scene-color, var(--purple)), var(--scene-color-2, var(--pink)));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .scene-sub {
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-muted);
+    max-width: 720px;
+    margin: 0 auto 40px;
+    line-height: 1.65;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+  }
+  .scene.visible .scene-sub { opacity: 1; transform: translateY(0); }
+
+  .scene-visual {
+    margin: 30px 0;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+  }
+  .scene.visible .scene-visual { opacity: 1; transform: translateY(0) scale(1); }
+
+  .scene-insight {
+    margin-top: 36px;
+    display: inline-block;
+    background: rgba(167, 139, 250, 0.06);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 26px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 680px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease 0.6s, transform 0.7s ease 0.6s;
+  }
+  .scene.visible .scene-insight { opacity: 1; transform: translateY(0); }
+  .scene-insight strong { color: var(--scene-color, var(--text)); font-weight: 600; }
+  .scene-insight .insight-icon { font-size: 18px; margin-right: 8px; vertical-align: middle; }
+
+  .scroll-down {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    animation: bounce 2.4s ease-in-out infinite;
+    z-index: 5;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .scroll-down:hover { opacity: 1; }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ─── SCENE COLOR THEMES ────────────────────────────────── */
+  #scene-0 { --scene-color: var(--purple-light); --scene-color-2: var(--pink); }
+  #scene-0 .scene-glow::before { background: var(--purple); top: -200px; left: -200px; }
+  #scene-1 { --scene-color: var(--purple); --scene-color-2: var(--pink); }
+  #scene-1 .scene-glow::before { background: var(--purple); top: 30%; right: -300px; }
+  #scene-2 { --scene-color: var(--blue); --scene-color-2: var(--purple); }
+  #scene-2 .scene-glow::before { background: var(--blue); top: 20%; left: -200px; }
+  #scene-3 { --scene-color: var(--emerald); --scene-color-2: var(--teal); }
+  #scene-3 .scene-glow::before { background: var(--emerald); top: 30%; right: -200px; }
+  #scene-4 { --scene-color: var(--blue); --scene-color-2: var(--teal); }
+  #scene-4 .scene-glow::before { background: var(--teal); top: 30%; left: -200px; }
+  #scene-5 { --scene-color: var(--amber); --scene-color-2: var(--coral); }
+  #scene-5 .scene-glow::before { background: var(--amber); top: 30%; right: -200px; }
+  #scene-6 { --scene-color: var(--emerald); --scene-color-2: var(--blue); }
+  #scene-6 .scene-glow::before { background: var(--emerald); top: 30%; left: -200px; }
+  #scene-7 { --scene-color: var(--pink); --scene-color-2: var(--indigo); }
+  #scene-7 .scene-glow::before { background: var(--pink); top: 30%; right: -200px; }
+  #scene-8 { --scene-color: var(--purple-light); --scene-color-2: var(--emerald); }
+  #scene-8 .scene-glow::before { background: var(--purple); top: 30%; left: 30%; }
+
+  /* ═══ STATS GRID ══════════════════════════════════════════ */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .stat-card:hover {
+    border-color: var(--scene-color);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .stat-num {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--scene-color), var(--scene-color-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* ═══ FEATURE GRID ════════════════════════════════════════ */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .feature-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.3s;
+  }
+  .feature-item:hover {
+    border-color: var(--scene-color);
+    background: var(--card-hover);
+    transform: translateY(-4px);
+  }
+  .feature-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  .feature-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .feature-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ═══ TIMELINE ════════════════════════════════════════════ */
+  .timeline {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .timeline-phase {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    align-items: flex-start;
+  }
+  .phase-marker {
+    flex-shrink: 0;
+    width: 80px;
+    text-align: center;
+  }
+  .phase-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--scene-color), var(--scene-color-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .phase-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .phase-content {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+  .phase-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .phase-deliverables {
+    list-style: none;
+    padding: 0;
+  }
+  .phase-deliverables li {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    padding-left: 24px;
+    position: relative;
+  }
+  .phase-deliverables li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--scene-color);
+    font-weight: 700;
+  }
+
+  /* ═══ FAN-OUT ═════════════════════════════════════════════ */
+  .fanout-stage {
+    position: relative;
+    max-width: 1080px;
+    margin: 0 auto;
+    height: 460px;
+  }
+  .fanout-center {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, var(--scene-color), var(--scene-color-2));
+    color: #001a0d;
+    padding: 26px 36px;
+    border-radius: 18px;
+    box-shadow: 0 0 50px var(--scene-color-glow, var(--emerald-glow)), 0 14px 40px rgba(0,0,0,0.55);
+    text-align: center;
+    z-index: 5;
+  }
+  .fanout-center .fc-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .fanout-center .fc-event {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px; font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .fanout-center .fc-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    opacity: 0.7;
+  }
+  .fanout-target {
+    position: absolute;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 220px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .fanout-target:hover {
+    border-color: var(--scene-color);
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .fanout-target .ft-icon { font-size: 28px; margin-bottom: 8px; }
+  .fanout-target .ft-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .fanout-target .ft-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .fanout-svg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* ═══ BEFORE/AFTER ════════════════════════════════════════ */
+  .comparison {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 30px;
+    align-items: center;
+  }
+  .comp-side {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+  }
+  .comp-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .comp-side.before .comp-label { color: #ff6b6b; }
+  .comp-side.after .comp-label { color: var(--emerald); }
+  .comp-points {
+    list-style: none;
+    padding: 0;
+  }
+  .comp-points li {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    padding-left: 28px;
+    position: relative;
+  }
+  .comp-side.before li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: #ff6b6b;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .comp-side.after li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--emerald);
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .comp-arrow {
+    font-size: 48px;
+    color: var(--scene-color);
+  }
+
+  /* ═══ LEGAL SECTION ═══════════════════════════════════════ */
+  .legal-section {
+    max-width: 900px;
+    margin: 40px auto 0;
+    background: rgba(255, 201, 94, 0.06);
+    border: 1px solid rgba(255, 201, 94, 0.3);
+    border-radius: 14px;
+    padding: 28px 32px;
+  }
+  .legal-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .legal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--amber);
+    margin-bottom: 16px;
+  }
+  .legal-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .legal-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .legal-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    background: rgba(255, 201, 94, 0.14);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--amber);
+    margin-top: 12px;
+  }
+
+  /* ═══ RESPONSIVE ══════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .scene { padding: 90px 40px 50px; }
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 767px) {
+    .rail { display: none; }
+    .topbar { padding: 0 16px; }
+    .topbar-title .title-text { font-size: 13px; }
+    .topbar-right { display: none; }
+    .scene { padding: 80px 20px 40px; }
+    .scene h1 { font-size: 32px; }
+    .scene-sub { font-size: 15px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 12px; }
+    .feature-grid { grid-template-columns: 1fr; gap: 14px; }
+    .timeline-phase { flex-direction: column; gap: 12px; }
+    .phase-marker { display: flex; align-items: center; gap: 12px; }
+    .phase-time { margin-top: 0; margin-left: 8px; }
+    .fanout-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      height: auto;
+    }
+    .fanout-center {
+      position: static;
+      transform: none;
+    }
+    .fanout-target {
+      position: static;
+    }
+    .fanout-svg { display: none; }
+    .comparison {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .comp-arrow {
+      transform: rotate(90deg);
+      margin: -10px auto;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .scene h1 { font-size: 26px; }
+    .stat-num { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <div class="topbar-title">
+    <span class="title-text">Grasshopper · Plataforma Hopper MVP</span>
+    <span class="badge">Escenario 1</span>
+  </div>
+  <div class="topbar-right">
+    <span>12 semanas</span>
+    <span>·</span>
+    <span>$15M + IVA</span>
+  </div>
+</div>
+
+<!-- Progress Rail -->
+<div class="rail">
+  <div class="rail-dot" data-label="Inicio" data-target="scene-0"></div>
+  <div class="rail-dot" data-label="Alcance" data-target="scene-1"></div>
+  <div class="rail-dot" data-label="Componentes" data-target="scene-2"></div>
+  <div class="rail-dot" data-label="Admin" data-target="scene-3"></div>
+  <div class="rail-dot" data-label="Timeline" data-target="scene-4"></div>
+  <div class="rail-dot" data-label="Integración" data-target="scene-5"></div>
+  <div class="rail-dot" data-label="Antes/Después" data-target="scene-6"></div>
+  <div class="rail-dot" data-label="Legal" data-target="scene-7"></div>
+  <div class="rail-dot" data-label="Cierre" data-target="scene-8"></div>
+</div>
+
+<!-- Scene 0: INTRO -->
+<section id="scene-0" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Journey de Implementación</div>
+    <h1>Plataforma <span class="accent">Hopper MVP</span><br>+ Bitrix CRM</h1>
+    <p class="scene-sub">
+      Transformá tu operación de orientación vocacional en 12 semanas. De procesos manuales fragmentados
+      a una plataforma completa con análisis AI, recomendaciones personalizadas y gestión autónoma.
+    </p>
+    <div class="scene-visual">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">12</div>
+          <div class="stat-label">Semanas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">$15M</div>
+          <div class="stat-label">Implementación + IVA</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">$2M</div>
+          <div class="stat-label">Fee Mensual + IVA</div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-insight">
+      <span class="insight-icon">💡</span>
+      <strong>Modelo flexible:</strong> El fee mensual se puede cancelar con 30 días de aviso previo.
+      No hay compromiso mínimo de permanencia ni penalidades.
+    </div>
+  </div>
+  <a href="#scene-1" class="scroll-down">↓</a>
+</section>
+
+<!-- Scene 1: ALCANCE -->
+<section id="scene-1" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Escenario 1</div>
+    <h1>Alcance del <span class="accent">Proyecto</span></h1>
+    <p class="scene-sub">
+      Plataforma Hopper MVP completa con 6 componentes integrados + sincronización bidireccional con Bitrix CRM.
+      Todo lo necesario para operar de forma autónoma sin dependencias técnicas.
+    </p>
+    <div class="scene-visual">
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🎯</div>
+          <div class="feature-name">Platform Core</div>
+          <div class="feature-desc">
+            Sistema de autenticación, gestión de usuarios, dashboard principal y navegación.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📋</div>
+          <div class="feature-name">Assessment Tools</div>
+          <div class="feature-desc">
+            Motor de tests psicométricos (MBTI, iStrong, Big 5, RIASEC) con carga de archivos.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🧠</div>
+          <div class="feature-name">AI Analysis Engine</div>
+          <div class="feature-desc">
+            Procesamiento inteligente de documentos y generación de recomendaciones personalizadas.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🏢</div>
+          <div class="feature-name">B2B Panel</div>
+          <div class="feature-desc">
+            Gestión de colegios, licencias activas, usuarios por institución y reportes.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔄</div>
+          <div class="feature-name">Bitrix CRM Sync</div>
+          <div class="feature-desc">
+            Sincronización automática de leads calificados hacia Bitrix con perfil completo.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎓</div>
+          <div class="feature-name">Program Database</div>
+          <div class="feature-desc">
+            Catálogo actualizable de universidades aliadas, programas y presupuestos.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#scene-2" class="scroll-down">↓</a>
+</section>
+
+<!-- Scene 2: COMPONENTES CLAVE -->
+<section id="scene-2" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Componentes Nuevos</div>
+    <h1>Funcionalidades <span class="accent">Críticas</span> Incluidas</h1>
+    <p class="scene-sub">
+      Para garantizar que Grasshopper pueda administrar el negocio de forma completamente autónoma,
+      hemos incorporado tres componentes esenciales que no estaban en el alcance inicial.
+    </p>
+    <div class="scene-visual">
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">👨‍💼</div>
+          <div class="feature-name">Panel de Super Administrador</div>
+          <div class="feature-desc">
+            Interfaz propia donde el equipo de Grasshopper puede crear nuevos colegios,
+            activar/desactivar licencias y cargar el listado de universidades aliadas
+            <strong>sin depender de Irrelevant</strong>.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📄</div>
+          <div class="feature-name">Generador de Reporte PDF Automático</div>
+          <div class="feature-desc">
+            El sistema emite un informe final descargable con marca compartida (Grasshopper + Colegio).
+            Es el <strong>entregable físico que los padres de familia y psicólogos exigen</strong>.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-name">Propiedad de Data y NDA</div>
+          <div class="feature-desc">
+            La base de datos de leads, archivos cargados e información procesada por IA son
+            <strong>propiedad exclusiva de Grasshopper</strong> y exportables en cualquier momento.
+            Protegido por contrato NDA de confidencialidad.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-insight">
+      <span class="insight-icon">🔑</span>
+      <strong>Autonomía total:</strong> Estos tres componentes son fundamentales para que Grasshopper
+      opere sin fricciones técnicas y escale a múltiples colegios de forma independiente.
+    </div>
+  </div>
+  <a href="#scene-3" class="scroll-down">↓</a>
+</section>
+
+<!-- Scene 3: PANEL ADMIN -->
+<section id="scene-3" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Super Admin</div>
+    <h1>Gestión <span class="accent">Autónoma</span> Total</h1>
+    <p class="scene-sub">
+      El Panel de Super Administrador es el corazón operativo de Grasshopper.
+      Desde aquí se controla toda la operación B2B con colegios.
+    </p>
+    <div class="scene-visual">
+      <div class="fanout-stage">
+        <svg class="fanout-svg" id="fanout-svg"></svg>
+        <div class="fanout-center">
+          <div class="fc-tag">Admin Panel</div>
+          <div class="fc-event">Grasshopper</div>
+          <div class="fc-id">Super Admin</div>
+        </div>
+        <div class="fanout-target" style="top: 40px; left: 50px;">
+          <div class="ft-icon">🏫</div>
+          <div class="ft-name">Crear Colegios</div>
+          <div class="ft-desc">Alta de nuevas instituciones con configuración completa</div>
+        </div>
+        <div class="fanout-target" style="top: 40px; right: 50px;">
+          <div class="ft-icon">🔑</div>
+          <div class="ft-name">Gestión de Licencias</div>
+          <div class="ft-desc">Activar/desactivar accesos por colegio o período</div>
+        </div>
+        <div class="fanout-target" style="bottom: 40px; left: 50px;">
+          <div class="ft-icon">🎓</div>
+          <div class="ft-name">Cargar Universidades</div>
+          <div class="ft-desc">Actualizar catálogo de alianzas y programas disponibles</div>
+        </div>
+        <div class="fanout-target" style="bottom: 40px; right: 50px;">
+          <div class="ft-icon">📊</div>
+          <div class="ft-name">Reportes Globales</div>
+          <div class="ft-desc">Métricas consolidadas de todos los colegios activos</div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-insight">
+      <span class="insight-icon">⚡</span>
+      <strong>Sin dependencias:</strong> Grasshopper no necesita contactar a Irrelevant para dar
+      de alta un nuevo colegio, ajustar licencias o actualizar el portafolio de universidades.
+    </div>
+  </div>
+  <a href="#scene-4" class="scroll-down">↓</a>
+</section>
+
+<!-- Scene 4: TIMELINE -->
+<section id="scene-4" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Cronograma</div>
+    <h1>Timeline de <span class="accent">12 Semanas</span></h1>
+    <p class="scene-sub">
+      Implementación estructurada en 4 fases con entregables concretos y validación continua.
+    </p>
+    <div class="scene-visual">
+      <div class="timeline">
+
+        <div class="timeline-phase">
+          <div class="phase-marker">
+            <div class="phase-num">01</div>
+            <div class="phase-time">Semanas 1-3</div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Discovery y Arquitectura Base</div>
+            <ul class="phase-deliverables">
+              <li>Arquitectura técnica definida (stack, infraestructura, APIs)</li>
+              <li>Diseño UX/UI completo (wireframes + mockups)</li>
+              <li>Platform Core funcional (autenticación, roles, navegación)</li>
+              <li>Configuración de ambientes (dev, staging, producción)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="phase-marker">
+            <div class="phase-num">02</div>
+            <div class="phase-time">Semanas 4-7</div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Motor de Tests + AI Engine</div>
+            <ul class="phase-deliverables">
+              <li>Assessment Tools completos (MBTI, iStrong, Big 5, RIASEC)</li>
+              <li>Motor de análisis AI integrado (procesamiento de documentos)</li>
+              <li>Generador de recomendaciones personalizadas</li>
+              <li>Panel de Super Administrador funcional</li>
+              <li>Generador de Reporte PDF con marca compartida</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="phase-marker">
+            <div class="phase-num">03</div>
+            <div class="phase-time">Semanas 8-10</div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Integración y B2B Panel</div>
+            <ul class="phase-deliverables">
+              <li>Sincronización Bitrix CRM bidireccional</li>
+              <li>B2B Panel con gestión de colegios y licencias</li>
+              <li>Program Database con catálogo de universidades</li>
+              <li>Testing end-to-end de flujos completos</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="phase-marker">
+            <div class="phase-num">04</div>
+            <div class="phase-time">Semanas 11-12</div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">QA, Training y Go-Live</div>
+            <ul class="phase-deliverables">
+              <li>Quality Assurance completo (funcional, seguridad, performance)</li>
+              <li>Capacitación del equipo Grasshopper (admin panel, operación, troubleshooting)</li>
+              <li>Documentación técnica y de usuario</li>
+              <li>Migración a producción y lanzamiento oficial</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <a href="#scene-5" class="scroll-down">↓</a>
+</section>
+
+<!-- Scene 5: INTEGRACIÓN BITRIX -->
+<section id="scene-5" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Integración</div>
+    <h1>Sincronización con <span class="accent">Bitrix CRM</span></h1>
+    <p class="scene-sub">
+      Los usuarios calificados fluyen automáticamente desde Hopper hacia Bitrix con su perfil completo,
+      listos para ser contactados por el equipo comercial.
+    </p>
+    <div class="scene-visual">
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🔄</div>
+          <div class="feature-name">Webhooks Automáticos</div>
+          <div class="feature-desc">
+            Cuando un usuario completa su proceso en Hopper, se crea automáticamente como lead en Bitrix
+            con nombre, email, intereses y programas recomendados.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📊</div>
+          <div class="feature-name">Perfil Completo</div>
+          <div class="feature-desc">
+            El lead llega enriquecido: tests psicométricos, presupuesto, universidades de interés,
+            programas recomendados y nivel de calificación.
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-name">Monitoreo y Logs</div>
+          <div class="feature-desc">
+            Sistema de logs detallados, reintentos automáticos ante errores y notificaciones
+            si la sincronización falla.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-insight">
+      <span class="insight-icon">⚙️</span>
+      <strong>Sin fricción:</strong> La integración es transparente para el usuario final.
+      Hopper y Bitrix operan como un sistema unificado.
+    </div>
+  </div>
+  <a href="#scene-6" class="scroll-down">↓</a>
+</section>
+
+<!-- Scene 6: ANTES/DESPUÉS -->
+<section id="scene-6" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Transformación</div>
+    <h1>Antes vs. <span class="accent">Después</span></h1>
+    <p class="scene-sub">
+      De procesos manuales y fragmentados a una operación escalable y automatizada.
+    </p>
+    <div class="scene-visual">
+      <div class="comparison">
+        <div class="comp-side before">
+          <div class="comp-label">Antes (Manual)</div>
+          <ul class="comp-points">
+            <li>Tests en papel o Excel sin consolidación</li>
+            <li>Recomendaciones genéricas o subjetivas</li>
+            <li>Carga manual de leads a CRM</li>
+            <li>Sin trazabilidad ni métricas</li>
+            <li>Dependencia total del equipo técnico</li>
+            <li>Reportes armados a mano por psicólogos</li>
+          </ul>
+        </div>
+        <div class="comp-arrow">→</div>
+        <div class="comp-side after">
+          <div class="comp-label">Después (Plataforma)</div>
+          <ul class="comp-points">
+            <li>Tests digitales con análisis AI automático</li>
+            <li>Recomendaciones personalizadas basadas en data</li>
+            <li>Sincronización automática Hopper → Bitrix</li>
+            <li>Dashboard con métricas en tiempo real</li>
+            <li>Gestión autónoma de colegios y licencias</li>
+            <li>PDF profesional generado automáticamente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="scene-insight">
+      <span class="insight-icon">📈</span>
+      <strong>Impacto medible:</strong> Reducción de 80% en tiempo operativo por estudiante,
+      aumento de 3x en capacidad de atención sin contratar más personal.
+    </div>
+  </div>
+  <a href="#scene-7" class="scroll-down">↓</a>
+</section>
+
+<!-- Scene 7: LEGAL Y DATA -->
+<section id="scene-7" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Protección Legal</div>
+    <h1>Propiedad de la <span class="accent">Data</span></h1>
+    <p class="scene-sub">
+      Grasshopper mantiene propiedad total sobre toda la información generada en la plataforma.
+    </p>
+    <div class="scene-visual">
+      <div class="legal-section">
+        <span class="legal-icon">🔒</span>
+        <div class="legal-title">Propiedad de la Data y Base de Datos</div>
+        <p class="legal-text">
+          Queda estipulado por contrato que <strong>la base de datos de leads, los archivos cargados
+          por los usuarios y toda la información procesada por la inteligencia artificial son propiedad
+          exclusiva de Grasshopper</strong> y pueden ser exportados en cualquier momento.
+        </p>
+        <p class="legal-text">
+          Irrelevant actúa como proveedor tecnológico y <strong>no tiene derecho de uso, comercialización
+          ni retención de la información</strong> generada en la plataforma.
+        </p>
+        <p class="legal-text">
+          Para garantizar la confidencialidad de la información, <strong>se firmará un contrato NDA
+          (Non-Disclosure Agreement) de confidencialidad</strong> entre ambas partes como parte del
+          proceso de firma del proyecto.
+        </p>
+        <span class="legal-badge">NDA Incluido</span>
+      </div>
+    </div>
+    <div class="scene-insight">
+      <span class="insight-icon">✅</span>
+      <strong>Exportación sin restricciones:</strong> Grasshopper puede solicitar en cualquier momento
+      un dump completo de la base de datos en formato SQL, CSV o JSON.
+    </div>
+  </div>
+  <a href="#scene-8" class="scroll-down">↓</a>
+</section>
+
+<!-- Scene 8: CLOSING -->
+<section id="scene-8" class="scene">
+  <div class="scene-glow"></div>
+  <div class="scene-content">
+    <div class="scene-step">Próximos Pasos</div>
+    <h1>Listos para <span class="accent">Empezar</span></h1>
+    <p class="scene-sub">
+      En 12 semanas, Grasshopper tendrá una plataforma completa, escalable y autónoma.
+      El retainer mensual cubre mantenimiento, soporte técnico, infraestructura cloud y servicios de AI.
+    </p>
+    <div class="scene-visual">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Componentes Integrados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Autonomía Operativa</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">30d</div>
+          <div class="stat-label">Aviso de Cancelación</div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-insight">
+      <span class="insight-icon">🚀</span>
+      <strong>Sin riesgos:</strong> Modelo de fee mensual flexible. Si en algún momento Grasshopper
+      decide no continuar, simplemente avisa con 30 días de anticipación. Sin compromisos ni penalidades.
+    </div>
+  </div>
+</section>
+
+<script>
+  // Intersection Observer para animar scenes al entrar en viewport
+  const scenes = document.querySelectorAll('.scene');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  scenes.forEach((scene) => observer.observe(scene));
+
+  // Rail navigation
+  const railDots = document.querySelectorAll('.rail-dot');
+  railDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const target = dot.getAttribute('data-target');
+      document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Actualizar dot activo en rail según scroll
+  window.addEventListener('scroll', () => {
+    let current = '';
+    scenes.forEach((scene) => {
+      const sectionTop = scene.offsetTop;
+      if (window.pageYOffset >= sectionTop - 200) {
+        current = scene.getAttribute('id');
+      }
+    });
+    railDots.forEach((dot) => {
+      dot.classList.remove('active');
+      if (dot.getAttribute('data-target') === current) {
+        dot.classList.add('active');
+      }
+    });
+  });
+
+  // Dibujar líneas SVG del fan-out (Scene 3)
+  function drawFanout() {
+    const svg = document.getElementById('fanout-svg');
+    if (!svg) return;
+
+    // Skip en mobile
+    if (window.innerWidth <= 767) return;
+
+    const center = document.querySelector('.fanout-center');
+    const targets = document.querySelectorAll('.fanout-target');
+    if (!center || targets.length === 0) return;
+
+    const centerRect = center.getBoundingClientRect();
+    const containerRect = svg.getBoundingClientRect();
+
+    const cx = centerRect.left + centerRect.width / 2 - containerRect.left;
+    const cy = centerRect.top + centerRect.height / 2 - containerRect.top;
+
+    svg.innerHTML = '';
+
+    targets.forEach((target) => {
+      const targetRect = target.getBoundingClientRect();
+      const tx = targetRect.left + targetRect.width / 2 - containerRect.left;
+      const ty = targetRect.top + targetRect.height / 2 - containerRect.top;
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M ${cx} ${cy} L ${tx} ${ty}`);
+      path.setAttribute('stroke', 'rgba(94, 229, 164, 0.3)');
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('fill', 'none');
+      svg.appendChild(path);
+    });
+  }
+
+  window.addEventListener('load', drawFanout);
+  window.addEventListener('resize', drawFanout);
+</script>
+
+</body>
+</html>

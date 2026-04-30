@@ -1,13 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git push)",
-      "Bash(git add:*)",
-      "Bash(git rm:*)",
-      "WebFetch(domain:propuesta-sq.netlify.app)",
-      "Skill(contrato)",
-      "Skill(cotizacion)",
+      "Bash(touch:*)",
+      "WebFetch(domain:propuestafinalgrasshopper.netlify.app)",
+      "Skill(prep-call)",
       "Bash(git pull:*)",
+<<<<<<< HEAD
       "WebFetch(domain:www.linkedin.com)",
       "WebFetch(domain:phidias.com)",
       "WebFetch(domain:loggro.com)",
@@ -102,6 +100,11 @@
       "Bash(grep -n \"precio\\\\|Precio\\\\|cost\\\\|fee\\\\|inversi\\\\|Inversi\\\\|invertir\\\\|valor\\\\|million\\\\|millon\\\\|COP\\\\|USD\\\\|\\\\\\\\\\\\$\\\\|monto\\\\|pago\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/conaltura/iniciativas/02-sostenibilidad/comercial/slides-propuesta-ops.html\")",
       "Skill(procesar-call)",
       "Bash(grep -n -iE \"\\(precio|cobrar|price|usd|cop|\\\\\\\\\\\\$|fee|costo|equity|partnership|alianza|comisión|comision|margen|split|porcentaje\\)\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/ai-webs/contexto/transcript-2026-04-28-call-1-partnership.md\")"
+=======
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
+>>>>>>> 230a17eafd5a44f70d6f8c28912ed6f518ce1711
     ],
     "deny": [],
     "ask": []

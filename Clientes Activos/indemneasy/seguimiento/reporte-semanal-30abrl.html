@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkpoint Semanal — Indemneasy | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --surface-3: #22222f;
+    --border: #2a2a3a;
+    --border-light: #3a3a4a;
+    --text: #e8e8f0;
+    --text-muted: #8888a0;
+    --text-dim: #5a5a70;
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,.12);
+    --orange: #f59e0b;
+    --orange-dim: rgba(245,158,11,.12);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,.12);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,.12);
+    --purple: #a855f7;
+    --purple-dim: rgba(168,85,247,.12);
+    --cyan: #06b6d4;
+    --cyan-dim: rgba(6,182,212,.12);
+    --pink: #ec4899;
+    --pink-dim: rgba(236,72,153,.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    .hero { min-height: auto; padding: 3rem 2rem; }
+    .hero::before { display: none; }
+    .hero h1 span { -webkit-text-fill-color: #333; }
+    section { break-inside: avoid; page-break-inside: avoid; }
+    .card, .impact-card, .focus-block { background: #f9f9f9 !important; border-color: #ddd !important; color: #222 !important; }
+    .meta-card { background: #f9f9f9 !important; border-color: #ddd !important; }
+    .status-badge { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero {
+    min-height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 25% 25%, rgba(99,102,241,.12), transparent),
+      radial-gradient(ellipse 500px 300px at 75% 65%, rgba(168,85,247,.08), transparent),
+      radial-gradient(ellipse 400px 250px at 50% 90%, rgba(236,72,153,.06), transparent);
+  }
+  .hero-logo { position: relative; margin-bottom: 1.5rem; }
+  .hero-logo img { height: 50px; opacity: .85; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.25);
+    border-radius: 100px; padding: .4rem 1.2rem;
+    font-size: .8rem; font-weight: 500; color: var(--accent-light);
+    margin-bottom: 2rem; position: relative;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+    margin-bottom: 1.2rem; letter-spacing: -0.04em;
+    position: relative;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent-light) 50%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--text-muted);
+    max-width: 720px; margin-bottom: 2.5rem;
+    position: relative; line-height: 1.7;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 1.2rem;
+    justify-content: center; position: relative;
+  }
+  .meta-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.4rem;
+    min-width: 130px; text-align: left;
+  }
+  .meta-card .lbl {
+    font-size: .7rem; color: var(--text-dim); margin-bottom: .25rem;
+    text-transform: uppercase; letter-spacing: .1em;
+  }
+  .meta-card .val { font-size: .95rem; font-weight: 600; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+  section { padding: 4rem 0; }
+
+  .section-header {
+    display: flex; align-items: center; gap: .8rem;
+    margin-bottom: 2rem;
+  }
+  .section-emoji { font-size: 1.5rem; }
+  .section-header h2 {
+    font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em;
+  }
+  .section-header .num {
+    font-size: .7rem; font-weight: 600;
+    padding: .2rem .6rem; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+
+  .lead {
+    font-size: .95rem; color: var(--text-muted);
+    max-width: 750px; margin-bottom: 2rem; line-height: 1.7;
+  }
+
+  .status-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .5rem 1.2rem; border-radius: 100px;
+    font-size: .85rem; font-weight: 600; margin-bottom: 1.2rem;
+  }
+  .status-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,.25); }
+  .status-yellow { background: var(--orange-dim); color: var(--orange); border: 1px solid rgba(245,158,11,.25); }
+
+  .focus-block {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0; padding: 1.2rem 1.6rem;
+    margin-bottom: 1.5rem; font-size: .95rem; line-height: 1.7;
+  }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem 1.8rem; margin-bottom: 1rem;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: rgba(255,255,255,.08); }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .card h4 {
+    font-size: .78rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .08em;
+    margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem;
+  }
+  .card h4 .dot {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+  }
+  .card-accent-green { border-left: 3px solid var(--green); }
+  .card-accent-blue { border-left: 3px solid var(--blue); }
+  .card-accent-purple { border-left: 3px solid var(--purple); }
+  .card-accent-cyan { border-left: 3px solid var(--cyan); }
+  .card-accent-pink { border-left: 3px solid var(--pink); }
+  .card-accent-orange { border-left: 3px solid var(--orange); }
+
+  .feature-list { list-style: none; padding: 0; }
+  .feature-list li {
+    padding: .5rem 0 .5rem 1.4rem; position: relative;
+    font-size: .88rem; color: var(--text); line-height: 1.6;
+  }
+  .feature-list li::before {
+    content: "\2192"; position: absolute; left: 0;
+    color: var(--accent-light); font-weight: 700;
+  }
+  .feature-list li strong { color: var(--text); font-weight: 600; }
+
+  .highlight-list { list-style: none; padding: 0; }
+  .highlight-list li {
+    padding: .6rem 0 .6rem 0; font-size: .9rem;
+    display: flex; align-items: flex-start; gap: .6rem;
+  }
+  .highlight-list .bullet {
+    width: 24px; height: 24px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem;
+  }
+
+  .impact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0;
+    padding: 1.2rem 1.5rem; margin-bottom: .8rem;
+    font-size: .88rem; line-height: 1.7;
+    display: flex; align-items: flex-start; gap: .8rem;
+  }
+  .impact-card .impact-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .impact-card strong { color: var(--text); font-weight: 600; }
+  .impact-green { border-left-color: var(--green); }
+  .impact-blue { border-left-color: var(--blue); }
+  .impact-purple { border-left-color: var(--purple); }
+  .impact-cyan { border-left-color: var(--cyan); }
+  .impact-orange { border-left-color: var(--orange); }
+  .impact-pink { border-left-color: var(--pink); }
+
+  .numbered-list { list-style: none; padding: 0; counter-reset: step; }
+  .numbered-list li {
+    padding: .8rem 0 .8rem 0; font-size: .9rem;
+    display: flex; align-items: flex-start; gap: .8rem;
+    counter-increment: step;
+  }
+  .numbered-list .step-num {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem; font-weight: 700; flex-shrink: 0;
+    background: var(--accent); color: white;
+  }
+
+  .dialog-block {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-light);
+    border-radius: 0 10px 10px 0; padding: 1rem 1.3rem;
+    margin: 1rem 0; font-size: .88rem; line-height: 1.7;
+    color: var(--text-muted); font-style: italic;
+  }
+  .dialog-block strong { color: var(--text); font-style: normal; }
+
+  .progress-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: .5rem 0; font-size: .85rem;
+  }
+  .progress-label { flex: 1; color: var(--text-muted); }
+  .progress-bar-wrap {
+    flex: 2; height: 6px; background: var(--surface-3);
+    border-radius: 100px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  }
+  .progress-val {
+    width: 50px; text-align: right; font-weight: 700;
+    font-size: .85rem; color: var(--accent-light);
+  }
+
+  .tag-pill {
+    display: inline-block; padding: .3rem .8rem;
+    border-radius: 100px; font-size: .75rem; font-weight: 600;
+    margin: .2rem .3rem .2rem 0;
+  }
+  .tag-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,.25); }
+  .tag-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(59,130,246,.25); }
+  .tag-purple { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(168,85,247,.25); }
+  .tag-orange { background: var(--orange-dim); color: var(--orange); border: 1px solid rgba(245,158,11,.25); }
+  .tag-cyan { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(6,182,212,.25); }
+  .tag-pink { background: var(--pink-dim); color: var(--pink); border: 1px solid rgba(236,72,153,.25); }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+  }
+
+  .footer {
+    padding: 3rem 2rem; text-align: center;
+    color: var(--text-dim); font-size: .8rem;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center; gap: .8rem;
+  }
+  .footer img { height: 28px; opacity: .5; }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 1.2rem; }
+    section { padding: 3rem 0; }
+    .card-grid { grid-template-columns: 1fr; }
+    .hero-meta { gap: .8rem; }
+    .hero { padding: 3rem 1.5rem; }
+    .progress-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-logo">
+    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+  </div>
+  <div class="hero-badge">📩 CHECKPOINT SEMANAL — IRRELEVANT</div>
+  <h1><span>Indemneasy</span></h1>
+  <p class="hero-sub">Resumen de avances: 10 bugs detectados y corregidos en el bot intake, módulo nuevo de generación de documentos legales en producción, catálogos editables del equipo, y wizard de generación end-to-end desde el CRM.</p>
+  <div class="hero-meta">
+    <div class="meta-card">
+      <div class="lbl">Proyecto</div>
+      <div class="val">Indemneasy</div>
+    </div>
+    <div class="meta-card">
+      <div class="lbl">Cliente</div>
+      <div class="val">Indemneasy</div>
+    </div>
+    <div class="meta-card">
+      <div class="lbl">Semana</div>
+      <div class="val">27 Abr — 30 Abr 2026</div>
+    </div>
+    <div class="meta-card">
+      <div class="lbl">Responsable</div>
+      <div class="val">Irrelevant Team</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 01. RESUMEN EJECUTIVO ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🧠</span>
+      <span class="num" style="background:var(--blue-dim);color:var(--blue);">01</span>
+      <h2>Resumen Ejecutivo</h2>
+    </div>
+
+    <div class="status-badge status-green">🟢 4 despliegues exitosos a producción</div>
+
+    <div class="focus-block">
+      Esta semana se diseñó una matriz exhaustiva de pruebas conversacionales para Clara (524 casos cubriendo cada rama del flujo), se ejecutó parte de esa matriz, se identificaron 10 problemas reales de comportamiento del bot y se corrigieron uno por uno. En paralelo, el módulo nuevo de generación de documentos legales pasó de estar incompleto en el repositorio a estar funcionando en producción con 21 plantillas activas, junto con la página de catálogos editables que el equipo legal puede gestionar sin tocar código. Todo el trabajo cerró con 4 despliegues automáticos a Cloud Run.
+    </div>
+
+    <ul class="highlight-list">
+      <li>
+        <span class="bullet" style="background:var(--green-dim);color:var(--green);">✓</span>
+        <span><strong>10 bugs corregidos en el bot intake</strong> — desde detección de cierre cortés hasta escalación de peatones a humano, fix de loops de fechas y cierres de caso por abogado existente</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--blue-dim);color:var(--blue);">✓</span>
+        <span><strong>Extracción de fechas rediseñada</strong> — la fecha del incidente ahora se entiende por partes (día / mes / año) y el sistema infiere lo que falta desde el contexto</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--purple-dim);color:var(--purple);">✓</span>
+        <span><strong>21 plantillas legales activas en producción</strong> — poderes, contratos, tutelas, derechos de petición y reclamaciones disponibles desde el panel</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--cyan-dim);color:var(--cyan);">✓</span>
+        <span><strong>Catálogos editables</strong> — aseguradoras, clínicas, juzgados y apoderados se administran desde la interfaz, sin programador en el medio</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--pink-dim);color:var(--pink);">✓</span>
+        <span><strong>Generación de documentos desde el CRM</strong> — desde el caso del cliente, en un click, con datos precargados</span>
+      </li>
+      <li>
+        <span class="bullet" style="background:var(--orange-dim);color:var(--orange);">✓</span>
+        <span><strong>Matriz de 524 pruebas conversacionales diseñada</strong> — cubre cada rama del flujo, normal y adversarial, lista para correr completa antes del lanzamiento</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 02. MATRIZ DE PRUEBAS ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🧪</span>
+      <span class="num" style="background:var(--cyan-dim);color:var(--cyan);">02</span>
+      <h2>Matriz exhaustiva de pruebas conversacionales</h2>
+    </div>
+
+    <p class="lead">Antes el testing se hacía caso por caso, tipo "probemos esto a ver si funciona". Esta semana se diseñó una matriz que cubre cada rama del flujo del bot — todas las decisiones, todos los estados, todos los caminos posibles. Cada rama tiene dos pruebas: una con un usuario "ideal" que sigue el flujo normal, y otra con un usuario adversarial que intenta romperlo.</p>
+
+    <div class="card-grid">
+
+      <div class="card card-accent-cyan">
+        <h4><span class="dot" style="background:var(--cyan)"></span> 524 pruebas en total</h4>
+        <ul class="feature-list">
+          <li>262 pruebas de flujo normal (T-001-A a T-262-A)</li>
+          <li>262 pruebas adversariales (T-001-B a T-262-B)</li>
+          <li>Cubren los 28 estados del bot y las 100+ transiciones</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-blue">
+        <h4><span class="dot" style="background:var(--blue)"></span> Cada prueba simula un usuario completo</h4>
+        <ul class="feature-list">
+          <li>Una IA actúa como usuario, otra IA es Clara</li>
+          <li>El usuario tiene un objetivo y datos específicos del caso</li>
+          <li>La conversación corre turn-by-turn como en producción real</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-purple">
+        <h4><span class="dot" style="background:var(--purple)"></span> 18 auditorías automáticas</h4>
+        <ul class="feature-list">
+          <li>Cada conversación se evalúa al final con 18 chequeos</li>
+          <li>¿Capturó los datos correctos? ¿Llegó al estado esperado?</li>
+          <li>¿Hubo loops? ¿Mensajes repetidos? ¿Filtración de prompt?</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-green">
+        <h4><span class="dot" style="background:var(--green)"></span> Detecta regresiones entre cambios</h4>
+        <ul class="feature-list">
+          <li>Cada vez que se modifica el bot, se re-corren las pruebas</li>
+          <li>Si una prueba que pasaba antes ahora falla, el cambio rompió algo</li>
+          <li>Da confianza para iterar sin miedo a romper lo que ya funciona</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="focus-block" style="margin-top: 1.5rem;">
+      <strong>Estado actual:</strong> 148 de las 262 pruebas de flujo normal ejecutadas (56%). Las 114 restantes y las 262 adversariales se corren en la fase final antes del lanzamiento. Los 10 bugs corregidos esta semana salieron precisamente de esta primera mitad — la matriz cumplió su propósito.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 03. 10 BUGS CORREGIDOS ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🛠️</span>
+      <span class="num" style="background:var(--orange-dim);color:var(--orange);">03</span>
+      <h2>10 problemas detectados y corregidos en el bot</h2>
+    </div>
+
+    <p class="lead">Cada uno de estos bugs se detectó con un caso real de la matriz, se reprodujo, se diagnosticó la causa de raíz y se corrigió en el código. Los 10 fixes están desplegados en producción.</p>
+
+    <div class="impact-card impact-green">
+      <span class="impact-icon">👋</span>
+      <div><strong>Despedida cortés ya cierra el caso:</strong> antes, si un usuario decía "muchas gracias, chao" sin haber aceptado el servicio, el bot seguía enviando mensajes de venta. Ahora reconoce el cierre cortés como rechazo y archiva el caso correctamente.</div>
+    </div>
+
+    <div class="impact-card impact-blue">
+      <span class="impact-icon">🚶</span>
+      <div><strong>Atropellos a peatón se escalan a humano:</strong> antes, los casos de peatones avanzaban como cualquier otro accidente. Ahora se identifican automáticamente y pasan a revisión legal, porque la víctima no tiene SOAT propio y el reclamo requiere análisis especializado.</div>
+    </div>
+
+    <div class="impact-card impact-purple">
+      <span class="impact-icon">📧</span>
+      <div><strong>Corrección de correo se aplica:</strong> si el usuario daba un correo claramente inventado (a@a.com) y luego lo corregía con el real, el bot guardaba el inventado y avanzaba. Ahora la corrección se procesa correctamente y el caso queda con el dato bueno.</div>
+    </div>
+
+    <div class="impact-card impact-cyan">
+      <span class="impact-icon">📅</span>
+      <div><strong>Loops de fechas eliminados:</strong> el problema más recurrente. El bot le preguntaba la fecha al usuario, el usuario decía "el 18 de abril, hace poco", el bot rechazaba esa fecha por no tener año explícito y volvía a preguntar lo mismo. Cinco veces. Reescrito completamente — ver sección siguiente.</div>
+    </div>
+
+    <div class="impact-card impact-orange">
+      <span class="impact-icon">⚖️</span>
+      <div><strong>Cliente con abogado existente cierra automático:</strong> si el usuario menciona desde el principio que ya tiene abogado, el caso debe cerrarse sin pasar por el flujo de venta. Antes el sistema reconocía el dato pero seguía con el pitch de servicio. Ahora cierra inmediatamente con el mensaje correcto.</div>
+    </div>
+
+    <div class="impact-card impact-pink">
+      <span class="impact-icon">🤐</span>
+      <div><strong>Bot ya no se queda mudo al finalizar datos:</strong> cuando el usuario terminaba de dar todos sus datos personales, el bot transicionaba al estado siguiente en silencio mientras se generaba el contrato en segundo plano. El usuario quedaba sin saber qué pasaba. Ahora envía un mensaje explícito de cierre antes de avanzar.</div>
+    </div>
+
+    <div class="impact-card impact-green">
+      <span class="impact-icon">🔄</span>
+      <div><strong>Postergación reconocida como rechazo:</strong> "ahorita no", "lo pienso y te aviso", "más adelante" — ahora se interpretan correctamente como cierre del flujo de venta, no como pregunta a responder.</div>
+    </div>
+
+    <div class="impact-card impact-blue">
+      <span class="impact-icon">🚪</span>
+      <div><strong>Decline en revisión legal cierra el caso:</strong> si un caso ya estaba en cola de revisión legal y el usuario decidía retirarse, antes no había forma de cerrarlo desde ese estado. Ahora el bot detecta la intención y cierra correctamente.</div>
+    </div>
+
+    <div class="impact-card impact-purple">
+      <span class="impact-icon">💬</span>
+      <div><strong>Caso en revisión ya no promete pasos:</strong> si el caso estaba en revisión legal y el usuario hacía preguntas, el bot generaba respuestas de venta como "Lo primero es generar tu poder con tus datos". Ahora envía un mensaje fijo: "tu caso está en revisión, te contactamos pronto, no tienes que hacer nada".</div>
+    </div>
+
+    <div class="impact-card impact-cyan">
+      <span class="impact-icon">✉️</span>
+      <div><strong>Validación de placeholders más robusta:</strong> el sistema interno tenía un control que se ignoraba si el usuario corregía un dato sospechoso. Ahora el control bloquea la finalización del caso hasta que la corrección quede confirmada y registrada.</div>
+    </div>
+
+    <div class="focus-block" style="margin-top: 1.5rem;">
+      <strong>Cómo se diagnosticaron:</strong> de los 160 errores que arrojó la primera mitad de la matriz, una revisión caso por caso permitió clasificarlos. Aproximadamente la mitad eran falsos positivos del propio framework de pruebas (el sistema medía mal lo que pasaba en la conversación). La otra mitad eran bugs reales — esos 10. Cada uno con su causa raíz documentada.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 04. SLOT-BASED DATE EXTRACTION ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">📆</span>
+      <span class="num" style="background:var(--blue-dim);color:var(--blue);">04</span>
+      <h2>Reescritura de la extracción de fechas</h2>
+    </div>
+
+    <p class="lead">El cambio arquitectónico más importante de la semana. Antes la fecha del incidente se trataba como un dato indivisible: si no llegaba completa (día, mes y año), el bot la rechazaba entera y volvía a preguntar. Ahora se piensa por partes — exactamente como las personas las dicen.</p>
+
+    <div class="focus-block">
+      <strong>El problema:</strong> los usuarios casi nunca dan la fecha en formato completo. Dicen "el 18 de abril", "hace una semana", "el mes pasado". El sistema viejo descartaba todo eso como "fecha inválida" y volvía a preguntar. Después de varios intentos fallidos, se activaba un control de seguridad que rellenaba los datos faltantes con valores genéricos y forzaba la clasificación — pero eso comprometía la calidad del caso.
+    </div>
+
+    <div class="card-grid">
+
+      <div class="card card-accent-blue">
+        <h4><span class="dot" style="background:var(--blue)"></span> Fecha = día + mes + año (separados)</h4>
+        <ul class="feature-list">
+          <li>Cada componente se guarda independientemente</li>
+          <li>"El 18 de abril" → día=18, mes=4, año=null</li>
+          <li>El sistema solo pide lo que falta, no toda la fecha</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-purple">
+        <h4><span class="dot" style="background:var(--purple)"></span> Inferencia desde contexto</h4>
+        <ul class="feature-list">
+          <li>"hace una semana" → calcula día/mes/año desde la fecha actual</li>
+          <li>"el mes pasado" → mes anterior del año actual</li>
+          <li>"este año" + dia/mes → completa el año implícito</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-green">
+        <h4><span class="dot" style="background:var(--green)"></span> Reformulación inteligente</h4>
+        <ul class="feature-list">
+          <li>"Perfecto, 18 de abril. ¿En qué año fue el accidente?"</li>
+          <li>El bot reconoce lo que ya tiene y pregunta solo por lo faltante</li>
+          <li>Se acabaron las preguntas idénticas repetidas</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-orange">
+        <h4><span class="dot" style="background:var(--orange)"></span> Escalación tras 5 intentos</h4>
+        <ul class="feature-list">
+          <li>Si el usuario sigue evadiendo después de varios reformulados</li>
+          <li>El caso pasa automáticamente a revisión legal humana</li>
+          <li>Sin caer en el control viejo que rellenaba con valores fake</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="dialog-block">
+      <strong>Antes:</strong><br>
+      Bot: "¿En qué fecha ocurrió el accidente?"<br>
+      Usuario: "El 18 de abril, hace poco."<br>
+      Bot: "¿En qué fecha ocurrió el accidente?"<br>
+      Usuario: "18 de abril, hace una semana."<br>
+      Bot: "¿En qué fecha ocurrió el accidente?"<br>
+      Usuario: "Pues el 18 de abril."<br>
+      Bot: "¿En qué fecha ocurrió el accidente?"<br>
+      <em>(loop infinito)</em>
+    </div>
+
+    <div class="dialog-block">
+      <strong>Ahora:</strong><br>
+      Bot: "¿En qué fecha ocurrió el accidente?"<br>
+      Usuario: "El 18 de abril, hace una semana."<br>
+      Bot: <em>(infiere año desde contexto)</em> "Perfecto, anotado el 18 de abril de 2026. ¿En qué ciudad ocurrió?"<br>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 05. MÓDULO DE GENERACIÓN DE DOCUMENTOS ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">📄</span>
+      <span class="num" style="background:var(--purple-dim);color:var(--purple);">05</span>
+      <h2>Módulo de generación de documentos legales en producción</h2>
+    </div>
+
+    <p class="lead">Antes el bot solo generaba dos documentos: el poder y el contrato, ambos al final del flujo. Esta semana se desplegó en producción un módulo nuevo con 21 plantillas legales completas, accesible desde el panel y desde cada caso del CRM.</p>
+
+    <div class="status-badge status-green">🟢 21 plantillas activas en producción</div>
+
+    <div class="card-grid">
+
+      <div class="card card-accent-purple">
+        <h4><span class="dot" style="background:var(--purple)"></span> Poderes (3)</h4>
+        <ul class="feature-list">
+          <li>Poder Especial — Adulto (Normal)</li>
+          <li>Poder Especial — Menor de Edad</li>
+          <li>Poder Especial — Víctimas Indirectas</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-blue">
+        <h4><span class="dot" style="background:var(--blue)"></span> Contratos (2)</h4>
+        <ul class="feature-list">
+          <li>Contrato de Prestación de Servicios — Adulto</li>
+          <li>Contrato de Prestación de Servicios — Menor de Edad</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-cyan">
+        <h4><span class="dot" style="background:var(--cyan)"></span> Acciones de Tutela (3)</h4>
+        <ul class="feature-list">
+          <li>Tutela Seguros del Estado (con SISBEN)</li>
+          <li>Tutela Seguros del Estado (sin SISBEN)</li>
+          <li>Tutela La Previsora (sin SISBEN)</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-green">
+        <h4><span class="dot" style="background:var(--green)"></span> Derecho de Petición — PCL (10)</h4>
+        <ul class="feature-list">
+          <li>AXA Colpatria × 2 apoderados</li>
+          <li>Seguros Bolívar × 3 (incluye persona natural)</li>
+          <li>Mundial × 2 apoderados</li>
+          <li>La Previsora × 3 (incluye 2 variantes)</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-orange">
+        <h4><span class="dot" style="background:var(--orange)"></span> Derecho de Petición — Historia Clínica (1)</h4>
+        <ul class="feature-list">
+          <li>Solicitud genérica adaptable a cualquier clínica</li>
+          <li>Lista variable de documentos a pedir</li>
+          <li>Datos de la clínica vienen del catálogo</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-pink">
+        <h4><span class="dot" style="background:var(--pink)"></span> Reclamaciones (2)</h4>
+        <ul class="feature-list">
+          <li>Reclamación por Daños Materiales</li>
+          <li>Reclamación por Daños y Perjuicios — Lesiones (60 campos, el más completo)</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="focus-block" style="margin-top: 1.5rem;">
+      <strong>Formato de descarga:</strong> los documentos se entregan como Word editable (.docx) o PDF. El equipo legal puede ajustar lo que necesite antes de enviarlos al cliente o radicarlos.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 06. CATÁLOGOS EDITABLES ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">📚</span>
+      <span class="num" style="background:var(--green-dim);color:var(--green);">06</span>
+      <h2>Catálogos editables — gestión sin programador</h2>
+    </div>
+
+    <p class="lead">Los datos de aseguradoras, clínicas, juzgados y apoderados antes vivían dentro del código. Cambiar el NIT de una aseguradora o agregar una clínica nueva requería un desarrollador. Ahora todo se administra desde una página propia en el panel.</p>
+
+    <div class="card-grid">
+
+      <div class="card card-accent-blue">
+        <h4><span class="dot" style="background:var(--blue)"></span> Aseguradoras (10 cargadas)</h4>
+        <ul class="feature-list">
+          <li>AXA Colpatria, Allianz, Mundial, HDI, Previsora</li>
+          <li>Liberty, MAPFRE, Bolívar, Estado, Sura</li>
+          <li>Datos: NIT, dirección, correos para notificaciones judiciales</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-cyan">
+        <h4><span class="dot" style="background:var(--cyan)"></span> Clínicas, Juzgados, Apoderados</h4>
+        <ul class="feature-list">
+          <li>6 clínicas demo, 3 juzgados, 4 perfiles de apoderado</li>
+          <li>Cada uno con su NIT, dirección, teléfono, contactos</li>
+          <li>El equipo legal agrega los reales según va operando</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-purple">
+        <h4><span class="dot" style="background:var(--purple)"></span> Importación masiva desde Excel</h4>
+        <ul class="feature-list">
+          <li>Botón "Importar" abre modal con header de columnas</li>
+          <li>Se copia el header, se llena en Excel, se pega de vuelta</li>
+          <li>Ideal para cargar 50+ aseguradoras o juzgados de una vez</li>
+        </ul>
+      </div>
+
+      <div class="card card-accent-orange">
+        <h4><span class="dot" style="background:var(--orange)"></span> Validación inteligente</h4>
+        <ul class="feature-list">
+          <li>NIT colombiano se valida contra el algoritmo oficial DIAN</li>
+          <li>Errores se muestran como advertencia (no bloqueante)</li>
+          <li>Toggle de "ver inactivos" para reactivar items dados de baja</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 07. WIZARD DE GENERACIÓN ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">✨</span>
+      <span class="num" style="background:var(--pink-dim);color:var(--pink);">07</span>
+      <h2>Wizard de generación con datos precargados</h2>
+    </div>
+
+    <p class="lead">Para generar un documento, el equipo legal antes tenía que escribir manualmente todos los datos del cliente, la aseguradora, el accidente. Ahora el wizard precarga todo lo que ya está en el sistema y solo pide lo que falta.</p>
+
+    <ul class="numbered-list">
+      <li>
+        <span class="step-num">1</span>
+        <div><strong>Elegir categoría</strong> — Poderes, Contratos, Tutelas, Derechos de Petición o Reclamaciones</div>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <div><strong>Elegir plantilla específica</strong> — el wizard sugiere las más relevantes según el estado del caso</div>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <div><strong>Llenar formulario</strong> — los datos del cliente, accidente, aseguradora ya vienen llenos. Los catálogos llenan los campos vinculados con un click</div>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <div><strong>Generar</strong> — descarga inmediata como Word o PDF. Queda guardado en el historial del caso</div>
+      </li>
+    </ul>
+
+    <div class="impact-card impact-purple">
+      <span class="impact-icon">🔗</span>
+      <div><strong>Llenado automático del catálogo:</strong> al elegir "Sura" en el campo de aseguradora, el NIT, la dirección y los correos de notificaciones judiciales se llenan solos. Lo mismo con clínicas, juzgados y apoderados.</div>
+    </div>
+
+    <div class="impact-card impact-blue">
+      <span class="impact-icon">🤖</span>
+      <div><strong>Asistente de IA en textos largos:</strong> en los campos de descripción de hechos y descripción de lesiones — los más densos del documento — hay un botón ✨ que ayuda a redactar o pulir el texto.</div>
+    </div>
+
+    <div class="impact-card impact-green">
+      <span class="impact-icon">💼</span>
+      <div><strong>Generación desde el caso del CRM:</strong> el flujo cotidiano. Se entra al caso del cliente, se va a la pestaña "Documentos" y se hace click en "Generar documento legal". El wizard se abre como ventana encima del caso, con todos los datos ya llenos. Se genera, se cierra, y el documento queda asociado al caso.</div>
+    </div>
+
+    <div class="impact-card impact-orange">
+      <span class="impact-icon">📋</span>
+      <div><strong>Historial paginado:</strong> cada documento generado queda en el historial. Se puede filtrar por categoría, descargar de nuevo, ver quién lo generó y cuándo.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 08. DESPLIEGUES ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🚀</span>
+      <span class="num" style="background:var(--accent);background:rgba(99,102,241,.15);color:var(--accent-light);">08</span>
+      <h2>Despliegue automático a producción</h2>
+    </div>
+
+    <p class="lead">Esta semana se ejercitó por primera vez en serio el pipeline de despliegue automático configurado la semana anterior. Cuatro despliegues sucesivos a producción (servicios API, workers y beat de Cloud Run), todos exitosos.</p>
+
+    <div class="impact-card impact-green">
+      <span class="impact-icon">1️⃣</span>
+      <div><strong>Despliegue 1 — Correcciones del bot intake:</strong> los 10 fixes del flujo conversacional. Pipeline ejecutó tests automáticos, construyó la imagen Docker, y la subió a los 3 servicios de Cloud Run.</div>
+    </div>
+
+    <div class="impact-card impact-blue">
+      <span class="impact-icon">2️⃣</span>
+      <div><strong>Despliegue 2 — Dependencia faltante:</strong> el módulo de documentos requería una librería que no estaba en el archivo de dependencias del contenedor. Se detectó porque el primer despliegue del módulo crasheaba al arrancar. Fix puntual y re-deploy.</div>
+    </div>
+
+    <div class="impact-card impact-purple">
+      <span class="impact-icon">3️⃣</span>
+      <div><strong>Despliegue 3 — Archivos de plantillas y LibreOffice:</strong> el contenedor no estaba copiando la carpeta de plantillas Word, y para generar PDFs necesitaba LibreOffice instalado. Ambos arreglados en el Dockerfile.</div>
+    </div>
+
+    <div class="impact-card impact-cyan">
+      <span class="impact-icon">4️⃣</span>
+      <div><strong>Despliegue 4 — Esquemas de los formularios:</strong> los 21 archivos de configuración que definen qué campos pide cada plantilla habían quedado fuera del repositorio por una regla de gitignore. Se corrigió la regla y se publicaron los esquemas. Con esto el wizard pasó de mostrar 0 plantillas a mostrar las 21.</div>
+    </div>
+
+    <div class="focus-block" style="margin-top: 1.5rem;">
+      <strong>Cómo funciona:</strong> cada cambio que se sube al repositorio principal dispara automáticamente el pipeline de GitHub Actions. Corre los tests, construye la imagen Docker con la versión nueva, la sube al registro de imágenes de Google y actualiza los 3 servicios productivos. Todo en 5-7 minutos sin intervención manual.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 09. INTEGRACIÓN FRONTEND ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🖥️</span>
+      <span class="num" style="background:var(--blue-dim);color:var(--blue);">09</span>
+      <h2>Frontend conectado y operativo</h2>
+    </div>
+
+    <p class="lead">El panel web del equipo se conectó al API de producción y todas las páginas cargan datos reales: dashboard, chats, CRM, catálogos y documentos.</p>
+
+    <div style="margin-bottom: 1.5rem;">
+      <span class="tag-pill tag-blue">Dashboard</span>
+      <span class="tag-pill tag-cyan">Chats</span>
+      <span class="tag-pill tag-purple">CRM</span>
+      <span class="tag-pill tag-green">Catálogos</span>
+      <span class="tag-pill tag-orange">Documentos</span>
+      <span class="tag-pill tag-pink">Admin</span>
+    </div>
+
+    <div class="card card-accent-blue">
+      <h4><span class="dot" style="background:var(--blue)"></span> Dashboard</h4>
+      <div style="font-size:.88rem;color:var(--text-muted);">Estadísticas globales del bot: total de casos, distribución por estado, métricas de hoy y de los últimos 7/30 días, alertas de casos que requieren atención.</div>
+    </div>
+
+    <div class="card card-accent-cyan">
+      <h4><span class="dot" style="background:var(--cyan)"></span> Chats</h4>
+      <div style="font-size:.88rem;color:var(--text-muted);">Lista de todas las conversaciones activas con búsqueda y filtros por estado. Click en una abre la conversación completa con timeline de eventos.</div>
+    </div>
+
+    <div class="card card-accent-purple">
+      <h4><span class="dot" style="background:var(--purple)"></span> CRM</h4>
+      <div style="font-size:.88rem;color:var(--text-muted);">Vista de cada caso con datos del cliente, hechos, clasificación, documentos generados, notas internas, y botón de generación de documentos integrado.</div>
+    </div>
+
+    <div class="card card-accent-green">
+      <h4><span class="dot" style="background:var(--green)"></span> Catálogos</h4>
+      <div style="font-size:.88rem;color:var(--text-muted);">CRUD completo de los 4 catálogos editables (aseguradoras, clínicas, juzgados, apoderados) con bulk import desde Excel y validación de NIT.</div>
+    </div>
+
+    <div class="card card-accent-orange">
+      <h4><span class="dot" style="background:var(--orange)"></span> Documentos</h4>
+      <div style="font-size:.88rem;color:var(--text-muted);">Wizard standalone de 4 pasos para generación de documentos sin pasar por el CRM. Útil para documentos genéricos o pruebas.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== 10. ESTADO Y PRÓXIMOS PASOS ===== -->
+<section>
+  <div class="container fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🎯</span>
+      <span class="num" style="background:var(--pink-dim);color:var(--pink);">10</span>
+      <h2>Estado actual y próximos pasos</h2>
+    </div>
+
+    <div class="status-badge status-green">🟢 4 servicios productivos operativos en Cloud Run</div>
+
+    <div class="focus-block">
+      Al cierre de la semana, el bot intake corrige los 10 problemas detectados, el módulo de generación de documentos está vivo con 21 plantillas, los catálogos editables permiten al equipo legal operar sin programador, y el flujo end-to-end desde el CRM hasta la descarga del documento funciona en producción.
+    </div>
+
+    <p class="lead" style="margin-top: 1.5rem;">Pendiente para las próximas semanas:</p>
+
+    <div class="impact-card impact-blue">
+      <span class="impact-icon">🧪</span>
+      <div><strong>Completar la matriz de pruebas (114 casos restantes + 262 adversariales):</strong> seguir validando que los 10 fixes no introdujeron regresiones, y descubrir los problemas que solo aparecen en el flujo adversarial.</div>
+    </div>
+
+    <div class="impact-card impact-purple">
+      <span class="impact-icon">🔌</span>
+      <div><strong>Conectar apoderados del catálogo con datos reales del CRM:</strong> los 4 perfiles de apoderado actuales son demo. La fase siguiente es alimentar el catálogo con los abogados reales del equipo y vincularlos automáticamente al caso según asignación.</div>
+    </div>
+
+    <div class="impact-card impact-cyan">
+      <span class="impact-icon">📤</span>
+      <div><strong>Subida de plantillas desde el dashboard:</strong> hoy las plantillas nuevas requieren commit del programador. Se valora habilitar una página admin para que el equipo legal suba plantillas Word con sus placeholders directamente.</div>
+    </div>
+
+    <div class="impact-card impact-green">
+      <span class="impact-icon">📲</span>
+      <div><strong>Validación en WhatsApp real:</strong> el bot está integrado con Telegram para testing. Hay que ejecutar las pruebas finales en WhatsApp antes del lanzamiento al cliente final.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+  <span>Preparado por <strong style="color:var(--text-muted);">Irrelevant</strong> · Indemneasy — Checkpoint Semanal · 30 Abril 2026</span>
+</div>
+
+<!-- ===== Scroll Fade-in Script ===== -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+      observer.observe(el);
+    });
+  });
+</script>
+
+</body>
+</html>

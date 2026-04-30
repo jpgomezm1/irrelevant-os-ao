@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Piloto &mdash; Agente de Voz AI | Diagnostioriente | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px; left: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px; object-fit: contain;
+    opacity: 0.95;
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page h4:first-child { margin-top: 0; }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== EXEC SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  /* ===================== PAIN ITEM ===================== */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .pain-item {
+    padding: 16px 18px;
+    border-radius: 6px;
+    border-left: 3px solid var(--morado);
+  }
+
+  .pain-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .pain-item p {
+    font-size: 10px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body .label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--morado);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .card-body .label:first-child { margin-top: 0; }
+
+  .card-body ul { margin-left: 14px; }
+
+  /* ===================== CONVERSATION BLOCK ===================== */
+  .conv-block {
+    background: #FAFAFC;
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 18px 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .conv-line {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 10.5px;
+    line-height: 1.6;
+  }
+
+  .conv-speaker {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    min-width: 56px;
+    color: var(--morado-oscuro);
+    padding-top: 2px;
+  }
+
+  .conv-speaker.client {
+    color: #666;
+  }
+
+  .conv-text {
+    flex: 1;
+    color: #222;
+  }
+
+  /* ===================== COST BLOCK ===================== */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-row-4 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .metric-card .metric-desc {
+    font-size: 9.5px;
+    font-weight: 300;
+    color: #555;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ===================== METRIC TABLE ===================== */
+  .metric-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 10.5px;
+  }
+
+  .metric-table thead {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    color: white;
+  }
+
+  .metric-table th {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 14px;
+    text-align: left;
+  }
+
+  .metric-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--gris-claro);
+    font-weight: 300;
+    color: #333;
+  }
+
+  .metric-table td strong {
+    color: var(--morado-oscuro);
+    font-weight: 600;
+  }
+
+  /* ===================== TIMELINE ===================== */
+  .timeline {
+    margin: 20px 0;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-day {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--morado), var(--morado-oscuro));
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-width: 68px;
+    text-align: center;
+    height: fit-content;
+    letter-spacing: 0.5px;
+  }
+
+  .timeline-content {
+    flex: 1;
+  }
+
+  .timeline-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 4px;
+  }
+
+  .timeline-desc {
+    font-size: 10.5px;
+    font-weight: 300;
+    color: #444;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ===================== SIGNATURE BLOCK ===================== */
+  .signature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 20px;
+  }
+
+  .signature-side {
+    text-align: center;
+  }
+
+  .signature-side .sig-line {
+    width: 100%;
+    height: 1px;
+    background: var(--gris-claro);
+    margin-bottom: 10px;
+    margin-top: 60px;
+  }
+
+  .signature-side .sig-name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 2px;
+  }
+
+  .signature-side .sig-role {
+    font-size: 9px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px; left: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 80px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .back-cover-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-cover-content .back-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .metric-row-4 { grid-template-columns: 1fr; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .cover-title { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Propuesta de Piloto</div>
+      <div class="cover-title">Agente de Voz AI<br>Recordatorio SOAT &amp; T&eacute;cnico-Mec&aacute;nica</div>
+      <div class="cover-subtitle">Diagnostioriente</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>14 de abril de 2026 | CONFIDENCIAL</span>
+        <span>Preparado por Irrelevant</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 01 - RESUMEN                                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>El piloto en una l&iacute;nea</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Hoy en Diagnostioriente, 8 d&iacute;as antes de que se venza el SOAT o la Revisi&oacute;n T&eacute;cnico-Mec&aacute;nica de cada cliente, una asesora humana debe llamarlo para recordarle. Entre las 7 sedes son 21 asesoras dedicando una parte importante del d&iacute;a a marcar en fr&iacute;o desde un Excel, con cobertura y trazabilidad limitadas. <strong>El objetivo de este piloto es validar si un agente de voz AI puede hacer esa misma llamada con calidad conversacional comparable a la humana</strong> &mdash; liberando tiempo a las asesoras y dejando registro de cada contacto.</p>
+      <p style="margin-top:8px;">No estamos proponiendo reemplazar al equipo: estamos proponiendo una prueba controlada de <strong>10 d&iacute;as con 300 llamadas reales</strong> para tomar una decisi&oacute;n informada antes de escalar.</p>
+    </div>
+
+    <h3>Qu&eacute; vamos a validar</h3>
+
+    <div class="pain-grid" style="margin-top:16px;">
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">1. Naturalidad conversacional</div>
+        <p style="color: var(--gris-texto);">Que el cliente final no sienta que habla con un robot. Que pueda interrumpir, preguntar, y recibir respuestas coherentes en espa&ntilde;ol Colombia.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">2. Tasa de contacto efectivo</div>
+        <p style="color: var(--gris-texto);">Que el agente AI alcance un porcentaje de contactos efectivos igual o superior al de la operaci&oacute;n humana actual.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">3. Capacidad de responder dudas</div>
+        <p style="color: var(--gris-texto);">Que el agente pueda resolver preguntas frecuentes (horarios, sedes, qu&eacute; traer, multas) sin escalar cada conversaci&oacute;n a un humano.</p>
+      </div>
+      <div class="pain-item" style="background: var(--lavanda); border-left-color: var(--morado);">
+        <div class="pain-title" style="color: var(--morado-oscuro);">4. Trazabilidad total</div>
+        <p style="color: var(--gris-texto);">Que cada llamada quede con resultado clasificado, duraci&oacute;n, transcript y audio disponibles para revisi&oacute;n &mdash; algo que hoy no existe.</p>
+      </div>
+    </div>
+
+    <div class="metric-row" style="margin-top: 24px;">
+      <div class="metric-card">
+        <div class="metric-value">10 d&iacute;as</div>
+        <div class="metric-label">Duraci&oacute;n del piloto</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">300</div>
+        <div class="metric-label">Llamadas reales (30 / d&iacute;a)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">1</div>
+        <div class="metric-label">Caso de uso: recordatorio</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Por qu&eacute; piloto y no implementaci&oacute;n directa:</strong> antes de construir algo que atienda las 7 sedes queremos evidencia real &mdash; grabaciones, transcripts, m&eacute;tricas &mdash; de que la experiencia del cliente final sea al menos tan buena como la actual. Si el piloto valida, escalamos con confianza. Si no, ajustamos con datos en la mano.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 02 - COMO FUNCIONA                                         -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span class="page-header-title">C&oacute;mo funciona</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>El flujo de una llamada</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Todo arranca con el mismo Excel que hoy descarga la asesora desde el software interno. En vez de ponerse a marcar una por una, lo sube a una hoja de Google Sheets conectada al sistema. A las 8 de la ma&ntilde;ana, el sistema toma las primeras 30 filas del d&iacute;a, llama desde un n&uacute;mero dedicado, y conversa con el cliente. Al final, cada fila queda con el resultado escrito autom&aacute;ticamente.</p>
+    </div>
+
+    <h3>C&oacute;mo suena una llamada t&iacute;pica</h3>
+
+    <div class="conv-block">
+      <div class="conv-line">
+        <span class="conv-speaker">Agente</span>
+        <span class="conv-text">Hola, buenos d&iacute;as, &iquest;hablo con el se&ntilde;or Juan Pablo G&oacute;mez?</span>
+      </div>
+      <div class="conv-line">
+        <span class="conv-speaker client">Cliente</span>
+        <span class="conv-text">S&iacute;, con &eacute;l.</span>
+      </div>
+      <div class="conv-line">
+        <span class="conv-speaker">Agente</span>
+        <span class="conv-text">Le llamo de Diagnostioriente, es solamente un recordatorio rapidito: su SOAT de la placa ABC123 se le vence el 22 de abril. Quer&iacute;a avisarle con tiempo para que no se le pase.</span>
+      </div>
+      <div class="conv-line">
+        <span class="conv-speaker client">Cliente</span>
+        <span class="conv-text">Ah, gracias. &iquest;Y qu&eacute; tengo que llevar?</span>
+      </div>
+      <div class="conv-line">
+        <span class="conv-speaker">Agente</span>
+        <span class="conv-text">Con tarjeta de propiedad y c&eacute;dula es suficiente. Se atiende por orden de llegada, no necesita cita. Cuando guste se acerca a la sede de El Poblado.</span>
+      </div>
+      <div class="conv-line">
+        <span class="conv-speaker client">Cliente</span>
+        <span class="conv-text">Perfecto, voy esta semana entonces.</span>
+      </div>
+      <div class="conv-line">
+        <span class="conv-speaker">Agente</span>
+        <span class="conv-text">Excelente, lo esperamos. Que tenga muy buen d&iacute;a, se&ntilde;or Juan Pablo.</span>
+      </div>
+    </div>
+
+    <h3>Los 4 componentes del piloto</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 1 &mdash; Voz</span>
+          <h5>Agente conversacional natural</h5>
+        </div>
+        <div class="card-body">
+          <p>Voz femenina en espa&ntilde;ol Colombia, calibrada para sonar humana: pausas, muletillas, capacidad de ser interrumpida. Manejo natural de preguntas y desviaciones del gui&oacute;n.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 2 &mdash; Conocimiento</span>
+          <h5>Base de respuestas del CDA</h5>
+        </div>
+        <div class="card-body">
+          <p>El agente conoce horarios, direcciones de las 7 sedes, documentos requeridos, formas de pago y qu&eacute; pasa si no renueva a tiempo. Responde sin inventar.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 3 &mdash; Orquestaci&oacute;n</span>
+          <h5>Conexi&oacute;n con el Sheet</h5>
+        </div>
+        <div class="card-body">
+          <p>Lee autom&aacute;ticamente las filas pendientes del d&iacute;a, dispara las llamadas en horario h&aacute;bil, reintenta si no contesta, y escribe el resultado de vuelta en la misma hoja.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 4 &mdash; Evidencia</span>
+          <h5>Registro de cada llamada</h5>
+        </div>
+        <div class="card-body">
+          <p>Cada fila del Sheet queda con: estado, duraci&oacute;n, intenci&oacute;n del cliente, sentimiento, resumen, audio completo y transcript. Auditable al 100%.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Qu&eacute; se mantiene igual:</strong> el proceso de descarga del Excel desde el software interno, el SMS del d&iacute;a anterior al vencimiento, y la atenci&oacute;n en sede por orden de llegada. El piloto solo reemplaza la llamada de los 8 d&iacute;as previos.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 03 - METRICAS DE EXITO                                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+      <span class="page-header-title">M&eacute;tricas de &eacute;xito</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>C&oacute;mo sabremos si el piloto funcion&oacute;</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Definimos <strong>4 m&eacute;tricas duras</strong> que vamos a medir durante los 10 d&iacute;as y que determinan si el piloto es un &eacute;xito. Cada llamada queda registrada con la data necesaria para calcularlas. Al cierre entregamos un reporte con los resultados y la recomendaci&oacute;n de pr&oacute;ximo paso.</p>
+    </div>
+
+    <h3>Las 4 m&eacute;tricas de &eacute;xito</h3>
+
+    <table class="metric-table">
+      <thead>
+        <tr>
+          <th>M&eacute;trica</th>
+          <th>C&oacute;mo se mide</th>
+          <th>Meta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tasa de contacto efectivo</strong></td>
+          <td>% de llamadas donde se habl&oacute; con la persona correcta</td>
+          <td>&ge; 55%</td>
+        </tr>
+        <tr>
+          <td><strong>Tasa de intenci&oacute;n positiva</strong></td>
+          <td>% de contactos efectivos que dicen que van a renovar / revisar</td>
+          <td>&ge; al de asesoras humanas hoy</td>
+        </tr>
+        <tr>
+          <td><strong>Calidad conversacional</strong></td>
+          <td>% de llamadas con sentimiento negativo o quejas sobre el bot</td>
+          <td>&lt; 5%</td>
+        </tr>
+        <tr>
+          <td><strong>Resoluci&oacute;n de dudas</strong></td>
+          <td>% de preguntas del cliente resueltas sin escalar a sede</td>
+          <td>&ge; 70%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>C&oacute;mo vamos a auditarlo</h3>
+
+    <div class="metric-row-4">
+      <div class="metric-card">
+        <div class="metric-value">300</div>
+        <div class="metric-label">Transcripts disponibles</div>
+        <div class="metric-desc">Texto completo de cada llamada, descargable desde el Sheet.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">300</div>
+        <div class="metric-label">Grabaciones disponibles</div>
+        <div class="metric-desc">Audio completo de cada conversaci&oacute;n para revisi&oacute;n directa.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">30</div>
+        <div class="metric-label">Llamadas auditadas juntos</div>
+        <div class="metric-desc">Muestra aleatoria que escuchamos con el cliente al cierre del piloto.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">1</div>
+        <div class="metric-label">Reporte final</div>
+        <div class="metric-desc">Documento con resultados, aprendizajes y recomendaci&oacute;n.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Criterio de decisi&oacute;n post-piloto:</strong> si <strong>3 de las 4 m&eacute;tricas</strong> cumplen su meta y el audio de las 30 llamadas auditadas conjuntamente es aprobado por el cliente, pasamos a fase de implementaci&oacute;n a las 7 sedes. Si no, ajustamos y corremos un piloto 2 sin costo adicional.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 04 - INVERSION                                             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Inversi&oacute;n</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Inversi&oacute;n del piloto</h4>
+    <div class="gradient-line"></div>
+
+    <div class="cost-block">
+      <div class="cost-label">Piloto Agente de Voz AI &mdash; 10 d&iacute;as</div>
+      <div class="cost-value">$2.500.000 COP + IVA</div>
+      <div class="cost-desc">Todo incluido &mdash; build + operaci&oacute;n + reporte final</div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Descuento al avanzar con el proyecto:</strong> si al cierre del piloto Diagnostioriente decide avanzar con la implementaci&oacute;n a las 7 sedes, <strong>el valor total pagado por este piloto se descuenta &iacute;ntegramente</strong> de la inversi&oacute;n del proyecto final. El piloto no es un costo perdido: es un anticipo aplicado si se contin&uacute;a.</p>
+    </div>
+
+    <h4>Qu&eacute; incluye</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li><strong>Ingenier&iacute;a completa del agente</strong>: configuraci&oacute;n de voz, prompt conversacional, base de conocimiento con FAQs del CDA, clasificaci&oacute;n autom&aacute;tica de cada llamada.</li>
+      <li><strong>Infraestructura dedicada</strong>: servidor en la nube, dominio, certificados de seguridad, conexi&oacute;n autom&aacute;tica al Google Sheet del cliente.</li>
+      <li><strong>N&uacute;mero telef&oacute;nico colombiano dedicado</strong> al piloto (no se usa el del CDA).</li>
+      <li><strong>Operaci&oacute;n supervisada durante los 10 d&iacute;as</strong>: monitoreo diario, ajustes de prompt, revisi&oacute;n de llamadas, alertas tempranas si algo se desv&iacute;a.</li>
+      <li><strong>Costos variables absorbidos</strong> (telefon&iacute;a + plataforma de voz AI) para las 300 llamadas del piloto.</li>
+      <li><strong>Reporte final</strong> con las 4 m&eacute;tricas, an&aacute;lisis cualitativo de llamadas destacadas, aprendizajes y recomendaci&oacute;n concreta de pr&oacute;ximo paso.</li>
+      <li><strong>Sesi&oacute;n de auditor&iacute;a conjunta</strong>: escuchamos juntos 30 llamadas aleatorias con el equipo del CDA.</li>
+    </ul>
+
+    <h4>Condiciones de pago</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Anticipo para iniciar</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50%</div>
+        <div class="metric-label">Contra entrega del reporte</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">15 d&iacute;as</div>
+        <div class="metric-label">Validez de la propuesta</div>
+      </div>
+    </div>
+
+    <h4>Qu&eacute; no incluye</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Integraci&oacute;n directa con el software interno del CDA (el Excel se sigue descargando manual).</li>
+      <li>SMS de recordatorio a 1 d&iacute;a del vencimiento (se mantiene como est&aacute; hoy).</li>
+      <li>Agendamiento de citas (se mantiene atenci&oacute;n por orden de llegada).</li>
+      <li>Implementaci&oacute;n final a las 7 sedes (se cotiza aparte despu&eacute;s del piloto si se aprueba).</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Importante:</strong> esta propuesta es v&aacute;lida por <strong>15 d&iacute;as</strong> a partir de la fecha de emisi&oacute;n. La fecha de arranque del piloto se coordina una vez confirmado el anticipo.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 05 - CRONOGRAMA Y SIGUIENTE PASO                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="page-header-title">Cronograma &amp; pr&oacute;ximo paso</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>Cronograma del piloto</h4>
+    <div class="gradient-line"></div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-day">D&iacute;a 1&ndash;5</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Build y configuraci&oacute;n</div>
+          <p class="timeline-desc">Montaje de infraestructura, configuraci&oacute;n del agente, carga de la base de conocimiento con la informaci&oacute;n del CDA, compra del n&uacute;mero telef&oacute;nico dedicado.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-day">D&iacute;a 6</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Pruebas internas</div>
+          <p class="timeline-desc">Equipo Irrelevant ejecuta ~20 llamadas de prueba a n&uacute;meros propios para calibrar voz, tono y manejo de preguntas.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-day">D&iacute;a 7</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Validaci&oacute;n con el cliente</div>
+          <p class="timeline-desc">El equipo del CDA recibe 5 llamadas de prueba a n&uacute;meros propios. Aprobaci&oacute;n formal para arrancar el piloto.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-day">D&iacute;a 8&ndash;17</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Piloto en producci&oacute;n &mdash; 10 d&iacute;as</div>
+          <p class="timeline-desc">30 llamadas reales por d&iacute;a con clientes reales del CDA. Monitoreo diario, ajustes de prompt, alertas si aparece cualquier problema.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-day">D&iacute;a 18</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Auditor&iacute;a y reporte final</div>
+          <p class="timeline-desc">Sesi&oacute;n conjunta escuchando 30 llamadas aleatorias + entrega del reporte con las 4 m&eacute;tricas y recomendaci&oacute;n de pr&oacute;ximo paso.</p>
+        </div>
+      </div>
+    </div>
+
+    <h4>Qu&eacute; necesitamos del cliente</h4>
+    <div class="gradient-line"></div>
+
+    <ul>
+      <li>Una sesi&oacute;n corta (~1 hora) para armar la base de conocimiento del agente: horarios por sede, direcciones, documentos requeridos, FAQs t&iacute;picas.</li>
+      <li>Acceso de edici&oacute;n al Google Sheet que vamos a usar como fuente.</li>
+      <li>Confirmaci&oacute;n de que los tel&eacute;fonos de los clientes cuentan con autorizaci&oacute;n vigente bajo Ley de Habeas Data.</li>
+      <li>Un punto de contacto operativo diario durante los 10 d&iacute;as del piloto.</li>
+    </ul>
+
+    <h4>Pr&oacute;ximo paso despu&eacute;s del piloto</h4>
+    <div class="gradient-line"></div>
+
+    <div class="highlight-box">
+      <p>Si el piloto cumple las m&eacute;tricas de &eacute;xito, el siguiente paso es la <strong>implementaci&oacute;n a las 7 sedes</strong>: ~80 llamadas diarias, integraci&oacute;n directa con el software interno (eliminando el paso manual del Excel), dashboard propio para supervisores, y activaci&oacute;n del SMS de 1 d&iacute;a como parte del mismo sistema. Esa fase se cotiza aparte con base en los resultados reales del piloto &mdash; sin especular sobre n&uacute;meros que a&uacute;n no tenemos.</p>
+    </div>
+
+    <h4>Contacto comercial</h4>
+    <div class="gradient-line"></div>
+    <div style="background:var(--lavanda); border:1px solid rgba(139,92,246,0.12); border-radius:8px; padding:18px 22px;">
+      <p style="margin-bottom:4px;"><strong>Agust&iacute;n Hoyos</strong> &mdash; Director Comercial</p>
+      <p style="margin-bottom:2px;">&#9993; ahoyosh@stayirrelevant.com</p>
+      <p>&#127760; stayirrelevant.com</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+      <p class="back-sub">Diagnostioriente &mdash; Piloto Agente de Voz AI &mdash; 14 de abril de 2026</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
