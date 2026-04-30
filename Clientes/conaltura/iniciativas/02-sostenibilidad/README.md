@@ -6,11 +6,12 @@
 | **Área** | Sostenibilidad de Proyectos Inmobiliarios |
 | **Interlocutor** | Daniel Perez (Director de Sostenibilidad de Proyectos Inmobiliarios) |
 | **Referido por** | Claudia Garces (Fundadora — tía de Sara) |
-| **Servicio propuesto** | Ops Layer (3 procesos delimitados) — por validar con equipo técnico |
-| **Estado** | Discovery realizado — pendiente propuesta y cotización |
+| **Servicio propuesto** | Ops Layer · 3 habilidades · $12M COP + IVA |
+| **Estado** | **Esperando respuesta** — Fase 0 + slides + cotización enviados a Daniel (2026-04-29). Decisión asincrónica acordada. |
 | **Temperatura** | 🔥🔥🔥🔥 Muy caliente |
 | **Fecha de creación** | 2026-04-21 |
-| **Próxima reunión** | **Martes 28 de abril 2026, 3:00 pm** — Sara trae propuesta + cotización |
+| **Última acción** | 2026-04-29 — Sara envió email con Fase 0 + slides (links Netlify) + WhatsApp de seguimiento |
+| **Próxima acción** | Esperar respuesta de Daniel. Si no contesta en ~5 días hábiles, hacer follow-up suave |
 
 ## Alcance (3 procesos a automatizar)
 

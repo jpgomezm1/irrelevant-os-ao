@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conaltura — Presupuesto + Negociaci&oacute;n · Flujo visual</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #110e1a;
+    --bg-canvas: #0a0714;
+    --card: #191626;
+    --card-hover: #1e1a2e;
+    --border: #2a2640;
+    --text: #e8eaed;
+    --text-muted: #8b8fa3;
+    --text-secondary: #6b6894;
+    --purple: #7c3aed;
+    --purple-light: #a78bfa;
+    --purple-glow: rgba(124, 58, 237, 0.3);
+    --purple-bg: rgba(124, 58, 237, 0.12);
+    --emerald: #34d399;
+    --emerald-glow: rgba(52, 211, 153, 0.35);
+    --emerald-bg: rgba(52, 211, 153, 0.12);
+    --amber: #fbbf24;
+    --amber-glow: rgba(251, 191, 36, 0.35);
+    --amber-bg: rgba(251, 191, 36, 0.12);
+    --pink: #f472b6;
+    --pink-glow: rgba(244, 114, 182, 0.35);
+    --pink-bg: rgba(244, 114, 182, 0.12);
+    --blue: #60a5fa;
+    --blue-glow: rgba(96, 165, 250, 0.35);
+    --blue-bg: rgba(96, 165, 250, 0.12);
+    --red: #f87171;
+    --red-glow: rgba(248, 113, 113, 0.35);
+    --red-bg: rgba(248, 113, 113, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body, html {
+    width: 100%; height: 100%; overflow: hidden;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-canvas);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* ═══ TOP BAR ═══════════════════════════════════ */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 68px;
+    background: rgba(17, 14, 26, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; z-index: 100;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 18px; }
+  .topbar-title {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .topbar-title .title-text {
+    font-size: 16px; font-weight: 800; letter-spacing: -0.3px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .topbar-title .badge {
+    font-size: 10px; font-weight: 700; color: var(--emerald);
+    background: var(--emerald-bg);
+    padding: 3px 9px; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: 1.2px;
+  }
+  .topbar-sep { height: 20px; width: 1px; background: var(--border); }
+  .topbar-label {
+    font-size: 12px; color: var(--text-muted); font-weight: 500;
+  }
+  .topbar-label strong { color: var(--text); font-weight: 600; }
+
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+  .tbtn {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    padding: 7px 12px; border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s;
+  }
+  .tbtn:hover { color: var(--text); border-color: var(--purple); background: var(--purple-bg); }
+  .tbtn kbd {
+    background: var(--border); color: var(--text-secondary);
+    padding: 1px 5px; border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-weight: 600;
+  }
+  .tbtn.primary {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; border-color: transparent;
+    box-shadow: 0 4px 16px rgba(124,58,237,0.3);
+  }
+  .tbtn.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.5); }
+  .tbtn.primary .play-icon { font-size: 10px; }
+
+  /* ═══ PHASE RIBBON ═══════════════════════════════════ */
+  .phase-ribbon {
+    position: fixed;
+    top: 68px; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(17, 14, 26, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 10px 24px;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 60;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .phase-ribbon .phase {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--text-muted);
+    padding: 4px 10px; border-radius: 6px;
+    transition: all 0.3s;
+  }
+  .phase-ribbon .phase .num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--purple-light); font-weight: 700;
+  }
+  .phase-ribbon .phase.active {
+    background: var(--purple-bg);
+    color: var(--text);
+  }
+  .phase-ribbon .arrow {
+    color: var(--text-secondary); font-size: 11px;
+  }
+
+  /* ═══ VIEWPORT & CANVAS ═══════════════════════════════════ */
+  #viewport {
+    position: absolute; top: 68px; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    cursor: grab;
+    background: var(--bg-canvas);
+  }
+  #viewport.grabbing { cursor: grabbing; }
+  #viewport::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(139, 143, 163, 0.06) 1px, transparent 0);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+  #viewport::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(600px circle at 30% 20%, rgba(124,58,237,0.08), transparent),
+      radial-gradient(500px circle at 70% 80%, rgba(52,211,153,0.05), transparent);
+    pointer-events: none;
+  }
+
+  #canvas {
+    position: absolute;
+    width: 3400px; height: 2400px;
+    transform-origin: 0 0;
+  }
+
+  /* ═══ SVG EDGES ═══════════════════════════════════ */
+  #edges {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .edge-path {
+    fill: none;
+    stroke-width: 2.5;
+    transition: opacity 0.3s, stroke-width 0.3s;
+  }
+  .edge-path.highlighted {
+    stroke-width: 4;
+    filter: drop-shadow(0 0 6px currentColor);
+  }
+  .flow-dot {
+    fill: currentColor;
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+  .edge-label-bg {
+    fill: var(--bg-canvas);
+    stroke-width: 1;
+  }
+  .edge-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+
+  /* ═══ NODES ═══════════════════════════════════ */
+  .node {
+    position: absolute;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    width: 260px;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s, opacity 0.3s, border-color 0.25s;
+    user-select: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  }
+  .node:hover {
+    transform: translateY(-3px) scale(1.02);
+    z-index: 10;
+  }
+
+  .node.m1 { border-color: rgba(52, 211, 153, 0.4); }
+  .node.m1:hover, .node.m1.highlighted { border-color: var(--emerald); box-shadow: 0 10px 30px var(--emerald-glow); }
+  .node.m2 { border-color: rgba(251, 191, 36, 0.4); }
+  .node.m2:hover, .node.m2.highlighted { border-color: var(--amber); box-shadow: 0 10px 30px var(--amber-glow); }
+  .node.m3 { border-color: rgba(96, 165, 250, 0.4); }
+  .node.m3:hover, .node.m3.highlighted { border-color: var(--blue); box-shadow: 0 10px 30px var(--blue-glow); }
+  .node.mem { border-color: rgba(244, 114, 182, 0.4); }
+  .node.mem:hover, .node.mem.highlighted { border-color: var(--pink); box-shadow: 0 10px 30px var(--pink-glow); }
+  .node.core { border-color: rgba(124, 58, 237, 0.5); }
+  .node.core:hover, .node.core.highlighted { border-color: var(--purple-light); box-shadow: 0 10px 30px var(--purple-glow); }
+  .node.mesa {
+    border-color: rgba(248, 113, 113, 0.55);
+    background: linear-gradient(135deg, var(--card), rgba(248,113,113,0.1));
+  }
+  .node.mesa:hover, .node.mesa.highlighted { border-color: var(--red); box-shadow: 0 10px 30px var(--red-glow); }
+
+  .node-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .step-badge {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 800;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+  .node.m1 .step-badge { background: var(--emerald-bg); color: var(--emerald); box-shadow: 0 0 0 1px rgba(52,211,153,0.3); }
+  .node.m2 .step-badge { background: var(--amber-bg); color: var(--amber); box-shadow: 0 0 0 1px rgba(251,191,36,0.3); }
+  .node.m3 .step-badge { background: var(--blue-bg); color: var(--blue); box-shadow: 0 0 0 1px rgba(96,165,250,0.3); }
+  .node.mem .step-badge { background: var(--pink-bg); color: var(--pink); box-shadow: 0 0 0 1px rgba(244,114,182,0.3); }
+  .node.core .step-badge { background: var(--purple-bg); color: var(--purple-light); box-shadow: 0 0 0 1px rgba(124,58,237,0.3); }
+  .node.mesa .step-badge { background: var(--red-bg); color: var(--red); box-shadow: 0 0 0 1px rgba(248,113,113,0.4); }
+
+  .node-icon {
+    font-size: 22px; line-height: 1; flex-shrink: 0;
+  }
+
+  .node-module-tag {
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    padding: 2px 7px; border-radius: 4px;
+    margin-left: auto;
+  }
+  .node.m1 .node-module-tag { background: var(--emerald-bg); color: var(--emerald); }
+  .node.m2 .node-module-tag { background: var(--amber-bg); color: var(--amber); }
+  .node.m3 .node-module-tag { background: var(--blue-bg); color: var(--blue); }
+  .node.mem .node-module-tag { background: var(--pink-bg); color: var(--pink); }
+  .node.core .node-module-tag { background: var(--purple-bg); color: var(--purple-light); }
+  .node.mesa .node-module-tag { background: var(--red-bg); color: var(--red); }
+
+  .node-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .node.m1 .node-name { color: var(--emerald); }
+  .node.m2 .node-name { color: var(--amber); }
+  .node.m3 .node-name { color: var(--blue); }
+  .node.mem .node-name { color: var(--pink); }
+  .node.core .node-name { color: var(--purple-light); }
+  .node.mesa .node-name { color: var(--red); }
+
+  .node-title {
+    font-size: 15px; font-weight: 700;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .node-desc {
+    font-size: 12px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .node.big { width: 300px; padding: 20px 22px; }
+  .node.big .node-title { font-size: 17px; }
+
+  .start-badge {
+    position: absolute;
+    top: -14px; right: -14px;
+    background: linear-gradient(135deg, var(--red), #dc2626);
+    color: white;
+    font-weight: 800; font-size: 10px;
+    padding: 5px 12px; border-radius: 100px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px var(--red-glow);
+    display: flex; align-items: center; gap: 5px;
+    animation: startPulse 2s ease-in-out infinite;
+    z-index: 5;
+  }
+  @keyframes startPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 14px var(--red-glow); }
+    50% { transform: scale(1.08); box-shadow: 0 6px 24px var(--red-glow); }
+  }
+  .start-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 8px white;
+  }
+
+  .node.memfile {
+    width: 200px; padding: 12px 14px;
+    background: rgba(244, 114, 182, 0.05);
+    border-style: dashed;
+    border-color: rgba(244, 114, 182, 0.35);
+  }
+  .node.memfile:hover, .node.memfile.highlighted {
+    border-style: solid; border-color: var(--pink);
+    background: rgba(244, 114, 182, 0.1);
+    box-shadow: 0 8px 20px var(--pink-glow);
+  }
+  .node.memfile .node-name { font-size: 11.5px; color: var(--pink); margin-bottom: 4px; }
+  .node.memfile .node-desc { font-size: 11px; }
+  .node.memfile .memfile-icon {
+    font-size: 14px; margin-right: 6px;
+  }
+
+  #canvas.focused .node:not(.highlighted):not(:hover) { opacity: 0.25; }
+  #canvas.focused .edge-path:not(.highlighted) { opacity: 0.08; }
+  #canvas.focused .group { opacity: 0.3; }
+  #canvas.focused .flow-dot-anim { opacity: 0; }
+
+  @keyframes breatheGlow {
+    0%, 100% { box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+    50% { box-shadow: 0 4px 14px rgba(0,0,0,0.35), 0 0 20px rgba(124,58,237,0.08); }
+  }
+  .node:not(.memfile) { animation: breatheGlow 6s ease-in-out infinite; }
+
+  .node.demo-active {
+    transform: scale(1.08);
+    z-index: 20;
+  }
+  .node.m1.demo-active { box-shadow: 0 0 0 3px var(--emerald), 0 0 60px var(--emerald-glow); }
+  .node.m2.demo-active { box-shadow: 0 0 0 3px var(--amber), 0 0 60px var(--amber-glow); }
+  .node.m3.demo-active { box-shadow: 0 0 0 3px var(--blue), 0 0 60px var(--blue-glow); }
+  .node.mem.demo-active { box-shadow: 0 0 0 3px var(--pink), 0 0 60px var(--pink-glow); }
+  .node.core.demo-active { box-shadow: 0 0 0 3px var(--purple-light), 0 0 60px var(--purple-glow); }
+  .node.mesa.demo-active { box-shadow: 0 0 0 3px var(--red), 0 0 60px var(--red-glow); }
+
+  /* ═══ GROUPS ═══════════════════════════════════ */
+  .group {
+    position: absolute;
+    border: 2px dashed;
+    border-radius: 22px;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .group.m1 { border-color: rgba(52, 211, 153, 0.18); background: rgba(52,211,153,0.02); }
+  .group.m2 { border-color: rgba(251, 191, 36, 0.18); background: rgba(251,191,36,0.02); }
+  .group.m3 { border-color: rgba(96, 165, 250, 0.18); background: rgba(96,165,250,0.02); }
+  .group.mem { border-color: rgba(244, 114, 182, 0.18); background: rgba(244,114,182,0.02); }
+  .group.mesa { border-color: rgba(248, 113, 113, 0.22); background: rgba(248,113,113,0.03); }
+
+  .group-label-wrap {
+    position: absolute;
+    top: -18px; left: 40px;
+    background: var(--bg-canvas);
+    padding: 5px 16px;
+    border-radius: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .group-label-wrap .group-persona {
+    font-size: 10px; font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding-right: 10px; border-right: 1px solid var(--border);
+  }
+  .group-label-wrap .group-label {
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .group.m1 .group-label-wrap { border: 1px solid rgba(52, 211, 153, 0.35); }
+  .group.m1 .group-label { color: var(--emerald); }
+  .group.m2 .group-label-wrap { border: 1px solid rgba(251, 191, 36, 0.35); }
+  .group.m2 .group-label { color: var(--amber); }
+  .group.m3 .group-label-wrap { border: 1px solid rgba(96, 165, 250, 0.35); }
+  .group.m3 .group-label { color: var(--blue); }
+  .group.mem .group-label-wrap { border: 1px solid rgba(244, 114, 182, 0.35); }
+  .group.mem .group-label { color: var(--pink); }
+  .group.mesa .group-label-wrap { border: 1px solid rgba(248, 113, 113, 0.4); }
+  .group.mesa .group-label { color: var(--red); }
+
+  .group-arrow {
+    position: absolute;
+    bottom: 10px; right: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .group.m1 .group-arrow { color: var(--emerald); }
+  .group.m2 .group-arrow { color: var(--amber); }
+  .group.m3 .group-arrow { color: var(--blue); }
+  .group.mem .group-arrow { color: var(--pink); }
+  .group.mesa .group-arrow { color: var(--red); }
+
+  /* ═══ LEGEND ═══════════════════════════════════ */
+  .legend {
+    position: fixed;
+    top: 140px; left: 24px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 12px;
+    max-width: 230px;
+    z-index: 50;
+  }
+  .legend-title {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 3px 0;
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+  .legend-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-dot.m1 { background: var(--emerald); box-shadow: 0 0 8px var(--emerald-glow); }
+  .legend-dot.m2 { background: var(--amber); box-shadow: 0 0 8px var(--amber-glow); }
+  .legend-dot.m3 { background: var(--blue); box-shadow: 0 0 8px var(--blue-glow); }
+  .legend-dot.mem { background: var(--pink); box-shadow: 0 0 8px var(--pink-glow); }
+  .legend-dot.core { background: var(--purple-light); box-shadow: 0 0 8px var(--purple-glow); }
+  .legend-dot.mesa { background: var(--red); box-shadow: 0 0 8px var(--red-glow); }
+
+  .help-panel {
+    position: fixed;
+    bottom: 24px; left: 24px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex; gap: 14px;
+    z-index: 50;
+  }
+  .help-panel kbd {
+    background: var(--border); color: var(--text);
+    padding: 2px 6px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-weight: 600;
+    margin: 0 3px;
+  }
+
+  .zoom-controls {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    display: flex; flex-direction: column; gap: 4px;
+    background: rgba(25, 22, 38, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px;
+    z-index: 50;
+  }
+  .zoom-btn {
+    width: 34px; height: 34px;
+    background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer;
+    border-radius: 6px;
+    font-size: 18px; font-weight: 700;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .zoom-btn:hover { color: var(--text); background: var(--purple-bg); }
+  .zoom-level {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text-muted);
+    text-align: center;
+    padding: 4px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .side-panel {
+    position: fixed;
+    top: 68px; right: 0; bottom: 0;
+    width: 440px;
+    background: var(--card);
+    border-left: 1px solid var(--border);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(.25,.46,.45,.94);
+    z-index: 80;
+    overflow-y: auto;
+    box-shadow: -20px 0 40px rgba(0,0,0,0.3);
+  }
+  .side-panel.open { transform: translateX(0); }
+  .side-panel-header {
+    padding: 26px 30px 22px;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: var(--card);
+    z-index: 5;
+  }
+  .side-panel-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 32px; height: 32px;
+    background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer;
+    border-radius: 6px;
+    font-size: 22px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .side-panel-close:hover { color: var(--text); background: var(--border); }
+  .side-panel-label {
+    display: inline-block;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 9px; border-radius: 4px;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .side-panel-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .side-panel-title {
+    font-size: 24px; font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.6px;
+  }
+  .side-panel-body { padding: 26px 30px 50px; }
+  .side-panel-section { margin-bottom: 24px; }
+  .side-panel-section-title {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--purple-light);
+    margin-bottom: 10px;
+  }
+  .side-panel-section p {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+  .side-panel-section strong { color: var(--text); font-weight: 600; }
+  .side-panel-section ul { list-style: none; padding: 0; }
+  .side-panel-section ul li {
+    position: relative; padding-left: 18px;
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.55;
+    margin: 6px 0;
+  }
+  .side-panel-section ul li::before {
+    content: "→"; position: absolute; left: 0;
+    color: var(--purple-light); font-weight: 700;
+  }
+  .side-panel .principle {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(52, 211, 153, 0.04));
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 10px;
+    font-size: 13px; color: var(--text);
+    font-style: italic;
+  }
+  .side-panel .principle strong {
+    font-style: normal;
+    color: var(--purple-light);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .side-panel code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--purple-light);
+    background: var(--purple-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .demo-overlay {
+    position: fixed;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(17,14,26,0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--purple);
+    border-radius: 16px;
+    padding: 20px 28px;
+    display: none;
+    align-items: center; gap: 20px;
+    max-width: 720px;
+    z-index: 90;
+    box-shadow: 0 20px 60px rgba(124,58,237,0.3);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .demo-overlay.visible {
+    display: flex;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .demo-step-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple-light);
+    letter-spacing: 1.5px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+  .demo-step-count .current {
+    font-size: 28px;
+    color: var(--text);
+    display: block;
+    letter-spacing: -1px;
+  }
+  .demo-step-count .total {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+  .demo-divider {
+    width: 1px;
+    align-self: stretch;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .demo-content { flex: 1; }
+  .demo-content h4 {
+    font-size: 15px; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .demo-content p {
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .demo-controls {
+    display: flex; gap: 6px;
+    flex-shrink: 0;
+  }
+  .demo-controls button {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .demo-controls button:hover { color: var(--text); border-color: var(--purple); background: var(--purple-bg); }
+  .demo-controls button.exit {
+    background: var(--red-bg); color: var(--red); border-color: rgba(248,113,113,0.3);
+  }
+  .demo-controls button.exit:hover { background: var(--red); color: white; border-color: var(--red); }
+
+  .welcome-tip {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(17,14,26,0.98);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--purple);
+    border-radius: 20px;
+    padding: 32px 40px;
+    text-align: center;
+    max-width: 480px;
+    z-index: 200;
+    box-shadow: 0 20px 80px rgba(124,58,237,0.4);
+  }
+  .welcome-tip.hidden { display: none; }
+  .welcome-tip .icon {
+    font-size: 40px; margin-bottom: 12px;
+  }
+  .welcome-tip h3 {
+    font-size: 20px; font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    background: linear-gradient(135deg, var(--purple-light), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .welcome-tip p {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.6; margin-bottom: 20px;
+  }
+  .welcome-tip .actions {
+    display: flex; gap: 10px; justify-content: center;
+  }
+  .welcome-tip button {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    padding: 10px 20px; border-radius: 10px;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .welcome-tip button:hover { color: var(--text); border-color: var(--purple); }
+  .welcome-tip button.primary {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; border-color: transparent;
+    box-shadow: 0 4px 16px rgba(124,58,237,0.3);
+  }
+  .welcome-tip button.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.5); }
+
+  /* The logo PNG has ~22% transparent padding on top and bottom.
+     We render it large and clip those transparent areas with clip-path,
+     then pull the clipped space back with negative margins so the
+     logo visually fills the bar without forcing a taller bar. */
+  .brand-logo {
+    height: 140px;
+    width: auto;
+    display: block;
+    opacity: 1;
+    clip-path: inset(24% 0 24% 0);
+    margin: -33px 0;
+  }
+  .brand-logo-welcome {
+    height: 180px;
+    width: auto;
+    display: block;
+    margin: -40px auto -20px;
+    opacity: 1;
+    clip-path: inset(22% 0 22% 0);
+  }
+
+  @media (max-width: 900px) {
+    .legend, .help-panel, .phase-ribbon { display: none; }
+    .side-panel { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <img class="brand-logo" src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="Irrelevant">
+    <div class="topbar-sep"></div>
+    <div class="topbar-title">
+      <span class="title-text">Conaltura · Presupuesto + Negociaci&oacute;n</span>
+      <span class="badge">Ops Layer</span>
+    </div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-label"><strong>8 habilidades</strong> · 1 matriz central · 4 fases</div>
+  </div>
+  <div class="topbar-right">
+    <button class="tbtn primary" id="btn-play"><span class="play-icon">▶</span> Ver flujo guiado</button>
+    <button class="tbtn" id="btn-fit"><kbd>F</kbd> Ajustar</button>
+    <button class="tbtn" id="btn-help">?</button>
+  </div>
+</div>
+
+<div class="phase-ribbon" id="phase-ribbon">
+  <div class="phase" data-phase="1"><span class="num">F1</span> Entregables r&aacute;pidos</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="2"><span class="num">F2</span> Cimiento</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="3"><span class="num">F3</span> Inteligencia</div>
+  <span class="arrow">→</span>
+  <div class="phase" data-phase="4"><span class="num">VF</span> Visi&oacute;n a futuro</div>
+</div>
+
+<div class="legend">
+  <div class="legend-title">Leyenda</div>
+  <div class="legend-item"><span class="legend-dot mem"></span>Entradas del negocio</div>
+  <div class="legend-item"><span class="legend-dot m1"></span>Fase 1 &middot; Entregables r&aacute;pidos</div>
+  <div class="legend-item"><span class="legend-dot core"></span>Fase 2 &middot; Cimiento</div>
+  <div class="legend-item"><span class="legend-dot m2"></span>Fase 3 &middot; Inteligencia</div>
+  <div class="legend-item"><span class="legend-dot m3"></span>Visi&oacute;n a futuro</div>
+  <div class="legend-item"><span class="legend-dot mesa"></span>Salidas / consumo</div>
+</div>
+
+<div class="help-panel">
+  <span><kbd>scroll</kbd> zoom</span>
+  <span><kbd>drag</kbd> mover</span>
+  <span><kbd>click</kbd> detalle</span>
+  <span><kbd>hover</kbd> resalta ruta</span>
+</div>
+
+<div class="zoom-controls">
+  <button class="zoom-btn" id="btn-zoom-in">+</button>
+  <div class="zoom-level" id="zoom-level">100%</div>
+  <button class="zoom-btn" id="btn-zoom-out">−</button>
+</div>
+
+<div id="viewport">
+  <div id="canvas">
+    <svg id="edges"></svg>
+  </div>
+</div>
+
+<div class="side-panel" id="side-panel">
+  <div class="side-panel-header">
+    <button class="side-panel-close" id="side-panel-close">×</button>
+    <div id="side-panel-label"></div>
+    <div id="side-panel-name"></div>
+    <div id="side-panel-title"></div>
+  </div>
+  <div class="side-panel-body" id="side-panel-body"></div>
+</div>
+
+<div class="demo-overlay" id="demo-overlay">
+  <div class="demo-step-count">
+    <span class="current" id="demo-current">01</span>
+    <span class="total">de <span id="demo-total">9</span></span>
+  </div>
+  <div class="demo-divider"></div>
+  <div class="demo-content">
+    <h4 id="demo-title">Título del paso</h4>
+    <p id="demo-desc">Descripción del paso en el flujo.</p>
+  </div>
+  <div class="demo-controls">
+    <button id="demo-prev" title="Anterior">‹</button>
+    <button id="demo-next" title="Siguiente">›</button>
+    <button id="demo-exit" class="exit" title="Salir">✕</button>
+  </div>
+</div>
+
+<div class="welcome-tip" id="welcome-tip">
+  <img class="brand-logo-welcome" src="https://storage.googleapis.com/cluvi/Sara/logo%20irrelevant%20blanco.png" alt="Irrelevant">
+  <div class="icon">🔄</div>
+  <h3>Flujo de presupuesto + negociaci&oacute;n de Conaltura</h3>
+  <p>Las entradas del negocio (presupuestos, correos, cotizaciones, indexaciones) pasan por <strong>8 habilidades en Claude</strong> conectadas por una <strong>matriz central &uacute;nica</strong>. Implementaci&oacute;n por fases: entregables r&aacute;pidos &rarr; cimiento &rarr; inteligencia &rarr; visi&oacute;n a futuro. Navega con <kbd style="background:var(--border);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">scroll</kbd> y <kbd style="background:var(--border);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">drag</kbd>.</p>
+  <div class="actions">
+    <button id="welcome-explore">Explorar libremente</button>
+    <button class="primary" id="welcome-play">▶ Ver flujo guiado</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA — CONALTURA · PRESUPUESTO + NEGOCIACI&Oacute;N
+// ═══════════════════════════════════════════════════════════════
+
+const NODES = [
+  // ── ENTRADAS ──
+  {
+    id: 'in-presupuestos', type: 'mem',
+    x: 200, y: 130,
+    icon: '📊', moduleTag: 'Entrada', step: '',
+    name: 'presupuestos',
+    title: 'Excel P1 / P2 / P3 por proyecto',
+    desc: 'P1 al comprar lote, P2 al salir a ventas, P3 al arrancar obra. Hoy se copian a mano entre archivos por &aacute;rea.',
+    phase: null,
+    detail: {
+      section: 'Entrada del negocio',
+      intro: 'Cada proyecto maneja 3 presupuestos distintos. Hoy se trabajan en Excel y se copian manualmente a archivos por &aacute;rea.',
+      input: 'Equipo de presupuesto + obra.',
+      output: ['P1 — toma de decisi&oacute;n de compra del lote', 'P2 — salida a ventas', 'P3 — presupuesto detallado de obra'],
+      principle: 'Las 23 obras × 3 presupuestos = 69 archivos vivos. Sin matriz central, no hay comparaci&oacute;n posible.'
+    }
+  },
+  {
+    id: 'in-inbox', type: 'mem',
+    x: 1000, y: 130,
+    icon: '📥', moduleTag: 'Entrada', step: '',
+    name: 'inbox-compartido',
+    title: 'gest-compras@ · 200-400 correos/d&iacute;a',
+    desc: 'Inbox compartido manejado por 4 personas en rotaci&oacute;n diaria. Cotizaciones de licitaciones, comunicados, demandas.',
+    phase: null,
+    detail: {
+      section: 'Entrada del negocio',
+      intro: 'El correo donde llegan todas las respuestas a licitaciones. 4 personas se rotan cada d&iacute;a y leen TODO el inbox.',
+      input: 'Contratistas externos + comunicados.',
+      output: ['Cotizaciones de licitaciones (mayor&iacute;a)', 'Comunicados de contratistas (fin de a&ntilde;o, novedades)', 'Demandas y temas legales'],
+      principle: 'Hoy: rotaci&oacute;n diaria + chat para repartir. Costo: tiempo de 4 personas todos los d&iacute;as.'
+    }
+  },
+  {
+    id: 'in-cotizaciones', type: 'mem',
+    x: 1800, y: 130,
+    icon: '📄', moduleTag: 'Entrada', step: '',
+    name: 'cotizaciones',
+    title: 'Zip con FDL + PDFs heterog&eacute;neos',
+    desc: 'Por cada licitaci&oacute;n llegan 3-10 cotizaciones de contratistas. Vienen en formatos distintos: FDL diligenciado o PDF libre.',
+    phase: null,
+    detail: {
+      section: 'Entrada del negocio',
+      intro: 'Cada licitaci&oacute;n recibe varias cotizaciones. Algunas en el FDL (formato propio de Conaltura), otras en PDF con formato libre del contratista.',
+      input: 'Contratistas que cotizan.',
+      output: ['FDL diligenciados (formato Conaltura)', 'PDFs heterog&eacute;neos (formato libre)', 'Excel sueltos'],
+      principle: '173 cuadros comparativos al mes. Cada uno antes tomaba 2-4 horas armar a mano.'
+    }
+  },
+  {
+    id: 'in-indexaciones', type: 'mem',
+    x: 2600, y: 130,
+    icon: '📈', moduleTag: 'Entrada', step: '',
+    name: 'indexaciones',
+    title: 'Δ salario, &iacute;ndices, eventos macro',
+    desc: 'Cuando sube el salario o un &iacute;ndice macro, hay que recalcular el impacto en cada contrato vivo de las 23 obras.',
+    phase: null,
+    detail: {
+      section: 'Entrada del negocio',
+      intro: 'Los contratos son a precio unitario fijo, pero los costos suben. En diciembre 2025 el salario subi&oacute; 23% — toc&oacute; recalcular contrato por contrato a mano.',
+      input: 'Eventos macro (ICCV, salario m&iacute;nimo, &iacute;ndices sectoriales).',
+      output: ['Δ salario m&iacute;nimo', '&Iacute;ndices de costos de construcci&oacute;n', 'Eventos macro extraordinarios'],
+      principle: 'Hoy se hace a mano: bajar contrato, revisar precios, revisar consumido, calcular cu&aacute;nto falta, jugar con porcentaje.'
+    }
+  },
+
+  // ── FASE 1 · ENTREGABLES R&Aacute;PIDOS ──
+  {
+    id: 'h04', type: 'm1',
+    x: 80, y: 580,
+    icon: '📊', moduleTag: 'Fase 1', step: '04',
+    name: '/comparador-cotizaciones',
+    title: 'Comparador de cotizaciones',
+    desc: 'Lee FDL + PDFs heterog&eacute;neos, normaliza alcances, arma cuadro comparativo con ranking y tareas. <strong>60s por cuadro</strong> &mdash; prototipo del hackathon.',
+    phase: 1,
+    detail: {
+      section: 'Fase 1 · Habilidad 04 · Prototipo listo',
+      intro: 'El prototipo del hackathon (Kate + Nico). Lee el zip con cotizaciones de varios contratistas y arma el cuadro comparativo en 60 segundos.',
+      input: 'Zip con FDL + PDFs heterog&eacute;neos de la licitaci&oacute;n.',
+      output: ['Cuadro comparativo consolidado', 'Condiciones t&eacute;cnicas extra&iacute;das', 'Ranking de proponentes', 'Tareas para el equipo (ej. "Pepito no ley&oacute; bien la propuesta")'],
+      principle: 'Hoy: 370 hrs/mes en cuadros manuales. Con la habilidad: 9.7 hrs/mes. 99% reducci&oacute;n medida en el hackathon.'
+    }
+  },
+  {
+    id: 'h05', type: 'm1',
+    x: 480, y: 580,
+    icon: '📨', moduleTag: 'Fase 1', step: '05',
+    name: '/clasificador-correos',
+    title: 'Clasificador de correos',
+    desc: 'Cada correo del inbox <code>gest-compras@</code> se clasifica por especialidad y se enruta a la bandeja personal del doliente.',
+    phase: 1,
+    detail: {
+      section: 'Fase 1 · Habilidad 05 · Avance de Kate',
+      intro: 'Lee los 200-400 correos diarios y los reparte autom&aacute;ticamente. Kate ya ten&iacute;a un avance del prototipo.',
+      input: 'Inbox compartido <code>gest-compras@</code>.',
+      output: ['Carpinter&iacute;a → Mamen', 'Aseos → Paula', 'RCI → Camilo', 'Demandas → Hern&aacute;n', 'Sin doliente → Mari y Kate'],
+      principle: 'Adi&oacute;s a la rotaci&oacute;n diaria. Cada quien ve solo lo suyo en su bandeja personal.'
+    }
+  },
+
+  // ── FASE 2 · CIMIENTO ──
+  {
+    id: 'h01', type: 'core',
+    x: 940, y: 580,
+    icon: '🔄', moduleTag: 'Fase 2 · &Uacute;nica vez', step: '01',
+    name: '/remapeo-codigos',
+    title: 'Remapeo de c&oacute;digos',
+    desc: 'Traduce los ~2.000 c&oacute;digos de la gu&iacute;a vieja a la nueva, cap&iacute;tulo por cap&iacute;tulo. Proyecto puntual de una sola vez.',
+    phase: 2,
+    detail: {
+      section: 'Fase 2 · Habilidad 01 · &Uacute;nica vez',
+      intro: 'Habilita el hist&oacute;rico de 2-3 a&ntilde;os como data comparable. La nueva gu&iacute;a (2.315 l&iacute;neas) existe pero los presupuestos hist&oacute;ricos siguen en c&oacute;digo viejo (10.756 l&iacute;neas).',
+      input: 'Gu&iacute;a vieja, gu&iacute;a nueva, ejemplos de remapeo ya hecho + l&oacute;gica del criterio.',
+      output: ['Tabla de equivalencias c&oacute;digos viejos ↔ nuevos', 'Validaci&oacute;n cap&iacute;tulo por cap&iacute;tulo', 'Hist&oacute;rico habilitado para comparaci&oacute;n'],
+      principle: 'Es un proyecto de una sola vez. El equipo ya nos enviar&aacute; los ejemplos por correo.'
+    }
+  },
+  {
+    id: 'h02', type: 'core',
+    x: 1340, y: 580,
+    icon: '📥', moduleTag: 'Fase 2', step: '02',
+    name: '/ingestor-presupuestos',
+    title: 'Ingestor P1 / P2 / P3',
+    desc: 'Lee el Excel del presupuesto (P1, P2 o P3), normaliza con los c&oacute;digos remapeados y lo deja en la matriz central.',
+    phase: 2,
+    detail: {
+      section: 'Fase 2 · Habilidad 02',
+      intro: 'Reemplaza la copia manual entre archivos por &aacute;rea. Cada nuevo presupuesto entra autom&aacute;ticamente a la matriz central.',
+      input: 'Excel P1, P2 o P3 del proyecto.',
+      output: ['Conceptos identificados y normalizados', 'C&oacute;digos remapeados aplicados', 'Datos en la matriz central'],
+      principle: '23 obras × 3 presupuestos = 69 archivos hoy en silos. Con la habilidad: una sola matriz.'
+    }
+  },
+  {
+    id: 'h03', type: 'core',
+    x: 1740, y: 580,
+    icon: '🧮', moduleTag: 'Fase 2', step: '03',
+    name: '/motor-tenores',
+    title: 'Motor de tenores',
+    desc: 'Aplica los tenores definidos por Hern&aacute;n a cada actividad para calcular P2. Sin c&aacute;lculo a ojo experto.',
+    phase: 2,
+    detail: {
+      section: 'Fase 2 · Habilidad 03',
+      intro: 'Hoy solo Hern&aacute;n sabe los tenores. Sin &eacute;l, nadie calcula P2 con criterio. La habilidad lo hace determin&iacute;stico y auditable.',
+      input: 'Matriz de tenores cerrada por Hern&aacute;n + presupuesto de la obra.',
+      output: ['Sanitarios → # apartamentos', 'Enchape → m² apartamento', 'Ventaner&iacute;a → m² fachada', 'P2 calculado y auditable'],
+      principle: 'P2 calculado en segundos con n&uacute;mero auditable que cualquiera puede revisar.'
+    }
+  },
+  {
+    id: 'h06', type: 'core',
+    x: 2140, y: 580,
+    icon: '📈', moduleTag: 'Fase 2', step: '06',
+    name: '/simulador-indexacion',
+    title: 'Simulador de indexaci&oacute;n',
+    desc: 'Cuando sube un costo (ej. salario +23%), recalcula el impacto contratista por contratista mostrando consumido vs. lo que falta.',
+    phase: 2,
+    detail: {
+      section: 'Fase 2 · Habilidad 06',
+      intro: 'En diciembre 2025 toc&oacute; recalcular cada contrato a mano cuando subi&oacute; el salario 23%. La habilidad lo hace en minutos.',
+      input: 'Evento (alza salarial, &iacute;ndice macro) + matriz de contratos vivos.',
+      output: ['Impacto contrato por contrato', 'Consumido vs. por ejecutar', 'Simulaci&oacute;n de escenarios de alza'],
+      principle: 'De d&iacute;as de c&aacute;lculo manual a minutos de simulaci&oacute;n.'
+    }
+  },
+
+  // ── FASE 3 · INTELIGENCIA ──
+  {
+    id: 'h07', type: 'm2',
+    x: 2580, y: 580,
+    icon: '🚨', moduleTag: 'Fase 3', step: '07',
+    name: '/monitor-desviaciones',
+    title: 'Monitor de desviaciones',
+    desc: 'Vigila la matriz, detecta valores fuera de rango y dispara alertas con informe verde/rojo del periodo.',
+    phase: 3,
+    detail: {
+      section: 'Fase 3 · Habilidad 07',
+      intro: 'Sin esto, las desviaciones se cazan a punta de Excel y colores (lo hace Hern&aacute;n hoy). Con esto, alertas autom&aacute;ticas.',
+      input: 'Matriz central con hist&oacute;rico cargado.',
+      output: ['Alertas autom&aacute;ticas de valores fuera de rango', 'Informe verde/rojo del periodo', 'Trazabilidad del desv&iacute;o (ej. "lleno con arenilla pas&oacute; de 20 mil a 32 mil")'],
+      principle: 'Nada se escapa. Las alertas llegan en cuanto la desviaci&oacute;n aparece en data, no semanas despu&eacute;s.'
+    }
+  },
+
+  // ── VISI&Oacute;N A FUTURO ──
+  {
+    id: 'h08', type: 'm3',
+    x: 3000, y: 580,
+    icon: '💬', moduleTag: 'Visi&oacute;n futuro', step: '08',
+    name: '/agente-conversacional',
+    title: 'Agente conversacional',
+    desc: 'Gerencia pregunta en lenguaje natural y la matriz responde citando fuente. Capa final del sistema.',
+    phase: 4,
+    detail: {
+      section: 'Visi&oacute;n a futuro · Habilidad 08',
+      intro: 'Una vez la matriz tenga el hist&oacute;rico consolidado, esta capa permite preguntas tipo "&iquest;por qu&eacute; gastamos m&aacute;s cemento en obra A que en B?".',
+      input: 'Pregunta en lenguaje natural + matriz central.',
+      output: ['Respuesta sintetizada', 'Cita de la fuente exacta', 'Sin b&uacute;squedas manuales en Excel + Power BI'],
+      principle: 'Se construye DESPU&Eacute;S de tener la matriz consolidada. Sin esa base, las respuestas no son confiables.'
+    }
+  },
+
+  // ── MATRIZ CENTRAL ──
+  {
+    id: 'matriz', type: 'core', big: true,
+    x: 1450, y: 1080,
+    icon: '🗂️', moduleTag: 'Coraz&oacute;n del sistema', step: '',
+    name: 'matriz-central-unica',
+    title: 'Matriz central &uacute;nica',
+    desc: 'El coraz&oacute;n del sistema. Todas las habilidades leen y escriben sobre ella. Lo que hace posible comparar entre obras por cap&iacute;tulo.',
+    phase: null,
+    detail: {
+      section: 'Coraz&oacute;n del sistema',
+      intro: 'La matriz central es donde todo se cruza. Sin ella, las habilidades son piezas sueltas. Con ella, son un sistema vivo.',
+      input: 'Alimentada por Habilidades 01 + 02 + 03 + 06 (Fase 2).',
+      output: ['Presupuestos P1/P2/P3 de las 23 obras', 'Tenores cerrados', 'Precios hist&oacute;ricos', 'Cuadros + adjudicaciones', 'Comparaci&oacute;n entre obras por cap&iacute;tulo'],
+      principle: 'Esto es lo que pidi&oacute; Hern&aacute;n: "somos el primer cliente nosotros mismos &mdash; gran matriz comparable".'
+    }
+  },
+
+  // ── SALIDAS ──
+  {
+    id: 'out-entregables', type: 'mesa',
+    x: 80, y: 1480,
+    icon: '📤', moduleTag: 'Salida', step: '',
+    name: 'entregables-por-area',
+    title: 'Entregables por &aacute;rea',
+    desc: 'Reportes formateados autom&aacute;ticamente para Producto, Proyectos e Interno. Cada uno en su formato.',
+    phase: null,
+    detail: {
+      section: 'Salida del sistema',
+      intro: 'De la matriz se generan autom&aacute;ticamente los reportes que cada &aacute;rea necesita.',
+      input: 'Matriz central.',
+      output: ['Reporte para gerencia de producto', 'Reporte para gerencia de proyectos', 'Reporte interno del &aacute;rea'],
+      principle: 'V3 (env&iacute;o autom&aacute;tico por correo) queda como ola posterior &mdash; "qu&eacute; peligro" dijo Hern&aacute;n.'
+    }
+  },
+  {
+    id: 'out-bandejas', type: 'mesa',
+    x: 740, y: 1480,
+    icon: '📬', moduleTag: 'Salida', step: '',
+    name: 'bandejas-personales',
+    title: 'Bandejas personales',
+    desc: 'Mamen, Paula y Camilo dejan de revisar el inbox compartido. Cada quien ve solo lo suyo.',
+    phase: null,
+    detail: {
+      section: 'Salida del sistema',
+      intro: 'Las bandejas personales reemplazan la rotaci&oacute;n diaria del inbox compartido.',
+      input: 'Habilidad 05 (Clasificador).',
+      output: ['Bandeja Mamen (carpinter&iacute;a)', 'Bandeja Paula (aseos)', 'Bandeja Camilo (RCI)', 'Bandeja Hern&aacute;n (demandas)', 'Bandeja Mari/Kate (sin doliente)'],
+      principle: 'Adi&oacute;s a la rotaci&oacute;n diaria.'
+    }
+  },
+  {
+    id: 'out-cuadros', type: 'mesa',
+    x: 1400, y: 1480,
+    icon: '📋', moduleTag: 'Salida', step: '',
+    name: 'cuadros-comparativos',
+    title: 'Cuadros comparativos',
+    desc: 'De 370 hrs/mes a 9.7 hrs/mes. 60 segundos por cuadro.',
+    phase: null,
+    detail: {
+      section: 'Salida del sistema',
+      intro: 'El comparador de la Habilidad 04 entrega los cuadros listos para revisi&oacute;n.',
+      input: 'Habilidad 04 (Comparador).',
+      output: ['Cuadro consolidado por licitaci&oacute;n', 'Ranking de proponentes', 'Discrepancias l&iacute;nea por l&iacute;nea', 'Tareas para el equipo'],
+      principle: 'Medido por Kate y Nico en el hackathon. 99% de reducci&oacute;n.'
+    }
+  },
+  {
+    id: 'out-alertas', type: 'mesa',
+    x: 2060, y: 1480,
+    icon: '🔔', moduleTag: 'Salida', step: '',
+    name: 'alertas-informe',
+    title: 'Alertas + informe',
+    desc: 'Desviaciones del periodo en formato verde/rojo. Reemplaza el c&aacute;lculo manual de Hern&aacute;n con Excel.',
+    phase: null,
+    detail: {
+      section: 'Salida del sistema',
+      intro: 'El monitor de la Habilidad 07 dispara alertas y arma informe del periodo.',
+      input: 'Habilidad 07 (Monitor).',
+      output: ['Alertas autom&aacute;ticas', 'Informe verde/rojo del periodo', 'Detalle del desv&iacute;o'],
+      principle: 'Hoy lo hace Hern&aacute;n a punta de Excel y colores.'
+    }
+  },
+  {
+    id: 'out-autoservicio', type: 'mesa',
+    x: 2720, y: 1480,
+    icon: '🔍', moduleTag: 'Salida', step: '',
+    name: 'autoservicio-agente',
+    title: 'Autoservicio + agente',
+    desc: 'Naty, Mari y Hern&aacute;n consultan precios y simulaciones a cualquier hora. Con fuente citada.',
+    phase: null,
+    detail: {
+      section: 'Salida del sistema',
+      intro: 'Reemplaza el "no puedo consultar a Kate a las tres de la ma&ntilde;ana" (Naty) con autoservicio sobre la matriz.',
+      input: 'Matriz central + Habilidad 06 (Indexaci&oacute;n) + Habilidad 08 (Agente, visi&oacute;n a futuro).',
+      output: ['Consulta de precios hist&oacute;ricos', 'Simulaci&oacute;n de indexaci&oacute;n', 'Respuestas en lenguaje natural (visi&oacute;n)'],
+      principle: 'El equipo deja de depender de la memoria de Kate.'
+    }
+  }
+];
+
+const GROUPS = [
+  { cls: 'mem',  persona: 'Negocio',         label: 'Entradas del negocio',                   arrow: 'input',         x: 60,   y: 60,   w: 3260, h: 380 },
+  { cls: 'm1',   persona: 'Fase 1',          label: 'Entregables r&aacute;pidos',             arrow: 'semanas 1-4',   x: 60,   y: 480,  w: 800,  h: 320 },
+  { cls: 'core', persona: 'Fase 2',          label: 'Cimiento &middot; matriz comparable',    arrow: 'semanas 5-12',  x: 900,  y: 480,  w: 1620, h: 320 },
+  { cls: 'm2',   persona: 'Fase 3',          label: 'Inteligencia',                           arrow: 'semanas 13-16', x: 2560, y: 480,  w: 380,  h: 320 },
+  { cls: 'm3',   persona: 'Visi&oacute;n',   label: 'Capa conversacional',                    arrow: 'despu&eacute;s', x: 2980, y: 480,  w: 340,  h: 320 },
+  { cls: 'mesa', persona: 'Salidas',         label: 'Lo que consume cada &aacute;rea',        arrow: 'output',        x: 60,   y: 1400, w: 3260, h: 320 }
+];
+
+const EDGES = [
+  // Entradas → habilidades correspondientes
+  { from: 'in-presupuestos', to: 'h02', type: 'solid', label: 'P1/P2/P3', color: 'pink', animated: true },
+  { from: 'in-inbox', to: 'h05', type: 'solid', label: 'correos', color: 'pink', animated: true },
+  { from: 'in-cotizaciones', to: 'h04', type: 'solid', label: 'zip', color: 'pink', animated: true },
+  { from: 'in-indexaciones', to: 'h06', type: 'solid', label: '&Delta;', color: 'pink', animated: true },
+
+  // Habilidades cimiento → matriz central
+  { from: 'h01', to: 'matriz', type: 'solid', color: 'purple', animated: true },
+  { from: 'h02', to: 'matriz', type: 'solid', color: 'purple', animated: true },
+  { from: 'h03', to: 'matriz', type: 'solid', color: 'purple', animated: true },
+  { from: 'h06', to: 'matriz', type: 'solid', color: 'purple', animated: true },
+
+  // Matriz → habilidades que leen
+  { from: 'matriz', to: 'h07', type: 'dashed', label: 'consulta', color: 'purple' },
+  { from: 'matriz', to: 'h08', type: 'dashed', label: 'consulta', color: 'purple' },
+
+  // Habilidades → salidas
+  { from: 'h04', to: 'out-cuadros', type: 'solid', color: 'emerald', animated: true },
+  { from: 'h05', to: 'out-bandejas', type: 'solid', color: 'emerald', animated: true },
+  { from: 'matriz', to: 'out-entregables', type: 'solid', color: 'red', animated: true },
+  { from: 'h07', to: 'out-alertas', type: 'solid', color: 'amber', animated: true },
+  { from: 'h08', to: 'out-autoservicio', type: 'dashed', color: 'blue' },
+  { from: 'h06', to: 'out-autoservicio', type: 'solid', color: 'purple', animated: true }
+];
+
+const DEMO_STEPS = [
+  { node: 'in-presupuestos', title: 'Las entradas del negocio', desc: 'Todo el flujo arranca con 4 entradas: presupuestos P1/P2/P3, el inbox compartido con 200-400 correos diarios, las cotizaciones que llegan en zip con FDL + PDFs, y los eventos macro de indexaci&oacute;n.' },
+  { node: 'h04', title: 'Fase 1 · Habilidad 04 · Comparador de cotizaciones', desc: 'Empezamos por aqu&iacute; porque ya tiene prototipo construido en el hackathon (Kate + Nico). 60 segundos por cuadro. 370 hrs/mes → 9.7 hrs/mes.' },
+  { node: 'h05', title: 'Fase 1 · Habilidad 05 · Clasificador de correos', desc: 'Lee el inbox y reparte cada correo a la bandeja personal del doliente. Adi&oacute;s a la rotaci&oacute;n diaria de 4 personas.' },
+  { node: 'h01', title: 'Fase 2 · Habilidad 01 · Remapeo de c&oacute;digos', desc: 'Proyecto de una sola vez. Traduce los ~2.000 c&oacute;digos de la gu&iacute;a vieja a la nueva, cap&iacute;tulo por cap&iacute;tulo. Habilita el hist&oacute;rico como data comparable.' },
+  { node: 'h02', title: 'Fase 2 · Habilidad 02 · Ingestor', desc: 'Lee el Excel del presupuesto (P1, P2 o P3), aplica el remapeo y lo deja en la matriz central. Cero copia manual entre archivos.' },
+  { node: 'h03', title: 'Fase 2 · Habilidad 03 · Motor de tenores', desc: 'Calcula el P2 sin tocar a Hern&aacute;n. Sanitarios → # apartamentos, enchape → m² apt, ventaner&iacute;a → m² fachada. Determin&iacute;stico y auditable.' },
+  { node: 'h06', title: 'Fase 2 · Habilidad 06 · Simulador de indexaci&oacute;n', desc: 'Cuando sube el salario 23% en diciembre, simula el impacto contrato por contrato. De d&iacute;as a minutos.' },
+  { node: 'matriz', title: 'El coraz&oacute;n: matriz central &uacute;nica', desc: 'Aqu&iacute; aterriza todo. Las 23 obras × 3 presupuestos en una sola estructura comparable por cap&iacute;tulo. Esto es lo que pidi&oacute; Hern&aacute;n: "somos el primer cliente nosotros mismos".' },
+  { node: 'h07', title: 'Fase 3 · Habilidad 07 · Monitor de desviaciones', desc: 'Encima de la matriz consolidada. Detecta valores fuera de rango y dispara alertas con informe verde/rojo. Reemplaza el Excel + colores que hace Hern&aacute;n hoy.' },
+  { node: 'h08', title: 'Visi&oacute;n a futuro · Habilidad 08 · Agente conversacional', desc: 'La capa final. Gerencia pregunta en lenguaje natural y la matriz responde citando fuente. Se construye DESPU&Eacute;S de tener el hist&oacute;rico consolidado.' },
+  { node: 'out-entregables', title: 'Lo que consume cada &aacute;rea', desc: 'De todo este sistema salen los entregables: reportes por &aacute;rea, bandejas personales, cuadros comparativos, alertas y autoservicio para consultas. Cada salida es la respuesta a un dolor concreto del equipo.' }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════
+
+const canvas = document.getElementById('canvas');
+const edgesSvg = document.getElementById('edges');
+edgesSvg.setAttribute('viewBox', '0 0 3400 2400');
+edgesSvg.setAttribute('width', '3400');
+edgesSvg.setAttribute('height', '2400');
+
+GROUPS.forEach(g => {
+  const div = document.createElement('div');
+  div.className = `group ${g.cls}`;
+  div.style.left = g.x + 'px';
+  div.style.top = g.y + 'px';
+  div.style.width = g.w + 'px';
+  div.style.height = g.h + 'px';
+  div.innerHTML = `
+    <div class="group-label-wrap">
+      <span class="group-persona">👤 ${g.persona}</span>
+      <span class="group-label">${g.label}</span>
+    </div>
+    <div class="group-arrow">${g.arrow}</div>
+  `;
+  canvas.appendChild(div);
+});
+
+const nodeElements = {};
+NODES.forEach(n => {
+  const el = document.createElement('div');
+  el.className = `node ${n.type}${n.big ? ' big' : ''}`;
+  el.style.left = n.x + 'px';
+  el.style.top = n.y + 'px';
+  el.dataset.id = n.id;
+
+  if (n.type === 'memfile') {
+    el.innerHTML = `
+      <div class="node-name"><span class="memfile-icon">📄</span>${n.name}</div>
+      <div class="node-desc">${n.desc}</div>
+    `;
+  } else {
+    const stepBadgeHtml = n.step ? `<div class="step-badge">${n.step}</div>` : '';
+    const moduleTagHtml = n.moduleTag ? `<span class="node-module-tag">${n.moduleTag}</span>` : '';
+    const startBadgeHtml = n.isStart ? `<div class="start-badge"><span class="dot"></span>Empieza aquí</div>` : '';
+
+    el.innerHTML = `
+      ${startBadgeHtml}
+      <div class="node-head">
+        ${stepBadgeHtml}
+        <span class="node-icon">${n.icon}</span>
+        ${moduleTagHtml}
+      </div>
+      <div class="node-name">${n.name}</div>
+      <div class="node-title">${n.title}</div>
+      <div class="node-desc">${n.desc}</div>
+    `;
+  }
+
+  el.addEventListener('click', () => {
+    if (dragging || dragMoved) return;
+    if (n.detail) openPanel(n);
+  });
+
+  el.addEventListener('mouseenter', () => highlightNode(n.id));
+  el.addEventListener('mouseleave', () => clearHighlight());
+
+  canvas.appendChild(el);
+  nodeElements[n.id] = { el, node: n };
+});
+
+function getNodeRect(nodeId) {
+  const { el, node } = nodeElements[nodeId];
+  const w = el.offsetWidth || 260;
+  const h = el.offsetHeight || 140;
+  return { x: node.x, y: node.y, w, h, cx: node.x + w / 2, cy: node.y + h / 2 };
+}
+
+function getAnchor(fromId, toId) {
+  const f = getNodeRect(fromId);
+  const t = getNodeRect(toId);
+  const dx = t.cx - f.cx;
+  const dy = t.cy - f.cy;
+  let fx, fy, tx, ty;
+  if (Math.abs(dy) > Math.abs(dx)) {
+    if (dy > 0) { fy = f.y + f.h; ty = t.y; } else { fy = f.y; ty = t.y + t.h; }
+    fx = f.cx; tx = t.cx;
+  } else {
+    if (dx > 0) { fx = f.x + f.w; tx = t.x; } else { fx = f.x; tx = t.x + t.w; }
+    fy = f.cy; ty = t.cy;
+  }
+  return { fx, fy, tx, ty, dx, dy };
+}
+
+function setupMarkers() {
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  const colors = { purple: '#7c3aed', emerald: '#34d399', amber: '#fbbf24', pink: '#f472b6', blue: '#60a5fa', red: '#f87171' };
+  Object.entries(colors).forEach(([name, color]) => {
+    const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    marker.setAttribute('id', `arrow-${name}`);
+    marker.setAttribute('viewBox', '0 0 10 10');
+    marker.setAttribute('refX', '9');
+    marker.setAttribute('refY', '5');
+    marker.setAttribute('markerWidth', '7');
+    marker.setAttribute('markerHeight', '7');
+    marker.setAttribute('orient', 'auto-start-reverse');
+    marker.innerHTML = `<path d="M 0 0 L 10 5 L 0 10 Z" fill="${color}" />`;
+    defs.appendChild(marker);
+  });
+  edgesSvg.appendChild(defs);
+}
+setupMarkers();
+
+const colorMap = { purple: '#7c3aed', emerald: '#34d399', amber: '#fbbf24', pink: '#f472b6', blue: '#60a5fa', red: '#f87171' };
+
+function renderEdges() {
+  [...edgesSvg.querySelectorAll('g.edges-layer')].forEach(g => g.remove());
+
+  const layer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  layer.setAttribute('class', 'edges-layer');
+
+  EDGES.forEach((e, idx) => {
+    let a;
+    // Override anchor for "bottom" curve so path exits from bottom of source and enters bottom of target
+    if (e.curve === 'bottom') {
+      const f = getNodeRect(e.from);
+      const t = getNodeRect(e.to);
+      a = { fx: f.cx, fy: f.y + f.h, tx: t.cx, ty: t.y + t.h, dx: t.cx - f.cx, dy: 0 };
+    } else {
+      a = getAnchor(e.from, e.to);
+    }
+    const color = colorMap[e.color] || '#8b8fa3';
+
+    let dashArray = 'none';
+    if (e.type === 'dashed') dashArray = '8 4';
+    if (e.type === 'dotted' || e.type === 'consulta') dashArray = '2 6';
+
+    const midX = (a.fx + a.tx) / 2;
+    const midY = (a.fy + a.ty) / 2;
+    let c1x, c1y, c2x, c2y;
+
+    if (Math.abs(a.dy) > Math.abs(a.dx)) {
+      c1x = a.fx; c1y = midY;
+      c2x = a.tx; c2y = midY;
+    } else {
+      c1x = midX; c1y = a.fy;
+      c2x = midX; c2y = a.ty;
+    }
+
+    if (e.curve === 'left') {
+      const offset = Math.abs(a.fy - a.ty) * 0.4 + 250;
+      c1x = a.fx - offset; c1y = a.fy;
+      c2x = a.tx - offset; c2y = a.ty;
+    }
+    if (e.curve === 'right') {
+      const offset = Math.abs(a.fy - a.ty) * 0.4 + 250;
+      c1x = a.fx + offset; c1y = a.fy;
+      c2x = a.tx + offset; c2y = a.ty;
+    }
+    if (e.curve === 'bottom') {
+      const offset = Math.abs(a.fx - a.tx) * 0.18 + 260;
+      c1x = a.fx; c1y = a.fy + offset;
+      c2x = a.tx; c2y = a.ty + offset;
+    }
+
+    const pathD = `M ${a.fx} ${a.fy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${a.tx} ${a.ty}`;
+    const pathId = `edge-path-${idx}`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('id', pathId);
+    path.setAttribute('class', `edge-path edge-${e.from}-${e.to}`);
+    path.setAttribute('data-from', e.from);
+    path.setAttribute('data-to', e.to);
+    path.setAttribute('d', pathD);
+    path.setAttribute('stroke', color);
+    path.setAttribute('stroke-dasharray', dashArray);
+    path.setAttribute('marker-end', `url(#arrow-${e.color})`);
+    path.setAttribute('opacity', e.type === 'dotted' ? '0.55' : e.type === 'dashed' ? '0.65' : '0.85');
+    layer.appendChild(path);
+
+    if (e.animated) {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('class', 'flow-dot flow-dot-anim');
+      circle.setAttribute('r', '4');
+      circle.setAttribute('fill', color);
+      circle.setAttribute('style', `color: ${color}`);
+
+      const animMotion = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+      animMotion.setAttribute('dur', '3s');
+      animMotion.setAttribute('repeatCount', 'indefinite');
+      animMotion.setAttribute('begin', `${idx * 0.3}s`);
+      const mpath = document.createElementNS('http://www.w3.org/2000/svg', 'mpath');
+      mpath.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${pathId}`);
+      animMotion.appendChild(mpath);
+      circle.appendChild(animMotion);
+
+      layer.appendChild(circle);
+    }
+
+    if (e.label) {
+      let labelX = midX;
+      let labelY = midY;
+      if (e.curve === 'left') labelX = (c1x + c2x) / 2 - 10;
+      if (e.curve === 'right') labelX = (c1x + c2x) / 2 + 10;
+      if (e.curve === 'bottom') { labelX = midX; labelY = (c1y + c2y) / 2; }
+
+      const estWidth = e.label.length * 6.5 + 18;
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bg.setAttribute('class', 'edge-label-bg');
+      bg.setAttribute('x', labelX - estWidth / 2);
+      bg.setAttribute('y', labelY - 9);
+      bg.setAttribute('width', estWidth);
+      bg.setAttribute('height', 18);
+      bg.setAttribute('rx', 4);
+      bg.setAttribute('fill', '#0a0714');
+      bg.setAttribute('stroke', color);
+      bg.setAttribute('opacity', '0.95');
+
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('class', 'edge-label');
+      text.setAttribute('x', labelX);
+      text.setAttribute('y', labelY);
+      text.setAttribute('fill', color);
+      text.setAttribute('dy', '4');
+      text.textContent = e.label;
+
+      layer.appendChild(bg);
+      layer.appendChild(text);
+    }
+  });
+
+  edgesSvg.appendChild(layer);
+}
+
+requestAnimationFrame(() => { renderEdges(); });
+
+// ═══════════════════════════════════════════════════════════════
+// HIGHLIGHT
+// ═══════════════════════════════════════════════════════════════
+
+function highlightNode(nodeId) {
+  const connected = new Set([nodeId]);
+  const relatedEdges = new Set();
+
+  EDGES.forEach((e, idx) => {
+    if (e.from === nodeId) { connected.add(e.to); relatedEdges.add(idx); }
+    if (e.to === nodeId)   { connected.add(e.from); relatedEdges.add(idx); }
+  });
+
+  canvas.classList.add('focused');
+
+  Object.values(nodeElements).forEach(({ el, node }) => {
+    if (connected.has(node.id)) el.classList.add('highlighted');
+    else el.classList.remove('highlighted');
+  });
+
+  edgesSvg.querySelectorAll('.edge-path').forEach((path, idx) => {
+    if (relatedEdges.has(idx)) path.classList.add('highlighted');
+    else path.classList.remove('highlighted');
+  });
+}
+
+function clearHighlight() {
+  canvas.classList.remove('focused');
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('highlighted'));
+  edgesSvg.querySelectorAll('.edge-path').forEach(path => path.classList.remove('highlighted'));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PAN & ZOOM
+// ═══════════════════════════════════════════════════════════════
+
+const viewport = document.getElementById('viewport');
+const zoomLevel = document.getElementById('zoom-level');
+
+let scale = 1;
+let tx = 0, ty = 0;
+let dragging = false;
+let dragMoved = false;
+let dragStartX, dragStartY, dragStartTx, dragStartTy;
+
+function applyTransform() {
+  canvas.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  zoomLevel.textContent = Math.round(scale * 100) + '%';
+}
+
+function centerOnCanvas() {
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const s = Math.min(vw / 3600, vh / 2500);
+  scale = Math.max(0.2, Math.min(1, s));
+  tx = (vw - 3400 * scale) / 2;
+  ty = (vh - 2400 * scale) / 2;
+  applyTransform();
+}
+
+function panZoomTo(targetX, targetY, targetScale = null, animate = true) {
+  const s = targetScale !== null ? targetScale : scale;
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const newTx = vw / 2 - targetX * s;
+  const newTy = vh / 2 - targetY * s;
+
+  if (animate) animateTransform(newTx, newTy, s, 800);
+  else { tx = newTx; ty = newTy; scale = s; applyTransform(); }
+}
+
+function animateTransform(toTx, toTy, toScale, duration) {
+  const startTx = tx, startTy = ty, startScale = scale;
+  const startTime = performance.now();
+
+  function frame(now) {
+    const elapsed = now - startTime;
+    const p = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    tx = startTx + (toTx - startTx) * eased;
+    ty = startTy + (toTy - startTy) * eased;
+    scale = startScale + (toScale - startScale) * eased;
+    applyTransform();
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener('load', centerOnCanvas);
+window.addEventListener('resize', centerOnCanvas);
+
+viewport.addEventListener('mousedown', (e) => {
+  if (e.target.closest('.node')) return;
+  dragging = true;
+  dragMoved = false;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  dragStartTx = tx;
+  dragStartTy = ty;
+  viewport.classList.add('grabbing');
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!dragging) return;
+  const dx = e.clientX - dragStartX;
+  const dy = e.clientY - dragStartY;
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+  tx = dragStartTx + dx;
+  ty = dragStartTy + dy;
+  applyTransform();
+});
+
+window.addEventListener('mouseup', () => {
+  if (dragging) setTimeout(() => { dragging = false; }, 50);
+  viewport.classList.remove('grabbing');
+});
+
+viewport.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const rect = viewport.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const delta = e.deltaY < 0 ? 1.1 : 0.9;
+  const newScale = Math.max(0.15, Math.min(2.5, scale * delta));
+  tx = mx - (mx - tx) * (newScale / scale);
+  ty = my - (my - ty) * (newScale / scale);
+  scale = newScale;
+  applyTransform();
+}, { passive: false });
+
+document.getElementById('btn-zoom-in').addEventListener('click', () => {
+  const newScale = Math.min(2.5, scale * 1.2);
+  const vw = viewport.clientWidth / 2, vh = viewport.clientHeight / 2;
+  tx = vw - (vw - tx) * (newScale / scale);
+  ty = vh - (vh - ty) * (newScale / scale);
+  scale = newScale;
+  applyTransform();
+});
+
+document.getElementById('btn-zoom-out').addEventListener('click', () => {
+  const newScale = Math.max(0.15, scale * 0.83);
+  const vw = viewport.clientWidth / 2, vh = viewport.clientHeight / 2;
+  tx = vw - (vw - tx) * (newScale / scale);
+  ty = vh - (vh - ty) * (newScale / scale);
+  scale = newScale;
+  applyTransform();
+});
+
+document.getElementById('btn-fit').addEventListener('click', centerOnCanvas);
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'f' || e.key === 'F') centerOnCanvas();
+  if (e.key === '0') centerOnCanvas();
+  if (e.key === '+' || e.key === '=') document.getElementById('btn-zoom-in').click();
+  if (e.key === '-') document.getElementById('btn-zoom-out').click();
+  if (e.key === 'Escape') { closePanel(); exitDemo(); }
+  if (demoActive) {
+    if (e.key === 'ArrowRight') demoNext();
+    if (e.key === 'ArrowLeft') demoPrev();
+  }
+});
+
+function highlightPhase(phase) {
+  document.querySelectorAll('.phase-ribbon .phase').forEach(p => {
+    p.classList.toggle('active', parseInt(p.dataset.phase) === phase);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SIDE PANEL
+// ═══════════════════════════════════════════════════════════════
+
+const sidePanel = document.getElementById('side-panel');
+const spLabel = document.getElementById('side-panel-label');
+const spName = document.getElementById('side-panel-name');
+const spTitle = document.getElementById('side-panel-title');
+const spBody = document.getElementById('side-panel-body');
+
+function openPanel(n) {
+  if (!n.detail) return;
+  const cm = { m1: 'emerald', m2: 'amber', m3: 'blue', mem: 'pink', core: 'purple', mesa: 'red' };
+  const c = cm[n.type];
+
+  spLabel.innerHTML = `<span class="side-panel-label" style="background: var(--${c}-bg); color: var(--${c === 'purple' ? 'purple-light' : c});">${n.detail.section}</span>`;
+  spName.innerHTML = `<div class="side-panel-name" style="color: var(--${c === 'purple' ? 'purple-light' : c});">${n.name}</div>`;
+  spTitle.innerHTML = `<div class="side-panel-title">${n.title}</div>`;
+
+  let body = '';
+  if (n.detail.intro) body += `<div class="side-panel-section"><p>${n.detail.intro}</p></div>`;
+  if (n.detail.input) body += `<div class="side-panel-section"><div class="side-panel-section-title">Input</div><p>${n.detail.input}</p></div>`;
+  if (n.detail.output) body += `<div class="side-panel-section"><div class="side-panel-section-title">Output</div><ul>${n.detail.output.map(o => `<li>${o}</li>`).join('')}</ul></div>`;
+  if (n.detail.principle) body += `<div class="side-panel-section"><div class="principle"><strong>Principio</strong>${n.detail.principle}</div></div>`;
+
+  spBody.innerHTML = body;
+  sidePanel.classList.add('open');
+}
+
+function closePanel() {
+  sidePanel.classList.remove('open');
+}
+document.getElementById('side-panel-close').addEventListener('click', closePanel);
+
+// ═══════════════════════════════════════════════════════════════
+// DEMO MODE
+// ═══════════════════════════════════════════════════════════════
+
+let demoActive = false;
+let demoIndex = 0;
+
+const demoOverlay = document.getElementById('demo-overlay');
+const demoCurrent = document.getElementById('demo-current');
+const demoTotal = document.getElementById('demo-total');
+const demoTitle = document.getElementById('demo-title');
+const demoDesc = document.getElementById('demo-desc');
+demoTotal.textContent = DEMO_STEPS.length;
+
+function startDemo() {
+  demoActive = true;
+  demoIndex = 0;
+  demoOverlay.classList.add('visible');
+  closePanel();
+  document.getElementById('welcome-tip').classList.add('hidden');
+  runDemoStep();
+}
+
+function exitDemo() {
+  demoActive = false;
+  demoOverlay.classList.remove('visible');
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('demo-active'));
+  highlightPhase(0);
+  clearHighlight();
+  setTimeout(centerOnCanvas, 200);
+}
+
+function runDemoStep() {
+  const step = DEMO_STEPS[demoIndex];
+  Object.values(nodeElements).forEach(({ el }) => el.classList.remove('demo-active'));
+
+  const { el, node } = nodeElements[step.node];
+  el.classList.add('demo-active');
+
+  demoCurrent.textContent = String(demoIndex + 1).padStart(2, '0');
+  demoTitle.textContent = step.title;
+  demoDesc.textContent = step.desc;
+
+  const rect = getNodeRect(step.node);
+  panZoomTo(rect.cx, rect.cy, 0.9, true);
+
+  if (node.phase) highlightPhase(node.phase);
+  highlightNode(step.node);
+}
+
+function demoNext() {
+  if (demoIndex < DEMO_STEPS.length - 1) {
+    demoIndex++;
+    runDemoStep();
+  } else {
+    centerOnCanvas();
+    setTimeout(exitDemo, 1500);
+  }
+}
+
+function demoPrev() {
+  if (demoIndex > 0) {
+    demoIndex--;
+    runDemoStep();
+  }
+}
+
+document.getElementById('btn-play').addEventListener('click', startDemo);
+document.getElementById('demo-next').addEventListener('click', demoNext);
+document.getElementById('demo-prev').addEventListener('click', demoPrev);
+document.getElementById('demo-exit').addEventListener('click', exitDemo);
+
+const welcomeTip = document.getElementById('welcome-tip');
+document.getElementById('welcome-explore').addEventListener('click', () => {
+  welcomeTip.classList.add('hidden');
+});
+document.getElementById('welcome-play').addEventListener('click', () => {
+  welcomeTip.classList.add('hidden');
+  startDemo();
+});
+document.getElementById('btn-help').addEventListener('click', () => {
+  welcomeTip.classList.remove('hidden');
+});
+
+setTimeout(() => {
+  if (!welcomeTip.classList.contains('hidden')) welcomeTip.classList.add('hidden');
+}, 15000);
+</script>
+
+</body>
+</html>

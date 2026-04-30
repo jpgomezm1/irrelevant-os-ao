@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fase 0 — {{EMPRESA}} | Irrelevant Core Layer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px;
+    right: -100px;
+    width: 750px;
+    height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px;
+    left: -150px;
+    width: 500px;
+    height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px;
+    right: -80px;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px;
+    left: -80px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px;
+    object-fit: contain;
+    opacity: 0.95;
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .cover-bottom-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cover-bottom-logos img {
+    height: 35px;
+    opacity: 0.7;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h2.small {
+    font-size: 21px;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong {
+    font-weight: 600;
+  }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== SECTION DIVIDER ===================== */
+  .section-divider {
+    display: flex;
+    min-height: 100vh;
+    max-height: 297mm;
+  }
+
+  .section-divider-left {
+    flex: 1;
+    background: var(--lavanda);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+  }
+
+  .section-divider-left .deco-circles {
+    opacity: 0.15;
+  }
+
+  .section-divider-left .section-icon {
+    width: 80px;
+    height: 80px;
+    color: var(--morado);
+    margin-bottom: 20px;
+  }
+
+  .section-divider-right {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-divider-right::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%);
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+
+  .section-number {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.08);
+    position: absolute;
+    top: 40px;
+    right: 50px;
+  }
+
+  .section-divider-right h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.25;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 14px;
+  }
+
+  .section-divider-right p {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+  }
+
+  .section-divider-right .section-line {
+    width: 40px;
+    height: 2px;
+    background: var(--morado-claro);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===================== EXECUTIVE SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  .highlight-box.warning {
+    border-left-color: #F59E0B;
+    background: #FFFBEB;
+  }
+
+  .highlight-box.danger {
+    border-left-color: #EF4444;
+    background: #FEF2F2;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul {
+    margin-left: 14px;
+  }
+
+  .card-body .label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--morado);
+    margin-bottom: 6px;
+    margin-top: 10px;
+  }
+
+  .card-body .label:first-child {
+    margin-top: 0;
+  }
+
+  /* ===================== FUNNEL GRAPHIC ===================== */
+  .funnel-container {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .funnel-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .funnel-bar {
+    height: 44px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .funnel-bar .funnel-num {
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 10px;
+    opacity: 0.8;
+  }
+
+  .funnel-label-right {
+    font-size: 10px;
+    font-weight: 400;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .funnel-arrow {
+    text-align: center;
+    color: var(--morado);
+    font-size: 16px;
+    margin: 2px 0 2px 20px;
+  }
+
+  /* ===================== IMPACT TABLE ===================== */
+  .impact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 10px;
+  }
+
+  .impact-table th {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+
+  .impact-table th:first-child {
+    border-radius: 6px 0 0 0;
+  }
+
+  .impact-table th:last-child {
+    border-radius: 0 6px 0 0;
+  }
+
+  .impact-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gris-claro);
+    font-weight: 300;
+    color: #333;
+  }
+
+  .impact-table tr:nth-child(even) td {
+    background: var(--lavanda);
+  }
+
+  .impact-table .highlight-cell {
+    font-weight: 600;
+    color: var(--morado-oscuro);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== FLOW DIAGRAM ===================== */
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+
+  .flow-step {
+    background: var(--lavanda);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .flow-step .flow-icon {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .flow-step .flow-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--gris-texto);
+  }
+
+  .flow-step.active {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    border-color: var(--morado);
+  }
+
+  .flow-step.active .flow-text {
+    color: white;
+  }
+
+  .flow-connector {
+    font-size: 14px;
+    color: var(--morado);
+    padding: 0 6px;
+  }
+
+  /* ===================== LAYER CARDS ===================== */
+  .layer-card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .layer-card-header {
+    background: linear-gradient(135deg, var(--morado), var(--morado-oscuro));
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .layer-card-header .layer-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .layer-card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .layer-card-body {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .layer-card-body .layer-section h6 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--morado);
+    margin-bottom: 8px;
+  }
+
+  .layer-card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    color: #444;
+    margin-bottom: 3px;
+    line-height: 1.6;
+  }
+
+  /* ===================== TIMELINE / LEVELS ===================== */
+  .level-timeline {
+    position: relative;
+    margin: 24px 0;
+    padding-left: 30px;
+  }
+
+  .level-timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--morado), var(--morado-claro), rgba(139,92,246,0.2));
+  }
+
+  .level-item {
+    position: relative;
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+
+  .level-item::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--morado);
+    border: 2px solid var(--blanco);
+    box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+  }
+
+  .level-item h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 6px;
+  }
+
+  .level-item p {
+    font-size: 10px;
+    font-weight: 300;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .level-item .level-tag {
+    display: inline-block;
+    background: var(--lavanda);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--morado);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+  }
+
+  /* ===================== PAIN POINT GRAPHIC ===================== */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .pain-item {
+    background: #FEF2F2;
+    border-left: 3px solid #EF4444;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+  }
+
+  .pain-item .pain-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #991B1B;
+    margin-bottom: 3px;
+  }
+
+  .pain-item p {
+    font-size: 9px;
+    font-weight: 300;
+    color: #7F1D1D;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== SOLUTION GRAPHIC ===================== */
+  .solution-item {
+    background: #F0FDF4;
+    border-left: 3px solid #22C55E;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+  }
+
+  .solution-item .solution-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #166534;
+    margin-bottom: 3px;
+  }
+
+  .solution-item p {
+    font-size: 9px;
+    font-weight: 300;
+    color: #14532D;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== COMPARISON ===================== */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .comparison-col {
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .comparison-col.before {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+  }
+
+  .comparison-col.after {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+  }
+
+  .comparison-col h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .comparison-col.before h5 { color: #991B1B; }
+  .comparison-col.after h5 { color: #166534; }
+
+  .comparison-col li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 3px;
+  }
+
+  .comparison-col.before li { color: #7F1D1D; }
+  .comparison-col.after li { color: #14532D; }
+
+  .comparison-arrow {
+    text-align: center;
+    font-size: 20px;
+    color: var(--morado);
+  }
+
+  /* ===================== PYRAMID GRAPHIC ===================== */
+  .pyramid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 24px 0;
+    gap: 4px;
+  }
+
+  .pyramid-level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    border-radius: 6px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    position: relative;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px;
+    left: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(167,139,250,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 60px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+
+  .back-cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-logos {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .back-logos img {
+    height: 45px;
+    opacity: 0.7;
+  }
+
+  .back-logos .divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .layer-card-body { grid-template-columns: 1fr; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .comparison { grid-template-columns: 1fr; }
+    .comparison-arrow { transform: rotate(90deg); }
+    .cover-title { font-size: 36px; }
+    .section-divider { flex-direction: column; }
+  }
+
+  /* ===================== SVG DECO ===================== */
+  .deco-circles {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* DONUT / GAUGE */
+  .donut-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+  }
+
+  .donut-chart {
+    text-align: center;
+  }
+
+  .donut-chart svg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .donut-chart .donut-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #444;
+    margin-top: 6px;
+  }
+
+  /* Bottleneck diagram */
+  .bottleneck-container {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    margin: 20px 0;
+  }
+
+  .bottleneck-item {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    border-radius: 6px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .bottleneck-item .bottleneck-icon {
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+
+  /* COST BLOCK */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* STAT INLINE */
+  .stat-inline {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 16px 0;
+    padding: 14px 20px;
+    background: var(--lavanda);
+    border-radius: 8px;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .stat-inline .stat-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+  }
+
+  .stat-inline .stat-text {
+    font-size: 11px;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  /* Three column metric */
+  .three-col-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .tcm-card {
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+
+  .tcm-card .tcm-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .tcm-card .tcm-label {
+    font-size: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .tcm-card .tcm-detail {
+    font-size: 9px;
+    font-weight: 300;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Documento de Bases Conceptuales</div>
+      <div class="cover-title">Fase 0</div>
+      <div class="cover-subtitle">Conaltura &mdash; Gesti&oacute;n Humana &middot; Sistema de Clasificaci&oacute;n de Residuos con Visi&oacute;n por Computadora</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>CONFIDENCIAL</span>
+        <span>Abril 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 01 - RESUMEN EJECUTIVO                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen Ejecutivo</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>El reto</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Conaltura quiere mejorar la disposici&oacute;n de residuos en sus puntos de operaci&oacute;n a trav&eacute;s de un sistema que ayude a cada persona a depositar la basura en la caneca correcta. El reto no es de infraestructura f&iacute;sica &mdash; las pantallas, c&aacute;maras y canecas las pone Conaltura &mdash; sino de <strong>inteligencia operativa en el momento exacto en que la persona decide d&oacute;nde botar el residuo</strong>.</p>
+    </div>
+
+    <p>Hoy, esa decisi&oacute;n queda en manos del usuario y depende de qu&eacute; tan bien interprete las etiquetas, qu&eacute; tan urgente est&eacute; o qu&eacute; tan claras est&eacute;n las normas internas. El resultado conocido en cualquier organizaci&oacute;n: residuos mal clasificados, contaminaci&oacute;n cruzada de cadenas de aprovechamiento y p&eacute;rdida del impacto ambiental que la organizaci&oacute;n s&iacute; quiere generar.</p>
+
+    <h3>La propuesta en una frase</h3>
+    <div class="highlight-box">
+      <p>Una <strong>capa de inteligencia artificial visual</strong> que vive en la pantalla sobre cada caneca. La persona muestra el residuo a la c&aacute;mara, la IA identifica qu&eacute; es y le indica de inmediato la caneca correcta. Si tiene duda, no se queda en silencio: <strong>le hace una pregunta corta sobre el material</strong> y con esa respuesta decide.</p>
+    </div>
+
+    <h3>Por qu&eacute; tiene sentido</h3>
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">Decisi&oacute;n en el momento exacto</div>
+        <p>El sistema act&uacute;a justo cuando la persona est&aacute; a punto de equivocarse, no despu&eacute;s.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Aprende del uso real</div>
+        <p>Cada interacci&oacute;n &mdash; aciertos y dudas resueltas &mdash; alimenta el modelo y lo hace m&aacute;s preciso con el tiempo.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">No reemplaza, acompa&ntilde;a</div>
+        <p>La persona sigue siendo la que decide, pero recibe una indicaci&oacute;n clara y r&aacute;pida.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Datos para gesti&oacute;n humana</div>
+        <p>Por primera vez, el &aacute;rea tiene visibilidad real de qu&eacute; se bota, d&oacute;nde y con qu&eacute; nivel de confusi&oacute;n.</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 2 - LO QUE ENTENDIMOS (Divider)                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="28"/>
+        <path d="M28 40h24M40 28v24"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">01</div>
+      <div class="section-line"></div>
+      <h2>Lo que entendimos</h2>
+      <p>El pedido de Gesti&oacute;n Humana, las responsabilidades de cada parte y el alcance que estamos dimensionando.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 03 - EL PEDIDO Y LAS RESPONSABILIDADES                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+      <span class="page-header-title">El Pedido</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Lo que pidi&oacute; Gesti&oacute;n Humana</h4>
+    <div class="gradient-line"></div>
+
+    <p>El &aacute;rea de Gesti&oacute;n Humana plante&oacute; un objetivo concreto: <strong>resolver el problema de la disposici&oacute;n de residuos</strong>. La idea es instalar pantallas con c&aacute;mara sobre las canecas para que cualquier persona pueda mostrar el residuo y recibir, en pantalla, la indicaci&oacute;n de en qu&eacute; caneca depositarlo.</p>
+
+    <div class="highlight-box">
+      <p>Esta es una iniciativa con foco operativo y cultural &mdash; no es un proyecto puramente tecnol&oacute;gico. La tecnolog&iacute;a es el medio para mover el comportamiento de las personas hacia una clasificaci&oacute;n correcta.</p>
+    </div>
+
+    <h3>C&oacute;mo se reparten las responsabilidades</h3>
+    <p>Conaltura aporta toda la infraestructura f&iacute;sica del proyecto. Irrelevant aporta toda la capa de inteligencia y software que vive sobre esa infraestructura.</p>
+
+    <table class="impact-table">
+      <thead>
+        <tr>
+          <th>Conaltura aporta</th>
+          <th>Irrelevant aporta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>C&aacute;maras f&iacute;sicas sobre cada caneca</td>
+          <td class="highlight-cell">Modelo de visi&oacute;n por computadora</td>
+        </tr>
+        <tr>
+          <td>Pantallas que muestran la indicaci&oacute;n al usuario</td>
+          <td class="highlight-cell">Interfaz visual que se muestra en pantalla</td>
+        </tr>
+        <tr>
+          <td>Dispositivo de c&oacute;mputo (tablet, mini-PC o equivalente)</td>
+          <td class="highlight-cell">L&oacute;gica conversacional para casos dudosos</td>
+        </tr>
+        <tr>
+          <td>Canecas e infraestructura f&iacute;sica</td>
+          <td class="highlight-cell">Dashboard de m&eacute;tricas de uso y clasificaci&oacute;n</td>
+        </tr>
+        <tr>
+          <td>Instalaci&oacute;n el&eacute;ctrica y mantenimiento f&iacute;sico</td>
+          <td class="highlight-cell">Entrenamiento del modelo con residuos reales</td>
+        </tr>
+        <tr>
+          <td>Conectividad (WiFi o 4G en cada punto)</td>
+          <td class="highlight-cell">Mantenimiento y mejora continua del modelo</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top: 18px;"><strong>Implicaci&oacute;n clave:</strong> el proyecto encaja como una intervenci&oacute;n de software puro del lado de Irrelevant. No es una cotizaci&oacute;n h&iacute;brida hardware m&aacute;s software, lo que simplifica el modelo comercial y acelera la implementaci&oacute;n.</p>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 3 - COMO LO RESOLVERIAMOS (Divider)                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M20 40 L36 56 L60 28"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">02</div>
+      <div class="section-line"></div>
+      <h2>C&oacute;mo lo resolver&iacute;amos</h2>
+      <p>El flujo del usuario, el esquema de clasificaci&oacute;n inicial y el comportamiento de la IA cuando est&aacute; segura y cuando no.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 04 - FLUJO DEL USUARIO                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span class="page-header-title">Flujo del Usuario</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>El flujo &mdash; la idea central</h4>
+    <div class="gradient-line"></div>
+
+    <p>Una persona se acerca a las canecas con un residuo en la mano. Lo que ocurre en pantalla, en menos de cinco segundos:</p>
+
+    <div class="flow-diagram" style="margin: 30px 0;">
+      <div class="flow-step active">
+        <div class="flow-text">PERSONA<br>SE ACERCA</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-text">C&Aacute;MARA<br>CAPTURA</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-text">IA<br>IDENTIFICA</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step active">
+        <div class="flow-text">INDICACI&Oacute;N<br>EN PANTALLA</div>
+      </div>
+    </div>
+
+    <h3>Paso a paso</h3>
+
+    <div class="level-timeline">
+      <div class="level-item">
+        <h5>1. Captura autom&aacute;tica</h5>
+        <p>La c&aacute;mara detecta que hay un objeto frente a ella y toma una imagen. La persona no necesita oprimir nada.</p>
+      </div>
+      <div class="level-item">
+        <h5>2. Identificaci&oacute;n por la IA</h5>
+        <p>El modelo de visi&oacute;n analiza la imagen y determina qu&eacute; es el objeto y de qu&eacute; material est&aacute; hecho.</p>
+      </div>
+      <div class="level-item">
+        <h5>3. Decisi&oacute;n autom&aacute;tica si est&aacute; segura</h5>
+        <p>Si la IA tiene alta confianza, la pantalla muestra inmediatamente la caneca correcta con un mensaje claro: <strong>&quot;Va en la caneca verde&quot;</strong>.</p>
+      </div>
+      <div class="level-item">
+        <h5>4. Pregunta corta si tiene duda</h5>
+        <p>Si la confianza es baja, la IA hace una pregunta puntual sobre el material: <strong>&quot;&iquest;Este envase es de pl&aacute;stico o de vidrio?&quot;</strong>. La persona toca la respuesta en pantalla.</p>
+      </div>
+      <div class="level-item">
+        <h5>5. Decisi&oacute;n con la respuesta del usuario</h5>
+        <p>Con esa entrada adicional la IA confirma la caneca correcta y la muestra. Esa interacci&oacute;n queda registrada para mejorar el modelo.</p>
+      </div>
+      <div class="level-item">
+        <h5>6. Confirmaci&oacute;n y cierre</h5>
+        <p>La pantalla muestra la caneca destino con un &iacute;cono claro. La persona deposita el residuo y la pantalla vuelve a estado de espera.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 28px;">Segundo uso &mdash; auditor&iacute;a al final del d&iacute;a</h3>
+    <p>La misma c&aacute;mara y la misma IA se usan dos veces. Durante el d&iacute;a acompa&ntilde;an a cada persona en el momento de botar; al cierre, sirven al equipo de aseo para verificar que todo qued&oacute; bien clasificado antes de la recolecci&oacute;n.</p>
+
+    <div class="level-timeline">
+      <div class="level-item">
+        <h5>1. Foto general de cada caneca</h5>
+        <p>El personal de aseo activa el modo auditor&iacute;a desde la pantalla. La c&aacute;mara captura una imagen completa del contenido de la caneca.</p>
+      </div>
+      <div class="level-item">
+        <h5>2. Revisi&oacute;n autom&aacute;tica</h5>
+        <p>La IA analiza la foto y revisa si lo que est&aacute; ah&iacute; corresponde a la categor&iacute;a de esa caneca o si hay residuos mal clasificados.</p>
+      </div>
+      <div class="level-item">
+        <h5>3. Resultado en pantalla</h5>
+        <p>La pantalla muestra un di&aacute;gnostico simple: <strong>&quot;Caneca correcta&quot;</strong> o <strong>&quot;Hay X items que pertenecen a otra caneca&quot;</strong>, indicando cu&aacute;les y a d&oacute;nde deber&iacute;an ir.</p>
+      </div>
+      <div class="level-item">
+        <h5>4. Reporte para Gesti&oacute;n Humana</h5>
+        <p>Cada revisi&oacute;n queda registrada. Conaltura puede ver al final de la semana qu&eacute; tan bien se est&aacute; clasificando, qu&eacute; canecas tienen m&aacute;s errores y c&oacute;mo evoluciona la cultura de separaci&oacute;n con el tiempo.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 18px;">
+      <p><strong>Dos en uno con el mismo equipo:</strong> el piloto entrega valor en dos momentos del d&iacute;a sin necesidad de instalar hardware adicional. Durante el d&iacute;a la IA gu&iacute;a la decisi&oacute;n; al cierre, le devuelve al equipo de aseo y a Gesti&oacute;n Humana evidencia concreta de c&oacute;mo va el proceso.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 05 - ESQUEMA DE CLASIFICACION                          -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span class="page-header-title">Esquema de Clasificaci&oacute;n</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Esquema de clasificaci&oacute;n inicial</h4>
+    <div class="gradient-line"></div>
+
+    <p>Tomamos como base el c&oacute;digo de colores estandarizado en Colombia para la separaci&oacute;n en la fuente. Es el esquema que la mayor&iacute;a de las personas ya reconoce y el que se alinea con la normativa vigente.</p>
+
+    <div class="card-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #6B7280, #1F2937);">
+          <h5>CANECA BLANCA</h5>
+          <span class="card-tag" style="color: rgba(255,255,255,0.6);">APROVECHABLES</span>
+        </div>
+        <div class="card-body">
+          <p>Pl&aacute;stico, papel, cart&oacute;n, vidrio, metales y otros materiales que pueden volver a la cadena productiva.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #15803D, #052E16);">
+          <h5>CANECA VERDE</h5>
+          <span class="card-tag" style="color: rgba(255,255,255,0.6);">ORG&Aacute;NICOS APROVECHABLES</span>
+        </div>
+        <div class="card-body">
+          <p>Restos de comida, residuos de jard&iacute;n y otros materiales biodegradables.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #18181B, #000000);">
+          <h5>CANECA NEGRA</h5>
+          <span class="card-tag" style="color: rgba(255,255,255,0.6);">NO APROVECHABLES</span>
+        </div>
+        <div class="card-body">
+          <p>Papel higi&eacute;nico, servilletas usadas, empaques contaminados y residuos que no entran en las otras categor&iacute;as.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" style="background: linear-gradient(135deg, #DC2626, #7F1D1D);">
+          <h5>CANECA ROJA</h5>
+          <span class="card-tag" style="color: rgba(255,255,255,0.6);">PELIGROSOS / RESPEL</span>
+        </div>
+        <div class="card-body">
+          <p>Pilas, qu&iacute;micos, cartuchos, residuos biosanitarios y otros materiales peligrosos que requieren manejo especial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Es punto de partida, no condena:</strong> si Conaltura ya tiene un esquema interno m&aacute;s detallado &mdash; por ejemplo, separar pl&aacute;sticos, vidrio y cart&oacute;n por separado &mdash; el modelo se ajusta sin problema. La conversaci&oacute;n sobre cu&aacute;l es el esquema final hace parte de la pr&oacute;xima fase.</p>
+    </div>
+
+    <h3>Casos especiales que vale la pena prever</h3>
+    <ul>
+      <li><strong>Residuos compuestos</strong> &mdash; un vaso con sobras adentro o una caja con cinta adhesiva. La IA puede pedir separaci&oacute;n previa o indicar la caneca dominante.</li>
+      <li><strong>Residuos de obra</strong> (RCDs) &mdash; si las canecas se instalan en obra y no s&oacute;lo en oficinas, hay que prever materiales de construcci&oacute;n.</li>
+    </ul>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 08 - INTEGRACION CON HARDWARE                          -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 11l3 3 3-3M5 21h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z"/></svg>
+      <span class="page-header-title">Integraci&oacute;n con el hardware</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>C&oacute;mo se integra con el hardware de Conaltura</h4>
+    <div class="gradient-line"></div>
+
+    <p>El software de Irrelevant est&aacute; dise&ntilde;ado para correr sobre el dispositivo de c&oacute;mputo que Conaltura ya va a instalar en cada punto &mdash; ya sea una tablet Android, un mini-PC, una Raspberry Pi o cualquier dispositivo con c&aacute;mara y pantalla integrados. <strong>No imponemos hardware espec&iacute;fico.</strong></p>
+
+    <h3>Decisi&oacute;n t&eacute;cnica clave: d&oacute;nde corre el modelo</h3>
+
+    <div class="comparison">
+      <div class="comparison-col before">
+        <h5>Modelo en la nube</h5>
+        <ul>
+          <li>Mejor capacidad de c&oacute;mputo</li>
+          <li>Reentrenamiento centralizado m&aacute;s f&aacute;cil</li>
+          <li>Requiere conectividad estable en cada punto</li>
+          <li>Latencia depende del internet</li>
+        </ul>
+      </div>
+      <div class="comparison-arrow">vs</div>
+      <div class="comparison-col after">
+        <h5>Modelo en el dispositivo</h5>
+        <ul>
+          <li>Funciona sin internet</li>
+          <li>Latencia m&iacute;nima</li>
+          <li>Requiere dispositivo con capacidad m&iacute;nima de c&oacute;mputo</li>
+          <li>Sincroniza datos cuando hay conexi&oacute;n</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 18px;">
+      <p><strong>Nuestra recomendaci&oacute;n preliminar:</strong> arquitectura h&iacute;brida. El modelo principal corre en el dispositivo para garantizar respuesta inmediata y no depender de conectividad de obra. La nube se usa para reentrenamiento, dashboard centralizado y actualizaciones del modelo. La decisi&oacute;n final depende de la conectividad real de cada punto que Conaltura quiera equipar.</p>
+    </div>
+
+    <h3>Lo que necesitamos del lado del hardware</h3>
+    <ul>
+      <li>C&aacute;mara con resoluci&oacute;n m&iacute;nima razonable y enfoque autom&aacute;tico</li>
+      <li>Pantalla con touch para que el usuario responda preguntas</li>
+      <li>Dispositivo de c&oacute;mputo con capacidad m&iacute;nima para correr inferencia local</li>
+      <li>Conectividad disponible al menos algunas horas al d&iacute;a para sincronizar datos</li>
+      <li>Iluminaci&oacute;n adecuada en la zona de captura</li>
+    </ul>
+
+    <p style="margin-top: 16px;">Todas estas especificaciones se afinan con el equipo t&eacute;cnico de Conaltura una vez quede definido el alcance del piloto.</p>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 09 - APRENDIZAJE CONTINUO                              -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+      <span class="page-header-title">Aprendizaje Continuo</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>C&oacute;mo aprende y mejora con el tiempo</h4>
+    <div class="gradient-line"></div>
+
+    <p>Un modelo de visi&oacute;n por computadora no es un producto que se entrega y se queda quieto. Por su naturaleza, mejora con datos reales del entorno donde opera. Esto es central para el modelo de servicio que proponemos.</p>
+
+    <h3>El ciclo de mejora</h3>
+
+    <div class="flow-diagram" style="margin: 24px 0;">
+      <div class="flow-step active">
+        <div class="flow-text">USO REAL<br>EN CANECAS</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-text">CASOS DE<br>DUDA</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-text">ETIQUETADO<br>DE DATOS</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-text">REENTRENAMIENTO<br>DEL MODELO</div>
+      </div>
+      <div class="flow-connector">&rarr;</div>
+      <div class="flow-step active">
+        <div class="flow-text">DESPLIEGUE<br>NUEVA VERSI&Oacute;N</div>
+      </div>
+    </div>
+
+    <h3>Qu&eacute; mejora con el tiempo</h3>
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">Tasa de aciertos sube</div>
+        <p>Cada caso resuelto por el usuario en modo conversacional alimenta el dataset de entrenamiento.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Disminuyen las preguntas</div>
+        <p>Residuos que antes generaban duda pasan a modo aut&oacute;nomo a medida que el modelo los aprende.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Cobertura de casos raros</div>
+        <p>Residuos extra&ntilde;os o nuevos productos que aparecen en obra se incorporan al modelo en cada ciclo.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Adaptaci&oacute;n por punto</div>
+        <p>El modelo puede tener variaciones por sede o por tipo de obra si los residuos t&iacute;picos var&iacute;an entre puntos.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 18px;">
+      <p>Esta naturaleza evolutiva del sistema es lo que justifica un <strong>modelo de servicio mensual</strong> de mantenimiento e infraestructura, m&aacute;s un fee &uacute;nico de implementaci&oacute;n y entrenamiento inicial. El precio espec&iacute;fico depende del alcance final del piloto y se aterriza en la siguiente fase.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 5 - DECISIONES Y PROXIMOS PASOS (Divider)             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M20 28L34 42L60 18"/>
+        <path d="M20 50L34 64L60 40"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">03</div>
+      <div class="section-line"></div>
+      <h2>Decisiones y pr&oacute;ximos pasos</h2>
+      <p>Lo que tenemos que aterrizar juntos para pasar de esta Fase 0 a un piloto concreto.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 10 - DECISIONES                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span class="page-header-title">Decisiones</span>
+    </div>
+    <span class="page-header-num">PAG 07</span>
+  </div>
+  <div class="inner-page">
+    <h4>Decisiones que tomamos juntos</h4>
+    <div class="gradient-line"></div>
+
+    <p>De las conversaciones con Gesti&oacute;n Humana ya quedaron definidas las decisiones macro del proyecto. Lo que falta cerrar son los detalles t&eacute;cnicos y operativos para pasar a una propuesta de implementaci&oacute;n con cronograma y precio aterrizados.</p>
+
+    <h3>Lo que ya est&aacute; decidido</h3>
+    <div class="level-timeline">
+      <div class="level-item">
+        <h5>Arrancamos con un piloto pago</h5>
+        <p>El proyecto empieza con un piloto acotado y se cobra como un proyecto en s&iacute; mismo &mdash; no es una prueba gratuita. La extensi&oacute;n al resto de la operaci&oacute;n se evalua con base en los resultados del piloto.</p>
+        <span class="level-tag">Modelo comercial</span>
+      </div>
+      <div class="level-item">
+        <h5>El piloto se hace en un piso de la oficina</h5>
+        <p>Se equipa un &uacute;nico piso de la oficina principal con la soluci&oacute;n completa. Sirve para validar adopci&oacute;n, m&eacute;tricas y experiencia antes de invertir en escalar.</p>
+        <span class="level-tag">Alcance inicial</span>
+      </div>
+      <div class="level-item">
+        <h5>El piso piloto luego se replica al resto</h5>
+        <p>Una vez validado, la misma soluci&oacute;n se extiende al resto de pisos de la oficina y, eventualmente, a otras sedes y obras. La l&oacute;gica de despliegue es por etapas.</p>
+        <span class="level-tag">Plan de escalamiento</span>
+      </div>
+      <div class="level-item">
+        <h5>Doble uso de la c&aacute;mara: durante el d&iacute;a y al cierre</h5>
+        <p>La misma c&aacute;mara que gu&iacute;a a las personas durante el d&iacute;a sirve al equipo de aseo al final de la jornada para auditar si la separaci&oacute;n qued&oacute; bien hecha. Una sola instalaci&oacute;n, dos momentos de valor.</p>
+        <span class="level-tag">Alcance funcional</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 28px;">Lo que falta cerrar para arrancar</h3>
+    <div class="level-timeline">
+      <div class="level-item">
+        <h5>Cu&aacute;l piso es el piloto</h5>
+        <p>Definir el piso espec&iacute;fico, el n&uacute;mero de puntos de canecas a equipar y la duraci&oacute;n del piloto antes de evaluar resultados.</p>
+        <span class="level-tag">Define el dimensionamiento</span>
+      </div>
+      <div class="level-item">
+        <h5>Esquema final de clasificaci&oacute;n</h5>
+        <p>Si nos quedamos con los cuatro colores est&aacute;ndar de Colombia o si Conaltura quiere un esquema m&aacute;s detallado por material o por tipo de operaci&oacute;n.</p>
+        <span class="level-tag">Define el modelo</span>
+      </div>
+      <div class="level-item">
+        <h5>Conectividad y dispositivo</h5>
+        <p>Qu&eacute; conectividad tiene el piso donde van las canecas y qu&eacute; hardware de c&oacute;mputo va a usar Conaltura. Determina la arquitectura del modelo.</p>
+        <span class="level-tag">Define la arquitectura</span>
+      </div>
+      <div class="level-item">
+        <h5>Construcci&oacute;n del dataset inicial</h5>
+        <p>Si Conaltura ya tiene fotos de los residuos t&iacute;picos de sus operaciones o si hay que construir el dataset durante el piloto. Cambia los tiempos del proyecto.</p>
+        <span class="level-tag">Define los tiempos</span>
+      </div>
+      <div class="level-item">
+        <h5>Experiencia visual y de lenguaje</h5>
+        <p>Tono, idioma, uso de voz o no, nivel de formalidad. La interfaz se adapta al p&uacute;blico que va a usar las canecas y al equipo de aseo en el modo auditor&iacute;a.</p>
+        <span class="level-tag">Define la experiencia</span>
+      </div>
+      <div class="level-item">
+        <h5>M&eacute;tricas objetivo y reporter&iacute;a</h5>
+        <p>Qu&eacute; significa &eacute;xito para Conaltura: tasa de clasificaci&oacute;n correcta, errores detectados en auditor&iacute;a, evoluci&oacute;n por piso, integraci&oacute;n con reportes ambientales o de sostenibilidad existentes.</p>
+        <span class="level-tag">Define el modelo de medici&oacute;n</span>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 18px;">
+      <p>Estas definiciones se cierran en una sesi&oacute;n de trabajo conjunta posterior a la presentaci&oacute;n de esta Fase 0. La idea es que esa sesi&oacute;n termine con el piso piloto elegido, los puntos exactos y los tiempos del proyecto definidos.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 11 - PROXIMOS PASOS Y CONTACTO                         -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span class="page-header-title">Pr&oacute;ximos Pasos</span>
+    </div>
+    <span class="page-header-num">PAG 08</span>
+  </div>
+  <div class="inner-page">
+    <h4>Pr&oacute;ximos pasos</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Esta Fase 0 cierra la conversaci&oacute;n conceptual. Lo que sigue es traducir todo lo anterior en un piloto concreto, con alcance, tiempos y precio definidos.</p>
+    </div>
+
+    <div class="level-timeline">
+      <div class="level-item">
+        <h5>1. Sesi&oacute;n de definiciones con Gesti&oacute;n Humana</h5>
+        <p>Trabajamos las definiciones abiertas de la p&aacute;gina anterior en una sesi&oacute;n conjunta. Salida esperada: piso piloto elegido, puntos exactos y duraci&oacute;n del piloto cerrados.</p>
+      </div>
+      <div class="level-item">
+        <h5>2. Validaci&oacute;n t&eacute;cnica con el equipo de Conaltura</h5>
+        <p>Confirmamos especificaciones de hardware, conectividad y disponibilidad de fotos para dataset inicial.</p>
+      </div>
+      <div class="level-item">
+        <h5>3. Propuesta de implementaci&oacute;n con precio</h5>
+        <p>Documento con alcance del piloto, cronograma, equipo asignado y modelo comercial &mdash; fee &uacute;nico de implementaci&oacute;n m&aacute;s fee mensual de operaci&oacute;n y mejora del modelo.</p>
+      </div>
+      <div class="level-item">
+        <h5>4. Arranque del piloto en el piso elegido</h5>
+        <p>Captura de dataset inicial, entrenamiento del modelo, instalaci&oacute;n de c&aacute;maras y pantallas en los puntos del piso piloto, y arranque del modo auditor&iacute;a con el equipo de aseo.</p>
+      </div>
+      <div class="level-item">
+        <h5>5. Evaluaci&oacute;n y rollout a otros pisos</h5>
+        <p>Lectura de m&eacute;tricas del piloto (tasa de clasificaci&oacute;n correcta, errores detectados en auditor&iacute;a, adopci&oacute;n del personal de aseo) y plan de extensi&oacute;n a los dem&aacute;s pisos de la oficina seg&uacute;n resultados.</p>
+      </div>
+    </div>
+
+    <h3>Quienes participan</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <h5>Por Conaltura</h5>
+        </div>
+        <div class="card-body" style="min-height: 80px;">
+          <p><strong>Juliana Ospina</strong><br>Directora de Gesti&oacute;n Humana<br>Conaltura</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h5>Por Irrelevant</h5>
+        </div>
+        <div class="card-body" style="min-height: 80px;">
+          <p><strong>Agust&iacute;n Hoyos</strong><br>Director Comercial<br>Irrelevant</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Contacto:</strong><br>
+      Agust&iacute;n Hoyos &mdash; Director Comercial<br>
+      ahoyosh@stayirrelevant.com<br>
+      <strong>stayirrelevant.com</strong></p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

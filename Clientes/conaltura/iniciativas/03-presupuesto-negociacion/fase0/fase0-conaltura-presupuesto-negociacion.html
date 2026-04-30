@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fase 0 Ops Layer — Conaltura Presupuesto y Negociación | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --lavanda-claro: #FAF7FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 100vh;
+    margin: 0 auto 24px;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* PORTADA */
+  .cover {
+    display: flex; flex-direction: column; justify-content: space-between;
+    height: 100vh;
+    background: var(--negro); position: relative; overflow: hidden;
+  }
+  .cover-bg-shapes { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .cover-bg-shapes .blob1 {
+    position: absolute; top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%; opacity: 0.7; filter: blur(80px);
+  }
+  .cover-bg-shapes .blob2 {
+    position: absolute; top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%; opacity: 0.35; filter: blur(85px);
+  }
+  .cover-bg-shapes .blob3 {
+    position: absolute; bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%; opacity: 0.55; filter: blur(110px);
+  }
+  .cover-top { position: relative; z-index: 1; padding: 40px 55px; }
+  .cover-logo img { height: 50px; object-fit: contain; opacity: 0.95; }
+  .cover-center {
+    position: relative; z-index: 1; padding: 0 55px; flex: 1;
+    display: flex; flex-direction: column; justify-content: center; margin-top: -60px;
+  }
+  .cover-label {
+    font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--morado-claro); margin-bottom: 18px;
+  }
+  .cover-title {
+    font-family: 'Quicksand', sans-serif; font-size: 56px; font-weight: 700;
+    color: var(--blanco); line-height: 1.15; margin-bottom: 16px;
+  }
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif; font-size: 18px; font-weight: 400;
+    color: rgba(255,255,255,0.72); line-height: 1.6; max-width: 580px;
+  }
+  .cover-line {
+    width: 50px; height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+  .cover-bottom {
+    position: relative; z-index: 1; padding: 40px 55px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif; font-size: 10px;
+    color: rgba(255,255,255,0.45); letter-spacing: 1px;
+  }
+  .cover-meta span { display: block; margin-bottom: 3px; }
+
+  /* HEADERS */
+  .page-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 55px 18px; border-bottom: 1px solid var(--gris-claro);
+  }
+  .page-header-left { display: flex; align-items: center; gap: 14px; }
+  .page-header-icon { width: 22px; height: 22px; color: var(--morado); }
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif; font-size: 12px; font-weight: 600;
+    color: var(--gris-texto); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 500;
+    color: var(--morado); letter-spacing: 1px;
+  }
+
+  /* INNER PAGE */
+  .inner-page { padding: 36px 55px 70px; }
+  .inner-page h2 { font-family: 'Quicksand', sans-serif; font-size: 24px; font-weight: 600; color: var(--gris-texto); margin-bottom: 8px; line-height: 1.3; }
+  .inner-page h3 { font-family: 'Quicksand', sans-serif; font-size: 15px; font-weight: 600; color: var(--gris-texto); margin-bottom: 10px; margin-top: 22px; }
+  .inner-page h4 { font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--morado); margin-bottom: 12px; margin-top: 0; }
+  .inner-page p { font-size: 11px; font-weight: 300; line-height: 1.75; margin-bottom: 12px; color: #333; }
+  .inner-page ul, .inner-page ol { margin-left: 18px; margin-bottom: 14px; }
+  .inner-page li { font-size: 11px; font-weight: 300; line-height: 1.65; margin-bottom: 4px; color: #333; }
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line { width: 40px; height: 2px; background: linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom: 18px; }
+
+  .exec-summary {
+    background: var(--lavanda); border-left: 3px solid var(--morado);
+    padding: 14px 18px; margin-bottom: 18px; border-radius: 0 8px 8px 0;
+  }
+  .exec-summary p { font-size: 11px; line-height: 1.7; color: #2A1A4D; margin: 0; font-weight: 400; }
+
+  .highlight-box {
+    background: var(--lavanda); border-left: 3px solid var(--morado);
+    padding: 12px 18px; border-radius: 0 8px 8px 0; margin: 14px 0;
+  }
+  .highlight-box p { font-size: 10.5px; color: #2A1A4D; margin: 0; line-height: 1.65; font-weight: 400; }
+
+  .metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 14px 0 18px; }
+  .metric-card { background: linear-gradient(135deg, var(--lavanda), white); border: 1px solid var(--gris-claro); border-radius: 10px; padding: 14px 12px; text-align: center; }
+  .metric-value { font-family: 'Quicksand', sans-serif; font-size: 26px; font-weight: 700; color: var(--morado-oscuro); line-height: 1.1; }
+  .metric-label { font-size: 10px; color: #555; margin-top: 4px; font-weight: 400; }
+
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0 16px; }
+  .card-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .card-grid.four { grid-template-columns: repeat(2, 1fr); }
+  .card { background: white; border: 1px solid var(--gris-claro); border-radius: 10px; overflow: hidden; }
+  .card-header { background: linear-gradient(135deg, var(--morado-oscuro), var(--morado)); padding: 9px 14px; color: white; }
+  .card-tag { font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; display: block; }
+  .card-header h5 { font-family: 'Quicksand', sans-serif; font-size: 13px; font-weight: 600; margin-top: 2px; }
+  .card-body { padding: 12px 14px 14px; }
+  .card-body ul { margin-left: 16px; margin-bottom: 6px; }
+  .card-body li { font-size: 9.5px; line-height: 1.55; margin-bottom: 2px; }
+  .card-body p { font-size: 10px; margin-bottom: 6px; line-height: 1.6; }
+  .card-body .label { font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--morado); margin: 6px 0 4px; }
+  .card-body .label.danger { color: #DC2626; }
+  .card-body p.danger { font-size: 9.5px; color: #991B1B; margin: 0; }
+
+  .solution-item { background: var(--lavanda); border-left: 3px solid var(--morado); padding: 11px 14px; border-radius: 0 8px 8px 0; }
+  .solution-title { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 12px; color: var(--morado-oscuro); margin-bottom: 5px; }
+  .solution-item p { font-size: 10px; line-height: 1.6; color: #333; margin: 0; }
+
+  /* BEFORE / AFTER */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 36px 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin: 16px 0 18px;
+  }
+  .ba-side {
+    border-radius: 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--gris-claro);
+  }
+  .ba-before {
+    background: #FFF7F5;
+    border-color: #FCD9CD;
+  }
+  .ba-after {
+    background: var(--lavanda);
+    border-color: var(--morado-claro);
+  }
+  .ba-arrow {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ba-arrow::after {
+    content: '';
+    width: 0; height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 11px solid var(--morado);
+  }
+  .ba-tag {
+    font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 8px; display: block;
+  }
+  .ba-before .ba-tag { color: #C2410C; }
+  .ba-after .ba-tag { color: var(--morado-oscuro); }
+  .ba-side h6 {
+    font-family: 'Quicksand', sans-serif; font-size: 12px; font-weight: 600;
+    color: var(--gris-texto); margin-bottom: 6px; line-height: 1.35;
+  }
+  .ba-side p {
+    font-size: 10px; line-height: 1.6; margin: 0 0 6px; color: #333;
+  }
+  .ba-side ul { margin: 4px 0 0 14px; }
+  .ba-side li { font-size: 10px; line-height: 1.55; margin-bottom: 3px; }
+
+  /* SKILL FLOW */
+  .skill-flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 24px;
+    margin: 16px 0 22px;
+  }
+  .skill-flow-box {
+    background: linear-gradient(135deg, var(--lavanda-claro), #FFFFFF);
+    border: 1.5px solid var(--morado-claro);
+    border-radius: 10px;
+    padding: 12px 12px 12px;
+    position: relative;
+    min-height: 110px;
+  }
+  .skill-flow-box::after {
+    content: '';
+    position: absolute;
+    right: -18px;
+    top: 50%;
+    width: 12px;
+    height: 2px;
+    background: var(--morado-claro);
+    transform: translateY(-50%);
+  }
+  .skill-flow-box::before {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    width: 0; height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 7px solid var(--morado-claro);
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+  .skill-flow-box:nth-child(3n)::after,
+  .skill-flow-box:nth-child(3n)::before,
+  .skill-flow-box:last-child::after,
+  .skill-flow-box:last-child::before { display: none; }
+  .skill-flow-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--morado); color: white;
+    width: 22px; height: 22px; border-radius: 50%;
+    font-size: 10px; font-weight: 700; margin-bottom: 8px;
+    font-family: 'Quicksand';
+  }
+  .skill-flow-title {
+    font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 11px;
+    color: var(--morado-oscuro); margin-bottom: 6px; line-height: 1.3;
+  }
+  .skill-flow-desc {
+    font-size: 9.5px; line-height: 1.55; color: #333; font-weight: 300;
+  }
+
+  /* DETAIL TWO COLS */
+  .detail-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .detail-col { background: white; border: 1px solid var(--gris-claro); border-radius: 8px; padding: 12px 14px; }
+  .detail-col h6 { font-family: 'Quicksand'; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--morado); margin-bottom: 8px; }
+  .detail-col ul { margin: 0 0 0 16px; }
+  .detail-col li { font-size: 10px; line-height: 1.55; margin-bottom: 3px; }
+
+  /* OLAS BLOCK */
+  .olas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .ola-card {
+    border-radius: 10px;
+    padding: 16px 16px 18px;
+    border: 1px solid var(--gris-claro);
+    background: white;
+    position: relative;
+  }
+  .ola-card.ola-active {
+    border: 2px solid var(--morado);
+    background: linear-gradient(180deg, var(--lavanda), white);
+  }
+  .ola-tag {
+    font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--morado); margin-bottom: 6px;
+  }
+  .ola-active .ola-tag { color: var(--morado-deep); }
+  .ola-card h5 {
+    font-family: 'Quicksand', sans-serif; font-size: 14px; font-weight: 700;
+    color: var(--gris-texto); margin-bottom: 8px;
+  }
+  .ola-card p {
+    font-size: 10px; line-height: 1.6; color: #444; margin-bottom: 8px;
+  }
+  .ola-card ul { margin: 4px 0 0 14px; }
+  .ola-card li { font-size: 9.5px; line-height: 1.55; margin-bottom: 3px; color: #333; }
+  .ola-status {
+    position: absolute; top: 12px; right: 14px;
+    font-family: 'Quicksand', sans-serif; font-size: 8px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 12px;
+    background: var(--morado); color: white;
+  }
+  .ola-status.later { background: var(--gris-claro); color: #555; }
+
+  /* CONTACT BLOCK */
+  .contact-box {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--morado));
+    color: white; padding: 22px 26px; border-radius: 12px; margin-top: 22px;
+  }
+  .contact-box h4 { color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+  .contact-name { font-family: 'Quicksand'; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .contact-role { font-size: 11px; opacity: 0.85; margin-bottom: 8px; }
+  .contact-data { font-size: 11px; opacity: 0.92; }
+
+  /* PAGE FOOTER */
+  .page-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 55px; display: flex; justify-content: space-between; border-top: 1px solid var(--gris-claro); background: white; }
+  .page-footer-brand { font-family: 'Quicksand'; font-size: 10px; font-weight: 600; letter-spacing: 2px; color: var(--morado); }
+  .page-footer-conf { font-family: 'Quicksand'; font-size: 9px; color: #999; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* SECTION DIVIDER */
+  .section-divider { display: flex; height: 100vh; }
+  .section-divider-left {
+    flex: 1; background: var(--lavanda);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 60px 40px; position: relative;
+  }
+  .section-divider-left .deco-circles { opacity: 0.15; }
+  .section-divider-left .section-icon { width: 80px; height: 80px; color: var(--morado); margin-bottom: 20px; }
+  .section-divider-right {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 50px; position: relative; overflow: hidden;
+  }
+  .section-divider-right::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%);
+    border-radius: 50%; filter: blur(60px);
+  }
+  .section-number {
+    font-family: 'Quicksand', sans-serif; font-size: 72px; font-weight: 700;
+    color: rgba(255,255,255,0.08); position: absolute; top: 40px; right: 50px;
+  }
+  .section-divider-right h2 {
+    font-family: 'Quicksand', sans-serif; font-size: 34px; font-weight: 700;
+    color: var(--blanco); line-height: 1.25; position: relative; z-index: 1; margin-bottom: 14px;
+  }
+  .section-divider-right p {
+    font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.65);
+    line-height: 1.7; position: relative; z-index: 1; max-width: 360px;
+  }
+  .section-divider-right .section-line {
+    width: 40px; height: 2px; background: var(--morado-claro);
+    margin-bottom: 20px; position: relative; z-index: 1;
+  }
+
+  /* CONTRAPORTADA */
+  .back-cover { background: var(--negro); height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .blob-back1 { position: absolute; top: -150px; right: -100px; width: 700px; height: 700px; background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 35%, transparent 70%); opacity: 0.45; filter: blur(80px); border-radius: 50%; }
+  .blob-back2 { position: absolute; bottom: -200px; left: -100px; width: 600px; height: 600px; background: radial-gradient(ellipse at 50% 50%, #6366F1, var(--morado-deep) 35%, transparent 70%); opacity: 0.35; filter: blur(90px); border-radius: 50%; }
+  .back-cover-content { text-align: center; position: relative; z-index: 1; }
+  .back-cover-content img { height: 60px; opacity: 0.9; margin-bottom: 24px; }
+  .back-cover-line { width: 50px; height: 2px; background: var(--morado); margin: 0 auto 24px; }
+  .back-cover-content p { font-family: 'Quicksand'; font-size: 14px; font-weight: 500; letter-spacing: 6px; color: rgba(255,255,255,0.7); text-transform: uppercase; }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Documento de bases formales &mdash; Iniciativa 03</div>
+      <div class="cover-title">Fase 0<br><span style="font-size: 32px; font-weight: 500; color: var(--morado-claro);">Ops Layer</span></div>
+      <div class="cover-subtitle">Conaltura &mdash; Presupuesto y Negociaci&oacute;n.</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>CONFIDENCIAL</span>
+        <span>Abril 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 01 - RESUMEN EJECUTIVO                                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="14" y="10" width="52" height="60" rx="4"/>
+        <line x1="24" y1="26" x2="56" y2="26"/>
+        <line x1="24" y1="36" x2="50" y2="36"/>
+        <line x1="24" y1="46" x2="44" y2="46"/>
+        <line x1="24" y1="56" x2="38" y2="56"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">01</div>
+      <div class="section-line"></div>
+      <h2>Resumen Ejecutivo</h2>
+      <p>Vista panor&aacute;mica del problema y la soluci&oacute;n propuesta para el &aacute;rea de Presupuesto y Negociaci&oacute;n.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 01 - RESUMEN EJECUTIVO                                    -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen Ejecutivo</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>El problema y la soluci&oacute;n en una p&aacute;gina</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>La Direcci&oacute;n de Presupuesto y Negociaci&oacute;n de Conaltura sostiene <strong>23 obras activas</strong> en paralelo, con <strong>173 cuadros comparativos al mes</strong> que se arman a mano y una bandeja de correo compartida que recibe <strong>cerca de 400 correos diarios</strong> que cuatro personas se rotan para clasificar. La nueva gu&iacute;a presupuestal est&aacute; en construcci&oacute;n, los presupuestos hist&oacute;ricos siguen en c&oacute;digo viejo, y por eso hoy no se puede comparar una obra contra otra. <strong>El cuello no es la informaci&oacute;n: es la captura manual, la clasificaci&oacute;n a pulso y la falta de un lenguaje com&uacute;n entre las 23 obras.</strong></p>
+    </div>
+
+    <h3>Ocho habilidades en Claude organizadas en olas</h3>
+
+    <p>El sistema completo se piensa como un anillo: las entradas del &aacute;rea (presupuestos en Excel, correos, cotizaciones, indexaciones) pasan por las habilidades de Claude, alimentan una matriz central &uacute;nica y de ah&iacute; salen a las personas en el formato que cada una necesita.</p>
+
+    <p>El proyecto est&aacute; estructurado en <strong>tres olas</strong>. La primera ola contiene las habilidades que <strong>habilitan al resto</strong> del sistema: sin esas tres habilidades en marcha, las dem&aacute;s no pueden funcionar. Por eso este documento concentra el detalle en la Fase 1, mientras que las olas posteriores se mencionan en resumen.</p>
+
+    <div class="highlight-box">
+      <p><strong>Importante:</strong> este documento no incluye la cotizaci&oacute;n. La cotizaci&oacute;n se entrega por separado y <strong>solo cubre la Fase 1</strong> (las tres habilidades habilitadoras). Las olas posteriores se cotizan en su momento, una vez Fase 1 est&eacute; en marcha y Conaltura tenga lista la gu&iacute;a nueva y la matriz de tenores.</p>
+    </div>
+
+    <h3>Lo que cambia para el equipo</h3>
+
+    <div class="card-grid three">
+      <div class="solution-item">
+        <div class="solution-title">Cuadros comparativos autom&aacute;ticos</div>
+        <p>Las cotizaciones llegan al correo, el agente las normaliza y arma el cuadro. El equipo deja de ensamblarlos a mano.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Bandejas personales asignadas</div>
+        <p>Cada persona recibe en su bandeja s&oacute;lo lo que le toca. La rotaci&oacute;n diaria entre cuatro personas desaparece.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Lenguaje com&uacute;n entre obras</div>
+        <p>El remapeo de c&oacute;digos sienta el cimiento para que las 23 obras puedan, por primera vez, compararse entre s&iacute;.</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 02 - DIAGNOSTICO                                      -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="34" cy="34" r="20"/>
+        <line x1="50" y1="50" x2="68" y2="68"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">02</div>
+      <div class="section-line"></div>
+      <h2>Diagn&oacute;stico</h2>
+      <p>Estado actual de la operaci&oacute;n y los dolores estructurales identificados en el &aacute;rea de Presupuesto y Negociaci&oacute;n.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 02 - DIAGNOSTICO                                          -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="4,2 20,2 17,22 7,22"/></svg>
+      <span class="page-header-title">Situaci&oacute;n Actual y Dolores</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Estado actual de la operaci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">23</div>
+        <div class="metric-label">Obras activas</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">173</div>
+        <div class="metric-label">Cuadros comparativos / mes</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">~400</div>
+        <div class="metric-label">Correos / d&iacute;a</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">~370</div>
+        <div class="metric-label">Horas / mes del equipo</div>
+      </div>
+    </div>
+
+    <p>El &aacute;rea de Presupuesto y Negociaci&oacute;n sostiene 23 obras activas en paralelo. Cada vez que se necesita decidir un proveedor, alguien recopila las cotizaciones de varios contratistas, normaliza valores que vienen en formatos heterog&eacute;neos y arma una matriz comparativa en Excel. Eso son 173 cuadros al mes. Adicionalmente, la bandeja compartida de gesti&oacute;n recibe alrededor de 400 correos diarios que cuatro personas se rotan para leer y triar. La nueva gu&iacute;a presupuestal est&aacute; en construcci&oacute;n y los presupuestos hist&oacute;ricos siguen en c&oacute;digo viejo, lo que impide comparar obras entre s&iacute;.</p>
+
+    <h3>Dolores estructurales</h3>
+
+    <div class="card-grid three">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Dolor 1</span>
+          <h5>Cuadros comparativos a mano</h5>
+        </div>
+        <div class="card-body">
+          <p>Las cotizaciones llegan al correo de gesti&oacute;n con formatos distintos por contratista. Una persona del equipo abre cada archivo, normaliza valores y arma la matriz comparativa en Excel, una por cada decisi&oacute;n de proveedor.</p>
+          <span class="label danger">Implicaci&oacute;n</span>
+          <p class="danger">El grueso del tiempo del equipo se va en armado de cuadros, no en negociaci&oacute;n ni an&aacute;lisis estrat&eacute;gico.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Dolor 2</span>
+          <h5>Bandeja compartida sin clasificar</h5>
+        </div>
+        <div class="card-body">
+          <p>~400 correos al d&iacute;a en una sola bandeja. Cuatro personas se rotan diariamente para leer todo y asignar tareas. El correo correcto puede tardar en llegar a la persona correcta y la rotaci&oacute;n absorbe horas que se necesitan en otros frentes.</p>
+          <span class="label danger">Implicaci&oacute;n</span>
+          <p class="danger">Carga operativa repartida que castiga la concentraci&oacute;n y la productividad de cada persona.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Dolor 3</span>
+          <h5>Sin lenguaje com&uacute;n entre obras</h5>
+        </div>
+        <div class="card-body">
+          <p>La gu&iacute;a nueva existe parcialmente, los presupuestos hist&oacute;ricos siguen en c&oacute;digo viejo, y cada obra vive en su propio Excel. Hoy es t&eacute;cnicamente imposible comparar el cap&iacute;tulo X de la obra A contra el cap&iacute;tulo X de la obra B.</p>
+          <span class="label danger">Implicaci&oacute;n</span>
+          <p class="danger">El aprendizaje hist&oacute;rico no se convierte en ventaja operativa. Cada obra arranca como si fuera la primera.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Conclusi&oacute;n:</strong> el equipo de Conaltura conoce su operaci&oacute;n al detalle. La intervenci&oacute;n no debe construir un sistema paralelo &mdash; debe conectar los puntos donde la operaci&oacute;n humana se vuelve cuello: la captura, la clasificaci&oacute;n y la centralizaci&oacute;n de los presupuestos en un &uacute;nico lenguaje.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 03 - LA SOLUCION POR OLAS                             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M10 50 Q25 30, 40 50 T70 50"/>
+        <path d="M10 60 Q25 40, 40 60 T70 60" opacity="0.6"/>
+        <path d="M10 70 Q25 50, 40 70 T70 70" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">03</div>
+      <div class="section-line"></div>
+      <h2>La soluci&oacute;n por olas</h2>
+      <p>Ocho habilidades organizadas en tres olas. La Fase 1 son las habilidades habilitadoras &mdash; lo que tiene que estar antes para que el resto pueda funcionar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 03 - VISION POR OLAS                                      -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12 Q8 6, 12 12 T21 12"/><path d="M3 17 Q8 11, 12 17 T21 17" opacity="0.6"/></svg>
+      <span class="page-header-title">El sistema en olas</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Por qu&eacute; el proyecto se ordena en olas</h4>
+    <div class="gradient-line"></div>
+
+    <p>Las ocho habilidades del sistema completo no son independientes entre s&iacute;. Algunas son <strong>prerrequisito</strong> de otras: si arrancamos por la mitad, despu&eacute;s toca devolverse. Por eso el orden de las olas no responde a "qu&eacute; es m&aacute;s f&aacute;cil" &mdash; responde a <strong>qu&eacute; tiene que estar antes para que lo siguiente tenga sentido</strong>.</p>
+
+    <div class="olas-grid">
+      <div class="ola-card ola-active">
+        <div class="ola-status">Arranca ahora</div>
+        <div class="ola-tag">Fase 1</div>
+        <h5>Habilidades habilitadoras</h5>
+        <p>Las tres habilidades base. Sin estas en marcha, las olas siguientes no pueden arrancar.</p>
+        <ul>
+          <li>Comparador de cotizaciones</li>
+          <li>Clasificador de correos</li>
+          <li>Remapeo de c&oacute;digos</li>
+        </ul>
+      </div>
+      <div class="ola-card">
+        <div class="ola-status later">Despu&eacute;s</div>
+        <div class="ola-tag">Fase 2</div>
+        <h5>Cimiento e inteligencia</h5>
+        <p>Cuatro habilidades que pueblan la matriz central, calculan P2 y vigilan desviaciones.</p>
+        <ul>
+          <li>Ingestor de presupuestos</li>
+          <li>Motor de tenores</li>
+          <li>Simulador de indexaci&oacute;n</li>
+          <li>Monitor de desviaciones</li>
+        </ul>
+      </div>
+      <div class="ola-card">
+        <div class="ola-status later">Visi&oacute;n a futuro</div>
+        <div class="ola-tag">Fase 3</div>
+        <h5>Agente conversacional</h5>
+        <p>Una vez la matriz central est&eacute; consolidada, se construye un agente que recibe preguntas en lenguaje natural sobre el estado de los proyectos.</p>
+      </div>
+    </div>
+
+    <h3>Por qu&eacute; Fase 1 va primero</h3>
+
+    <p>Cada habilidad de Fase 1 es prerrequisito directo de varias habilidades de las olas siguientes:</p>
+
+    <ul>
+      <li><strong>Remapeo de c&oacute;digos</strong> es el cimiento t&eacute;cnico. Sin c&oacute;digos unificados, los presupuestos hist&oacute;ricos no se pueden cargar a la matriz central. Sin matriz central poblada, ni el Ingestor, ni el Motor de tenores, ni el Monitor, ni el Agente conversacional pueden operar.</li>
+      <li><strong>Clasificador de correos</strong> es el canal de entrada de informaci&oacute;n. Las cotizaciones, contratos e indexaciones llegan por correo. El Simulador de indexaci&oacute;n y el Monitor de desviaciones consumen esa informaci&oacute;n. Si el correo no est&aacute; clasificado, esas habilidades trabajan sobre datos sucios.</li>
+      <li><strong>Comparador de cotizaciones</strong> es la primera validaci&oacute;n del modelo de trabajo agente-equipo. El equipo aprende c&oacute;mo iterar con el agente &mdash; el agente hace el grueso, el equipo refina y corrige, el agente aprende para la siguiente. Ese loop se reutiliza en cada habilidad posterior.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Una decisi&oacute;n clave del proyecto:</strong> cada ola se cotiza por separado. Conaltura puede contratar Fase 1 sin comprometerse con Fase 2 ni con la visi&oacute;n a futuro &mdash; y validar ah&iacute; si el modelo de trabajo agente-equipo funciona antes de meter el cimiento. Lo que s&iacute; no se puede invertir es el orden.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 04 - FASE 1                                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M40 12 L66 24 L40 36 L14 24 Z"/>
+        <path d="M14 36 L40 48 L66 36"/>
+        <path d="M14 48 L40 60 L66 48"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">04</div>
+      <div class="section-line"></div>
+      <h2>Fase 1 &mdash; Las tres habilidades habilitadoras</h2>
+      <p>Cada habilidad explicada en detalle: c&oacute;mo se hace hoy, c&oacute;mo se hace despu&eacute;s, y qu&eacute; necesitamos del equipo para arrancar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 04 - HABILIDAD: COMPARADOR DE COTIZACIONES                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+      <span class="page-header-title">Habilidad 1 &mdash; Comparador de Cotizaciones</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Habilidad 1 &mdash; Comparador de cotizaciones</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Qu&eacute; resuelve:</strong> elimina el armado manual de los 173 cuadros comparativos al mes. El agente lee las cotizaciones que llegan al correo de gesti&oacute;n, normaliza los valores y deja el cuadro listo para revisi&oacute;n del equipo.</p>
+    </div>
+
+    <h3>C&oacute;mo se hace hoy &rarr; C&oacute;mo se va a hacer</h3>
+
+    <div class="before-after">
+      <div class="ba-side ba-before">
+        <span class="ba-tag">Antes</span>
+        <h6>Armado manual cuadro por cuadro</h6>
+        <p>Llega un correo con cotizaciones de varios contratistas (PDF, ZIP, Excel). Una persona del equipo abre cada archivo, lee los valores, normaliza unidades y formatos, copia y pega en una matriz en Excel y la pasa al equipo para decidir el proveedor.</p>
+        <ul>
+          <li>173 cuadros / mes a mano</li>
+          <li>Tiempo absorbido en transcripci&oacute;n</li>
+          <li>Riesgo de error humano en cada cuadro</li>
+        </ul>
+      </div>
+      <div class="ba-arrow"></div>
+      <div class="ba-side ba-after">
+        <span class="ba-tag">Ahora</span>
+        <h6>El agente arma el cuadro autom&aacute;ticamente</h6>
+        <p>El agente vigila el correo de gesti&oacute;n. Cuando llega un paquete de cotizaciones, lee cada documento, normaliza unidades y formatos, arma la matriz comparativa con condiciones t&eacute;cnicas y ranking, y la deja en el canal que defina el equipo (correo, Drive, interfaz, Excel).</p>
+        <ul>
+          <li>Cero armado manual</li>
+          <li>Equipo dedica el tiempo a decisi&oacute;n y negociaci&oacute;n</li>
+          <li>Trazabilidad: cada valor del cuadro se asocia a la cotizaci&oacute;n fuente</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 05 - HABILIDAD 1: COMPARADOR (FLUJO Y REQUISITOS)         -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+      <span class="page-header-title">Habilidad 1 &mdash; Flujo y Requisitos</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>Comparador de cotizaciones &mdash; flujo y requisitos</h4>
+    <div class="gradient-line"></div>
+
+    <h3>Flujo del agente &mdash; paso a paso</h3>
+
+    <div class="skill-flow">
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">1</div>
+        <div class="skill-flow-title">Vigila el correo</div>
+        <div class="skill-flow-desc">El agente est&aacute; conectado al correo de gesti&oacute;n y detecta cuando entra un paquete de cotizaciones de varios contratistas.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">2</div>
+        <div class="skill-flow-title">Lee cada documento</div>
+        <div class="skill-flow-desc">Abre cada PDF, foto, ZIP o Excel, identifica que es una cotizaci&oacute;n y extrae los valores comparables.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">3</div>
+        <div class="skill-flow-title">Normaliza valores</div>
+        <div class="skill-flow-desc">Convierte unidades, alinea formatos heterog&eacute;neos y deja todas las cotizaciones en una misma estructura.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">4</div>
+        <div class="skill-flow-title">Arma el cuadro</div>
+        <div class="skill-flow-desc">Construye la matriz comparativa con condiciones t&eacute;cnicas, precio por unidad y ranking sugerido.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">5</div>
+        <div class="skill-flow-title">Asigna tareas</div>
+        <div class="skill-flow-desc">Identifica qui&eacute;n del equipo debe revisar el cuadro y le manda la notificaci&oacute;n con el resumen.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">6</div>
+        <div class="skill-flow-title">Itera con el equipo</div>
+        <div class="skill-flow-desc">El equipo marca aciertos y errores; el agente se afina con esa retroalimentaci&oacute;n para los pr&oacute;ximos cuadros.</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 16px;">Qu&eacute; necesitamos del equipo</h4>
+    <ul>
+      <li><strong>Acceso al correo de gesti&oacute;n</strong> donde llegan las cotizaciones de los contratistas.</li>
+      <li><strong>Muestras reales</strong> de 3 a 5 cotizaciones recientes en sus formatos t&iacute;picos (PDF, ZIP, Excel).</li>
+      <li><strong>Canal de salida</strong> deseado para el cuadro comparativo (correo, Excel descargable, Drive, interfaz visual).</li>
+      <li><strong>Personalizaci&oacute;n</strong>: si quieren que el agente incluya recomendaci&oacute;n con justificaci&oacute;n, o solo la matriz normalizada para que el equipo decida.</li>
+    </ul>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 05 - HABILIDAD: CLASIFICADOR DE CORREOS                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span class="page-header-title">Habilidad 2 &mdash; Clasificador de Correos</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>Habilidad 2 &mdash; Clasificador de correos</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Qu&eacute; resuelve:</strong> elimina la rotaci&oacute;n diaria entre cuatro personas leyendo todo el inbox compartido. El agente clasifica cada correo entrante y lo enruta a la bandeja de la persona responsable, con un resumen breve de la tarea.</p>
+    </div>
+
+    <h3>C&oacute;mo se hace hoy &rarr; C&oacute;mo se va a hacer</h3>
+
+    <div class="before-after">
+      <div class="ba-side ba-before">
+        <span class="ba-tag">Antes</span>
+        <h6>Rotaci&oacute;n diaria entre cuatro personas</h6>
+        <p>~400 correos diarios llegan a una sola bandeja compartida. Cuatro personas se rotan cada d&iacute;a para leer todo y avisar al resto qu&eacute; le toca a cada quien. La persona que est&aacute; de turno absorbe horas que se necesitan en otras tareas, y un correo cr&iacute;tico puede tardar en llegar a la persona correcta.</p>
+        <ul>
+          <li>Una persona / d&iacute;a haciendo triage</li>
+          <li>Riesgo de demora en correos urgentes</li>
+          <li>Carga compartida que castiga la concentraci&oacute;n</li>
+        </ul>
+      </div>
+      <div class="ba-arrow"></div>
+      <div class="ba-side ba-after">
+        <span class="ba-tag">Ahora</span>
+        <h6>Cada quien recibe solo lo suyo</h6>
+        <p>El agente lee todos los correos entrantes, identifica de qu&eacute; se trata cada uno (cotizaci&oacute;n, contrato, indexaci&oacute;n, consulta) y lo enruta a la bandeja personal de la persona responsable. Llega con un resumen breve de la tarea. La rotaci&oacute;n diaria desaparece.</p>
+        <ul>
+          <li>Cero rotaci&oacute;n humana</li>
+          <li>Cada persona ve solo correos accionables propios</li>
+          <li>Tiempo recuperado para trabajo profundo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 07 - HABILIDAD 2: CLASIFICADOR (FLUJO Y REQUISITOS)       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span class="page-header-title">Habilidad 2 &mdash; Flujo y Requisitos</span>
+    </div>
+    <span class="page-header-num">PAG 07</span>
+  </div>
+  <div class="inner-page">
+    <h4>Clasificador de correos &mdash; flujo y requisitos</h4>
+    <div class="gradient-line"></div>
+
+    <h3>Flujo del agente &mdash; paso a paso</h3>
+
+    <div class="skill-flow">
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">1</div>
+        <div class="skill-flow-title">Recibe el correo</div>
+        <div class="skill-flow-desc">El agente est&aacute; conectado a la bandeja compartida y procesa cada correo en cuanto entra.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">2</div>
+        <div class="skill-flow-title">Identifica el tipo</div>
+        <div class="skill-flow-desc">Lee el contenido y clasifica: cotizaci&oacute;n, contrato, indexaci&oacute;n, requerimiento interno, otro.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">3</div>
+        <div class="skill-flow-title">Aplica reglas</div>
+        <div class="skill-flow-desc">Cruza el tipo de correo con la matriz de reglas que defin&iacute; el equipo &mdash; qu&eacute; va a qui&eacute;n, qu&eacute; es urgente, qu&eacute; entra a triage.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">4</div>
+        <div class="skill-flow-title">Resume la tarea</div>
+        <div class="skill-flow-desc">Genera un resumen breve para que la persona destinataria entienda en segundos qu&eacute; tiene que hacer.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">5</div>
+        <div class="skill-flow-title">Enruta al responsable</div>
+        <div class="skill-flow-desc">Manda el correo etiquetado y resumido a la bandeja personal correspondiente.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">6</div>
+        <div class="skill-flow-title">Aprende y se afina</div>
+        <div class="skill-flow-desc">Cuando el equipo reasigna o corrige una clasificaci&oacute;n, el agente actualiza sus reglas para los pr&oacute;ximos correos.</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 16px;">Qu&eacute; necesitamos del equipo</h4>
+    <ul>
+      <li><strong>Acceso a la bandeja compartida</strong> que el agente debe vigilar.</li>
+      <li><strong>Matriz de reglas de clasificaci&oacute;n</strong>: qu&eacute; tipo de correo va a qu&eacute; persona y c&oacute;mo manejar excepciones.</li>
+      <li><strong>Definici&oacute;n de prioridades y urgencias</strong>: qu&eacute; tipos requieren alerta inmediata vs. rutina diaria.</li>
+      <li><strong>Confirmaci&oacute;n</strong> sobre qu&eacute; correos requieren validaci&oacute;n humana antes de moverse y cu&aacute;les se enrutan autom&aacute;ticamente.</li>
+    </ul>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 06 - HABILIDAD: REMAPEO DE CODIGOS                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/><polyline points="18,15 21,17 18,19"/></svg>
+      <span class="page-header-title">Habilidad 3 &mdash; Remapeo de C&oacute;digos</span>
+    </div>
+    <span class="page-header-num">PAG 08</span>
+  </div>
+  <div class="inner-page">
+    <h4>Habilidad 3 &mdash; Remapeo de c&oacute;digos</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Qu&eacute; resuelve:</strong> traduce los c&oacute;digos hist&oacute;ricos de la gu&iacute;a vieja a la gu&iacute;a nueva. Es ejecuci&oacute;n &uacute;nica (se corre una vez por cap&iacute;tulo) y deja la tabla de equivalencias que la matriz central va a usar como fuente de verdad.</p>
+    </div>
+
+    <h3>C&oacute;mo se hace hoy &rarr; C&oacute;mo se va a hacer</h3>
+
+    <div class="before-after">
+      <div class="ba-side ba-before">
+        <span class="ba-tag">Antes</span>
+        <h6>Mapeo cap&iacute;tulo por cap&iacute;tulo a mano</h6>
+        <p>El equipo tiene la gu&iacute;a vieja con miles de c&oacute;digos hist&oacute;ricos y la gu&iacute;a nueva con la nomenclatura unificada. Hoy el remapeo se hace l&iacute;nea por l&iacute;nea: alguien cruza un c&oacute;digo viejo, busca su equivalente en la nueva, decide si se agrupan varios, lo escribe. Se ha avanzado en gastos generales pero a&uacute;n falta la mayor parte (redes, cimentaciones, estructuras).</p>
+        <ul>
+          <li>Trabajo l&iacute;nea por l&iacute;nea</li>
+          <li>Avance lento, riesgo de olvidar c&oacute;digos</li>
+          <li>Sin matriz unificada no hay comparabilidad entre obras</li>
+        </ul>
+      </div>
+      <div class="ba-arrow"></div>
+      <div class="ba-side ba-after">
+        <span class="ba-tag">Ahora</span>
+        <h6>El agente hace el grueso, el equipo afina</h6>
+        <p>El agente lee la gu&iacute;a vieja, la nueva y los ejemplos de remapeo parcial que el equipo ya hizo. Propone equivalencias cap&iacute;tulo por cap&iacute;tulo, marca en verde los casos que resolvi&oacute; con confianza y en rojo los que no le quedaron claros. El equipo s&oacute;lo revisa y corrige los rojos.</p>
+        <ul>
+          <li>Trabajo grueso resuelto en horas</li>
+          <li>Equipo s&oacute;lo afina los casos ambiguos</li>
+          <li>Tabla de equivalencias queda como fuente de verdad para la matriz central</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 09 - HABILIDAD 3: REMAPEO (FLUJO Y REQUISITOS)            -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/><polyline points="18,15 21,17 18,19"/></svg>
+      <span class="page-header-title">Habilidad 3 &mdash; Flujo y Requisitos</span>
+    </div>
+    <span class="page-header-num">PAG 09</span>
+  </div>
+  <div class="inner-page">
+    <h4>Remapeo de c&oacute;digos &mdash; flujo y requisitos</h4>
+    <div class="gradient-line"></div>
+
+    <h3>Flujo del agente &mdash; paso a paso</h3>
+
+    <div class="skill-flow">
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">1</div>
+        <div class="skill-flow-title">Recibe los insumos</div>
+        <div class="skill-flow-desc">Se le entrega la gu&iacute;a vieja, la gu&iacute;a nueva y los ejemplos de remapeo parcial que el equipo ya hizo (gastos generales).</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">2</div>
+        <div class="skill-flow-title">Aprende el criterio</div>
+        <div class="skill-flow-desc">Estudia los ejemplos parciales para entender qu&eacute; tipo de agrupaciones, renombramientos y reglas aplican.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">3</div>
+        <div class="skill-flow-title">Procesa por cap&iacute;tulo</div>
+        <div class="skill-flow-desc">Trabaja un cap&iacute;tulo a la vez: cimentaciones, estructuras, redes, etc. seg&uacute;n el orden que el equipo prefiera.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">4</div>
+        <div class="skill-flow-title">Propone equivalencias</div>
+        <div class="skill-flow-desc">Para cada c&oacute;digo viejo identifica su equivalente en la nueva (renombramiento, agrupaci&oacute;n, separaci&oacute;n).</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">5</div>
+        <div class="skill-flow-title">Marca dudas</div>
+        <div class="skill-flow-desc">Los casos donde no encuentra equivalencia clara los deja en rojo para revisi&oacute;n manual del equipo.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">6</div>
+        <div class="skill-flow-title">Entrega tabla final</div>
+        <div class="skill-flow-desc">El equipo revisa, ajusta los rojos y aprueba. La tabla queda lista para que el Ingestor la consuma en Fase 2.</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 16px;">Qu&eacute; necesitamos del equipo</h4>
+    <ul>
+      <li><strong>Excel completo</strong> de la gu&iacute;a vieja con los c&oacute;digos hist&oacute;ricos.</li>
+      <li><strong>Excel completo</strong> de la gu&iacute;a nueva con la nomenclatura unificada.</li>
+      <li><strong>Ejemplo de remapeo parcial</strong> ya hecho por el equipo (el de gastos generales sirve, incluso incompleto).</li>
+      <li><strong>Criterio de agrupaci&oacute;n</strong>: si tienen una nota de voz o un documento explicando c&oacute;mo se hace el remapeo a mano, lo usamos.</li>
+      <li><strong>Orden preferido</strong> de cap&iacute;tulos para arrancar.</li>
+    </ul>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 05 - FASES FUTURAS                                    -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="28"/>
+        <line x1="40" y1="22" x2="40" y2="40"/>
+        <line x1="40" y1="40" x2="54" y2="48"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">05</div>
+      <div class="section-line"></div>
+      <h2>Fases futuras</h2>
+      <p>Resumen del alcance que se construye despu&eacute;s de Fase 1, sin entrar en detalle. Estas fases se cotizan y planifican una vez Fase 1 est&eacute; en marcha.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 07 - FASE 2 RESUMEN                                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span class="page-header-title">Fase 2 &mdash; Cimiento e Inteligencia</span>
+    </div>
+    <span class="page-header-num">PAG 10</span>
+  </div>
+  <div class="inner-page">
+    <h4>Fase 2 &mdash; Resumen del alcance</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Fase 2 puebla la matriz central, calcula P2 sin depender de un experto, simula el impacto de las indexaciones y vigila desviaciones. Cada habilidad consume directamente el output de Fase 1: el Remapeo le da los c&oacute;digos, el Clasificador le da los inputs limpios. <strong>Esta fase se cotiza y arranca despu&eacute;s</strong>, una vez Fase 1 est&eacute; en marcha y Conaltura tenga lista la gu&iacute;a nueva y la matriz de tenores.</p>
+    </div>
+
+    <h3>Las cuatro habilidades de Fase 2</h3>
+
+    <div class="card-grid four">
+      <div class="solution-item">
+        <div class="solution-title">Ingestor de presupuestos</div>
+        <p>Lee el Excel de presupuesto (P1, P2, P3) que el &aacute;rea genera, normaliza con los c&oacute;digos remapeados y carga la matriz central. Tambi&eacute;n soporta el detallado por insumo etiquetado por tipolog&iacute;a, que habilita el comparativo presupuesto base vs. proyectado.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Motor de tenores</div>
+        <p>Aplica los tenores definidos por Hern&aacute;n a cada actividad para calcular P2 de forma determin&iacute;stica. El c&aacute;lculo de P2 deja de depender de la disponibilidad de una persona espec&iacute;fica.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Simulador de indexaci&oacute;n</div>
+        <p>Cuando sube un costo (alza salarial, &iacute;ndice macro, solicitud puntual de un contratista), recorre todos los contratos vivos y calcula el impacto sobre lo ejecutado vs. lo que falta por ejecutar.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Monitor de desviaciones</div>
+        <p>Vigila la matriz central en tiempo real y dispara alertas cuando un valor entra fuera del rango hist&oacute;rico esperado para la actividad. Permite intervenir antes de que el ajuste cueste m&aacute;s.</p>
+      </div>
+    </div>
+
+    <h3>Lo que Fase 2 desbloquea</h3>
+
+    <ul>
+      <li><strong>Comparabilidad entre las 23 obras</strong>: por primera vez se podr&aacute; comparar el cap&iacute;tulo X de la obra A contra el cap&iacute;tulo X de la obra B, los tres presupuestos (P1, P2, P3) de una misma obra y el mismo cap&iacute;tulo a lo largo de los &uacute;ltimos a&ntilde;os. No es una habilidad nueva &mdash; es el output natural de la matriz central poblada.</li>
+      <li><strong>Comparativo presupuesto base vs. proyectado</strong>: el detallado por insumo etiquetado por tipolog&iacute;a de negocio permite ver de un vistazo el desfase contra presupuesto, contra proyecci&oacute;n y el resultado real de cada negociaci&oacute;n.</li>
+      <li><strong>Trazabilidad y centralizaci&oacute;n</strong>: deja de existir el "cada obra en su Excel". La operaci&oacute;n queda en una sola fuente de verdad consultable.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Disparador para arrancar Fase 2:</strong> Fase 1 corriendo en producci&oacute;n + gu&iacute;a nueva cerrada por Conaltura + matriz de tenores cerrada por Hern&aacute;n + detallado etiquetado por tipolog&iacute;a (para el comparativo base vs. proyectado).</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 08 - VISION A FUTURO                                      -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="page-header-title">Visi&oacute;n a Futuro &mdash; Agente Conversacional</span>
+    </div>
+    <span class="page-header-num">PAG 11</span>
+  </div>
+  <div class="inner-page">
+    <h4>Visi&oacute;n a futuro &mdash; Agente conversacional sobre la matriz</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Una vez Fase 2 est&eacute; estable y la matriz central tenga hist&oacute;rico cargado, se construye un agente conversacional que recibe preguntas en lenguaje natural sobre el estado real de los proyectos. <strong>Esta fase se cotiza y planifica al final del recorrido</strong>, cuando la matriz central tiene meses de informaci&oacute;n consolidada.</p>
+    </div>
+
+    <h3>Qu&eacute; permite hacer</h3>
+
+    <p>El equipo deja de pedirle cosas a Excel y empieza a preguntarle al agente. Ejemplos de consultas que el agente atiende:</p>
+
+    <ul>
+      <li>"&iquest;C&oacute;mo va este proyecto en cuanto a presupuesto?"</li>
+      <li>"&iquest;Por qu&eacute; nos estamos desviando tanto en este cap&iacute;tulo?"</li>
+      <li>"&iquest;Qu&eacute; contratista est&aacute; haciendo la estructura de tal obra?"</li>
+      <li>"Mu&eacute;strame el comparativo de mamposter&iacute;a en las &uacute;ltimas cinco obras."</li>
+      <li>"&iquest;Qu&eacute; tenor aplicamos para fachadas en la regional norte?"</li>
+    </ul>
+
+    <p>El agente responde con datos reales tomados de la matriz central, no con suposiciones, y entrega trazabilidad de d&oacute;nde sali&oacute; la informaci&oacute;n.</p>
+
+    <h3>Por qu&eacute; va al final</h3>
+
+    <p>Un agente conversacional sin matriz central poblada y consistente es una promesa vac&iacute;a: respondiendo informaci&oacute;n incompleta o mal mapeada, generar&iacute;a m&aacute;s ruido que valor. Llega cuando el resto del sistema ya est&aacute; estable, los datos est&aacute;n cargados y las habilidades anteriores ya validaron el modelo de trabajo agente-equipo.</p>
+
+    <div class="highlight-box">
+      <p><strong>Disparador para arrancar la visi&oacute;n a futuro:</strong> Fase 2 corriendo en producci&oacute;n con matriz central poblada + ciclo de validaci&oacute;n agente-equipo cerrado en Fase 1 y Fase 2.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 06 - PROXIMOS PASOS                                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <line x1="14" y1="40" x2="60" y2="40"/>
+        <polyline points="48,28 60,40 48,52"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">06</div>
+      <div class="section-line"></div>
+      <h2>Pr&oacute;ximos pasos</h2>
+      <p>C&oacute;mo se articula el cierre de Fase 1: cuestionario, conversaci&oacute;n t&eacute;cnica, cotizaci&oacute;n y arranque.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 09 - PROXIMOS PASOS Y CONTACTO                            -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13,6 19,12 13,18"/></svg>
+      <span class="page-header-title">Pr&oacute;ximos pasos y contacto</span>
+    </div>
+    <span class="page-header-num">PAG 12</span>
+  </div>
+  <div class="inner-page">
+    <h4>De este documento al arranque</h4>
+    <div class="gradient-line"></div>
+
+    <p>Este documento es la base formal de la conversaci&oacute;n. A partir de aqu&iacute;, el flujo es:</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Paso 1</span>
+          <h5>Cuestionario por correo</h5>
+        </div>
+        <div class="card-body">
+          <p>Sara env&iacute;a por correo el cuestionario detallado con la informaci&oacute;n que necesitamos para arrancar Fase 1. Cubre los tres frentes: comparador de cotizaciones (acceso al correo + muestras), clasificador (matriz de reglas) y remapeo (gu&iacute;as + ejemplo parcial).</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Paso 2</span>
+          <h5>Conversaci&oacute;n t&eacute;cnica</h5>
+        </div>
+        <div class="card-body">
+          <p>Una sesi&oacute;n con el &aacute;rea de tecnolog&iacute;a de Conaltura para validar accesos al correo, definir d&oacute;nde vive la matriz central y mapear las integraciones m&iacute;nimas necesarias para Fase 1.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Paso 3</span>
+          <h5>Cotizaci&oacute;n de Fase 1</h5>
+        </div>
+        <div class="card-body">
+          <p>Con el cuestionario respondido y los accesos confirmados, se entrega la cotizaci&oacute;n. <strong>S&oacute;lo cubre Fase 1</strong> (las tres habilidades habilitadoras). Las olas posteriores se cotizan despu&eacute;s.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Paso 4</span>
+          <h5>Arranque de construcci&oacute;n</h5>
+        </div>
+        <div class="card-body">
+          <p>Aprobada la cotizaci&oacute;n, arranca la construcci&oacute;n de las tres habilidades. Cada una con un mes de soporte post-go-live para iterar y dejar el agente afinado al contexto exacto de Conaltura.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Sobre la cotizaci&oacute;n:</strong> esta primera cotizaci&oacute;n cubre &uacute;nicamente la Fase 1. La Fase 2 y la Visi&oacute;n a futuro se cotizan en su momento, una vez Fase 1 est&eacute; corriendo y Conaltura haya cerrado la gu&iacute;a nueva y la matriz de tenores. Esto le da al &aacute;rea la flexibilidad de validar el modelo agente-equipo en Fase 1 antes de comprometerse con el resto del sistema.</p>
+    </div>
+
+    <div class="contact-box">
+      <h4 style="text-transform: uppercase; letter-spacing: 2px; font-size: 10px;">Contacto</h4>
+      <div class="contact-name">Sara Garc&eacute;s Tob&oacute;n</div>
+      <div class="contact-role">Directora de Marketing &mdash; Irrelevant</div>
+      <div class="contact-data">sara@stayirrelevant.com &middot; +57 321 846 4652</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant logo">
+      <div class="back-cover-line"></div>
+      <p>Think AI or stay irrelevant</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

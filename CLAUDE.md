@@ -28,7 +28,7 @@ El workspace lo usan varias personas del equipo. **El contacto que aparece en un
 | Persona | Cargo | Email | Celular |
 |---|---|---|---|
 | **Juan Pablo Gómez Mejía** | CEO | jpgomez@stayirrelevant.com | +57 318 335 1733 |
-| **Sara Garcés Tobón** (con tilde en la e y la o — NUNCA "Sara Garces" ni "Sara Garcia") | Directora de Marketing | marketing@stayirrelevant.com | +57 321 846 4652 |
+| **Sara Garcés Tobón** (con tilde en la e y la o — NUNCA "Sara Garces" ni "Sara Garcia") | Directora de Marketing | sara@stayirrelevant.com | +57 321 846 4652 |
 | **Agustín Hoyos** | Director Comercial | ahoyosh@stayirrelevant.com | *(pendiente)* |
 
 **REGLAS DURAS:**

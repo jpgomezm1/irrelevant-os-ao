@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fase 0 — El Cliente | AI Webs</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 800px;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ===================== PORTADA ===================== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-height: 1100px;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cover-bg-shapes .blob1 {
+    position: absolute;
+    top: -160px;
+    right: -100px;
+    width: 750px;
+    height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%;
+    opacity: 0.7;
+    filter: blur(80px);
+  }
+
+  .cover-bg-shapes .blob2 {
+    position: absolute;
+    top: 20px;
+    left: -150px;
+    width: 500px;
+    height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%;
+    opacity: 0.35;
+    filter: blur(85px);
+  }
+
+  .cover-bg-shapes .blob3 {
+    position: absolute;
+    bottom: -120px;
+    right: -80px;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%;
+    opacity: 0.55;
+    filter: blur(110px);
+  }
+
+  .cover-bg-shapes .blob4 {
+    position: absolute;
+    bottom: 100px;
+    left: -80px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 70%);
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.4;
+    filter: blur(90px);
+  }
+
+  .cover-top {
+    position: relative;
+    z-index: 1;
+    padding: 30px 55px;
+  }
+
+  .cover-logo img {
+    height: 50px;
+    object-fit: contain;
+    opacity: 0.95;
+  }
+
+  .cover-center {
+    position: relative;
+    z-index: 1;
+    padding: 0 55px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -60px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--morado-claro);
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 28px;
+  }
+
+  .cover-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 40px 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta span {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .cover-bottom-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cover-bottom-logos img {
+    height: 35px;
+    opacity: 0.7;
+  }
+
+  /* ===================== PAGE HEADERS ===================== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 65px 18px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-header-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--morado);
+  }
+
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado);
+    letter-spacing: 1px;
+  }
+
+  /* ===================== INNER PAGE ===================== */
+  .inner-page {
+    padding: 50px 65px;
+    min-height: 100vh;
+  }
+
+  .inner-page h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .inner-page h2.small {
+    font-size: 21px;
+  }
+
+  .inner-page h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  .inner-page h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--morado);
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+
+  .inner-page p {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .inner-page ul, .inner-page ol {
+    margin-left: 18px;
+    margin-bottom: 14px;
+  }
+
+  .inner-page li {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  .inner-page strong {
+    font-weight: 600;
+  }
+
+  .gradient-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 22px;
+  }
+
+  /* ===================== SECTION DIVIDER ===================== */
+  .section-divider {
+    display: flex;
+    min-height: 100vh;
+    max-height: 1100px;
+  }
+
+  .section-divider-left {
+    flex: 1;
+    background: var(--lavanda);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+  }
+
+  .section-divider-left .deco-circles {
+    opacity: 0.15;
+  }
+
+  .section-divider-left .section-icon {
+    width: 80px;
+    height: 80px;
+    color: var(--morado);
+    margin-bottom: 20px;
+  }
+
+  .section-divider-right {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-divider-right::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%);
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+
+  .section-number {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.08);
+    position: absolute;
+    top: 40px;
+    right: 50px;
+  }
+
+  .section-divider-right h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.25;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 14px;
+  }
+
+  .section-divider-right p {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+  }
+
+  .section-divider-right .section-line {
+    width: 40px;
+    height: 2px;
+    background: var(--morado-claro);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===================== EXECUTIVE SUMMARY BOX ===================== */
+  .exec-summary {
+    background: var(--lavanda);
+    border-top: 3px solid;
+    border-image: linear-gradient(90deg, var(--morado), var(--morado-claro)) 1;
+    border-radius: 0 0 10px 10px;
+    padding: 26px 30px;
+    margin-bottom: 28px;
+    border-left: 1px solid rgba(139,92,246,0.15);
+    border-right: 1px solid rgba(139,92,246,0.15);
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+  }
+
+  .exec-summary p {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  /* ===================== HIGHLIGHT BOX ===================== */
+  .highlight-box {
+    background: var(--lavanda);
+    border-left: 3px solid var(--morado);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+
+  .highlight-box p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #222;
+    margin: 0;
+  }
+
+  .highlight-box.warning {
+    border-left-color: #F59E0B;
+    background: #FFFBEB;
+  }
+
+  .highlight-box.danger {
+    border-left-color: #EF4444;
+    background: #FEF2F2;
+  }
+
+  /* ===================== CARD GRID ===================== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    padding: 14px 20px;
+  }
+
+  .card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blanco);
+  }
+
+  .card-header .card-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-body p, .card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  .card-body ul {
+    margin-left: 14px;
+  }
+
+  .card-body .label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--morado);
+    margin-bottom: 6px;
+    margin-top: 10px;
+  }
+
+  .card-body .label:first-child {
+    margin-top: 0;
+  }
+
+  /* ===================== FUNNEL GRAPHIC ===================== */
+  .funnel-container {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .funnel-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .funnel-bar {
+    height: 44px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .funnel-bar .funnel-num {
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 10px;
+    opacity: 0.8;
+  }
+
+  .funnel-label-right {
+    font-size: 10px;
+    font-weight: 400;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .funnel-arrow {
+    text-align: center;
+    color: var(--morado);
+    font-size: 16px;
+    margin: 2px 0 2px 20px;
+  }
+
+  /* ===================== IMPACT TABLE ===================== */
+  .impact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 10px;
+  }
+
+  .impact-table th {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+
+  .impact-table th:first-child {
+    border-radius: 6px 0 0 0;
+  }
+
+  .impact-table th:last-child {
+    border-radius: 0 6px 0 0;
+  }
+
+  .impact-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gris-claro);
+    font-weight: 300;
+    color: #333;
+  }
+
+  .impact-table tr:nth-child(even) td {
+    background: var(--lavanda);
+  }
+
+  .impact-table .highlight-cell {
+    font-weight: 600;
+    color: var(--morado-oscuro);
+  }
+
+  /* ===================== METRIC CARDS ===================== */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .metric-card {
+    background: var(--lavanda);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .metric-card .metric-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .metric-card .metric-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===================== FLOW DIAGRAM ===================== */
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+
+  .flow-step {
+    background: var(--lavanda);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .flow-step .flow-icon {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .flow-step .flow-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--gris-texto);
+  }
+
+  .flow-step.active {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    border-color: var(--morado);
+  }
+
+  .flow-step.active .flow-text {
+    color: white;
+  }
+
+  .flow-connector {
+    font-size: 14px;
+    color: var(--morado);
+    padding: 0 6px;
+  }
+
+  /* ===================== LAYER CARDS ===================== */
+  .layer-card {
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .layer-card-header {
+    background: linear-gradient(135deg, var(--morado), var(--morado-oscuro));
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .layer-card-header .layer-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .layer-card-header h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .layer-card-body {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .layer-card-body .layer-section h6 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--morado);
+    margin-bottom: 8px;
+  }
+
+  .layer-card-body li {
+    font-size: 10px;
+    font-weight: 300;
+    color: #444;
+    margin-bottom: 3px;
+    line-height: 1.6;
+  }
+
+  /* ===================== TIMELINE / LEVELS ===================== */
+  .level-timeline {
+    position: relative;
+    margin: 24px 0;
+    padding-left: 30px;
+  }
+
+  .level-timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--morado), var(--morado-claro), rgba(139,92,246,0.2));
+  }
+
+  .level-item {
+    position: relative;
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+
+  .level-item::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--morado);
+    border: 2px solid var(--blanco);
+    box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+  }
+
+  .level-item h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 6px;
+  }
+
+  .level-item p {
+    font-size: 10px;
+    font-weight: 300;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .level-item .level-tag {
+    display: inline-block;
+    background: var(--lavanda);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--morado);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+  }
+
+  /* ===================== PAIN POINT GRAPHIC ===================== */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .pain-item {
+    background: #FEF2F2;
+    border-left: 3px solid #EF4444;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+  }
+
+  .pain-item .pain-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #991B1B;
+    margin-bottom: 3px;
+  }
+
+  .pain-item p {
+    font-size: 9px;
+    font-weight: 300;
+    color: #7F1D1D;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== SOLUTION GRAPHIC ===================== */
+  .solution-item {
+    background: #F0FDF4;
+    border-left: 3px solid #22C55E;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+  }
+
+  .solution-item .solution-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #166534;
+    margin-bottom: 3px;
+  }
+
+  .solution-item p {
+    font-size: 9px;
+    font-weight: 300;
+    color: #14532D;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== COMPARISON ===================== */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .comparison-col {
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .comparison-col.before {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+  }
+
+  .comparison-col.after {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+  }
+
+  .comparison-col h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .comparison-col.before h5 { color: #991B1B; }
+  .comparison-col.after h5 { color: #166534; }
+
+  .comparison-col li {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 3px;
+  }
+
+  .comparison-col.before li { color: #7F1D1D; }
+  .comparison-col.after li { color: #14532D; }
+
+  .comparison-arrow {
+    text-align: center;
+    font-size: 20px;
+    color: var(--morado);
+  }
+
+  /* ===================== PYRAMID GRAPHIC ===================== */
+  .pyramid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 24px 0;
+    gap: 4px;
+  }
+
+  .pyramid-level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    border-radius: 6px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    position: relative;
+  }
+
+  /* ===================== FOOTER ===================== */
+  .page-footer {
+    padding: 16px 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gris-claro);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .page-footer-brand {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  .page-footer-conf {
+    font-size: 8px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== BACK COVER ===================== */
+  .back-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-height: 1100px;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-cover .blob-back1 {
+    position: absolute;
+    top: -200px;
+    left: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.2), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover .blob-back2 {
+    position: absolute;
+    bottom: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(167,139,250,0.15), transparent 60%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .back-cover-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .back-cover-content img {
+    height: 60px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+
+  .back-cover-line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 auto 20px;
+  }
+
+  .back-cover-content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+
+  .back-logos {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .back-logos img {
+    height: 45px;
+    opacity: 0.7;
+  }
+
+  .back-logos .divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .page { width: 100%; }
+    .inner-page { padding: 28px 22px; }
+    .page-header { padding: 20px 22px 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .layer-card-body { grid-template-columns: 1fr; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .comparison { grid-template-columns: 1fr; }
+    .comparison-arrow { transform: rotate(90deg); }
+    .cover-title { font-size: 36px; }
+    .section-divider { flex-direction: column; }
+  }
+
+  /* ===================== SVG DECO ===================== */
+  .deco-circles {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* DONUT / GAUGE */
+  .donut-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+  }
+
+  .donut-chart {
+    text-align: center;
+  }
+
+  .donut-chart svg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .donut-chart .donut-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #444;
+    margin-top: 6px;
+  }
+
+  /* Bottleneck diagram */
+  .bottleneck-container {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    margin: 20px 0;
+  }
+
+  .bottleneck-item {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    border-radius: 6px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .bottleneck-item .bottleneck-icon {
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+
+  /* COST BLOCK */
+  .cost-block {
+    background: linear-gradient(135deg, var(--negro), var(--morado-oscuro));
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin: 20px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cost-block .cost-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--morado-claro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cost-block .cost-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+  }
+
+  .cost-block .cost-desc {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* STAT INLINE */
+  .stat-inline {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 16px 0;
+    padding: 14px 20px;
+    background: var(--lavanda);
+    border-radius: 8px;
+    border: 1px solid rgba(139,92,246,0.12);
+  }
+
+  .stat-inline .stat-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--morado-oscuro);
+  }
+
+  .stat-inline .stat-text {
+    font-size: 11px;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  /* Three column metric */
+  .three-col-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .tcm-card {
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+
+  .tcm-card .tcm-value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .tcm-card .tcm-label {
+    font-size: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .tcm-card .tcm-detail {
+    font-size: 9px;
+    font-weight: 300;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+      <div class="blob4"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; letter-spacing:3px; color:white;">AI WEBS</div>
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Documento de Bases Formales</div>
+      <div class="cover-title">Fase 0</div>
+      <div class="cover-subtitle">Diagn&oacute;stico Estrat&eacute;gico e Intervenci&oacute;n con Inteligencia Artificial</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>CONFIDENCIAL</span>
+        <span>Abril 29, 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 1 - RESUMEN EJECUTIVO (Divider)                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="14" y="10" width="52" height="60" rx="4"/>
+        <line x1="24" y1="26" x2="56" y2="26"/>
+        <line x1="24" y1="36" x2="50" y2="36"/>
+        <line x1="24" y1="46" x2="44" y2="46"/>
+        <line x1="24" y1="56" x2="38" y2="56"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">01</div>
+      <div class="section-line"></div>
+      <h2>Resumen Ejecutivo</h2>
+      <p>Visi&oacute;n estrat&eacute;gica del problema, la oportunidad y la intervenci&oacute;n propuesta.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 01 - RESUMEN EJECUTIVO                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen Ejecutivo</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>El problema central</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>El Cliente opera un proceso de vinculaci&oacute;n de cuentas (onboarding KYC) que depende &iacute;ntegramente de revisi&oacute;n humana documento por documento. Tres analistas dedicados al 100% procesan ~130 cuentas mensuales, con tiempos por caso de 30 minutos para personas naturales y hasta 1.5 horas para estructuras corporativas multi-capa. El tiempo end-to-end por cuenta es de 10 a 15 d&iacute;as por las devoluciones que ocurren cuando el comercial no entrega informaci&oacute;n completa o consistente. La operaci&oacute;n ha alcanzado un techo de capacidad y la organizaci&oacute;n ha definido expl&iacute;citamente que no se contratar&aacute;n m&aacute;s analistas para resolver el problema.</p>
+    </div>
+
+    <h3>La oportunidad estrat&eacute;gica</h3>
+
+    <p>La oportunidad no es agregar capacidad humana al proceso. Es construir una capa de inteligencia que ejecute el trabajo de extracci&oacute;n documental, validaci&oacute;n cruzada y screening regulatorio de forma autom&aacute;tica, dejando al equipo humano &uacute;nicamente las decisiones que requieren criterio: excepciones reales, hits genuinos en listas de control, divergencias entre fuentes, casos at&iacute;picos. Esta intervenci&oacute;n permite redirigir el tiempo del equipo desde tareas repetitivas hacia revisiones de alto valor, reducir el tiempo end-to-end de 10-15 d&iacute;as a menos de 4, y abrir la posibilidad de crecer en volumen sin crecer linealmente en headcount.</p>
+
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">Extracci&oacute;n documental con IA</div>
+        <p>Lectura autom&aacute;tica de c&eacute;dulas, comprobantes de ingresos, declaraciones de renta y c&aacute;maras de comercio con coordenadas de origen y nivel de confianza por cada campo extra&iacute;do.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Validaci&oacute;n cruzada autom&aacute;tica</div>
+        <p>Comparaci&oacute;n autom&aacute;tica de nombres, identificaciones, direcciones e ingresos entre todos los documentos del expediente, con marcado de cualquier inconsistencia antes de que llegue al analista.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Screening regulatorio con evidencia</div>
+        <p>Ejecuci&oacute;n autom&aacute;tica de las consultas a listas de control (PEP, OFAC, sanciones) y b&uacute;squeda de medios adversos, con anexo de evidencia firmada y solo escalamiento de hits genuinos.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Devoluci&oacute;n preventiva al comercial</div>
+        <p>Cuando el expediente est&aacute; incompleto o tiene errores, el sistema notifica al comercial inmediatamente con instrucciones espec&iacute;ficas en lugar de esperar dos d&iacute;as a que lo revise un analista.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>El principio de la intervenci&oacute;n:</strong> el sistema ejecuta el trabajo mec&aacute;nico. El equipo humano vuelve a hacer juicio profesional. La inteligencia artificial no reemplaza al analista &mdash; lo libera.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">AI WEBS</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- P&aacute;gina 02 (Qui&eacute;nes Somos) removida a petici&oacute;n del cliente -->
+
+<!-- ============================================================ -->
+<!-- SECCION 2 - SITUACION ACTUAL (Divider)                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M20 15 L60 15 L55 30 L65 30 L35 65 L40 45 L25 45 Z"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">02</div>
+      <div class="section-line"></div>
+      <h2>Situaci&oacute;n Actual</h2>
+      <p>Radiograf&iacute;a del flujo vigente y los dolores identificados en cada etapa del proceso.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 03 - SITUACION ACTUAL                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="4,2 20,2 17,22 7,22"/></svg>
+      <span class="page-header-title">Situaci&oacute;n Actual</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Estado actual del proceso</h4>
+    <div class="gradient-line"></div>
+
+    <p>El Cliente recibe expedientes de vinculaci&oacute;n firmados a trav&eacute;s de DocuSign cuando un comercial completa el formulario y adjunta los documentos del cliente final. A partir de ese punto, el flujo es &iacute;ntegramente manual y depende de la capacidad de tres analistas dedicados al 100%.</p>
+
+    <div class="funnel-container" style="margin: 26px 0;">
+      <div class="funnel-step"><div class="funnel-bar" style="width: 92%; background: linear-gradient(90deg, #7C3AED, #8B5CF6);"><span class="funnel-num">01</span>Recepci&oacute;n del expediente firmado en DocuSign</div><span class="funnel-label-right">Manual &mdash; analista descarga uno a uno</span></div>
+      <div class="funnel-arrow">&darr;</div>
+      <div class="funnel-step"><div class="funnel-bar" style="width: 86%; background: linear-gradient(90deg, #7C3AED, #8B5CF6);"><span class="funnel-num">02</span>Extracci&oacute;n manual a hoja de c&aacute;lculo</div><span class="funnel-label-right">~15&ndash;30 min por expediente</span></div>
+      <div class="funnel-arrow">&darr;</div>
+      <div class="funnel-step"><div class="funnel-bar" style="width: 78%; background: linear-gradient(90deg, #8B5CF6, #A78BFA);"><span class="funnel-num">03</span>Validaci&oacute;n cruzada entre documentos</div><span class="funnel-label-right">Cotejo campo a campo</span></div>
+      <div class="funnel-arrow">&darr;</div>
+      <div class="funnel-step"><div class="funnel-bar" style="width: 70%; background: linear-gradient(90deg, #A78BFA, #A78BFA);"><span class="funnel-num">04</span>Screening WorldCheck + medios adversos</div><span class="funnel-label-right">Una consulta por persona</span></div>
+      <div class="funnel-arrow">&darr;</div>
+      <div class="funnel-step"><div class="funnel-bar" style="width: 60%; background: linear-gradient(90deg, #F59E0B, #FBBF24);"><span class="funnel-num">05</span>Mapeo de cadena corporativa (cuando aplica)</div><span class="funnel-label-right">Hasta 1.5h en multi-capa</span></div>
+      <div class="funnel-arrow">&darr;</div>
+      <div class="funnel-step"><div class="funnel-bar" style="width: 50%; background: linear-gradient(90deg, #EF4444, #DC2626);"><span class="funnel-num">06</span>Devoluci&oacute;n al comercial cuando hay faltantes</div><span class="funnel-label-right">+2 d&iacute;as por iteraci&oacute;n</span></div>
+      <div class="funnel-arrow">&darr;</div>
+      <div class="funnel-step"><div class="funnel-bar" style="width: 38%; background: linear-gradient(90deg, #34D399, #10B981);"><span class="funnel-num">07</span>Aprobaci&oacute;n final del compliance officer en EE.UU.</div><span class="funnel-label-right">Decisi&oacute;n humana regulada</span></div>
+    </div>
+
+    <div class="highlight-box warning">
+      <p><strong>Problema transversal:</strong> el cuello de botella no es la cantidad de personas sino el modelo operativo. El analista invierte la mayor parte de su tiempo en tareas mec&aacute;nicas (transcribir informaci&oacute;n, ejecutar consultas, comparar campos) en lugar de en juicio profesional. Cada devoluci&oacute;n al comercial cuesta dos d&iacute;as por iteraci&oacute;n, y el comercial muchas veces no sabe espec&iacute;ficamente qu&eacute; corregir.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">AI WEBS</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 04 - DOLORES POR ETAPA                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span class="page-header-title">Dolores por Etapa</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Dolores identificados en cada etapa</h4>
+    <div class="gradient-line"></div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 1</span>
+          <h5>Captura y ordenamiento</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>Documentos descargados manualmente uno a uno desde DocuSign</li>
+            <li>Nombres, n&uacute;meros, fechas y direcciones transcritos a hojas de c&aacute;lculo</li>
+            <li>Calidad heterog&eacute;nea: fotos de m&oacute;vil, escaneos pobres, archivos rotados</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">El analista gasta el primer bloque de tiempo en trabajo mec&aacute;nico antes de poder hacer juicio profesional.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 2</span>
+          <h5>Validaci&oacute;n cruzada</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>Cotejo campo a campo entre formulario y documentos soporte</li>
+            <li>Sin tolerancias definidas para variaciones de formato (mayúsculas, abreviaciones)</li>
+            <li>Inconsistencias entre ingresos declarados y declaraci&oacute;n de renta encontradas tarde</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">Lo que deber&iacute;a ser una verificaci&oacute;n autom&aacute;tica se convierte en lectura cruzada manual de cinco a siete documentos.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 3</span>
+          <h5>Screening regulatorio</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>Consulta uno a uno en WorldCheck por cada persona del expediente</li>
+            <li>B&uacute;squedas en Google buscando medios adversos sin filtros estructurados</li>
+            <li>Hom&oacute;nimos y nombres comunes consumiendo tiempo de disambiguaci&oacute;n</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">El compliance se ejecuta a velocidad humana en un proceso donde la cobertura debe ser exhaustiva por requisito regulatorio.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Etapa 4</span>
+          <h5>Devoluci&oacute;n y reciclaje</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Dolores</div>
+          <ul>
+            <li>Cada devoluci&oacute;n al comercial agrega dos d&iacute;as al caso</li>
+            <li>Una segunda devoluci&oacute;n triplica el tiempo total a m&aacute;s de ocho d&iacute;as</li>
+            <li>El comercial no recibe instrucciones espec&iacute;ficas sobre qu&eacute; corregir</li>
+          </ul>
+          <div class="label" style="color: #EF4444;">Implicaci&oacute;n</div>
+          <p style="font-size:9px; color:#991B1B;">El proceso se ralentiza por iteraciones evitables que podr&iacute;an detectarse al momento de firma.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box warning" style="margin-top: 20px;">
+      <p><strong>Patr&oacute;n com&uacute;n:</strong> en las cuatro etapas, el equipo ejecuta trabajo mec&aacute;nico que no requiere criterio profesional. El juicio del analista &mdash; el activo m&aacute;s valioso del proceso &mdash; queda diluido entre tareas que un sistema puede ejecutar.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">AI WEBS</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 3 - IMPACTO ECONOMICO (Divider)                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="26"/>
+        <path d="M40 22v36"/>
+        <path d="M48 32c0-4-3.5-6-8-6s-8 2-8 6 3.5 5 8 5 8 1 8 5-3.5 6-8 6-8-2-8-6"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">03</div>
+      <div class="section-line"></div>
+      <h2>Impacto Econ&oacute;mico del Problema</h2>
+      <p>Cuantificaci&oacute;n financiera del estado actual y sensibilidad marginal de la mejora.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 05 - IMPACTO ECONOMICO                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span class="page-header-title">Impacto Econ&oacute;mico</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Dimensi&oacute;n real del impacto</h4>
+    <div class="gradient-line"></div>
+
+    <p>El costo del modelo actual no se mide solo en horas-analista. Se mide en oportunidades. Cada d&iacute;a adicional de proceso es un d&iacute;a m&aacute;s en el que el cliente final espera para operar &mdash; y la experiencia de onboarding es uno de los puntos donde m&aacute;s se pierden cuentas. Adicionalmente, el techo de capacidad ya est&aacute; atado: con tres analistas al 100% y sin permiso para contratar m&aacute;s, cualquier crecimiento de volumen colapsa el sistema.</p>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Del equipo de back office comprometido en vinculaci&oacute;n</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">10&ndash;15</div>
+        <div class="metric-label">D&iacute;as end-to-end por caso (target inferior a 4 d&iacute;as)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">~130</div>
+        <div class="metric-label">Cuentas mensuales procesadas hoy con techo r&iacute;gido</div>
+      </div>
+    </div>
+
+    <table class="impact-table">
+      <thead>
+        <tr>
+          <th>Escenario de mejora</th>
+          <th>Reducci&oacute;n de tiempo de analista</th>
+          <th>Capacidad mensual con misma planta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conservador</td>
+          <td>50%</td>
+          <td class="highlight-cell">~190 cuentas/mes</td>
+        </tr>
+        <tr>
+          <td>Moderado</td>
+          <td>70%</td>
+          <td class="highlight-cell">~260 cuentas/mes</td>
+        </tr>
+        <tr>
+          <td>Agresivo (target)</td>
+          <td>80%</td>
+          <td class="highlight-cell">~330 cuentas/mes</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top: 16px;">A esto se suma el riesgo regulatorio inherente a depender de procesos manuales en un negocio que opera bajo SEC: cualquier omisi&oacute;n en la consulta de listas de control o en la documentaci&oacute;n de evidencia tiene consecuencias materiales. La p&eacute;rdida anual estimada (en horas-analista improductivas, d&iacute;as de cliente esperando, oportunidades de crecimiento bloqueadas) est&aacute; en el orden de cientos de miles de d&oacute;lares por a&ntilde;o.</p>
+
+    <div class="cost-block">
+      <div class="cost-label">Conclusi&oacute;n cr&iacute;tica</div>
+      <div class="cost-value">El costo no es solo en dinero. Es en techo estructural de crecimiento.</div>
+      <div class="cost-desc">Una operaci&oacute;n que ya opera al 100% de capacidad sin permiso para contratar m&aacute;s personas no tiene m&aacute;s palancas que el modelo operativo. Cada mes que no se interviene, el techo se reafirma.</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">AI WEBS</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 4 - CUELLO DOMINANTE (Divider)                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="25" r="12"/>
+        <circle cx="40" cy="55" r="12"/>
+        <line x1="40" y1="37" x2="40" y2="43"/>
+        <line x1="30" y1="30" x2="24" y2="48"/>
+        <line x1="50" y1="30" x2="56" y2="48"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">04</div>
+      <div class="section-line"></div>
+      <h2>Cuello Dominante y Prioridad Estrat&eacute;gica</h2>
+      <p>Identificaci&oacute;n del punto de mayor fricci&oacute;n y la estrategia recomendada de intervenci&oacute;n.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 06 - CUELLO DOMINANTE                                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2v20M2 12h20"/></svg>
+      <span class="page-header-title">Cuello Dominante</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>El cuello de botella principal</h4>
+    <div class="gradient-line"></div>
+
+    <p>El cuello de botella no es la cantidad de analistas. Es el modelo operativo donde el analista hace todo. Hoy, el mismo analista hace extracci&oacute;n documental, validaci&oacute;n cruzada, screening regulatorio y mapeo de estructuras corporativas &mdash; todas tareas mec&aacute;nicas y repetitivas que no requieren juicio profesional pero que consumen la totalidad de su tiempo. El resultado es que las decisiones que s&iacute; requieren criterio (excepciones reales, hits genuinos, casos at&iacute;picos, override de bloqueos) compiten por atenci&oacute;n con el ruido operativo, y los casos de alto riesgo no reciben el tiempo que merecen.</p>
+
+    <!-- BEFORE VS AFTER -->
+    <div class="comparison">
+      <div class="comparison-col before">
+        <h5>&#10060; Modelo Actual</h5>
+        <ul>
+          <li>Tres analistas al 100% revisando documentos uno por uno</li>
+          <li>10&ndash;15 d&iacute;as por caso por devoluciones al comercial</li>
+          <li>Informaci&oacute;n transcrita manualmente a hojas de c&aacute;lculo</li>
+          <li>Cadena de propiedad corporativa mapeada a mano</li>
+          <li>Excepciones reales compitiendo con ruido operativo</li>
+        </ul>
+      </div>
+      <div class="comparison-arrow">&#10132;</div>
+      <div class="comparison-col after">
+        <h5>&#10004; Modelo Optimizado</h5>
+        <ul>
+          <li>Analistas dedicados solo a casos que requieren criterio</li>
+          <li>Menos de 4 d&iacute;as end-to-end por caso</li>
+          <li>Extracci&oacute;n y validaci&oacute;n autom&aacute;ticas con evidencia trazable</li>
+          <li>Beneficiarios finales identificados autom&aacute;ticamente</li>
+          <li>Solo excepciones genuinas escalan al equipo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Principio de intervenci&oacute;n:</strong> el sistema ejecuta el trabajo mec&aacute;nico. El analista vuelve a hacer juicio profesional. Es el modelo operativo, no la cantidad de personas, lo que hay que cambiar.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">AI WEBS</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 5 - TESIS DE INTERVENCION (Divider)                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="16" y="24" width="48" height="32" rx="4"/>
+        <circle cx="40" cy="40" r="8"/>
+        <path d="M40 32v-8"/>
+        <path d="M40 48v8"/>
+        <path d="M32 40h-8"/>
+        <path d="M48 40h8"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">05</div>
+      <div class="section-line"></div>
+      <h2>Tesis de Intervenci&oacute;n con Inteligencia Artificial</h2>
+      <p>Arquitectura estrat&eacute;gica de la soluci&oacute;n propuesta.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 07 - TESIS DE INTERVENCION                             -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span class="page-header-title">Arquitectura Estrat&eacute;gica</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>Tesis de intervenci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <p>La intervenci&oacute;n debe atacar el modelo operativo, no la falta de personas. La hip&oacute;tesis estrat&eacute;gica es construir una capa de inteligencia que ejecute, de extremo a extremo, el trabajo mec&aacute;nico del expediente &mdash; extracci&oacute;n, normalizaci&oacute;n, validaci&oacute;n cruzada, screening, mapeo corporativo y devoluci&oacute;n preventiva al comercial &mdash; y que entregue al analista &uacute;nicamente los casos donde efectivamente se necesita criterio humano. La tecnolog&iacute;a no reemplaza al equipo: lo libera para concentrarse en lo que s&iacute; requiere juicio profesional.</p>
+
+    <div class="highlight-box">
+      <p><strong>La IA no sustituye al equipo humano.</strong> Ejecuta el trabajo mec&aacute;nico antes de que llegue al analista, y le entrega un expediente pre-validado con evidencia documentada.</p>
+    </div>
+
+    <h3>Soluci&oacute;n propuesta</h3>
+
+    <p>la soluci&oacute;n propuesta es un sistema integrado de cuatro capas que opera de forma continua sobre el flujo actual de DocuSign sin reemplazar las herramientas existentes ni alterar la experiencia del comercial. Cada capa tiene un alcance espec&iacute;fico, una m&eacute;trica de &eacute;xito clara y se integra con la siguiente para entregar al analista un expediente pre-validado, con evidencia documentada y rutas de excepci&oacute;n expl&iacute;citas.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 01</span>
+          <h5>Captura inteligente del expediente</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Funcionalidad</div>
+          <ul>
+            <li>Recepci&oacute;n autom&aacute;tica del sobre firmado de DocuSign</li>
+            <li>Almacenamiento inmutable en infraestructura US-region (cumple SEC 17a-4)</li>
+            <li>Clasificaci&oacute;n autom&aacute;tica por tipo de documento</li>
+          </ul>
+          <div class="label">Impacto</div>
+          <ul>
+            <li>El analista deja de descargar archivos uno a uno</li>
+            <li>Evidencia trazable lista para auditor&iacute;a desde el d&iacute;a uno</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 02</span>
+          <h5>Extracci&oacute;n y normalizaci&oacute;n con IA</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Funcionalidad</div>
+          <ul>
+            <li>Lectura autom&aacute;tica de cada documento con coordenadas y confianza</li>
+            <li>Validaci&oacute;n dual con dos modelos en paralelo sobre los campos cr&iacute;ticos</li>
+            <li>Normalizaci&oacute;n autom&aacute;tica de nombres, direcciones, fechas, monedas</li>
+          </ul>
+          <div class="label">Impacto</div>
+          <ul>
+            <li>Cero transcripci&oacute;n manual a hojas de c&aacute;lculo</li>
+            <li>Tasa de error inferior a la l&iacute;nea base humana</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 03</span>
+          <h5>Validaci&oacute;n cruzada y screening</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Funcionalidad</div>
+          <ul>
+            <li>Comparaci&oacute;n autom&aacute;tica de campos entre todos los documentos</li>
+            <li>Ejecuci&oacute;n autom&aacute;tica de WorldCheck para todos los aplicantes</li>
+            <li>B&uacute;squeda de medios adversos con disambiguaci&oacute;n por LLM</li>
+            <li>Mapeo autom&aacute;tico de cadenas corporativas multi-capa hasta UBO</li>
+          </ul>
+          <div class="label">Impacto</div>
+          <ul>
+            <li>Solo hits genuinos llegan al analista</li>
+            <li>Estructuras complejas dejan de tomar 1.5h por caso</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Componente 04</span>
+          <h5>Cola de excepciones y devoluci&oacute;n preventiva</h5>
+        </div>
+        <div class="card-body">
+          <div class="label">Funcionalidad</div>
+          <ul>
+            <li>Interfaz dedicada al analista con casos priorizados por riesgo</li>
+            <li>Devoluci&oacute;n autom&aacute;tica al comercial con instrucciones espec&iacute;ficas</li>
+            <li>B&oacute;veda de evidencia inmutable lista para SEC y compliance</li>
+          </ul>
+          <div class="label">Impacto</div>
+          <ul>
+            <li>El analista trabaja solo lo que requiere criterio</li>
+            <li>Las devoluciones bajan a fracciones del costo actual</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>Qu&eacute; NO es esta intervenci&oacute;n</h3>
+
+    <div class="card-grid">
+      <div class="card" style="border-color: #EF4444;">
+        <div class="card-header" style="background: linear-gradient(135deg, #EF4444, #DC2626);">
+          <h5>No es un chatbot aislado</h5>
+        </div>
+        <div class="card-body">
+          <p>No se trata de instalar un widget gen&eacute;rico. Es un sistema inteligente integrado a los procesos existentes.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color: #EF4444;">
+        <div class="card-header" style="background: linear-gradient(135deg, #DC2626, #B91C1C);">
+          <h5>No es un experimento tecnol&oacute;gico</h5>
+        </div>
+        <div class="card-body">
+          <p>Cada componente est&aacute; dise&ntilde;ado para generar impacto medible desde el primer d&iacute;a, con KPIs claros.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color: #EF4444;">
+        <div class="card-header" style="background: linear-gradient(135deg, #B91C1C, #991B1B);">
+          <h5>No es un reemplazo del equipo</h5>
+        </div>
+        <div class="card-body">
+          <p>El equipo humano sigue siendo el centro de la operaci&oacute;n. La IA optimiza el sistema alrededor del equipo.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color: #EF4444;">
+        <div class="card-header" style="background: linear-gradient(135deg, #991B1B, #7F1D1D);">
+          <h5>No es una automatizaci&oacute;n r&iacute;gida</h5>
+        </div>
+        <div class="card-body">
+          <p>El sistema es progresivo, ajustable y gobernado por la organizaci&oacute;n. Las reglas se iteran con datos reales.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">AI WEBS</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- Sección de Inversión removida — el precio se presenta en la cotización formal posterior -->
+
+
+<!-- ============================================================ -->
+<!-- SECCION 6 - MODELO DE MEDICION (Divider)                      -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="12" y="45" width="12" height="20" rx="2"/>
+        <rect x="34" y="30" width="12" height="35" rx="2"/>
+        <rect x="56" y="18" width="12" height="47" rx="2"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">06</div>
+      <div class="section-line"></div>
+      <h2>Modelo de Medici&oacute;n y Captura de Valor</h2>
+      <p>Lo que no se mide, no se optimiza. M&eacute;tricas estrat&eacute;gicas y gobernanza del proceso.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 08 - METRICAS DE EXITO                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span class="page-header-title">M&eacute;tricas de &Eacute;xito</span>
+    </div>
+    <span class="page-header-num">PAG 07</span>
+  </div>
+  <div class="inner-page">
+    <h4>M&eacute;tricas estrat&eacute;gicas de impacto</h4>
+    <div class="gradient-line"></div>
+
+    <p>Las m&eacute;tricas est&aacute;n alineadas a la tesis: el sistema ejecuta el trabajo mec&aacute;nico, el equipo se concentra en juicio profesional, el volumen crece sin que el headcount crezca. Cada KPI tiene baseline medible hoy y un objetivo verificable en producci&oacute;n.</p>
+
+    <table class="impact-table">
+      <thead>
+        <tr>
+          <th>KPI</th>
+          <th>Baseline actual</th>
+          <th>Objetivo</th>
+          <th>M&eacute;todo de medici&oacute;n</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tiempo del analista por caso limpio</td>
+          <td>~45 minutos</td>
+          <td class="highlight-cell">&le; 10 minutos</td>
+          <td>Time-on-case en la herramienta del analista</td>
+        </tr>
+        <tr>
+          <td>Tiempo end-to-end del expediente</td>
+          <td>10&ndash;15 d&iacute;as</td>
+          <td class="highlight-cell">&le; 4 d&iacute;as</td>
+          <td>Timestamp DocuSign &rarr; aprobaci&oacute;n interna</td>
+        </tr>
+        <tr>
+          <td>Volumen mensual con misma planta</td>
+          <td>~130 cuentas</td>
+          <td class="highlight-cell">&ge; 260 cuentas</td>
+          <td>Conteo de aprobaciones / 3 analistas dedicados</td>
+        </tr>
+        <tr>
+          <td>Tasa de devoluci&oacute;n al comercial</td>
+          <td>Alta y no medida</td>
+          <td class="highlight-cell">&le; 10% con instrucciones</td>
+          <td>Casos en estado awaiting_comercial_fix / total</td>
+        </tr>
+        <tr>
+          <td>Tiempo a detecci&oacute;n de hit en lista de control</td>
+          <td>Variable seg&uacute;n carga</td>
+          <td class="highlight-cell">&lt; 15 minutos desde la firma</td>
+          <td>Timestamp screening completado &mdash; webhook</td>
+        </tr>
+        <tr>
+          <td>Cobertura de evidencia firmada para auditor&iacute;a</td>
+          <td>Manual e inconsistente</td>
+          <td class="highlight-cell">100% de casos con b&oacute;veda inmutable</td>
+          <td>Conteo de blobs firmados por caso aprobado</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <p><strong>Principio de medici&oacute;n:</strong> cada intervenci&oacute;n debe demostrar impacto medible desde el primer mes en producci&oacute;n. La decisi&oacute;n de ampliar el alcance a Salesforce, sync con custodia y otras integraciones se toma con base en resultados, no en percepciones.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">AI WEBS</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECCION 7 - RECOMENDACION ESTRATEGICA (Divider)               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M40 15 L55 35 L50 35 L50 55 L30 55 L30 35 L25 35 Z"/>
+        <line x1="28" y1="62" x2="52" y2="62"/>
+        <line x1="32" y1="68" x2="48" y2="68"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">07</div>
+      <div class="section-line"></div>
+      <h2>Recomendaci&oacute;n Estrat&eacute;gica y Decisi&oacute;n Requerida</h2>
+      <p>La conclusi&oacute;n es estructural. La decisi&oacute;n es estrat&eacute;gica.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGINA 09 - RECOMENDACION FINAL                               -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span class="page-header-title">Recomendaci&oacute;n Final</span>
+    </div>
+    <span class="page-header-num">PAG 08</span>
+  </div>
+  <div class="inner-page">
+    <h4>Decisi&oacute;n estrat&eacute;gica central</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>El Cliente no tiene un problema de capacidad. <strong>Tiene una oportunidad de optimizaci&oacute;n estructural que puede generar impacto medible desde el primer mes.</strong></p>
+    </div>
+
+    <div class="comparison">
+      <div class="comparison-col before">
+        <h5>&#10060; Seguir como est&aacute;</h5>
+        <ul>
+          <li>Procesos manuales y dependientes de disponibilidad</li>
+          <li>Sin priorizaci&oacute;n inteligente</li>
+          <li>P&eacute;rdida de oportunidades por fricci&oacute;n operativa</li>
+          <li>Techo estructural de crecimiento</li>
+        </ul>
+      </div>
+      <div class="comparison-arrow">o</div>
+      <div class="comparison-col after">
+        <h5>&#10004; Intervenir con IA</h5>
+        <ul>
+          <li>Sistema optimizable y medible</li>
+          <li>Priorizaci&oacute;n autom&aacute;tica basada en datos</li>
+          <li>Captura de valor en cada etapa del proceso</li>
+          <li>Escalabilidad sin crecimiento lineal de equipo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cost-block">
+      <div class="cost-label">Conclusi&oacute;n</div>
+      <div class="cost-value" style="font-size: 22px; line-height: 1.5;">La decisi&oacute;n no es tecnol&oacute;gica.<br>Es estrat&eacute;gica.</div>
+      <div class="cost-desc" style="margin-top: 12px;">Los sistemas que no se optimizan, se estancan. Los procesos que no se miden, no mejoran.</div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 24px;">
+      <p><strong>Contacto:</strong><br>
+      Daniel Cardona &mdash; Founder, AI Webs<br>
+      hola@huevos.ai</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">AI WEBS</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <div style="font-family:'Quicksand',sans-serif; font-size:36px; font-weight:700; letter-spacing:5px; color:white;">AI WEBS</div>
+      <div class="back-cover-line"></div>
+      <p>SISTEMAS INTELIGENTES PARA OPERACIONES CR&Iacute;TICAS.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fase 0 Ops Layer — Conaltura Sostenibilidad | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --lavanda-claro: #FAF7FF;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 100vh;
+    margin: 0 auto 24px;
+    background: var(--blanco);
+    position: relative;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page, .cover, .back-cover, .section-divider {
+      width: 210mm; height: 297mm;
+    }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* PORTADA */
+  .cover {
+    display: flex; flex-direction: column; justify-content: space-between;
+    height: 100vh;
+    background: var(--negro); position: relative; overflow: hidden;
+  }
+  .cover-bg-shapes { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .cover-bg-shapes .blob1 {
+    position: absolute; top: -160px; right: -100px;
+    width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%; opacity: 0.7; filter: blur(80px);
+  }
+  .cover-bg-shapes .blob2 {
+    position: absolute; top: 20px; left: -150px;
+    width: 500px; height: 650px;
+    background: radial-gradient(ellipse at 50% 30%, #6366F1, #4F46E5 35%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%; opacity: 0.35; filter: blur(85px);
+  }
+  .cover-bg-shapes .blob3 {
+    position: absolute; bottom: -120px; right: -80px;
+    width: 550px; height: 550px;
+    background: radial-gradient(ellipse at 60% 50%, var(--morado), var(--morado-oscuro) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 55% 45% 50% 50%; opacity: 0.55; filter: blur(110px);
+  }
+  .cover-top { position: relative; z-index: 1; padding: 30px 55px; }
+  .cover-logo img { height: 50px; object-fit: contain; opacity: 0.95; }
+  .cover-center {
+    position: relative; z-index: 1; padding: 0 55px; flex: 1;
+    display: flex; flex-direction: column; justify-content: center; margin-top: -30px;
+  }
+  .cover-label {
+    font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--morado-claro); margin-bottom: 18px;
+  }
+  .cover-title {
+    font-family: 'Quicksand', sans-serif; font-size: 50px; font-weight: 700;
+    color: var(--blanco); line-height: 1.15; margin-bottom: 14px;
+  }
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif; font-size: 17px; font-weight: 400;
+    color: rgba(255,255,255,0.72); line-height: 1.6; max-width: 580px;
+  }
+  .cover-line {
+    width: 50px; height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-top: 26px;
+  }
+  .cover-bottom {
+    position: relative; z-index: 1; padding: 30px 55px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif; font-size: 10px;
+    color: rgba(255,255,255,0.45); letter-spacing: 1px;
+  }
+  .cover-meta span { display: block; margin-bottom: 3px; }
+
+  /* HEADERS */
+  .page-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 55px 18px; border-bottom: 1px solid var(--gris-claro);
+  }
+  .page-header-left { display: flex; align-items: center; gap: 14px; }
+  .page-header-icon { width: 22px; height: 22px; color: var(--morado); }
+  .page-header-title {
+    font-family: 'Quicksand', sans-serif; font-size: 12px; font-weight: 600;
+    color: var(--gris-texto); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 500;
+    color: var(--morado); letter-spacing: 1px;
+  }
+
+  /* INNER PAGE */
+  .inner-page { padding: 28px 55px 50px; }
+  .inner-page h2 { font-family: 'Quicksand', sans-serif; font-size: 24px; font-weight: 600; color: var(--gris-texto); margin-bottom: 8px; line-height: 1.3; }
+  .inner-page h3 { font-family: 'Quicksand', sans-serif; font-size: 15px; font-weight: 600; color: var(--gris-texto); margin-bottom: 10px; margin-top: 16px; }
+  .inner-page h4 { font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--morado); margin-bottom: 10px; margin-top: 0; }
+  .inner-page p { font-size: 11px; font-weight: 300; line-height: 1.7; margin-bottom: 10px; color: #333; }
+  .inner-page ul, .inner-page ol { margin-left: 18px; margin-bottom: 12px; }
+  .inner-page li { font-size: 11px; font-weight: 300; line-height: 1.65; margin-bottom: 4px; color: #333; }
+  .inner-page strong { font-weight: 600; }
+
+  .gradient-line { width: 40px; height: 2px; background: linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom: 14px; }
+
+  .exec-summary {
+    background: var(--lavanda); border-left: 3px solid var(--morado);
+    padding: 12px 18px; margin-bottom: 12px; border-radius: 0 8px 8px 0;
+  }
+  .exec-summary p { font-size: 11px; line-height: 1.65; color: #2A1A4D; margin: 0; font-weight: 400; }
+
+  .highlight-box {
+    background: var(--lavanda); border-left: 3px solid var(--morado);
+    padding: 12px 18px; border-radius: 0 8px 8px 0; margin: 12px 0;
+  }
+  .highlight-box p { font-size: 10.5px; color: #2A1A4D; margin: 0; line-height: 1.65; font-weight: 400; }
+
+  .metric-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 12px 0 16px; }
+  .metric-card { background: linear-gradient(135deg, var(--lavanda), white); border: 1px solid var(--gris-claro); border-radius: 10px; padding: 14px 12px; text-align: center; }
+  .metric-value { font-family: 'Quicksand', sans-serif; font-size: 28px; font-weight: 700; color: var(--morado-oscuro); line-height: 1.1; }
+  .metric-label { font-size: 10px; color: #555; margin-top: 4px; font-weight: 400; }
+
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 14px; }
+  .card-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .card { background: white; border: 1px solid var(--gris-claro); border-radius: 10px; overflow: hidden; }
+  .card-header { background: linear-gradient(135deg, var(--morado-oscuro), var(--morado)); padding: 9px 13px; color: white; }
+  .card-tag { font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; display: block; }
+  .card-header h5 { font-family: 'Quicksand', sans-serif; font-size: 12.5px; font-weight: 600; margin-top: 2px; }
+  .card-body { padding: 11px 13px 13px; }
+  .card-body ul { margin-left: 16px; margin-bottom: 6px; }
+  .card-body li { font-size: 10px; line-height: 1.55; margin-bottom: 3px; }
+  .card-body p { font-size: 10px; margin-bottom: 6px; line-height: 1.6; }
+  .card-body .label { font-family: 'Quicksand', sans-serif; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--morado); margin: 6px 0 3px; }
+  .card-body .label.danger { color: #DC2626; }
+  .card-body p.danger { font-size: 9.5px; color: #991B1B; margin: 0; }
+
+  .solution-item { background: var(--lavanda); border-left: 3px solid var(--morado); padding: 11px 14px; border-radius: 0 8px 8px 0; }
+  .solution-title { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 12px; color: var(--morado-oscuro); margin-bottom: 5px; }
+  .solution-item p { font-size: 10px; line-height: 1.6; color: #333; margin: 0; }
+
+  /* SKILL FLOW (cuadritos con flujo) */
+  .skill-flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px 22px;
+    margin: 14px 0 16px;
+  }
+  .skill-flow-box {
+    background: linear-gradient(135deg, var(--lavanda-claro), #FFFFFF);
+    border: 1.5px solid var(--morado-claro);
+    border-radius: 10px;
+    padding: 11px 12px;
+    position: relative;
+    min-height: 100px;
+  }
+  .skill-flow-box::after {
+    content: '';
+    position: absolute;
+    right: -18px;
+    top: 50%;
+    width: 12px;
+    height: 2px;
+    background: var(--morado-claro);
+    transform: translateY(-50%);
+  }
+  .skill-flow-box::before {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    width: 0; height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 7px solid var(--morado-claro);
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+  .skill-flow-box:nth-child(3n)::after,
+  .skill-flow-box:nth-child(3n)::before,
+  .skill-flow-box:last-child::after,
+  .skill-flow-box:last-child::before { display: none; }
+  .skill-flow-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--morado); color: white;
+    width: 22px; height: 22px; border-radius: 50%;
+    font-size: 10px; font-weight: 700; margin-bottom: 7px;
+    font-family: 'Quicksand';
+  }
+  .skill-flow-title {
+    font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 11px;
+    color: var(--morado-oscuro); margin-bottom: 5px; line-height: 1.3;
+  }
+  .skill-flow-desc {
+    font-size: 9.5px; line-height: 1.55; color: #333; font-weight: 300;
+  }
+
+  /* DETAIL TWO COLS */
+  .detail-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
+  .detail-col { background: white; border: 1px solid var(--gris-claro); border-radius: 8px; padding: 12px 14px; }
+  .detail-col h6 { font-family: 'Quicksand'; font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--morado); margin-bottom: 8px; }
+  .detail-col ul { margin: 0 0 0 16px; }
+  .detail-col li { font-size: 10px; line-height: 1.55; margin-bottom: 3px; }
+
+  /* TABLE */
+  .impact-table { width: 100%; border-collapse: collapse; margin: 12px 0 14px; font-size: 10px; }
+  .impact-table th { background: var(--morado-oscuro); color: white; padding: 8px 11px; text-align: left; font-family: 'Quicksand'; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .impact-table td { padding: 7px 11px; border-bottom: 1px solid var(--gris-claro); font-size: 10px; line-height: 1.5; }
+  .impact-table tr:nth-child(even) td { background: #FAFAFD; }
+  .impact-table .highlight-cell { color: var(--morado-oscuro); font-weight: 600; }
+
+  .cost-block { background: linear-gradient(135deg, var(--morado-oscuro), var(--negro)); color: white; padding: 18px 22px; border-radius: 12px; margin: 14px 0 6px; }
+  .cost-label { font-family: 'Quicksand'; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--morado-claro); margin-bottom: 7px; }
+  .cost-value { font-family: 'Quicksand'; font-size: 19px; font-weight: 600; line-height: 1.35; margin-bottom: 7px; color: white; }
+  .cost-desc { font-size: 10.5px; line-height: 1.6; color: rgba(255,255,255,0.78); font-weight: 300; }
+
+  /* CONTACT BLOCK */
+  .contact-box {
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--morado));
+    color: white; padding: 18px 22px; border-radius: 12px; margin-top: 14px;
+  }
+  .contact-box h4 { color: rgba(255,255,255,0.7); margin-bottom: 6px; }
+  .contact-name { font-family: 'Quicksand', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 3px; }
+  .contact-role { font-size: 11px; opacity: 0.85; margin-bottom: 6px; }
+  .contact-data { font-size: 11px; opacity: 0.92; }
+
+  /* PAGE FOOTER */
+  .page-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 11px 55px; display: flex; justify-content: space-between; border-top: 1px solid var(--gris-claro); background: white; }
+  .page-footer-brand { font-family: 'Quicksand'; font-size: 9.5px; font-weight: 600; letter-spacing: 2px; color: var(--morado); }
+  .page-footer-conf { font-family: 'Quicksand'; font-size: 9px; color: #999; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* SECTION DIVIDER */
+  .section-divider { display: flex; height: 100vh; }
+  .section-divider-left {
+    flex: 1; background: var(--lavanda);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 50px 40px; position: relative;
+  }
+  .section-divider-left .deco-circles { opacity: 0.15; }
+  .section-divider-left .section-icon { width: 72px; height: 72px; color: var(--morado); margin-bottom: 18px; }
+  .section-divider-right {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--morado-oscuro), var(--negro));
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 50px 50px; position: relative; overflow: hidden;
+  }
+  .section-divider-right::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 360px; height: 360px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.3), transparent 65%);
+    border-radius: 50%; filter: blur(60px);
+  }
+  .section-number {
+    font-family: 'Quicksand', sans-serif; font-size: 64px; font-weight: 700;
+    color: rgba(255,255,255,0.08); position: absolute; top: 36px; right: 50px;
+  }
+  .section-divider-right h2 {
+    font-family: 'Quicksand', sans-serif; font-size: 30px; font-weight: 700;
+    color: var(--blanco); line-height: 1.25; position: relative; z-index: 1; margin-bottom: 14px;
+  }
+  .section-divider-right p {
+    font-size: 12.5px; font-weight: 300; color: rgba(255,255,255,0.65);
+    line-height: 1.65; position: relative; z-index: 1; max-width: 320px;
+  }
+  .section-divider-right .section-line {
+    width: 38px; height: 2px; background: var(--morado-claro);
+    margin-bottom: 18px; position: relative; z-index: 1;
+  }
+
+  /* CONTRAPORTADA */
+  .back-cover { background: var(--negro); height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .blob-back1 { position: absolute; top: -150px; right: -100px; width: 600px; height: 600px; background: radial-gradient(ellipse at 50% 50%, var(--morado), var(--morado-oscuro) 35%, transparent 70%); opacity: 0.43; filter: blur(75px); border-radius: 50%; }
+  .blob-back2 { position: absolute; bottom: -180px; left: -100px; width: 520px; height: 520px; background: radial-gradient(ellipse at 50% 50%, #6366F1, var(--morado-deep) 35%, transparent 70%); opacity: 0.32; filter: blur(80px); border-radius: 50%; }
+  .back-cover-content { text-align: center; position: relative; z-index: 1; }
+  .back-cover-content img { height: 60px; opacity: 0.9; margin-bottom: 24px; }
+  .back-cover-line { width: 50px; height: 2px; background: var(--morado); margin: 0 auto 24px; }
+  .back-cover-content p { font-family: 'Quicksand'; font-size: 14px; font-weight: 500; letter-spacing: 6px; color: rgba(255,255,255,0.7); text-transform: uppercase; }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                       -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-bg-shapes">
+      <div class="blob1"></div>
+      <div class="blob2"></div>
+      <div class="blob3"></div>
+    </div>
+    <div class="cover-top">
+      <div class="cover-logo">
+        <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant logo">
+      </div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-label">Documento de bases formales &mdash; Iniciativa 02</div>
+      <div class="cover-title">Fase 0<br><span style="font-size: 30px; font-weight: 500; color: var(--morado-claro);">Ops Layer</span></div>
+      <div class="cover-subtitle">Conaltura &mdash; Sostenibilidad de Proyectos Inmobiliarios.</div>
+      <div class="cover-line"></div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-meta">
+        <span>CONFIDENCIAL</span>
+        <span>Abril 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 01 - RESUMEN EJECUTIVO                                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <rect x="14" y="10" width="52" height="60" rx="4"/>
+        <line x1="24" y1="26" x2="56" y2="26"/>
+        <line x1="24" y1="36" x2="50" y2="36"/>
+        <line x1="24" y1="46" x2="44" y2="46"/>
+        <line x1="24" y1="56" x2="38" y2="56"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">01</div>
+      <div class="section-line"></div>
+      <h2>Resumen Ejecutivo</h2>
+      <p>Vista panor&aacute;mica del problema y la soluci&oacute;n propuesta para el &aacute;rea de Sostenibilidad.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 01 - RESUMEN EJECUTIVO                                    -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+      <span class="page-header-title">Resumen Ejecutivo</span>
+    </div>
+    <span class="page-header-num">PAG 01</span>
+  </div>
+  <div class="inner-page">
+    <h4>El problema y la soluci&oacute;n en una p&aacute;gina</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>La Direcci&oacute;n de Sostenibilidad de Proyectos Inmobiliarios de Conaltura gestiona <strong>18 obras simult&aacute;neas</strong> en 5 regionales, con tr&aacute;mites ambientales en paralelo y cuatro dimensiones de medici&oacute;n &mdash; agua, energ&iacute;a, residuos y huella. La infraestructura est&aacute; armada: SQL propio, Power BI, formularios en BIG, OneDrive estructurado y Sincosoft alimentando huella alcance 3. <strong>El cuello no son los datos ni las herramientas: es la captura manual, la vigilancia humana de plazos y la falta de comparaci&oacute;n entre proyectos.</strong></p>
+    </div>
+
+    <h3>Tres habilidades de Claude integradas al stack actual</h3>
+
+    <div class="card-grid three">
+      <div class="solution-item">
+        <div class="solution-title">1 &middot; Ingestor de documentos</div>
+        <p>El agente lee correo y OneDrive, identifica el tipo de documento (formato de obra, certificado de gestor) y llena el formulario de BIG/SQL autom&aacute;ticamente.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">2 &middot; Monitor de tr&aacute;mites</div>
+        <p>El agente vigila vencimientos cr&iacute;ticos, lee requerimientos entrantes, extrae fecha m&aacute;xima y dispara alertas configurables por SMS o correo electr&oacute;nico.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">3 &middot; Motor predictivo</div>
+        <p>El agente compara cada obra activa contra la curva hist&oacute;rica por regional, dimensi&oacute;n y tipo. La curva se recalibra al cierre de cada proyecto.</p>
+      </div>
+    </div>
+
+    <h3>Por qu&eacute; tres habilidades de Claude y no un agente custom</h3>
+    <p>Cuando un proceso se puede resolver con una habilidad de Claude bien dise&ntilde;ada, no tiene sentido construir un agente custom con fee mensual recurrente. Las tres habilidades se construyen una vez, quedan operando con la licencia de Claude del cliente, y pueden usarse para m&aacute;s casos en el futuro.</p>
+
+    <div class="highlight-box">
+      <p><strong>Lo que NO cambia:</strong> SQL propio, Power BI, formularios en BIG, OneDrive estructurado y Sincosoft siguen operando exactamente igual. Las habilidades se conectan a estas herramientas, no las sustituyen.</p>
+    </div>
+
+    <div class="cost-block">
+      <div class="cost-label">Promesa de valor</div>
+      <div class="cost-value">El stack ya est&aacute; armado.<br>Solo faltan las tres habilidades que conectan los puntos manuales.</div>
+      <div class="cost-desc">No reemplazamos SQL, Power BI, BIG ni OneDrive. Los amplificamos con una capa de inteligencia que captura, vigila y compara &mdash; para que el equipo de Sostenibilidad recupere su capacidad anal&iacute;tica.</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 02 - DIAGNOSTICO                                      -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="34" cy="34" r="20"/>
+        <line x1="50" y1="50" x2="68" y2="68"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">02</div>
+      <div class="section-line"></div>
+      <h2>Diagn&oacute;stico</h2>
+      <p>Estado actual de la operaci&oacute;n y los tres dolores estructurales identificados en el &aacute;rea.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 02 - SITUACION ACTUAL Y DOLORES                           -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="4,2 20,2 17,22 7,22"/></svg>
+      <span class="page-header-title">Situaci&oacute;n Actual y Dolores</span>
+    </div>
+    <span class="page-header-num">PAG 02</span>
+  </div>
+  <div class="inner-page">
+    <h4>Estado actual de la operaci&oacute;n</h4>
+    <div class="gradient-line"></div>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">18</div>
+        <div class="metric-label">Obras activas</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">5</div>
+        <div class="metric-label">Regionales</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">4</div>
+        <div class="metric-label">Dimensiones</div>
+      </div>
+    </div>
+
+    <p>Las 18 obras se distribuyen entre &Aacute;rea Metropolitana de Medell&iacute;n, Bogot&aacute; y la Sabana, Cali, Barranquilla y Cartagena. Las cuatro dimensiones son agua, energ&iacute;a, residuos y huella de carbono. El stack vigente: <strong>SQL propio</strong> alimentado por formularios en BIG, <strong>Power BI</strong> con tableros por dimensi&oacute;n, <strong>OneDrive</strong> con la documentaci&oacute;n estructurada de cada obra, y <strong>Sincosoft</strong> alimentando huella alcance 3 v&iacute;a TI.</p>
+
+    <h3>Tres dolores estructurales</h3>
+
+    <div class="card-grid three">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Dolor 1</span>
+          <h5>Captura manual</h5>
+        </div>
+        <div class="card-body">
+          <p>Los formatos de obra y los certificados de gestores externos llegan en PDF (mayoritariamente) o foto. Una analista lee y digita cada cantidad al formulario en BIG. Los layouts var&iacute;an entre gestores, lo que impide una plantilla &uacute;nica.</p>
+          <span class="label danger">Implicaci&oacute;n</span>
+          <p class="danger">Capacidad anal&iacute;tica del equipo absorbida en captura. Cada error humano se propaga al SQL y al Power BI.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Dolor 2</span>
+          <h5>Vigilancia reactiva</h5>
+        </div>
+        <div class="card-body">
+          <p>Los plazos de tr&aacute;mites ambientales se controlan por revisi&oacute;n semanal y memoria. Plazos no negociables: 30 d&iacute;as para responder requerimientos, 1 a&ntilde;o de antelaci&oacute;n para forestal y ocupaci&oacute;n de cauce, RCDs trimestrales y plan al cierre de obra.</p>
+          <span class="label danger">Implicaci&oacute;n</span>
+          <p class="danger">La anticipaci&oacute;n est&aacute; limitada por la memoria. Olvidar un plazo tiene consecuencias regulatorias.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag">Dolor 3</span>
+          <h5>Hist&oacute;rico sin uso</h5>
+        </div>
+        <div class="card-body">
+          <p>Existen datos de consumo mes a mes por proyecto (Catalana, Foresta, Soley terminados; Livorno, Almendro activos), pero no hay punto de referencia comparativo. Cuando una obra activa muestra un consumo, no se sabe si est&aacute; arriba o abajo de lo esperado para una obra similar.</p>
+          <span class="label danger">Implicaci&oacute;n</span>
+          <p class="danger">El aprendizaje hist&oacute;rico no se convierte en ventaja operativa. Cada obra arranca como si fuera la primera.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Conclusi&oacute;n:</strong> el stack t&eacute;cnico es probablemente uno de los m&aacute;s avanzados del sector constructor en LATAM en sostenibilidad. La intervenci&oacute;n no debe construir un sistema paralelo &mdash; debe conectar los tres puntos donde la operaci&oacute;n humana se vuelve cuello entre la realidad de la obra y el SQL.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 03 - LAS 3 HABILIDADES                                -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M40 12 L66 24 L40 36 L14 24 Z"/>
+        <path d="M14 36 L40 48 L66 36"/>
+        <path d="M14 48 L40 60 L66 48"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">03</div>
+      <div class="section-line"></div>
+      <h2>Las Tres Habilidades</h2>
+      <p>Arquitectura de la soluci&oacute;n. Cada habilidad explicada en detalle: qu&eacute; hace, c&oacute;mo lo hace y qu&eacute; necesitamos del equipo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 03 - HABILIDAD 1: INGESTOR DE DOCUMENTOS                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span class="page-header-title">Habilidad 1 &mdash; Ingestor de Documentos</span>
+    </div>
+    <span class="page-header-num">PAG 03</span>
+  </div>
+  <div class="inner-page">
+    <h4>Habilidad 1 &mdash; Ingestor de documentos</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Qu&eacute; resuelve:</strong> elimina la digitaci&oacute;n manual de formatos de obra y certificados de gestores externos. El residente env&iacute;a el documento por correo o lo carga a OneDrive, y el formulario en BIG/SQL queda lleno sin intervenci&oacute;n humana.</p>
+    </div>
+
+    <h3>Flujo del agente &mdash; paso a paso</h3>
+
+    <div class="skill-flow">
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">1</div>
+        <div class="skill-flow-title">Entrada del documento</div>
+        <div class="skill-flow-desc">Llega un PDF, foto o Excel por correo o se carga a OneDrive. El agente vigila ambos canales 24/7.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">2</div>
+        <div class="skill-flow-title">Identifica el tipo</div>
+        <div class="skill-flow-desc">Reconoce si es formato interno de obra (agua, energ&iacute;a, residuos) o certificado de gestor externo (RCD, RESPEL, punto limpio).</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">3</div>
+        <div class="skill-flow-title">Extrae los campos</div>
+        <div class="skill-flow-desc">Aplica la l&oacute;gica de extracci&oacute;n seg&uacute;n el layout. Maneja formatos heterog&eacute;neos sin necesidad de plantilla &uacute;nica.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">4</div>
+        <div class="skill-flow-title">Mapea al SQL</div>
+        <div class="skill-flow-desc">Cada campo extra&iacute;do se mapea a su columna correspondiente seg&uacute;n el diccionario de campos por dimensi&oacute;n.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">5</div>
+        <div class="skill-flow-title">Valida si hay duda</div>
+        <div class="skill-flow-desc">Si la confianza es alta, escribe directo. Si tiene duda, marca el campo y pide validaci&oacute;n humana antes.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">6</div>
+        <div class="skill-flow-title">Escribe en SQL/BIG</div>
+        <div class="skill-flow-desc">El formulario queda lleno autom&aacute;ticamente. Power BI renderiza con la nueva data sin pasar por digitaci&oacute;n.</div>
+      </div>
+    </div>
+
+    <div class="detail-cols">
+      <div class="detail-col">
+        <h6>Capacidades</h6>
+        <ul>
+          <li>Lectura multi-formato: foto, PDF escaneado, PDF nativo, Excel</li>
+          <li>Reconocimiento por contenido, no por nombre de archivo</li>
+          <li>Robusto a layouts variables de gestores externos</li>
+          <li>Sistema de confianza alto / medio / bajo</li>
+          <li>Trazabilidad: cada escritura queda asociada al documento fuente</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <h6>Impacto operativo</h6>
+        <ul>
+          <li>Cero digitaci&oacute;n manual de certificados PDF</li>
+          <li>Cero digitaci&oacute;n manual de formatos de obra</li>
+          <li>SQL se llena en minutos, no en horas</li>
+          <li>Equipo recupera horas de capacidad anal&iacute;tica</li>
+          <li>Reducci&oacute;n del riesgo de error de transcripci&oacute;n</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 18px;">Qu&eacute; necesitamos del equipo</h4>
+    <ul>
+      <li><strong>Muestras reales de documentos</strong> (PDFs y fotos) de formatos de obra y certificados de gestores externos con sus distintos layouts.</li>
+      <li><strong>Diccionario de campos por dimensi&oacute;n</strong>: mapeo nombre del campo en formulario &rarr; columna en SQL para las 4 dimensiones.</li>
+      <li><strong>Cat&aacute;logo de gestores externos</strong> que env&iacute;an certificados (sabiendo que pueden variar).</li>
+      <li><strong>Coordinaci&oacute;n con TI</strong> para definir el modo de escritura en SQL/BIG (API o conexi&oacute;n directa).</li>
+    </ul>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 04 - HABILIDAD 2: MONITOR DE TRAMITES                     -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="page-header-title">Habilidad 2 &mdash; Monitor de Tr&aacute;mites</span>
+    </div>
+    <span class="page-header-num">PAG 04</span>
+  </div>
+  <div class="inner-page">
+    <h4>Habilidad 2 &mdash; Monitor de tr&aacute;mites ambientales</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Qu&eacute; resuelve:</strong> elimina la dependencia de la memoria humana sobre los plazos cr&iacute;ticos. El agente vigila vencimientos por tipo de tr&aacute;mite, lee los requerimientos entrantes y dispara alertas por SMS o correo electr&oacute;nico antes de que algo se pueda olvidar.</p>
+    </div>
+
+    <h3>Flujo del agente &mdash; paso a paso</h3>
+
+    <div class="skill-flow">
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">1</div>
+        <div class="skill-flow-title">Entrada del tr&aacute;mite</div>
+        <div class="skill-flow-desc">Llega un PDF de RCD, permiso forestal, ocupaci&oacute;n de cauce o requerimiento de la autoridad por correo o OneDrive.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">2</div>
+        <div class="skill-flow-title">Clasifica el tipo</div>
+        <div class="skill-flow-desc">El agente lee el documento y lo clasifica: aprovechamiento forestal, RCD, ocupaci&oacute;n de cauce, requerimiento ambiental.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">3</div>
+        <div class="skill-flow-title">Calcula el vencimiento</div>
+        <div class="skill-flow-desc">Aplica la regla del tipo de tr&aacute;mite (30 d&iacute;as requerimiento, 1 a&ntilde;o forestal, RCD trimestral) y calcula la fecha m&aacute;xima.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">4</div>
+        <div class="skill-flow-title">Resume y archiva</div>
+        <div class="skill-flow-desc">Extrae los puntos clave (qu&eacute; pide la autoridad, en qu&eacute; obra, fecha m&aacute;xima) y los carga al SQL con trazabilidad.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">5</div>
+        <div class="skill-flow-title">Vigila 24/7</div>
+        <div class="skill-flow-desc">Monitorea los plazos activos de las 18 obras y dispara alertas por SMS o correo electr&oacute;nico: 15 / 7 / 3 / 1 d&iacute;a antes.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">6</div>
+        <div class="skill-flow-title">Cierra el ciclo</div>
+        <div class="skill-flow-desc">Cuando el tr&aacute;mite se responde, el equipo lo marca como cerrado. El agente archiva la trazabilidad y libera la alerta.</div>
+      </div>
+    </div>
+
+    <h3>Plazos regulatorios cubiertos</h3>
+
+    <table class="impact-table">
+      <thead>
+        <tr><th>Tr&aacute;mite</th><th>Plazo</th><th>Disparo de alerta</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Requerimiento de la autoridad ambiental</td>
+          <td>30 d&iacute;as calendario</td>
+          <td class="highlight-cell">15 / 7 / 3 / 1 d&iacute;a antes</td>
+        </tr>
+        <tr>
+          <td>Plan de gesti&oacute;n RCDs (radicaci&oacute;n)</td>
+          <td>1 mes antes del inicio de obra</td>
+          <td class="highlight-cell">Configurable</td>
+        </tr>
+        <tr>
+          <td>Reportes trimestrales RCDs</td>
+          <td>Mes vencido (ej. Q1 hasta el 15 de abril)</td>
+          <td class="highlight-cell">Configurable</td>
+        </tr>
+        <tr>
+          <td>Permiso de aprovechamiento forestal</td>
+          <td>1 a&ntilde;o de antelaci&oacute;n</td>
+          <td class="highlight-cell">Configurable</td>
+        </tr>
+        <tr>
+          <td>Permiso de ocupaci&oacute;n de cauce</td>
+          <td>Tiempos similares al forestal</td>
+          <td class="highlight-cell">Configurable</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top: 16px;">Qu&eacute; necesitamos del equipo</h4>
+    <ul>
+      <li><strong>Confirmaci&oacute;n de reglas de vencimiento</strong> por tipo de tr&aacute;mite y excepciones si las hay.</li>
+      <li><strong>Cadencias de alerta deseadas</strong>: a cu&aacute;ntos d&iacute;as antes del vencimiento para cada tipo.</li>
+      <li><strong>Persona o rol que cierra el ciclo</strong>: qui&eacute;n marca un tr&aacute;mite como respondido (Daniel u otra persona).</li>
+      <li><strong>Coordinaci&oacute;n con TI</strong> para conexi&oacute;n directa al SQL (preferido sobre lectura del formulario en BIG).</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Estrategia de despliegue:</strong> en las primeras semanas el agente trabaja <em>en paralelo</em> al equipo. La persona vigila como hoy y el agente vigila tambi&eacute;n. Comparamos resultados, calibramos reglas y, una vez validado, el agente toma la vigilancia primaria y el equipo solo confirma cierres.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 05 - HABILIDAD 3: MOTOR PREDICTIVO                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span class="page-header-title">Habilidad 3 &mdash; Motor Predictivo</span>
+    </div>
+    <span class="page-header-num">PAG 05</span>
+  </div>
+  <div class="inner-page">
+    <h4>Habilidad 3 &mdash; Motor predictivo de consumos</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p><strong>Qu&eacute; resuelve:</strong> convierte los datos hist&oacute;ricos del SQL en una curva de referencia operativa. Cada obra activa se compara contra la curva esperada de proyectos terminados similares (regional + dimensi&oacute;n + tipo). La curva se recalibra autom&aacute;ticamente cuando un proyecto cierra al 100% en BIG.</p>
+    </div>
+
+    <h3>Flujo del agente &mdash; paso a paso</h3>
+
+    <div class="skill-flow">
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">1</div>
+        <div class="skill-flow-title">Carga el hist&oacute;rico</div>
+        <div class="skill-flow-desc">Lee la data de proyectos terminados (Catalana, Foresta, Soley) desde el SQL y la segmenta por regional + dimensi&oacute;n + tipo.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">2</div>
+        <div class="skill-flow-title">Calcula la curva</div>
+        <div class="skill-flow-desc">Arma la curva promedio mensual para cada combinaci&oacute;n. Representa el comportamiento esperado por segmento.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">3</div>
+        <div class="skill-flow-title">Compara obra activa</div>
+        <div class="skill-flow-desc">Cruza el consumo real de cada obra activa (Livorno, Almendro) contra la curva esperada de su segmento.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">4</div>
+        <div class="skill-flow-title">Visualiza en Power BI</div>
+        <div class="skill-flow-desc">Publica curva y desviaciones con filtros por regional, dimensi&oacute;n y obra espec&iacute;fica para visi&oacute;n granular.</div>
+      </div>
+      <div class="skill-flow-box">
+        <div class="skill-flow-num">5</div>
+        <div class="skill-flow-title">Recalibra autom&aacute;ticamente</div>
+        <div class="skill-flow-desc">Cuando una obra activa marca 100% de avance en BIG, se reclasifica como terminada y la curva del segmento se afina.</div>
+      </div>
+      <div class="skill-flow-box" style="background: linear-gradient(135deg, #FAFAFD, white); border-color: var(--gris-claro);">
+        <div class="skill-flow-num" style="background: #999;">&middot;</div>
+        <div class="skill-flow-title" style="color: #555;">Aplica a las 4 dimensiones</div>
+        <div class="skill-flow-desc">El motor opera id&eacute;ntico para agua, energ&iacute;a, residuos y huella. Cada una con sus curvas y comparaciones.</div>
+      </div>
+    </div>
+
+    <h3>Roadmap de despliegue</h3>
+
+    <div class="card-grid">
+      <div class="solution-item">
+        <div class="solution-title">Versi&oacute;n 1 &mdash; Curvas funcionando</div>
+        <p>Carga del hist&oacute;rico, c&aacute;lculo de curvas por segmento, comparaci&oacute;n autom&aacute;tica y visualizaci&oacute;n en Power BI con filtros. Recalibraci&oacute;n al cierre de proyecto.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Versi&oacute;n 2 &mdash; Alertas de desviaci&oacute;n</div>
+        <p>Una vez visto el comportamiento real de las curvas, el equipo define los umbrales que justifican una alerta (ej. desviaci&oacute;n &gt;30% en consumo de agua).</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Decisi&oacute;n de fases:</strong> primero ver las curvas funcionando antes de definir umbrales de alerta de desviaci&oacute;n. Esa segunda fase se calibra cuando hay evidencia real del comportamiento de las obras vs. las curvas. Es un dise&ntilde;o m&aacute;s s&oacute;lido que definir umbrales abstractos.</p>
+    </div>
+
+    <h4 style="margin-top: 16px;">Qu&eacute; necesitamos del equipo</h4>
+    <ul>
+      <li><strong>Acceso al SQL hist&oacute;rico</strong>: permisos de lectura sobre todas las tablas de consumo mensual por proyecto y dimensi&oacute;n.</li>
+      <li><strong>Categor&iacute;as de tipo de proyecto</strong> relevantes para segmentar (torre alta, multifamiliar, mixto, etc.).</li>
+      <li><strong>ID &uacute;nico por obra/proyecto</strong>: confirmaci&oacute;n de la convenci&oacute;n unificada en OneDrive y SQL.</li>
+      <li><strong>Acceso al campo &laquo;% avance&raquo; en BIG</strong>: punto de detecci&oacute;n autom&aacute;tica del cierre de proyecto.</li>
+    </ul>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 04 - IMPLEMENTACION                                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="10"/>
+        <path d="M40 18v-8M40 70v-8M58 40h8M14 40h8"/>
+        <path d="M52.7 27.3l5.7-5.7M21.6 58.4l5.7-5.7M52.7 52.7l5.7 5.7M21.6 21.6l5.7 5.7"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">04</div>
+      <div class="section-line"></div>
+      <h2>Implementaci&oacute;n</h2>
+      <p>Lo que necesitamos del equipo y el plan de despliegue tentativo de las tres habilidades.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 06 - INFO REQUERIDA + PLAN DE DESPLIEGUE                  -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+      <span class="page-header-title">Informaci&oacute;n requerida y plan</span>
+    </div>
+    <span class="page-header-num">PAG 06</span>
+  </div>
+  <div class="inner-page">
+    <h4>Lo que necesitamos del equipo para arrancar</h4>
+    <div class="gradient-line"></div>
+
+    <p>El equipo de Sostenibilidad puede ir reuniendo esta informaci&oacute;n a su ritmo. No es necesario tenerla toda antes de la decisi&oacute;n &mdash; es la base que alimentar&aacute; la implementaci&oacute;n una vez aprobada.</p>
+
+    <table class="impact-table">
+      <thead>
+        <tr><th>#</th><th>Insumo</th><th>Para qu&eacute; habilidad</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Muestras reales de documentos: PDFs y fotos de formatos de obra y certificados de gestores con sus distintos layouts</td>
+          <td class="highlight-cell">Habilidad 1</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Diccionario de campos por dimensi&oacute;n: mapeo formulario &rarr; columna SQL para las 4 dimensiones</td>
+          <td class="highlight-cell">Habilidad 1</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Cat&aacute;logo de gestores externos que env&iacute;an certificados</td>
+          <td class="highlight-cell">Habilidad 1</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Cadencias de alerta deseadas por tipo de tr&aacute;mite (15 / 7 / 3 / 1 d&iacute;a antes)</td>
+          <td class="highlight-cell">Habilidad 2</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Persona o rol que cierra el ciclo de un tr&aacute;mite respondido</td>
+          <td class="highlight-cell">Habilidad 2</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Categor&iacute;as de tipo de proyecto para segmentar curvas (torre alta, multifamiliar, mixto)</td>
+          <td class="highlight-cell">Habilidad 3</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>ID &uacute;nico por obra/proyecto: convenci&oacute;n unificada OneDrive &harr; SQL &harr; BIG</td>
+          <td class="highlight-cell">Las 3 habilidades</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Reuni&oacute;n con TI: API de BIG, permisos de lectura/escritura SQL, modo de integraci&oacute;n del agente</td>
+          <td class="highlight-cell">Las 3 habilidades</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Validaci&oacute;n del NDA general de Conaltura sobre el alcance con Sostenibilidad</td>
+          <td class="highlight-cell">Pre-arranque</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Plan de despliegue tentativo</h3>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-value">~1 sem</div>
+        <div class="metric-label">Habilidad 1 &mdash; Ingestor</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">~1 sem</div>
+        <div class="metric-label">Habilidad 2 &mdash; Monitor</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">~1 sem</div>
+        <div class="metric-label">Habilidad 3 &mdash; Predictivo</div>
+      </div>
+    </div>
+
+    <p>Cada habilidad se construye en aproximadamente una semana, en paralelo cuando es posible. El cronograma exacto se cierra con TI una vez se confirme el modo de integraci&oacute;n al SQL/BIG. Las primeras semanas de operaci&oacute;n el agente trabaja en paralelo al equipo para validar resultados antes de tomar la operaci&oacute;n primaria.</p>
+
+    <div class="highlight-box">
+      <p><strong>Hito de arranque:</strong> con la informaci&oacute;n base + reuni&oacute;n con TI + NDA validado, comenzamos la implementaci&oacute;n. El equipo de Conaltura queda capacitado para operar las habilidades; nosotros documentamos todo.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 05 - INVERSION                                        -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <circle cx="40" cy="40" r="26"/>
+        <path d="M40 22v36"/>
+        <path d="M48 32c0-4-3.5-6-8-6s-8 2-8 6 3.5 5 8 5 8 1 8 5-3.5 6-8 6-8-2-8-6"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">05</div>
+      <div class="section-line"></div>
+      <h2>Inversi&oacute;n</h2>
+      <p>Modelo comercial, qu&eacute; se incluye, qu&eacute; no se incluye y condiciones de la propuesta.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 07 - INVERSION                                            -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 10h6a2 2 0 010 4H8a2 2 0 000 4h8"/></svg>
+      <span class="page-header-title">Inversi&oacute;n</span>
+    </div>
+    <span class="page-header-num">PAG 07</span>
+  </div>
+  <div class="inner-page">
+    <h4>Modelo comercial</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Las tres habilidades se entregan bajo el modelo <strong>AI Ops Layer</strong> de Irrelevant: pago &uacute;nico de implementaci&oacute;n, sin fee mensual recurrente. El equipo de Sostenibilidad asume &uacute;nicamente la suscripci&oacute;n de Claude que opera las habilidades en el d&iacute;a a d&iacute;a.</p>
+    </div>
+
+    <div class="cost-block">
+      <div class="cost-label">Fee de implementaci&oacute;n</div>
+      <div class="cost-value" style="font-size: 36px;">$12.000.000 COP + IVA</div>
+      <div class="cost-desc">Pago &uacute;nico &middot; cubre construcci&oacute;n de las 3 habilidades, integraci&oacute;n con el stack actual, validaci&oacute;n en paralelo, documentaci&oacute;n t&eacute;cnica y entrenamiento al equipo.</div>
+    </div>
+
+    <div class="detail-cols">
+      <div class="detail-col" style="border-color: var(--morado-claro); background: var(--lavanda-claro);">
+        <h6 style="color: var(--morado-oscuro);">Qu&eacute; se incluye</h6>
+        <ul>
+          <li>Construcci&oacute;n de las 3 habilidades (Ingestor, Monitor, Motor Predictivo)</li>
+          <li>Integraci&oacute;n con SQL, BIG, OneDrive, Power BI y Sincosoft</li>
+          <li>Coordinaci&oacute;n t&eacute;cnica con el equipo de TI de Conaltura</li>
+          <li>Configuraci&oacute;n de canales de entrada (correo, OneDrive) y de alertas (SMS o correo electr&oacute;nico)</li>
+          <li>Diccionario de campos por dimensi&oacute;n y mapeo a SQL</li>
+          <li>Validaci&oacute;n en paralelo durante las primeras semanas</li>
+          <li>Documentaci&oacute;n t&eacute;cnica completa</li>
+          <li>Sesi&oacute;n de entrenamiento al equipo de Sostenibilidad</li>
+          <li>Soporte durante un mes posterior a la entrega</li>
+        </ul>
+      </div>
+      <div class="detail-col">
+        <h6 style="color: #555;">Qu&eacute; no se incluye</h6>
+        <ul>
+          <li>Suscripci&oacute;n a Claude (entre $100 y $200 USD/mes seg&uacute;n el uso &mdash; a cargo del cliente, sirve para Code, Design, UI y todo el equipo)</li>
+          <li>Costos de env&iacute;o de SMS si se elige ese canal. El correo electr&oacute;nico no tiene costo</li>
+          <li>Licencias y suscripciones existentes: Power BI, OneDrive, Sincosoft, BIG</li>
+          <li>Mantenimiento evolutivo o nuevas habilidades post-entrega (proyecto aparte)</li>
+          <li>Cambios estructurales al SQL o al sistema BIG</li>
+          <li>Migraci&oacute;n masiva de datos hist&oacute;ricos no estructurados</li>
+          <li>Hardware o infraestructura adicional</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Condiciones comerciales</h3>
+
+    <div class="card-grid three">
+      <div class="solution-item">
+        <div class="solution-title">Forma de pago</div>
+        <p>50% de anticipo a la firma &middot; 50% contra entrega de las 3 habilidades operando en producci&oacute;n.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Vigencia</div>
+        <p>15 d&iacute;as calendario desde la fecha de env&iacute;o de este documento.</p>
+      </div>
+      <div class="solution-item">
+        <div class="solution-title">Moneda e IVA</div>
+        <p>Pesos colombianos (COP). Al fee de implementaci&oacute;n se le aplica IVA del 19% en facturaci&oacute;n.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Sobre la suscripci&oacute;n a Claude:</strong> con una sola cuenta operan las tres habilidades. El costo mensual var&iacute;a entre <strong>$100 y $200 USD seg&uacute;n el uso</strong> (volumen de documentos procesados, consultas del equipo, etc.). La misma cuenta puede ser usada por todo el equipo para tareas de Code, Design, escritura, an&aacute;lisis y m&aacute;s &mdash; el costo se vuelve insignificante comparado con su uso transversal.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIVIDER 06 - PROXIMOS PASOS                                   -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="section-divider">
+    <div class="section-divider-left">
+      <svg class="deco-circles" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" style="color: var(--morado);">
+        <circle cx="60" cy="60" r="15" opacity="0.4"/>
+        <circle cx="60" cy="60" r="28" opacity="0.3"/>
+        <circle cx="60" cy="60" r="41" opacity="0.2"/>
+        <circle cx="60" cy="60" r="54" opacity="0.1"/>
+      </svg>
+      <svg class="section-icon" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--morado); margin-top: 16px;">
+        <path d="M22 40h36"/>
+        <path d="M44 26l14 14-14 14"/>
+      </svg>
+    </div>
+    <div class="section-divider-right">
+      <div class="section-number">06</div>
+      <div class="section-line"></div>
+      <h2>Pr&oacute;ximos Pasos</h2>
+      <p>Cierre y arranque. La conclusi&oacute;n es estructural; la decisi&oacute;n es operativa.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAG 08 - PROXIMOS PASOS Y CONTACTO                            -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <svg class="page-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span class="page-header-title">Pr&oacute;ximos pasos</span>
+    </div>
+    <span class="page-header-num">PAG 08</span>
+  </div>
+  <div class="inner-page">
+    <h4>Cierre y arranque</h4>
+    <div class="gradient-line"></div>
+
+    <div class="exec-summary">
+      <p>Las tres habilidades est&aacute;n validadas en concepto y mapeadas al stack de Conaltura. El siguiente bloque es t&aacute;ctico: revisi&oacute;n asincr&oacute;nica del documento, NDA, reuni&oacute;n t&eacute;cnica con TI y arranque de implementaci&oacute;n.</p>
+    </div>
+
+    <h3>Pr&oacute;ximos pasos</h3>
+
+    <ol>
+      <li><strong>Revisi&oacute;n del documento:</strong> el equipo de Sostenibilidad revisa la propuesta y la inversi&oacute;n a su ritmo. No requiere reuni&oacute;n adicional.</li>
+      <li><strong>Decisi&oacute;n y NDA:</strong> validaci&oacute;n del NDA general de Conaltura sobre el alcance con Daniel y el equipo de Sostenibilidad antes del trabajo t&eacute;cnico.</li>
+      <li><strong>Reuni&oacute;n con TI:</strong> coordinaci&oacute;n t&eacute;cnica para definir el modo de integraci&oacute;n del agente con SQL y BIG. Este punto destraba el arranque.</li>
+      <li><strong>Kickoff de implementaci&oacute;n:</strong> recopilaci&oacute;n de muestras y comienzo de la construcci&oacute;n en paralelo de las tres habilidades.</li>
+      <li><strong>Validaci&oacute;n en paralelo:</strong> las primeras semanas el agente opera junto al equipo para calibrar y comparar antes de tomar la operaci&oacute;n primaria.</li>
+    </ol>
+
+    <div class="cost-block">
+      <div class="cost-label">El cierre</div>
+      <div class="cost-value">El stack de Conaltura es el m&aacute;s avanzado del sector.<br>Las tres habilidades lo convierten en ventaja operativa.</div>
+      <div class="cost-desc">Conaltura no necesita reconstruir su sistema de sostenibilidad. Necesita una capa de inteligencia que conecte los puntos donde la operaci&oacute;n humana se vuelve cuello. Eso es lo que entregamos.</div>
+    </div>
+
+    <div class="contact-box">
+      <h4 style="color: rgba(255,255,255,0.7); margin-bottom: 8px;">Contacto</h4>
+      <div class="contact-name">Sara Garc&eacute;s Tob&oacute;n</div>
+      <div class="contact-role">Directora de Marketing &mdash; Irrelevant</div>
+      <div class="contact-data">sara@stayirrelevant.com &nbsp;&middot;&nbsp; +57 321 846 4652</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="page-footer-brand">IRRELEVANT</span>
+    <span class="page-footer-conf">Confidencial</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTRAPORTADA                                                 -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="back-cover">
+    <div class="blob-back1"></div>
+    <div class="blob-back2"></div>
+    <div class="back-cover-content">
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant">
+      <div class="back-cover-line"></div>
+      <p>THINK AI OR STAY IRRELEVANT.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

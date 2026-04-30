@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fase 0 — Conaltura · Presupuesto y Negociación | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #1A1A1A;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+    --emerald: #10b981;
+    --amber: #f59e0b;
+    --blue: #3b82f6;
+    --slate: #64748b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris-texto);
+    background: #C8C8D8;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+
+  /* ========== COVER ========== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 297mm;
+    background: var(--negro);
+    position: relative;
+    overflow: hidden;
+    color: white;
+  }
+
+  .cover-bg .blob1 {
+    position: absolute; top: -160px; right: -100px; width: 750px; height: 750px;
+    background: radial-gradient(ellipse at 40% 40%, var(--morado-claro), var(--morado) 30%, var(--negro-medio) 50%, transparent 65%);
+    border-radius: 50% 40% 60% 45%; opacity: 0.65; filter: blur(80px);
+  }
+  .cover-bg .blob2 {
+    position: absolute; bottom: -120px; left: -100px; width: 600px; height: 600px;
+    background: radial-gradient(ellipse, #6366F1, #4F46E5 30%, var(--negro-medio) 55%, transparent 70%);
+    border-radius: 45% 55% 50% 50%; opacity: 0.45; filter: blur(95px);
+  }
+  .cover-bg .grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .cover-top { position: relative; z-index: 1; padding: 36px 60px; }
+  .cover-top img { height: 50px; opacity: 0.92; }
+
+  .cover-center {
+    position: relative; z-index: 1;
+    padding: 0 60px;
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    margin-top: -40px;
+  }
+
+  .cover-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--morado-claro);
+    margin-bottom: 22px;
+  }
+
+  .cover-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 56px; font-weight: 700; line-height: 1.1; letter-spacing: -1px;
+    margin-bottom: 18px;
+  }
+  .cover-title .accent {
+    background: linear-gradient(135deg, var(--morado-claro), var(--morado), #6366F1);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .cover-subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px; font-weight: 400;
+    color: rgba(255,255,255,0.65); line-height: 1.6;
+    max-width: 580px;
+  }
+
+  .cover-line { width: 50px; height: 3px; background: linear-gradient(90deg, var(--morado), var(--morado-claro)); margin: 28px 0; }
+
+  .cover-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 20px; background: rgba(167,139,250,0.1);
+    border: 1px solid rgba(167,139,250,0.25); border-radius: 24px;
+    align-self: flex-start;
+  }
+  .cover-tag .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--morado-claro); box-shadow: 0 0 12px var(--morado-claro); }
+  .cover-tag-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px; font-weight: 600; color: var(--morado-claro);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  .cover-bottom {
+    position: relative; z-index: 1; padding: 36px 60px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .cover-meta {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 1px;
+  }
+  .cover-meta span { display: block; margin-bottom: 4px; }
+
+  /* ========== CONTENT PAGE ========== */
+  .content {
+    padding: 60px 65px 80px;
+    min-height: 297mm;
+  }
+
+  .page-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 18px; margin-bottom: 36px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+  .page-header-tag {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px; font-weight: 600; color: var(--morado);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .page-header-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px; font-weight: 500; color: var(--slate);
+    letter-spacing: 1px;
+  }
+
+  .content h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px; font-weight: 700; color: var(--gris-texto);
+    line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.5px;
+  }
+
+  .content h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 21px; font-weight: 600; color: var(--gris-texto);
+    margin-top: 36px; margin-bottom: 14px;
+  }
+
+  .content h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px; font-weight: 700; color: var(--morado);
+    text-transform: uppercase; letter-spacing: 2.5px;
+    margin-top: 24px; margin-bottom: 12px;
+  }
+
+  .content p {
+    font-size: 12.5px; font-weight: 400; line-height: 1.85;
+    color: #2A2A2A; margin-bottom: 14px;
+  }
+
+  .content .lede {
+    font-size: 16px; line-height: 1.75; color: #3A3A3A;
+    margin-bottom: 20px; font-weight: 400;
+  }
+
+  .content ul, .content ol { margin: 12px 0 16px 22px; }
+  .content li {
+    font-size: 12.5px; line-height: 1.85; color: #2A2A2A;
+    margin-bottom: 6px;
+  }
+
+  .content strong { font-weight: 600; color: var(--gris-texto); }
+
+  .quote-line {
+    width: 50px; height: 3px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin: 0 0 20px;
+  }
+
+  /* ========== STAT BOXES ========== */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 14px; margin: 24px 0;
+  }
+  .stat-box {
+    background: var(--lavanda);
+    border: 1px solid rgba(139,92,246,0.18);
+    border-radius: 12px; padding: 18px 16px;
+    text-align: left;
+  }
+  .stat-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px; font-weight: 700; color: var(--morado-deep);
+    line-height: 1.1; letter-spacing: -1px;
+  }
+  .stat-label {
+    font-size: 11px; color: var(--slate); margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ========== CARDS ========== */
+  .skill-card {
+    background: var(--blanco);
+    border: 1px solid var(--gris-claro);
+    border-radius: 14px; padding: 26px 28px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .skill-card.fase-0 { border-left: 4px solid var(--emerald); }
+  .skill-card.fase-2 { border-left: 4px solid var(--morado); }
+  .skill-card.fase-futura { border-left: 4px solid var(--blue); }
+
+  .skill-card-tag {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .fase-0 .skill-card-tag { color: var(--emerald); }
+  .fase-2 .skill-card-tag { color: var(--morado); }
+  .fase-futura .skill-card-tag { color: var(--blue); }
+
+  .skill-card h4 {
+    margin: 0 0 12px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px; font-weight: 700; color: var(--gris-texto);
+    text-transform: none; letter-spacing: 0;
+  }
+
+  .skill-card .row {
+    display: grid; grid-template-columns: 130px 1fr;
+    gap: 14px; padding: 9px 0;
+    border-top: 1px dashed var(--gris-claro);
+  }
+  .skill-card .row:first-of-type { border-top: 1px solid var(--gris-claro); margin-top: 14px; }
+  .skill-card .row-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px; font-weight: 700; color: var(--morado);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    padding-top: 2px;
+  }
+  .skill-card .row-value {
+    font-size: 12.5px; line-height: 1.7; color: #2A2A2A;
+  }
+
+  /* ========== HIGHLIGHT BOX ========== */
+  .highlight {
+    background: var(--lavanda);
+    border-left: 4px solid var(--morado);
+    border-radius: 0 12px 12px 0;
+    padding: 22px 26px; margin: 24px 0;
+  }
+  .highlight p { font-size: 13px; color: #2A2A2A; line-height: 1.75; margin: 0; }
+  .highlight strong { color: var(--morado-deep); }
+
+  .warning {
+    background: #fff8e7;
+    border-left: 4px solid var(--amber);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px; margin: 22px 0;
+  }
+  .warning p { font-size: 12.5px; color: #5C4500; margin: 0; line-height: 1.7; }
+  .warning strong { color: #7A4F00; }
+
+  /* ========== PHASE HEADER ========== */
+  .phase-banner {
+    background: linear-gradient(135deg, var(--negro), var(--negro-medio));
+    color: white;
+    padding: 38px 42px; border-radius: 18px;
+    margin: 30px 0 24px; position: relative; overflow: hidden;
+  }
+  .phase-banner.banner-fase-0 { background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%); }
+  .phase-banner.banner-fase-2 { background: linear-gradient(135deg, var(--morado-deep) 0%, var(--morado-oscuro) 50%, var(--morado) 100%); }
+  .phase-banner.banner-futura { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%); }
+
+  .phase-banner-tag {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 4px;
+    text-transform: uppercase; color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+  }
+  .phase-banner h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px; font-weight: 700; color: white;
+    margin: 0 0 14px; letter-spacing: -0.5px;
+  }
+  .phase-banner p {
+    font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.78);
+    margin: 0; max-width: 720px;
+  }
+
+  /* ========== TIMELINE ========== */
+  .timeline {
+    background: var(--lavanda);
+    padding: 32px; border-radius: 16px;
+    margin: 24px 0;
+  }
+  .timeline-row {
+    display: grid; grid-template-columns: 110px 1fr 1fr;
+    gap: 18px; padding: 14px 0;
+    border-top: 1px solid rgba(139,92,246,0.15);
+    align-items: start;
+  }
+  .timeline-row:first-child { border-top: none; padding-top: 4px; }
+  .timeline-phase {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--morado); text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .timeline-skills { font-size: 12.5px; color: var(--gris-texto); line-height: 1.6; font-weight: 500; }
+  .timeline-trigger { font-size: 12px; color: var(--slate); line-height: 1.55; }
+
+  /* ========== QUESTIONNAIRE ========== */
+  .q-block {
+    background: var(--blanco);
+    border: 1px solid var(--gris-claro);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin-bottom: 14px;
+  }
+  .q-block .q-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px; font-weight: 700; color: var(--morado);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .q-block .q-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px; font-weight: 600; color: var(--gris-texto);
+    margin-bottom: 8px;
+  }
+  .q-block .q-detail {
+    font-size: 12px; color: #444; line-height: 1.7;
+  }
+  .q-block ul { margin: 8px 0 0 18px; }
+  .q-block li { font-size: 12px; line-height: 1.7; color: #444; margin-bottom: 4px; }
+
+  /* ========== CLOSING ========== */
+  .closing {
+    background: var(--negro);
+    color: white;
+    padding: 70px 65px;
+    position: relative; overflow: hidden;
+  }
+  .closing-blob {
+    position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(ellipse, var(--morado), transparent 60%);
+    filter: blur(80px); opacity: 0.4;
+  }
+  .closing-content { position: relative; z-index: 1; }
+  .closing h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 34px; color: white; line-height: 1.2;
+    margin-bottom: 18px; max-width: 640px;
+  }
+  .closing p {
+    font-size: 14px; color: rgba(255,255,255,0.72);
+    line-height: 1.75; max-width: 620px; margin-bottom: 14px;
+  }
+  .closing-contact {
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    display: flex; gap: 60px; flex-wrap: wrap;
+  }
+  .contact-block {
+    font-family: 'Quicksand', sans-serif;
+  }
+  .contact-block .label {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--morado-claro);
+    margin-bottom: 6px;
+  }
+  .contact-block .name {
+    font-size: 16px; font-weight: 600; color: white; margin-bottom: 4px;
+  }
+  .contact-block .role { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+  .contact-block .info { font-size: 12px; color: rgba(255,255,255,0.85); font-family: 'Inter', sans-serif; }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PORTADA                                                       -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="cover">
+  <div class="cover-bg">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+    <div class="grid"></div>
+  </div>
+
+  <div class="cover-top">
+    <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="Irrelevant">
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-label">Fase 0 · Documento de Diseño</div>
+    <div class="cover-title">
+      <span style="color:white;">AI Ops Layer</span><br>
+      <span class="accent">Conaltura</span>
+    </div>
+    <div class="cover-line"></div>
+    <div class="cover-subtitle">
+      Dirección de Presupuesto y Negociación. Detalle del sistema, las habilidades, las dependencias y la información que necesitamos para arrancar.
+    </div>
+    <div style="margin-top:30px;">
+      <div class="cover-tag">
+        <div class="dot"></div>
+        <div class="cover-tag-text">8 habilidades en Claude · 1 agente · matriz central</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-meta">
+      <span>IRRELEVANT &mdash; AI TRANSFORMATION</span>
+      <span>ABRIL 2026</span>
+    </div>
+    <div class="cover-meta" style="text-align:right;">
+      <span>DOCUMENTO TÉCNICO</span>
+      <span>CONFIDENCIAL</span>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 01 · RESUMEN EJECUTIVO                                       -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">01 · Resumen Ejecutivo</div>
+    <div class="page-header-num">Fase 0 · Conaltura</div>
+  </div>
+
+  <h2>Lo que vamos a construir, en una página.</h2>
+  <div class="quote-line"></div>
+
+  <p class="lede">
+    Conaltura tiene una operación de presupuesto y negociación con piezas que funcionan, pero con cuellos de botella claros: 173 cuadros comparativos al mes que se arman a mano, 400 correos diarios que se rotan entre cuatro personas, 23 obras activas que hoy no se pueden comparar entre sí porque cada una vive en su propio Excel.
+  </p>
+
+  <p>
+    Lo que proponemos es un <strong>AI Ops Layer</strong> sobre la operación: ocho habilidades construidas en Claude que conversan a través de una matriz central única, más un agente conversacional como visión a futuro. Cada habilidad es un módulo independiente — se prende una, se valida, y luego se prende la siguiente.
+  </p>
+
+  <p>
+    En este documento estructuramos el proyecto en tres olas. <strong>Fase 0</strong> son las tres habilidades que tienen que arrancar primero porque las demás dependen de ellas. <strong>Fase 2</strong> es el cimiento del sistema y lo que desbloquea la comparabilidad entre las 23 obras. <strong>Fase futura</strong> es el agente conversacional sobre la matriz ya consolidada.
+  </p>
+
+  <h4>El sistema en cifras</h4>
+  <div class="stats">
+    <div class="stat-box">
+      <div class="stat-num">8</div>
+      <div class="stat-label">habilidades en Claude</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">1</div>
+      <div class="stat-label">agente conversacional (visión a futuro)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">1</div>
+      <div class="stat-label">matriz central única</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">3</div>
+      <div class="stat-label">olas de implementación</div>
+    </div>
+  </div>
+
+  <h4>Por qué se ordena en tres olas</h4>
+  <p>
+    Las habilidades no son independientes entre sí. El <strong>Remapeo de códigos</strong> es prerrequisito del <strong>Ingestor de presupuestos</strong>; el Ingestor es prerrequisito del <strong>Motor de tenores</strong>, del <strong>Monitor de desviaciones</strong> y de la comparabilidad entre obras; la comparabilidad entera es prerrequisito del <strong>agente conversacional</strong>. Lo que construimos primero no es lo más fácil — es lo que <em>habilita</em> el resto.
+  </p>
+
+  <div class="highlight">
+    <p>
+      <strong>Aclaración importante.</strong> Este documento no incluye precio. La cotización se entrega en un documento aparte, una vez Conaltura haya validado el alcance descrito acá y respondido el cuestionario de la sección 09. Esa estructura permite cotizar cada ola por separado y arrancar la Fase 0 sin esperar a que Fase 2 esté lista.
+    </p>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 02 · CONTEXTO OPERATIVO                                      -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">02 · Contexto Operativo</div>
+    <div class="page-header-num">Fase 0 · Conaltura</div>
+  </div>
+
+  <h2>Cómo funciona hoy la operación.</h2>
+  <div class="quote-line"></div>
+
+  <p class="lede">
+    El mapeo viene del hackathon y de las dos sesiones de discovery. La operación está sostenida por personas que dominan procesos puntuales, con archivos vivos en Excel y conocimiento concentrado en algunas cabezas clave. El sistema funciona, pero no escala con la velocidad de obra que viene.
+  </p>
+
+  <h3>La operación en números</h3>
+  <div class="stats">
+    <div class="stat-box">
+      <div class="stat-num">23</div>
+      <div class="stat-label">obras activas en este momento</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">173</div>
+      <div class="stat-label">cuadros comparativos por mes</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">400</div>
+      <div class="stat-label">correos al día en la bandeja compartida</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">~370</div>
+      <div class="stat-label">horas/mes del equipo en cotizaciones y cuadros</div>
+    </div>
+  </div>
+
+  <h3>Los cuellos identificados</h3>
+
+  <h4>1 · Cuadros comparativos a mano</h4>
+  <p>
+    Cada vez que se necesita decidir un proveedor, alguien recopila los archivos de varios contratistas, normaliza valores que no son comparables, arma una matriz en Excel y la pasa al equipo. Es trabajo repetitivo, propenso a errores, y consume el grueso del tiempo del área.
+  </p>
+
+  <h4>2 · Bandeja compartida sin clasificar</h4>
+  <p>
+    400 correos al día. Cuatro personas se rotan para leer todo y asignar tareas. El correo correcto puede tardar en llegar a la persona correcta, y una semana de atraso en la rotación deja todo el flujo congestionado.
+  </p>
+
+  <h4>3 · Presupuestos en código viejo, guía nueva sin terminar</h4>
+  <p>
+    La nueva guía presupuestal existe pero los presupuestos históricos siguen en código viejo. Hasta que ese remapeo no esté hecho, las 23 obras no se pueden comparar entre sí — ni capítulo contra capítulo, ni proyecto contra proyecto.
+  </p>
+
+  <h4>4 · Conocimiento concentrado en personas</h4>
+  <p>
+    Los precios, los tenores y los criterios de cálculo de P2 están en cabezas específicas. Si esa persona no está disponible, el flujo se bloquea. La nueva guía y la matriz de tenores buscan resolver esto, pero todavía no están cerradas.
+  </p>
+
+  <h4>5 · Indexaciones que no se simulan, se calculan a ojo</h4>
+  <p>
+    Cuando sube un costo (salario, material, índice macro), recalcular el impacto sobre cada contratista vivo es un ejercicio manual que se hace de a poquitos. No hay una forma rápida de ver el impacto agregado de una indexación sobre la obra.
+  </p>
+
+  <h4>6 · Presupuesto base vs. proyectado: hoy se llevan a mano</h4>
+  <p>
+    El presupuesto base es inmodificable y es contra lo que se mide la realidad del negocio. Pero la realidad de obra cambia (errores de diseño, ajustes de cantidades, indexación). Hoy la trazabilidad entre lo presupuestado, lo proyectado y lo finalmente negociado se hace en Excel con cruces manuales — y esa trazabilidad es la única forma de saber si una negociación fue buena o no.
+  </p>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 03 · VISIÓN: MATRIZ CENTRAL Y FLUJO                          -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">03 · Visión del Sistema</div>
+    <div class="page-header-num">Fase 0 · Conaltura</div>
+  </div>
+
+  <h2>Una matriz central, ocho habilidades, tres olas.</h2>
+  <div class="quote-line"></div>
+
+  <p class="lede">
+    El sistema completo se piensa como un anillo: las entradas del negocio (presupuestos, correos, cotizaciones, indexaciones) pasan por las habilidades, alimentan la matriz central, y de ahí salen a las áreas en el formato que cada área necesita.
+  </p>
+
+  <h3>El flujo end-to-end</h3>
+  <p>
+    <strong>Entradas</strong> → presupuestos del área (P1, P2, P3 en Excel), bandeja de correos (cotizaciones, contratos, solicitudes), cotizaciones de contratistas (PDF, ZIP, Excel), indexaciones que llegan del entorno (alzas salariales, índices macro, solicitudes puntuales).
+  </p>
+  <p>
+    <strong>Procesamiento</strong> → las ocho habilidades en Claude leen, normalizan, calculan y escriben sobre la matriz central única. Cada habilidad tiene un disparador específico: el correo entrante, el cargue de un Excel, un evento de indexación, o una consulta del equipo.
+  </p>
+  <p>
+    <strong>Salidas</strong> → entregables por área (cada equipo ve el presupuesto en su formato), bandejas personales asignadas automáticamente, cuadros comparativos listos para revisión, alertas de desviación cuando un valor sale del rango, y consultas en lenguaje natural sobre la matriz (visión a futuro).
+  </p>
+
+  <h3>Por qué se ordena en olas, no todo de una</h3>
+
+  <p>
+    Construir las ocho habilidades en paralelo es técnicamente posible, pero estratégicamente desperdicia tiempo y validación. La realidad es que <strong>algunas habilidades son prerrequisito de otras</strong>. Si arrancamos por las de la mitad, después toca devolverse.
+  </p>
+
+  <p>
+    El orden de las olas no responde a "qué es más fácil" — responde a "qué tiene que estar para que lo siguiente tenga sentido":
+  </p>
+
+  <ul>
+    <li><strong>Fase 0</strong> instala los tres habilitadores: el remapeo de códigos (sin él no hay matriz central), el clasificador de correos (sin él los inputs llegan sucios) y el comparador de cotizaciones (sin él el equipo no aprende el patrón de trabajo con el agente).</li>
+    <li><strong>Fase 2</strong> consume el output de Fase 0 y construye el cimiento real del sistema: el ingestor que pobla la matriz, el motor de tenores que calcula P2, el simulador de indexación, y el monitor de desviaciones.</li>
+    <li><strong>Fase futura</strong> es el agente conversacional que necesita la matriz central completa y poblada para tener algo sobre lo que hablar.</li>
+  </ul>
+
+  <div class="highlight">
+    <p>
+      <strong>Una decisión clave.</strong> Cada ola se cotiza por separado y se puede arrancar de forma independiente. Conaltura puede contratar Fase 0 sin comprometerse con Fase 2 — y validar ahí si el modelo de trabajo agente-equipo funciona antes de meter el cimiento. Lo que sí no se puede invertir es el orden: Fase 2 sin Fase 0 no se sostiene.
+    </p>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 04 · FASE 0 — HABILIDADES DE ARRANQUE                        -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">04 · Fase 0</div>
+    <div class="page-header-num">Habilidades de arranque</div>
+  </div>
+
+  <div class="phase-banner banner-fase-0">
+    <div class="phase-banner-tag">Fase 0 · 3 habilidades</div>
+    <h3>Habilidades de arranque que habilitan el resto del sistema.</h3>
+    <p>
+      Ninguna de estas tres es "lo fácil para empezar". Son las que <strong style="color:white;">tienen que estar primero porque todo lo demás las consume</strong>. Sin remapeo no hay matriz central. Sin clasificador los inputs llegan sin orden. Sin comparador el equipo no valida el patrón de trabajo agente-equipo que Fase 2 reutiliza en cada habilidad.
+    </p>
+  </div>
+
+  <h4>Por qué Fase 0 va primero</h4>
+
+  <ul>
+    <li><strong>Remapeo de códigos:</strong> es el cimiento técnico de la matriz central. El Ingestor de presupuestos (Fase 2) consume los códigos remapeados para normalizar cada partida. Sin remapeo, los presupuestos históricos no se pueden cargar a la matriz, y sin matriz poblada nada de Fase 2 funciona.</li>
+    <li><strong>Clasificador de correos:</strong> es el canal de entrada. El Comparador de cotizaciones, el Simulador de indexación y eventualmente el Monitor de desviaciones reciben información que entra por correo. Si esa información no está clasificada y enrutada a la persona correcta, las habilidades de Fase 2 trabajan sobre datos sucios.</li>
+    <li><strong>Comparador de cotizaciones:</strong> es la primera validación del modelo de trabajo. El equipo aprende cómo iterar con el agente — el agente hace el grueso, el equipo refina y corrige, el agente aprende para la siguiente. Ese loop se reutiliza en cada habilidad posterior. Si el equipo no domina ese loop primero acá, Fase 2 entra a ciegas.</li>
+  </ul>
+
+  <!-- HABILIDAD: COMPARADOR DE COTIZACIONES -->
+  <div class="skill-card fase-0">
+    <div class="skill-card-tag">Habilidad 04 · Fase 0</div>
+    <h4>Comparador de cotizaciones</h4>
+    <p style="font-size:13px; color:#444; line-height:1.7;">
+      Llega un ZIP o un PDF con las cotizaciones de varios contratistas a la bandeja del correo de gestión. La habilidad lee todo, normaliza valores, arma el cuadro comparativo con condiciones técnicas, ranking y tareas para el equipo, y lo deja listo para revisión.
+    </p>
+
+    <div class="row">
+      <div class="row-label">Entrada</div>
+      <div class="row-value">Correo con cotizaciones de contratistas (PDF, ZIP, Excel) en la bandeja de gestión.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Procesamiento</div>
+      <div class="row-value">El agente lee cada documento, identifica valores comparables, normaliza unidades y formatos, arma la matriz comparativa con condiciones técnicas y ranking sugerido.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Salida</div>
+      <div class="row-value">Cuadro comparativo en el formato que defina Conaltura (Excel, interfaz visual, correo) con asignación de tareas para los responsables del área.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Qué resuelve</div>
+      <div class="row-value">El equipo deja de armar a mano los 173 cuadros comparativos al mes. Lo que hoy toma horas de copy-paste y verificación pasa a ser una revisión asistida sobre el cuadro ya armado.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Personalización</div>
+      <div class="row-value">El cuadro puede incluir recomendación con justificación, gráficas de porcentajes, alertas sobre cotizaciones fuera de rango, y los criterios de ranking que el área defina.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Por qué arranca primero</div>
+      <div class="row-value">Es la habilidad con flujo más limpio del proyecto y la primera donde el equipo valida el modelo agente-equipo. Lo que se aprende acá se aplica en cada habilidad de Fase 2.</div>
+    </div>
+  </div>
+
+  <!-- HABILIDAD: CLASIFICADOR DE CORREOS -->
+  <div class="skill-card fase-0">
+    <div class="skill-card-tag">Habilidad 05 · Fase 0</div>
+    <h4>Clasificador de correos</h4>
+    <p style="font-size:13px; color:#444; line-height:1.7;">
+      El agente se conecta a la bandeja compartida, lee cada correo entrante, lo clasifica según las reglas que Conaltura defina (tipo de mensaje, área responsable, urgencia) y lo enruta a la bandeja personal de la persona que tiene que resolverlo.
+    </p>
+
+    <div class="row">
+      <div class="row-label">Entrada</div>
+      <div class="row-value">Bandeja de correo compartida (~400 correos al día).</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Procesamiento</div>
+      <div class="row-value">El agente lee el correo, identifica de qué se trata (cotización, contrato, indexación, consulta), aplica la matriz de reglas de clasificación, y enruta el correo a la bandeja correspondiente con un breve resumen de la tarea.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Salida</div>
+      <div class="row-value">Cada persona del equipo recibe en su bandeja personal sólo los correos que le tocan, ya etiquetados y resumidos.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Qué resuelve</div>
+      <div class="row-value">Se elimina la rotación diaria entre cuatro personas leyendo todo. Cada quien se concentra en lo suyo. La carga operativa de "leer y triar" desaparece.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Por qué arranca primero</div>
+      <div class="row-value">Las habilidades de Fase 2 que dependen de información que llega por correo (Simulador de indexación, eventualmente Monitor de desviaciones) necesitan un flujo limpio de entrada. Si los correos están desordenados, esas habilidades trabajan sobre datos sucios.</div>
+    </div>
+  </div>
+
+  <!-- HABILIDAD: REMAPEO DE CÓDIGOS -->
+  <div class="skill-card fase-0">
+    <div class="skill-card-tag">Habilidad 01 · Fase 0</div>
+    <h4>Remapeo de códigos</h4>
+    <p style="font-size:13px; color:#444; line-height:1.7;">
+      Conaltura tiene una guía vieja con los códigos históricos y una guía nueva con la nomenclatura unificada. La habilidad lee ambas, lee los ejemplos de remapeo que el equipo ya hizo a mano, y propone el mapeo capítulo por capítulo. Es ejecución única (se corre una vez por capítulo), no se queda corriendo.
+    </p>
+
+    <div class="row">
+      <div class="row-label">Entrada</div>
+      <div class="row-value">Excel de la guía vieja, Excel de la guía nueva, ejemplos de remapeo parcial ya hechos por el equipo (incluso una nota de voz explicando el criterio sirve).</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Procesamiento</div>
+      <div class="row-value">El agente identifica equivalencias directas (renombramientos suaves), agrupa códigos viejos en códigos nuevos cuando aplica, y marca los casos donde no encuentra equivalencia clara para revisión manual.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Salida</div>
+      <div class="row-value">Tabla de equivalencias capítulo por capítulo, con los casos resueltos en verde y los casos dudosos en rojo para que el equipo los corrija manualmente. Una vez aprobada, la tabla se vuelve la fuente de verdad para el Ingestor.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Qué resuelve</div>
+      <div class="row-value">Hace en horas lo que manualmente toma semanas, capítulo por capítulo. El equipo solo revisa y corrige el porcentaje que la IA no fue capaz de mapear automáticamente — ese porcentaje histórico observado ronda el 25%.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Por qué arranca primero</div>
+      <div class="row-value">Sin remapeo no hay matriz central poblada. Sin matriz central, ni el Ingestor (Hab 02), ni el Motor de tenores (Hab 03), ni el Monitor (Hab 07), ni el agente conversacional (Hab 08) pueden funcionar. Es el cimiento técnico de todo lo que viene en Fase 2.</div>
+    </div>
+  </div>
+
+  <div class="warning">
+    <p>
+      <strong>Lo que necesitamos del lado de Conaltura para arrancar Fase 0:</strong> acceso al correo de gestión donde llegan las cotizaciones; reglas de clasificación de correos (qué tipo va a quién, cuál es urgente, cuál entra a triage); guía vieja completa, guía nueva completa, y al menos un ejemplo de remapeo parcial ya hecho por el equipo. El detalle exacto está en la sección 09.
+    </p>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 05 · FASE 2 — CIMIENTO E INTELIGENCIA                        -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">05 · Fase 2</div>
+    <div class="page-header-num">Cimiento e inteligencia</div>
+  </div>
+
+  <div class="phase-banner banner-fase-2">
+    <div class="phase-banner-tag">Fase 2 · 4 habilidades + comparabilidad 23 obras</div>
+    <h3>El cimiento real del sistema, sobre lo que ya está corriendo.</h3>
+    <p>
+      Fase 2 puebla la matriz central, calcula P2 sin depender de un experto, simula el impacto de las indexaciones, vigila desviaciones, y desbloquea por primera vez la comparabilidad entre las 23 obras. Cada habilidad consume directamente el output de Fase 0.
+    </p>
+  </div>
+
+  <h4>Qué consume Fase 2 de Fase 0</h4>
+  <ul>
+    <li>El <strong>Ingestor de presupuestos</strong> consume los códigos remapeados (Hab 01) para normalizar cada partida que carga a la matriz central.</li>
+    <li>El <strong>Motor de tenores</strong> consume las cantidades base que el Ingestor dejó en la matriz para calcular P2.</li>
+    <li>El <strong>Simulador de indexación</strong> consume contratos vivos extraídos de los correos clasificados (Hab 05) y los presupuestos cargados por el Ingestor.</li>
+    <li>El <strong>Monitor de desviaciones</strong> consume el histórico que el Ingestor ya tiene en la matriz central para definir rangos esperados.</li>
+  </ul>
+
+  <h4>Qué necesita Conaltura terminar antes de arrancar Fase 2</h4>
+  <ul>
+    <li>Guía nueva cerrada — sin esto el Ingestor no puede normalizar correctamente y el Motor de tenores no tiene base.</li>
+    <li>Matriz de tenores definida (la que tiene Hernán) — sin esto el Motor de tenores no calcula P2.</li>
+    <li>Etiquetado por tipología de negocio en el detallado — habilita el comparativo presupuesto base vs. proyectado.</li>
+  </ul>
+
+  <!-- HABILIDAD: INGESTOR DE PRESUPUESTOS -->
+  <div class="skill-card fase-2">
+    <div class="skill-card-tag">Habilidad 02 · Fase 2</div>
+    <h4>Ingestor de presupuestos (P1, P2, P3)</h4>
+    <p style="font-size:13px; color:#444; line-height:1.7;">
+      Lee el Excel de presupuesto que el área genera (P1 al comprar lote, P2 al salir a ventas, P3 al arrancar obra), identifica conceptos, normaliza usando los códigos remapeados y los carga a la matriz central. Cada vez que el área genera un presupuesto nuevo, se dispara el cargue.
+    </p>
+
+    <div class="row">
+      <div class="row-label">Entrada</div>
+      <div class="row-value">Excel de presupuesto (P1, P2, P3) cargado al sistema por el responsable del área.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Procesamiento</div>
+      <div class="row-value">El agente lee el Excel, identifica conceptos línea por línea, los normaliza usando la tabla de equivalencias del Remapeo (Hab 01) y los inserta en la matriz central etiquetados por obra y por tipo de presupuesto.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Salida</div>
+      <div class="row-value">Matriz central poblada con cada presupuesto etiquetado, lista para que el Motor de tenores, el Monitor de desviaciones y la comparabilidad entre obras la consuman.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Capacidad adicional</div>
+      <div class="row-value">El Ingestor también puede leer el detallado a nivel de insumo (5.000+ líneas) y construir el resumido siempre que cada línea esté etiquetada por tipología de negocio (mampostería, estructura, acabados, etc.). Esto habilita el comparativo presupuesto base vs. proyectado.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Qué resuelve</div>
+      <div class="row-value">Hoy P1, P2 y P3 se copian a mano entre archivos por área, código por código, actividad por actividad. El Ingestor automatiza ese cargue y deja la información centralizada.</div>
+    </div>
+  </div>
+
+  <!-- HABILIDAD: MOTOR DE TENORES -->
+  <div class="skill-card fase-2">
+    <div class="skill-card-tag">Habilidad 03 · Fase 2</div>
+    <h4>Motor de tenores</h4>
+    <p style="font-size:13px; color:#444; line-height:1.7;">
+      Aplica los tenores definidos por Hernán a cada actividad para calcular P2 de forma determinística, sin depender de que la persona experta esté disponible. Se ejecuta cuando una obra entra en cálculo de P2.
+    </p>
+
+    <div class="row">
+      <div class="row-label">Entrada</div>
+      <div class="row-value">Cantidades base del proyecto en la matriz central (m², número de apartamentos, m² de fachada, etc.) y matriz de tenores cerrada por Hernán.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Procesamiento</div>
+      <div class="row-value">El agente toma cada actividad, identifica la variable correcta y aplica el tenor que corresponde. Cálculo determinístico — la habilidad no inventa valores, solo aplica la fórmula sobre los inputs.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Salida</div>
+      <div class="row-value">Documento de P2 calculado en segundos sobre la matriz central, con trazabilidad de qué tenor se aplicó a cada actividad.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Qué resuelve</div>
+      <div class="row-value">El cálculo de P2 deja de depender de una persona específica. La base de conocimiento queda centralizada y reutilizable por toda la organización.</div>
+    </div>
+  </div>
+
+  <!-- HABILIDAD: SIMULADOR DE INDEXACIÓN -->
+  <div class="skill-card fase-2">
+    <div class="skill-card-tag">Habilidad 06 · Fase 2</div>
+    <h4>Simulador de indexación</h4>
+    <p style="font-size:13px; color:#444; line-height:1.7;">
+      Cuando sube un costo (alza salarial, índice macro, solicitud puntual de un contratista), el Simulador recorre todos los contratos vivos calculando el impacto: cuánto ya está consumido, cuánto falta por ejecutar, y cuál es el delta para cada contratista.
+    </p>
+
+    <div class="row">
+      <div class="row-label">Entrada</div>
+      <div class="row-value">Evento de indexación registrado por el área. Contratos vivos extraídos de los correos clasificados (Hab 05) o de la base que Conaltura mantenga. Presupuestos cargados por el Ingestor (Hab 02).</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Procesamiento</div>
+      <div class="row-value">El agente recorre cada contrato vivo, calcula el porcentaje ejecutado vs. lo que falta por ejecutar, aplica la indexación al saldo restante y genera el reporte de impacto.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Salida</div>
+      <div class="row-value">Reporte por contratista mostrando el impacto de la indexación sobre los contratos vivos, ordenable por monto absoluto o por porcentaje.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Qué resuelve</div>
+      <div class="row-value">Hoy ese cálculo se hace a mano de a poquitos. El Simulador entrega el panorama completo en minutos y permite tomar decisión informada antes de aceptar o renegociar.</div>
+    </div>
+  </div>
+
+  <!-- HABILIDAD: MONITOR DE DESVIACIONES -->
+  <div class="skill-card fase-2">
+    <div class="skill-card-tag">Habilidad 07 · Fase 2</div>
+    <h4>Monitor de desviaciones</h4>
+    <p style="font-size:13px; color:#444; line-height:1.7;">
+      Vigila la matriz central en tiempo real. Cuando un valor entra y se sale del rango histórico esperado para esa actividad, se dispara una alerta. Funciona sobre los rangos que el equipo define por actividad.
+    </p>
+
+    <div class="row">
+      <div class="row-label">Entrada</div>
+      <div class="row-value">Matriz central con histórico poblado (output del Ingestor). Reglas de rango por actividad definidas por el equipo.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Procesamiento</div>
+      <div class="row-value">Cada nuevo dato que entra a la matriz se compara con el rango histórico esperado. Si se sale, se genera una alerta con el contexto: qué actividad, qué obra, qué valor histórico, qué valor nuevo, qué tan lejos está.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Salida</div>
+      <div class="row-value">Alertas en tiempo real al canal que defina Conaltura (correo, interfaz visual, Telegram). Informe periódico del comportamiento agregado.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Qué resuelve</div>
+      <div class="row-value">Hoy las desviaciones se detectan tarde, cuando alguien las cruza manualmente. El Monitor las atrapa al momento del cargue y permite intervenir antes de que el ajuste cueste más.</div>
+    </div>
+  </div>
+
+  <h3>Comparabilidad entre las 23 obras</h3>
+  <p>
+    No es una habilidad nueva — es el <strong>output natural</strong> del Remapeo (Fase 0) más el Ingestor (Fase 2). Una vez los presupuestos de las 23 obras estén en la matriz central con códigos unificados, por primera vez se pueden comparar:
+  </p>
+  <ul>
+    <li>Capítulo X en obra A vs. obra B.</li>
+    <li>P1, P2 y P3 de una misma obra desglosados.</li>
+    <li>El mismo capítulo en los últimos tres años.</li>
+    <li>Presupuesto base vs. proyectado para una obra (cuando el detallado tenga etiquetado por tipología).</li>
+  </ul>
+
+  <h3>Comparativo presupuesto base vs. proyectado</h3>
+  <p>
+    Este alcance se incorpora en Fase 2 porque depende del Ingestor. El presupuesto base es inmodificable y es contra lo que se mide la realidad del negocio. El proyectado refleja la realidad de obra (cambios de diseño, errores de presupuesto, cantidades reales). Tener ambos cargados, etiquetados por tipología de negocio, permite ver de un vistazo: dónde está el desfase contra presupuesto, dónde está el desfase contra proyección, y cuál es el resultado real de la negociación.
+  </p>
+  <p>
+    El detallado lo entrega Conaltura (la matriz por insumo a 5.000+ líneas con etiqueta de tipología). El Ingestor construye el resumido que se compara contra el presupuesto base.
+  </p>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 06 · FASE FUTURA                                             -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">06 · Fase Futura</div>
+    <div class="page-header-num">Agente conversacional</div>
+  </div>
+
+  <div class="phase-banner banner-futura">
+    <div class="phase-banner-tag">Fase futura · 1 agente</div>
+    <h3>Hablar con la matriz central, no consultarla a mano.</h3>
+    <p>
+      Una vez Fase 2 esté corriendo y la matriz central esté poblada y consolidada, se construye un agente conversacional que recibe preguntas en lenguaje natural y responde sobre el estado real de los proyectos.
+    </p>
+  </div>
+
+  <!-- HABILIDAD: AGENTE CONVERSACIONAL -->
+  <div class="skill-card fase-futura">
+    <div class="skill-card-tag">Habilidad 08 · Fase futura</div>
+    <h4>Agente conversacional sobre la matriz central</h4>
+    <p style="font-size:13px; color:#444; line-height:1.7;">
+      El equipo deja de pedirle cosas a Excel y empieza a preguntárselas al agente. "¿Cómo va este proyecto en cuanto a presupuesto?", "¿por qué nos estamos desviando tanto en este capítulo?", "¿qué contratista está haciendo la estructura de tal obra?", "muéstrame el comparativo de mampostería en las últimas cinco obras". El agente responde con datos reales tomados de la matriz, no con suposiciones.
+    </p>
+
+    <div class="row">
+      <div class="row-label">Entrada</div>
+      <div class="row-value">Pregunta en lenguaje natural por parte del equipo (chat, correo, voz).</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Procesamiento</div>
+      <div class="row-value">El agente interpreta la intención de la pregunta, identifica qué información necesita de la matriz central, ejecuta la consulta y compone la respuesta.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Salida</div>
+      <div class="row-value">Respuesta directa con los datos solicitados, trazabilidad de dónde salió la información, y opcionalmente la consulta sugerida que se puede guardar y volver a correr.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Qué resuelve</div>
+      <div class="row-value">El equipo deja de ser el agente humano que responde "¿qué contratista está haciendo X?" decenas de veces al día. La consulta se autoatiende y libera tiempo para análisis y decisión.</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Por qué va de último</div>
+      <div class="row-value">Un agente conversacional sin matriz central poblada y consistente es una promesa vacía: respondería información incompleta o mal mapeada. Llega cuando el resto del sistema ya está estable y la matriz tiene meses de información cargada.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 07 · DEPENDENCIAS Y CRONOGRAMA                               -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">07 · Dependencias y Cronograma</div>
+    <div class="page-header-num">Fase 0 · Conaltura</div>
+  </div>
+
+  <h2>El orden de las olas, sin fechas en piedra.</h2>
+  <div class="quote-line"></div>
+
+  <p class="lede">
+    El cronograma final depende de qué tan rápido Conaltura entregue los inputs que necesitamos (sección 09) y de cuándo cierren la guía nueva y la matriz de tenores. Lo que sí está claro es el orden y los disparadores de cada ola.
+  </p>
+
+  <div class="timeline">
+    <div class="timeline-row" style="grid-template-columns: 110px 1fr; padding-bottom: 10px;">
+      <div class="timeline-phase" style="color: var(--slate);">Disparador</div>
+      <div class="timeline-skills" style="color: var(--slate); font-weight: 400; font-size: 11px;">Qué tiene que estar listo para que esa ola arranque</div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="timeline-phase" style="color: var(--emerald);">Fase 0</div>
+      <div class="timeline-skills">Comparador · Clasificador · Remapeo</div>
+      <div class="timeline-trigger">
+        Acceso al correo de gestión + reglas de clasificación + guía vieja completa + guía nueva completa + ejemplo de remapeo parcial ya hecho por el equipo.
+      </div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="timeline-phase" style="color: var(--morado);">Fase 2</div>
+      <div class="timeline-skills">Ingestor · Motor de tenores · Simulador de indexación · Monitor de desviaciones</div>
+      <div class="timeline-trigger">
+        Fase 0 corriendo en producción + guía nueva cerrada + matriz de tenores cerrada por Hernán + detallado etiquetado por tipología (para el comparativo base vs. proyectado).
+      </div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="timeline-phase" style="color: var(--blue);">Fase futura</div>
+      <div class="timeline-skills">Agente conversacional</div>
+      <div class="timeline-trigger">
+        Fase 2 estable + matriz central con histórico cargado + ciclo de validación del modelo agente-equipo cerrado en las habilidades anteriores.
+      </div>
+    </div>
+  </div>
+
+  <h3>Modelo de soporte y validación</h3>
+  <p>
+    Cada habilidad incluye un mes de soporte post-go-live. Durante ese mes el equipo de Conaltura usa la habilidad en producción y reporta lo que no quedó perfecto; nosotros iteramos hasta dejarlo afinado. El soporte cubre ajustes finos, no rediseño de alcance.
+  </p>
+  <p>
+    Después del mes de soporte, los ajustes adicionales se cobran por hora. La filosofía es: la habilidad queda funcionando bien <em>antes</em> de que termine ese mes; el soporte adicional posterior es para evolución, no para terminar lo prometido.
+  </p>
+
+  <h3>Modelo de iteración</h3>
+  <p>
+    Una IA aprende con la práctica. La primera ejecución de una habilidad sobre datos reales del cliente no será perfecta — esto es esperado, no una falla. El patrón estándar es:
+  </p>
+  <ol>
+    <li>El agente procesa el primer batch real de información de Conaltura.</li>
+    <li>El equipo revisa y marca lo que quedó bien y lo que no.</li>
+    <li>Iteramos sobre la habilidad con esa retroalimentación específica.</li>
+    <li>Para el segundo batch ya está calibrada al contexto exacto del cliente.</li>
+  </ol>
+  <p>
+    Este patrón es el que el equipo aprende en Fase 0 con el Comparador, y se reutiliza en cada habilidad posterior. Por eso Fase 0 no es solo entrega técnica — es entrenamiento del equipo en cómo trabajar con el agente.
+  </p>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 08 · STACK Y CONSIDERACIONES TÉCNICAS                        -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">08 · Stack y Consideraciones</div>
+    <div class="page-header-num">Fase 0 · Conaltura</div>
+  </div>
+
+  <h2>Sobre qué se construye el sistema.</h2>
+  <div class="quote-line"></div>
+
+  <p class="lede">
+    El proyecto se construye sobre habilidades en Claude (Anthropic) más una matriz central. Esta sección resume los componentes del stack y las consideraciones que el equipo de tecnología de Conaltura va a querer revisar.
+  </p>
+
+  <h3>Componentes principales</h3>
+  <ul>
+    <li><strong>Habilidades en Claude:</strong> cada habilidad es un módulo independiente construido sobre la suite de Claude. Modelo probado, riesgo bajo de equivocarse de proveedor, capacidad de aprender rápido sobre la información del cliente.</li>
+    <li><strong>Matriz central única:</strong> la fuente de verdad del sistema. Vive en la infraestructura que mejor se ajuste al ecosistema actual de Conaltura — definimos esto en la conversación técnica con el área de tecnología.</li>
+    <li><strong>Conexiones a fuentes existentes:</strong> correo (la prioridad para Fase 0), Sinco / Siigo y otras plataformas (a evaluar en Fase 2 según necesidad). Hasta hoy no hemos tenido problemas de conexión con ningún sistema empresarial.</li>
+  </ul>
+
+  <h3>Modelo de costo de la suite de Claude</h3>
+  <p>
+    El costo de Claude depende del volumen de uso (tokens), <strong>no</strong> del número de personas que lo usan. Para Fase 0 con las tres habilidades iniciales, la cuenta tipo cubre con margen el volumen esperado. El costo de las suscripciones a herramientas (Claude, eventualmente WhatsApp si aplica) corre por cuenta de Conaltura — definimos juntos qué plan se requiere según el alcance acordado.
+  </p>
+
+  <h3>Canales de salida</h3>
+  <p>
+    Las salidas del sistema (cuadros comparativos, alertas, asignaciones) se entregan en el canal que mejor se ajuste al hábito del equipo. Las opciones que típicamente se usan son: correo, Drive, Telegram, interfaz visual web propia, WhatsApp (con costo asociado). No queremos que Conaltura cambie sus rutinas — el sistema se ajusta a las herramientas que el equipo ya usa.
+  </p>
+
+  <div class="warning">
+    <p>
+      <strong>Conversación técnica pendiente.</strong> Antes de empezar Fase 0, agendamos una sesión con el área de tecnología de Conaltura para validar accesos al correo, definir dónde vive la matriz central y mapear las integraciones que sí se necesitan en Fase 0 vs. las que esperan a Fase 2.
+    </p>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 09 · CUESTIONARIO                                            -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="content">
+  <div class="page-header">
+    <div class="page-header-tag">09 · Lo que necesitamos de Conaltura</div>
+    <div class="page-header-num">Fase 0 · Conaltura</div>
+  </div>
+
+  <h2>Cuestionario para arrancar.</h2>
+  <div class="quote-line"></div>
+
+  <p class="lede">
+    Esta es la información que necesitamos tener antes de prender la primera habilidad. Pueden responder por escrito sobre el mismo documento, en una hoja aparte o incluso por nota de voz — lo importante es la claridad, no el formato. Donde corresponda, agradecemos archivos adjuntos (Excel, ejemplos reales, capturas).
+  </p>
+
+  <h3>Para Fase 0</h3>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 01 · Comparador de cotizaciones</div>
+    <div class="q-title">Acceso al correo de gestión y muestras reales.</div>
+    <div class="q-detail">
+      <ul>
+        <li>¿Cuál es el correo de gestión donde llegan las cotizaciones de los contratistas?</li>
+        <li>¿Pueden compartirnos 3-5 cotizaciones reales recientes (formatos típicos: PDF, ZIP, Excel) para entrenar al agente sobre el formato exacto?</li>
+        <li>¿En qué canal quieren recibir el cuadro comparativo (correo, Excel descargable, Drive, interfaz visual)?</li>
+        <li>¿Quieren que el agente incluya una recomendación con justificación, o solo el cuadro normalizado para que el equipo decida?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 02 · Clasificador de correos</div>
+    <div class="q-title">Reglas de clasificación y responsables.</div>
+    <div class="q-detail">
+      <ul>
+        <li>¿Cuál es la bandeja compartida que el agente debe vigilar?</li>
+        <li>¿Qué tipos de correo entran (cotización, contrato, indexación, consulta interna, otros)? Una matriz tipo "si llega X tipo de correo → va a Y persona" es lo ideal.</li>
+        <li>¿Quién es responsable de cada tipo de mensaje? Si hay solapes, ¿cuál es la regla de prioridad?</li>
+        <li>¿Hay correos que requieren validación humana antes de moverse, o todos se enrutan automáticamente?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 03 · Remapeo de códigos</div>
+    <div class="q-title">Las dos guías y los ejemplos.</div>
+    <div class="q-detail">
+      <ul>
+        <li>Excel completo de la guía vieja (el que tienen los códigos históricos).</li>
+        <li>Excel completo de la guía nueva (la nomenclatura unificada).</li>
+        <li>El ejemplo de remapeo parcial que el equipo ya hizo para gastos generales (el que tiene Joan) — sirve incluso si está incompleto, lo usamos como criterio.</li>
+        <li>Si tienen una nota de voz o un documento explicando cómo se hace el remapeo a mano, también nos sirve mucho.</li>
+        <li>¿Hay un orden preferido por capítulos para arrancar (gastos generales, redes, cimentaciones, estructuras)?</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Para Fase 2</h3>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 04 · Ingestor de presupuestos</div>
+    <div class="q-title">Ejemplos reales de P1, P2 y P3.</div>
+    <div class="q-detail">
+      <ul>
+        <li>Un Excel de ejemplo de cada uno (P1, P2, P3) — no tienen que ser perfectos, lo importante es que sean reales.</li>
+        <li>¿Quién es el responsable de generar cada presupuesto y de cargarlo? (esto define el flujo del disparador).</li>
+        <li>¿Por qué canal preferirían cargar el Excel al sistema (correo, Drive, Telegram, interfaz)?</li>
+        <li>¿Qué información mínima de obra debe ir asociada a cada presupuesto (código de obra, etapa, fecha)?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 05 · Motor de tenores</div>
+    <div class="q-title">La matriz cerrada de Hernán.</div>
+    <div class="q-detail">
+      <ul>
+        <li>La matriz de tenores tal como la cierre Hernán: actividad, variable que aplica, fórmula del tenor.</li>
+        <li>¿En qué momento exacto del flujo de obra se dispara el cálculo de P2?</li>
+        <li>¿Qué variables base entrega el área de proyectos (m², número de apartamentos, m² de fachada, etc.) y dónde viven hoy?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 06 · Simulador de indexación</div>
+    <div class="q-title">Eventos que disparan recálculo y base de contratos.</div>
+    <div class="q-detail">
+      <ul>
+        <li>¿Cuáles son los eventos típicos que disparan una indexación (alza salarial, índice macro, solicitud puntual)?</li>
+        <li>¿Dónde viven hoy los contratos vivos? Si están solo en correos, los extrae el Clasificador. Si están en una base estructurada, conectamos directo.</li>
+        <li>¿Qué nivel de detalle de impacto necesitan ver (por contratista, por capítulo, agregado por obra)?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 07 · Monitor de desviaciones</div>
+    <div class="q-title">Reglas de alertas.</div>
+    <div class="q-detail">
+      <ul>
+        <li>¿Por actividad, qué porcentaje o monto absoluto se considera desviación que merece alerta?</li>
+        <li>¿Quién recibe las alertas? ¿Es la misma persona para todas o depende del tipo?</li>
+        <li>¿Por qué canal quieren las alertas (correo, Telegram, interfaz visual, WhatsApp)?</li>
+        <li>¿Cada cuánto quieren un informe agregado del comportamiento de desviaciones?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 08 · Comparativo presupuesto base vs. proyectado</div>
+    <div class="q-title">El detallado por insumo y la tipología.</div>
+    <div class="q-detail">
+      <ul>
+        <li>El detallado actual por insumo (las 5.000+ líneas) — en el formato que esté hoy.</li>
+        <li>¿Cuáles son las tipologías de negocio que Conaltura usa para agrupar (mampostería, estructura, acabados, redes, etc.)? La lista cerrada.</li>
+        <li>¿Qué columnas vienen con cada línea hoy (presupuesto, proyección, ejecutado)?</li>
+        <li>¿Cuál es la fuente de verdad para la "proyección" — la van actualizando manual o sale de un sistema?</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>General · disciplina y referencias</h3>
+
+  <div class="q-block">
+    <div class="q-num">Pregunta 09 · Equipo y referencias</div>
+    <div class="q-title">Quién es contraparte de cada habilidad.</div>
+    <div class="q-detail">
+      <ul>
+        <li>¿Quién es la contraparte por habilidad — la persona del lado de Conaltura que valida iteraciones y responde dudas?</li>
+        <li>¿Hay alguien del área de tecnología asignado para la conversación técnica inicial?</li>
+        <li>¿En qué horario y por qué canal se prefiere el ida y vuelta durante la implementación (Slack, correo, WhatsApp, reunión semanal)?</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 10 · CIERRE                                                  -->
+<!-- ============================================================ -->
+<div class="page">
+<div class="closing">
+  <div class="closing-blob"></div>
+  <div class="closing-content">
+    <div style="font-family:'Quicksand', sans-serif; font-size:11px; font-weight:600; color:var(--morado-claro); letter-spacing:4px; text-transform:uppercase; margin-bottom:18px;">Próximos Pasos</div>
+    <h2>Una vez Conaltura responda el cuestionario, mandamos cotización por ola.</h2>
+    <p>
+      La cotización separada por ola le da a Conaltura la flexibilidad de arrancar Fase 0 sin comprometerse con Fase 2 — y validar ahí si el modelo de trabajo agente-equipo funciona antes de meter el cimiento. Si en cualquier momento del cuestionario hay algo que no quedó claro o que prefieren conversar antes de responder, agendamos una sesión técnica con el ingeniero del lado de Irrelevant.
+    </p>
+    <p>
+      A partir de la respuesta del cuestionario, el orden natural es:
+    </p>
+    <ul style="font-size:13px; color:rgba(255,255,255,0.82); line-height:1.85; margin-left:20px;">
+      <li>Cotización separada por ola y conversación técnica con el área de tecnología de Conaltura.</li>
+      <li>Definición del calendario real de Fase 0 — entre dos y cuatro semanas según disponibilidad de los inputs.</li>
+      <li>Construcción, validación con el equipo, mes de soporte post-go-live.</li>
+      <li>Disparador de Fase 2 cuando guía nueva y matriz de tenores estén cerradas del lado de Conaltura.</li>
+    </ul>
+
+    <div class="closing-contact">
+      <div class="contact-block">
+        <div class="label">Contacto</div>
+        <div class="name">Sara Garcés Tobón</div>
+        <div class="role">Directora de Marketing · Irrelevant</div>
+        <div class="info">marketing@stayirrelevant.com</div>
+        <div class="info">+57 321 846 4652</div>
+      </div>
+      <div class="contact-block">
+        <div class="label">Empresa</div>
+        <div class="name">Irrelevant Club S.A.S.</div>
+        <div class="role">Medellín, Antioquia</div>
+        <div class="info">stayirrelevant.com</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
