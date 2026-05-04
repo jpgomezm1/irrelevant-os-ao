@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta &mdash; B&uacute;ho | Irrelevant</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --morado: #8B5CF6;
+    --morado-claro: #A78BFA;
+    --morado-oscuro: #7C3AED;
+    --morado-deep: #6D28D9;
+    --negro: #0F0A1F;
+    --negro-medio: #1A1333;
+    --negro-claro: #2D2250;
+    --gris-texto: #111111;
+    --gris-claro: #E6E3EC;
+    --lavanda: #F5F0FF;
+    --blanco: #FFFFFF;
+    --emerald: #34d399;
+    --amber: #fbbf24;
+    --blue: #60a5fa;
+    --red: #ef4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #1a1a2e;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  .slide {
+    width: 100vw; height: 100vh;
+    position: relative; overflow: hidden; flex-shrink: 0; display: none;
+  }
+  .slide.active { display: flex; }
+  .slide-dark { background: var(--negro); color: var(--blanco); }
+
+  .s-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--morado-claro); margin-bottom: 16px;
+  }
+
+  .gradient-line {
+    width: 40px; height: 2px;
+    background: linear-gradient(90deg, var(--morado), var(--morado-claro));
+    margin-bottom: 20px;
+  }
+
+  .s-highlight {
+    background: rgba(139,92,246,0.08);
+    border-left: 3px solid var(--morado-claro);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 24px; margin-top: 16px;
+    font-size: 15px; font-weight: 400;
+    color: rgba(255,255,255,0.7); line-height: 1.65;
+  }
+  .s-highlight strong { font-weight: 600; color: white; }
+
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--morado); color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px; font-weight: 700;
+    padding: 16px 40px; border-radius: 14px; border: none;
+    cursor: pointer; margin-top: 24px; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .cta-btn:hover {
+    background: var(--morado-deep);
+    box-shadow: 0 0 40px rgba(139,92,246,0.4);
+    transform: translateY(-2px);
+  }
+
+  .slide-counter {
+    position: fixed; bottom: 20px; right: 30px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.4); z-index: 100; letter-spacing: 1px;
+  }
+
+  @media print {
+    body { background: white; }
+    .slide { display: flex !important; page-break-after: always; box-shadow: none; }
+    .slide-counter { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: PORTADA ==================== -->
+<div class="slide slide-dark active" data-slide="1">
+  <video autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(2px) brightness(0.25); z-index:0;">
+    <source src="https://storage.googleapis.com/cluvi/Sara/Videos/video%20mr%20irrelevants%20oficina.MOV" type="video/mp4">
+  </video>
+  <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,10,31,0.7), rgba(124,58,237,0.15), rgba(15,10,31,0.8)); z-index:0;"></div>
+  <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px); background-size:60px 60px; z-index:0;"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:48px 80px;">
+    <div>
+      <img src="https://storage.googleapis.com/cluvi/nuevo_irre-removebg-preview.png" alt="irrelevant" style="height:50px; object-fit:contain; opacity:0.85;">
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; max-width:960px;">
+      <div style="font-family:'Quicksand',sans-serif; font-size:13px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--morado-claro); margin-bottom:20px;">PROPUESTA DE INTERVENCI&Oacute;N</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:60px; font-weight:700; line-height:1.1; letter-spacing:-2px;">
+        <span style="color:white;">AI Ops Layer + Agente</span><br>
+        <span style="background:linear-gradient(135deg, var(--morado-claro), var(--morado), #6366F1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">B&uacute;ho</span>
+      </div>
+      <div style="width:50px; height:3px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:28px 0 20px;"></div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:20px; font-weight:400; color:rgba(255,255,255,0.55); line-height:1.6;">Educaci&oacute;n &middot; centro de idiomas &mdash; Mayo 2026</div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+      <div style="font-family:'Quicksand',sans-serif; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px;">IRRELEVANT &mdash; AI TRANSFORMATION</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:10px; color:rgba(255,255,255,0.2); letter-spacing:1px;">CONFIDENCIAL</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 2: AGENDA ==================== -->
+<div class="slide slide-dark" data-slide="2">
+  <div style="position:absolute; top:-180px; right:-120px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.2), transparent 60%); border-radius:50%; filter:blur(90px);"></div>
+  <div style="position:absolute; bottom:-140px; left:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(99,102,241,0.1), transparent 55%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 80px; text-align:center;">
+    <div class="s-label">AGENDA</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:42px; font-weight:700; color:white; line-height:1.15; margin-bottom:16px;">De qu&eacute; vamos a hablar hoy.</div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:0 auto 48px;"></div>
+    <div style="position:relative; width:100%; max-width:1100px;">
+      <div style="position:absolute; top:24px; left:80px; right:80px; height:3px; background:linear-gradient(90deg, #818CF8, #6366F1, #4F46E5, #4338CA, #3730A3, #312E81); border-radius:2px;"></div>
+      <div style="display:flex; justify-content:space-between; position:relative;">
+        <div style="width:140px; text-align:center;">
+          <div style="width:48px; height:48px; border-radius:50%; background:#818CF8; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin:0 auto 12px; box-shadow:0 0 20px rgba(129,140,248,0.45);">1</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">Qui&eacute;nes somos</div>
+        </div>
+        <div style="width:140px; text-align:center;">
+          <div style="width:48px; height:48px; border-radius:50%; background:#6366F1; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin:0 auto 12px; box-shadow:0 0 20px rgba(99,102,241,0.45);">2</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">Nuestros servicios</div>
+        </div>
+        <div style="width:140px; text-align:center;">
+          <div style="width:48px; height:48px; border-radius:50%; background:#4F46E5; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin:0 auto 12px; box-shadow:0 0 20px rgba(79,70,229,0.45);">3</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">Contexto B&uacute;ho</div>
+        </div>
+        <div style="width:140px; text-align:center;">
+          <div style="width:48px; height:48px; border-radius:50%; background:#4338CA; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin:0 auto 12px; box-shadow:0 0 20px rgba(67,56,202,0.45);">4</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">Las 2 capas</div>
+        </div>
+        <div style="width:140px; text-align:center;">
+          <div style="width:48px; height:48px; border-radius:50%; background:#3730A3; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin:0 auto 12px; box-shadow:0 0 20px rgba(55,48,163,0.45);">5</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">Inversi&oacute;n</div>
+        </div>
+        <div style="width:140px; text-align:center;">
+          <div style="width:48px; height:48px; border-radius:50%; background:#312E81; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin:0 auto 12px; box-shadow:0 0 20px rgba(49,46,129,0.45);">6</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">Siguientes pasos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 3: QUIENES SOMOS ==================== -->
+<div class="slide slide-dark" data-slide="3">
+  <div style="position:absolute; top:-180px; right:-120px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.25), rgba(139,92,246,0.12) 35%, transparent 60%); border-radius:50% 40% 60% 45%; filter:blur(90px);"></div>
+  <div style="position:absolute; bottom:-140px; left:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(99,102,241,0.12), transparent 55%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 80px; text-align:center;">
+    <div class="s-label">STRATEGY + AI</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:52px; font-weight:700; color:white; line-height:1.15; margin-bottom:16px;">
+      &iquest;Qu&eacute; es <span style="color:var(--morado-claro);">Irrelevant</span>?
+    </div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:0 auto 24px;"></div>
+    <div style="font-size:17px; color:rgba(255,255,255,0.55); max-width:860px; line-height:1.7; margin-bottom:32px;">No somos una agencia de software ni un proveedor de soluciones aisladas. Somos un equipo que entiende tu operaci&oacute;n y construye sistemas de IA que <strong style="color:white;">se complementan para amplificar la propuesta de valor de tu empresa</strong> &mdash; sin reemplazar a las personas.</div>
+    <div style="display:flex; gap:32px; max-width:900px; width:100%;">
+      <div style="flex:1; padding:28px 24px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px; text-align:left; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro));"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Consultor&iacute;a Estrat&eacute;gica</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-bottom:8px;">Entendemos tu negocio.</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.45); line-height:1.7;">C&oacute;mo funciona tu operaci&oacute;n, d&oacute;nde se pierde valor, en qu&eacute; se gasta tiempo hoy, qu&eacute; procesos existentes se pueden optimizar y c&oacute;mo deber&iacute;a funcionar la empresa para competir mejor.</div>
+      </div>
+      <div style="flex:1; padding:28px 24px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px; text-align:left; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, #34D399, #6EE7B7);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:#34D399; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Implementaci&oacute;n + Capacitaci&oacute;n</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-bottom:8px;">Construimos y educamos a la par.</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.45); line-height:1.7;">Tu equipo sabe d&oacute;nde est&aacute; la fricci&oacute;n: qu&eacute; procesos quieren optimizar. Lo que muchas veces no saben es que existe una soluci&oacute;n para eso. Por eso implementamos y capacitamos a la vez: les mostramos qu&eacute; puede hacer la IA mientras construimos con ustedes.</div>
+      </div>
+    </div>
+    <div style="margin-top:28px; max-width:820px;">
+      <div style="padding:14px 24px; background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.12); border-radius:10px;">
+        <div style="font-family:'Quicksand',sans-serif; font-size:16px; font-weight:600; color:white;">Hemos implementado <span style="color:var(--morado-claro);">32+ soluciones de IA</span> en empresas de Latinoam&eacute;rica.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 4: LOS 3 SERVICIOS ==================== -->
+<div class="slide slide-dark" data-slide="4">
+  <div style="position:absolute; top:-160px; right:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div class="s-label">NUESTROS SERVICIOS</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:16px;">Tres capas para transformar una organizaci&oacute;n.</div>
+    <div style="font-size:17px; color:rgba(167,139,250,0.9); max-width:1200px; line-height:1.6; margin-bottom:20px; font-style:italic;">Hoy no tiene sentido que una empresa se adapte a un producto. La IA permite que el producto se adapte a la empresa.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+      <!-- Ops Layer (highlighted - capa 1) -->
+      <div style="padding:28px 26px; background:linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.1)); border:1px solid rgba(167,139,250,0.35); border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 40px rgba(139,92,246,0.15); display:flex; flex-direction:column;">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--morado-claro), var(--morado), var(--morado-oscuro));"></div>
+        <div style="position:absolute; top:12px; right:14px; font-family:'Quicksand',sans-serif; font-size:9px; font-weight:700; color:var(--morado-claro); background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.3); border-radius:10px; padding:3px 10px; letter-spacing:1px; text-transform:uppercase;">Capa 1 propuesta</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; margin-top:22px;">Implementaci&oacute;n</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; color:white; margin-bottom:10px;">AI Ops Layer</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:16px;">Implementaci&oacute;n de procesos inteligentes puntuales como <strong style="color:white;">habilidades en Claude</strong> &mdash; cada habilidad automatiza una tarea cr&iacute;tica, se entrega documentada y queda funcionando.</div>
+        <div style="padding:10px 14px; background:rgba(167,139,250,0.12); border-radius:8px; margin-top:auto;">
+          <div style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.5;"><strong style="color:white;">15 d&iacute;as</strong> de implementaci&oacute;n</div>
+        </div>
+      </div>
+      <!-- Edu Layer -->
+      <div style="padding:28px 26px; background:rgba(255,255,255,0.03); border:1px solid rgba(52,211,153,0.2); border-radius:16px; position:relative; overflow:hidden; display:flex; flex-direction:column;">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--emerald), #6EE7B7);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:var(--emerald); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; margin-top:22px;">Capacitaci&oacute;n</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; color:white; margin-bottom:10px;">AI Edu Layer</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.5); line-height:1.7; margin-bottom:16px;">Programa empresarial donde tu equipo aprende a pensar con IA trabajando sobre sus procesos reales. Adopci&oacute;n desde el d&iacute;a uno.</div>
+        <div style="padding:10px 14px; background:rgba(52,211,153,0.08); border-radius:8px; margin-top:auto;">
+          <div style="font-size:13px; color:rgba(255,255,255,0.55); line-height:1.5;"><strong style="color:white;">4 sesiones</strong> personalizadas</div>
+        </div>
+      </div>
+      <!-- Core Layer (highlighted - capa 2) -->
+      <div style="padding:28px 26px; background:linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.1)); border:1px solid rgba(167,139,250,0.35); border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 40px rgba(139,92,246,0.15); display:flex; flex-direction:column;">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--morado-claro), var(--morado), #6366F1);"></div>
+        <div style="position:absolute; top:12px; right:14px; font-family:'Quicksand',sans-serif; font-size:9px; font-weight:700; color:var(--morado-claro); background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.3); border-radius:10px; padding:3px 10px; letter-spacing:1px; text-transform:uppercase;">Capa 2 propuesta</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; margin-top:22px;">Transformaci&oacute;n</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; color:white; margin-bottom:10px;">AI Core Layer</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:16px;">Sistemas conversacionales personalizados que <strong style="color:white;">interact&uacute;an con tus clientes</strong>. Capturan, organizan y entregan al equipo informaci&oacute;n estructurada en tiempo real.</div>
+        <div style="padding:10px 14px; background:rgba(167,139,250,0.12); border-radius:8px; margin-top:auto;">
+          <div style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.5;"><strong style="color:white;">9 semanas</strong> de implementaci&oacute;n</div>
+        </div>
+      </div>
+    </div>
+    <div class="s-highlight" style="margin-top:28px; max-width:100%;">La propuesta de hoy combina <strong>dos capas</strong>: Ops Layer para automatizar la operaci&oacute;n contable (cotizaci&oacute;n, recordatorios, facturaci&oacute;n) y Core Layer para construir el agente conversacional con interfaz visual de leads. Las dos se conectan en una sola fuente de verdad.</div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 5: CONTEXTO BUHO ==================== -->
+<div class="slide slide-dark" data-slide="5">
+  <div style="position:absolute; top:-160px; right:-100px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.25), rgba(139,92,246,0.1) 35%, transparent 60%); border-radius:50%; filter:blur(90px);"></div>
+  <div style="position:absolute; bottom:-120px; left:-80px; width:400px; height:400px; background:radial-gradient(ellipse, rgba(99,102,241,0.08), transparent 55%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div class="s-label">CONTEXTO</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.2; max-width:1000px; letter-spacing:-1px; margin-bottom:16px;">
+      Lo que entendimos de <span style="color:var(--morado-claro);">B&uacute;ho</span>
+    </div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-bottom:24px;">
+      <div style="padding:18px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px;">
+        <div style="font-family:'Quicksand',sans-serif; font-size:28px; font-weight:700; color:white; line-height:1;">800</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:6px; line-height:1.4;">estudiantes activos en niveles de ingl&eacute;s</div>
+      </div>
+      <div style="padding:18px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px;">
+        <div style="font-family:'Quicksand',sans-serif; font-size:28px; font-weight:700; color:white; line-height:1;">1.200</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:6px; line-height:1.4;">cotizaciones generadas cada semestre, una a una en Siigo</div>
+      </div>
+      <div style="padding:18px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px;">
+        <div style="font-family:'Quicksand',sans-serif; font-size:28px; font-weight:700; color:white; line-height:1;">3</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:6px; line-height:1.4;">personas dedicadas medio d&iacute;a en cada pico de matr&iacute;cula</div>
+      </div>
+      <div style="padding:18px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px;">
+        <div style="font-family:'Quicksand',sans-serif; font-size:28px; font-weight:700; color:white; line-height:1;">3x</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:6px; line-height:1.4;">ventanas tarifarias al a&ntilde;o &middot; anticipada, regular, extempor&aacute;nea</div>
+      </div>
+    </div>
+    <div style="font-size:17px; color:rgba(255,255,255,0.55); max-width:1100px; line-height:1.75;">
+      Hoy B&uacute;ho atiende a sus prospectos por WhatsApp y web manualmente, con cobertura limitada al horario laboral. Las cotizaciones y la facturaci&oacute;n se hacen una a una en Siigo a partir de un Excel, los recordatorios de pago se quedan a medias porque nadie tiene tiempo de hacerlos bien, y la operaci&oacute;n contable consume el tiempo del equipo comercial justo en los meses de mayor demanda. <strong style="color:white;">El cuello no es la demanda ni el software &mdash; es la falta de la capa que conecta ambas cosas.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 6: LAS 2 CAPAS ==================== -->
+<div class="slide slide-dark" data-slide="6">
+  <div style="position:absolute; top:-180px; right:-120px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.2), transparent 60%); border-radius:50%; filter:blur(90px);"></div>
+  <div style="position:absolute; bottom:-140px; left:-100px; width:400px; height:400px; background:radial-gradient(ellipse, rgba(99,102,241,0.1), transparent 55%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div class="s-label">LA ESTRATEGIA</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:8px;">Dos capas que se complementan.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.65; max-width:1100px; margin-bottom:28px;">Cada capa resuelve un problema distinto. Pueden contratarse por separado o como sistema integrado. Donde se conectan es en una <strong style="color:white;">interfaz visual de leads que reemplaza al Excel actual</strong>.</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+      <div style="padding:32px 28px; background:linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.08)); border:1px solid rgba(167,139,250,0.35); border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 40px rgba(139,92,246,0.15);">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--morado-claro), var(--morado), var(--morado-oscuro));"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; margin-top:6px;">Capa 1 &middot; Back-office</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:26px; font-weight:700; color:white; margin-bottom:10px;">Ops Layer</div>
+        <div style="font-size:15px; color:rgba(255,255,255,0.65); line-height:1.7; margin-bottom:18px;">El sistema que ejecuta los procesos contables en autom&aacute;tico sobre Siigo. <strong style="color:white;">No conversa con personas: ejecuta.</strong> Tres habilidades en Claude: cotizaci&oacute;n masiva, recordatorios de pago y facturaci&oacute;n masiva.</div>
+        <div style="padding:14px 18px; background:rgba(167,139,250,0.12); border-radius:10px;">
+          <div style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.5;"><strong style="color:white;">15 d&iacute;as de implementaci&oacute;n</strong> &middot; pago &uacute;nico, sin mensualidad</div>
+        </div>
+      </div>
+      <div style="padding:32px 28px; background:linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.08)); border:1px solid rgba(167,139,250,0.35); border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 40px rgba(139,92,246,0.15);">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--morado-claro), var(--morado), #6366F1);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; margin-top:6px;">Capa 2 &middot; Front-line</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:26px; font-weight:700; color:white; margin-bottom:10px;">Agente conversacional</div>
+        <div style="font-size:15px; color:rgba(255,255,255,0.65); line-height:1.7; margin-bottom:18px;">Agente entrenado con la informaci&oacute;n de B&uacute;ho que <strong style="color:white;">habla con prospectos y estudiantes 24/7</strong>, captura sus datos y los deja organizados en una interfaz visual propia con tablero de embudo.</div>
+        <div style="padding:14px 18px; background:rgba(167,139,250,0.12); border-radius:10px;">
+          <div style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.5;"><strong style="color:white;">9 semanas de implementaci&oacute;n</strong> &middot; pago &uacute;nico</div>
+        </div>
+      </div>
+    </div>
+    <div class="s-highlight" style="margin-top:24px;">El agente <strong>no factura ni cobra</strong>. El Ops Layer <strong>no conversa con clientes</strong>. Cada capa hace lo suyo &mdash; y se hablan a trav&eacute;s de la interfaz de leads.</div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 7: IMPLEMENTACION OPS LAYER ==================== -->
+<div class="slide slide-dark" data-slide="7">
+  <div style="position:absolute; top:-160px; right:-100px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.22), rgba(139,92,246,0.1) 35%, transparent 60%); border-radius:50% 40% 60% 45%; filter:blur(90px);"></div>
+  <div style="position:absolute; bottom:-140px; left:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(99,102,241,0.12), transparent 55%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 80px; text-align:center;">
+    <div style="font-family:'Quicksand',sans-serif; font-size:130px; font-weight:700; color:rgba(139,92,246,0.18); line-height:1; margin-bottom:18px;">01</div>
+    <div class="s-label">CAPA 1</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:54px; font-weight:700; color:white; line-height:1.15; margin-bottom:16px;">Implementaci&oacute;n de <span style="background:linear-gradient(135deg, var(--morado-claro), var(--morado), #6366F1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Ops Layer</span></div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:8px auto 24px;"></div>
+    <div style="font-size:18px; color:rgba(255,255,255,0.6); max-width:920px; line-height:1.7; margin-bottom:32px;">Tres habilidades en Claude que cubren el ciclo completo del back-office contable: <strong style="color:white;">cotizar a tiempo, cobrar antes del cambio de ventana y facturar al cierre</strong>. Operan sobre Siigo a trav&eacute;s de su API.</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; max-width:1000px; width:100%;">
+      <div style="padding:18px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden; text-align:left;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro));"></div>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:6px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:var(--morado); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">1</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:700; color:white;">Cotizaci&oacute;n masiva</div>
+        </div>
+      </div>
+      <div style="padding:18px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden; text-align:left;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--morado-claro), var(--morado-oscuro));"></div>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:6px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:#818CF8; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">2</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:700; color:white;">Recordatorios de pago</div>
+        </div>
+      </div>
+      <div style="padding:18px 20px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden; text-align:left;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, #6366F1, #4F46E5);"></div>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:6px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:#6366F1; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:14px; font-weight:700; color:white;">3</div>
+          <div style="font-family:'Quicksand',sans-serif; font-size:15px; font-weight:700; color:white;">Facturaci&oacute;n masiva</div>
+        </div>
+      </div>
+    </div>
+    <div class="s-highlight" style="max-width:920px; text-align:left;"><strong>Plazo: 15 d&iacute;as</strong> &middot; las tres habilidades se entregan documentadas, funcionando y con 1 mes de soporte post-lanzamiento.</div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 8: SOLUCION 1 - SITUACION ACTUAL ==================== -->
+<div class="slide slide-dark" data-slide="8">
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; padding:52px 72px; gap:48px;">
+    <div style="flex:0 0 320px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.1); border-radius:20px; padding:40px;">
+      <div style="font-family:'Quicksand',sans-serif; font-size:120px; font-weight:700; color:rgba(139,92,246,0.15); line-height:1;">01</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:13px; font-weight:600; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-top:12px;">Soluci&oacute;n 1</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-top:14px; text-align:center; line-height:1.3;">Cotizaci&oacute;n<br>masiva</div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <div class="s-label">SITUACI&Oacute;N ACTUAL</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:36px; font-weight:700; color:white; line-height:1.2; margin-bottom:14px;">1.200 cotizaciones a mano cada semestre.</div>
+      <div class="gradient-line"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Tres personas dedicadas medio d&iacute;a</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">En cada pico de matr&iacute;cula el equipo entero queda atado a copiar y pegar en Siigo, una cotizaci&oacute;n a la vez.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Matriz de tarifas en cabeza del equipo</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Tres ventanas tarifarias por descuentos cruzados (hermanos, colegios aliados, convenios). Cada cambio se aplica a mano.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Riesgo silencioso de error de tarifa</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Una tarifa mal aplicada llega al cliente. Si no la nota, B&uacute;ho cobra menos. Si la nota, hay que rehacer y la confianza queda tocada.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Equipo comercial atado a tarea contable</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">El tiempo del equipo en los meses cr&iacute;ticos se va en operativa contable, no en captar ni cerrar matr&iacute;culas.</div>
+        </div>
+      </div>
+      <div class="s-highlight">La data ya existe en Excel, las reglas existen en la cabeza del equipo, y Siigo es donde todo se materializa &mdash; lo que falta es <strong>la capa que conecta los tres y aplica las reglas autom&aacute;ticamente</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 9: SOLUCION 1 - COTIZACION MASIVA ==================== -->
+<div class="slide slide-dark" data-slide="9">
+  <div style="position:absolute; top:-160px; right:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(139,92,246,0.15), transparent 60%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:8px;">
+      <div class="s-label" style="margin-bottom:0;">CAPA 1 &middot; OPS LAYER</div>
+      <div style="font-size:10px; font-family:'Quicksand',sans-serif; font-weight:700; color:var(--morado-claro); background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.3); border-radius:10px; padding:3px 10px; letter-spacing:1.5px; text-transform:uppercase;">Soluci&oacute;n 1</div>
+    </div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:8px;">Cotizaci&oacute;n masiva &mdash; <span style="color:var(--morado-claro);">del Excel a Siigo, sin copiar y pegar</span>.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.65; max-width:1100px; margin-bottom:24px;">El sistema toma el listado de estudiantes, aplica la tarifa correcta y genera las 1.200 cotizaciones en Siigo en horas, no en d&iacute;as. El equipo solo aprueba el lote y atiende excepciones.</div>
+    <div style="display:flex; gap:0; position:relative; padding-left:28px;">
+      <div style="position:absolute; left:12px; top:14px; bottom:14px; width:2px; background:linear-gradient(to bottom, var(--morado), var(--morado-claro), #6366F1, var(--emerald)); border-radius:2px;"></div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:0;">
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:var(--morado); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 16px rgba(139,92,246,0.3);">1</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">El sistema lee el listado de estudiantes</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Desde el Excel actual o desde la interfaz de leads cuando la Capa 2 est&eacute; en producci&oacute;n. Identifica nombre, nivel, colegio y perfil de cada uno.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#818CF8; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">2</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Aplica la matriz tarifaria correspondiente</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Tarifa seg&uacute;n fecha (anticipada / regular / extempor&aacute;nea) + descuentos cruzados (hermanos, colegios aliados, convenios). Cero error humano.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#6366F1; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">3</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Genera la cotizaci&oacute;n en Siigo v&iacute;a API</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Crea el documento directamente en Siigo con todos los datos validados. Una a una pero en lote, sin que nadie tenga que estar copiando y pegando.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#4F46E5; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">4</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Env&iacute;a el documento al correo del cliente</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Mensaje configurable + cotizaci&oacute;n adjunta. Trazabilidad completa de qui&eacute;n recibi&oacute; qu&eacute; cotizaci&oacute;n y cu&aacute;ndo.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:var(--emerald); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:#0a0812; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 16px rgba(52,211,153,0.3);">5</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;"><span style="color:var(--emerald);">El equipo</span> aprueba el lote y revisa excepciones</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Antes de disparar el env&iacute;o masivo, el equipo aprueba la corrida. Y revisa los casos at&iacute;picos que el sistema marca para validaci&oacute;n humana.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 10: SOLUCION 2 - SITUACION ACTUAL ==================== -->
+<div class="slide slide-dark" data-slide="10">
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; padding:52px 72px; gap:48px;">
+    <div style="flex:0 0 320px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.1); border-radius:20px; padding:40px;">
+      <div style="font-family:'Quicksand',sans-serif; font-size:120px; font-weight:700; color:rgba(139,92,246,0.15); line-height:1;">02</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:13px; font-weight:600; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-top:12px;">Soluci&oacute;n 2</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-top:14px; text-align:center; line-height:1.3;">Recordatorios<br>de pago</div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <div class="s-label">SITUACI&Oacute;N ACTUAL</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:36px; font-weight:700; color:white; line-height:1.2; margin-bottom:14px;">La cobranza preventiva se queda a medias.</div>
+      <div class="gradient-line"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Recordatorios manuales y a destiempo</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Cuando alguien recuerda y tiene tiempo. No hay sistema que avise antes del cambio de ventana tarifaria.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Pap&aacute;s pasan a extempor&aacute;nea sin avisar</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Pierden el descuento de anticipada, llegan a la tarifa con recargo y la sensaci&oacute;n es que B&uacute;ho no avis&oacute; a tiempo.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Sin trazabilidad de qui&eacute;n respondi&oacute;</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">No hay forma de saber a qui&eacute;n se le escribi&oacute;, qui&eacute;n contest&oacute; ni qui&eacute;n pag&oacute; despu&eacute;s del recordatorio.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Equipo no tiene capacidad de hacerlo bien</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Cotizar y facturar ya consume el d&iacute;a. La cobranza preventiva queda en &uacute;ltimo lugar y se ejecuta a medias.</div>
+        </div>
+      </div>
+      <div class="s-highlight">El estado de pago vive en Siigo y los datos de contacto en Excel. Lo que falta es <strong>una capa que cruce ambos y env&iacute;e el recordatorio justo antes del cambio de ventana</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 11: SOLUCION 2 - RECORDATORIOS DE PAGO ==================== -->
+<div class="slide slide-dark" data-slide="11">
+  <div style="position:absolute; top:-160px; right:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(167,139,250,0.18), transparent 60%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:8px;">
+      <div class="s-label" style="margin-bottom:0;">CAPA 1 &middot; OPS LAYER</div>
+      <div style="font-size:10px; font-family:'Quicksand',sans-serif; font-weight:700; color:var(--morado-claro); background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.3); border-radius:10px; padding:3px 10px; letter-spacing:1.5px; text-transform:uppercase;">Soluci&oacute;n 2</div>
+    </div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:8px;">Recordatorios de pago &mdash; <span style="color:var(--morado-claro);">m&aacute;s pagos en anticipada, menos cartera vencida</span>.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.65; max-width:1100px; margin-bottom:24px;">El sistema empuja a cada pap&aacute; antes del cambio de ventana tarifaria, v&iacute;a WhatsApp y correo. El equipo solo atiende los casos que el sistema escala.</div>
+    <div style="display:flex; gap:0; position:relative; padding-left:28px;">
+      <div style="position:absolute; left:12px; top:14px; bottom:14px; width:2px; background:linear-gradient(to bottom, var(--morado), var(--morado-claro), #6366F1, var(--emerald)); border-radius:2px;"></div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:0;">
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:var(--morado); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 16px rgba(139,92,246,0.3);">1</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Lee el estado de cada cotizaci&oacute;n en Siigo</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Cruza el listado de cotizaciones contra los pagos registrados en Siigo. Identifica qui&eacute;n pag&oacute;, qui&eacute;n est&aacute; pendiente y qui&eacute;n est&aacute; vencido.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#818CF8; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">2</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Calcula proximidad al cambio de ventana</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Para cada pap&aacute; pendiente, calcula cu&aacute;ntos d&iacute;as faltan antes de pasar a la siguiente ventana tarifaria. Configurable por B&uacute;ho.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#6366F1; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">3</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Selecciona el canal y el mensaje</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">WhatsApp si hay celular, correo si no. Mensaje personalizado seg&uacute;n cu&aacute;nto falta y qu&eacute; tarifa est&aacute; vigente.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#4F46E5; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">4</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Env&iacute;a el recordatorio y registra la respuesta</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">V&iacute;a la API oficial de WhatsApp Business (Meta) o correo. Marca qui&eacute;n recibi&oacute;, qui&eacute;n abri&oacute; y qui&eacute;n pag&oacute; despu&eacute;s del recordatorio.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:var(--emerald); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:#0a0812; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 16px rgba(52,211,153,0.3);">5</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;"><span style="color:var(--emerald);">El equipo</span> atiende los casos que el sistema escala</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Pap&aacute;s que reclaman, casos especiales, planes de pago. Despu&eacute;s de N recordatorios sin respuesta, el sistema escala al equipo para gesti&oacute;n personal.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 12: SOLUCION 3 - SITUACION ACTUAL ==================== -->
+<div class="slide slide-dark" data-slide="12">
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; padding:52px 72px; gap:48px;">
+    <div style="flex:0 0 320px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.1); border-radius:20px; padding:40px;">
+      <div style="font-family:'Quicksand',sans-serif; font-size:120px; font-weight:700; color:rgba(139,92,246,0.15); line-height:1;">03</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:13px; font-weight:600; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-top:12px;">Soluci&oacute;n 3</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-top:14px; text-align:center; line-height:1.3;">Facturaci&oacute;n<br>masiva</div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <div class="s-label">SITUACI&Oacute;N ACTUAL</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:36px; font-weight:700; color:white; line-height:1.2; margin-bottom:14px;">Cada cierre de semestre se hace de cero.</div>
+      <div class="gradient-line"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Facturaci&oacute;n uno por uno en Siigo</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Mismo proceso de copiar y pegar que las cotizaciones, pero ahora para cada estudiante activo del semestre.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Cero conexi&oacute;n cotizaci&oacute;n &rarr; factura</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Lo que ya se cotiz&oacute; vuelve a procesarse a mano para facturarlo. Cero re-uso de la data validada.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Riesgo de errores fiscales</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">NIT mal escrito, raz&oacute;n social err&oacute;nea, c&oacute;digo equivocado. Errores que escalan a notas cr&eacute;dito y reprocesos.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Cierre tarda d&iacute;as cuando podr&iacute;a ser horas</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">El equipo dedica varios d&iacute;as a facturar mientras la operaci&oacute;n del nuevo semestre ya empez&oacute;.</div>
+        </div>
+      </div>
+      <div class="s-highlight">Lo cotizado y aprobado tiene toda la data validada. Lo que falta es <strong>una capa que tome ese input y emita la factura en Siigo en lote, sin tocar de nuevo cada estudiante</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 13: SOLUCION 3 - FACTURACION MASIVA ==================== -->
+<div class="slide slide-dark" data-slide="13">
+  <div style="position:absolute; top:-160px; right:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(99,102,241,0.15), transparent 60%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:8px;">
+      <div class="s-label" style="margin-bottom:0;">CAPA 1 &middot; OPS LAYER</div>
+      <div style="font-size:10px; font-family:'Quicksand',sans-serif; font-weight:700; color:var(--morado-claro); background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.3); border-radius:10px; padding:3px 10px; letter-spacing:1.5px; text-transform:uppercase;">Soluci&oacute;n 3</div>
+    </div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:8px;">Facturaci&oacute;n masiva &mdash; <span style="color:var(--morado-claro);">cierre semestral en horas, no en d&iacute;as</span>.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.65; max-width:1100px; margin-bottom:24px;">Al cierre del semestre, el sistema toma las cotizaciones aprobadas y genera todas las facturas en Siigo en lote. Cero re-trabajo: lo cotizado se factura sin pasar otra vez por humanos.</div>
+    <div style="display:flex; gap:0; position:relative; padding-left:28px;">
+      <div style="position:absolute; left:12px; top:14px; bottom:14px; width:2px; background:linear-gradient(to bottom, var(--morado), var(--morado-claro), #6366F1, var(--emerald)); border-radius:2px;"></div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:0;">
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:var(--morado); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 16px rgba(139,92,246,0.3);">1</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Toma cotizaciones aprobadas y estudiantes activos</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Lee el listado de quienes ya pagaron y est&aacute;n activos en el semestre. Cruza con las cotizaciones generadas por la Soluci&oacute;n 1.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#818CF8; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">2</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Valida la data del estudiante</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Confirma que los datos fiscales (NIT, raz&oacute;n social, c&oacute;digo) est&eacute;n completos y consistentes. Marca los que requieren revisi&oacute;n del equipo contable.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#6366F1; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">3</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Genera la factura en Siigo v&iacute;a API</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Emite el documento contable directamente en Siigo a partir de la cotizaci&oacute;n aprobada. Misma data, mismas reglas, mismo resultado en cada cierre.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#4F46E5; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">4</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Maneja reintentos autom&aacute;ticos en errores de la API</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Si Siigo falla momentaneamente, el sistema reintenta. Deja registro de cada factura emitida con estado, fecha y reintentos.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:10px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:var(--emerald); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:#0a0812; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 16px rgba(52,211,153,0.3);">5</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;"><span style="color:var(--emerald);">El equipo contable</span> revisa excepciones y concilia</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">El sistema entrega un reporte limpio de qu&eacute; se factur&oacute; y qu&eacute; qued&oacute; pendiente. El equipo solo interviene en los casos que requieren juicio.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 14: IMPLEMENTACION CORE LAYER ==================== -->
+<div class="slide slide-dark" data-slide="14">
+  <div style="position:absolute; top:-160px; right:-100px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.22), rgba(99,102,241,0.12) 35%, transparent 60%); border-radius:50% 40% 60% 45%; filter:blur(90px);"></div>
+  <div style="position:absolute; bottom:-140px; left:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(52,211,153,0.08), transparent 55%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 80px; text-align:center;">
+    <div style="font-family:'Quicksand',sans-serif; font-size:130px; font-weight:700; color:rgba(139,92,246,0.18); line-height:1; margin-bottom:18px;">02</div>
+    <div class="s-label">CAPA 2</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:54px; font-weight:700; color:white; line-height:1.15; margin-bottom:16px;">Implementaci&oacute;n de <span style="background:linear-gradient(135deg, var(--morado-claro), var(--morado), #6366F1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Core Layer</span></div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:8px auto 24px;"></div>
+    <div style="font-size:18px; color:rgba(255,255,255,0.6); max-width:920px; line-height:1.7; margin-bottom:32px;">El front-line conversacional de B&uacute;ho: un agente entrenado con la informaci&oacute;n del centro que <strong style="color:white;">atiende prospectos 24/7, captura sus datos y alimenta la operaci&oacute;n</strong> con una interfaz visual de leads.</div>
+    <div style="max-width:560px; width:100%;">
+      <div style="padding:22px 26px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden; text-align:left;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--morado-claro), var(--morado), #6366F1);"></div>
+        <div style="display:flex; align-items:center; gap:14px; margin-top:8px;">
+          <div style="width:40px; height:40px; border-radius:50%; background:var(--morado); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white;">1</div>
+          <div>
+            <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white;">Agente conversacional</div>
+            <div style="font-size:13px; color:rgba(255,255,255,0.55); margin-top:2px;">+ interfaz visual de leads + tablero de embudo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="s-highlight" style="max-width:920px; text-align:left;"><strong>Plazo: 9 semanas m&iacute;nimo</strong> &middot; el agente requiere iteraciones de tono, entrenamiento con casos reales y validaci&oacute;n con el equipo de B&uacute;ho.</div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 15: SOLUCION 4 - SITUACION ACTUAL ==================== -->
+<div class="slide slide-dark" data-slide="15">
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; padding:52px 72px; gap:48px;">
+    <div style="flex:0 0 320px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.1); border-radius:20px; padding:40px;">
+      <div style="font-family:'Quicksand',sans-serif; font-size:120px; font-weight:700; color:rgba(139,92,246,0.15); line-height:1;">04</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:13px; font-weight:600; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-top:12px;">Soluci&oacute;n 4</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-top:14px; text-align:center; line-height:1.3;">Agente<br>conversacional</div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <div class="s-label">SITUACI&Oacute;N ACTUAL</div>
+      <div style="font-family:'Quicksand',sans-serif; font-size:36px; font-weight:700; color:white; line-height:1.2; margin-bottom:14px;">La cercan&iacute;a hoy depende de qui&eacute;n est&eacute; en turno.</div>
+      <div class="gradient-line"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Atenci&oacute;n solo en horario laboral</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Por la noche, fines de semana y en picos de matr&iacute;cula la operaci&oacute;n se apaga. Los leads se enfr&iacute;an esperando.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Tres personas respondiendo FAQs</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Las mismas preguntas (precios, niveles, sedes, descuentos) se responden a mano una y otra vez, restando tiempo a cerrar matr&iacute;culas.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Captura de leads manual y err&aacute;tica</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Datos anotados en libretas, pasados al Excel despu&eacute;s. Errores y omisiones que viajan al sistema y bloquean la cotizaci&oacute;n.</div>
+        </div>
+        <div style="padding:16px 18px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); border-left:3px solid var(--red); border-radius:10px;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:#FCA5A5; margin-bottom:6px;">Cero visibilidad del embudo</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.55); line-height:1.6;">Hoy no se sabe cu&aacute;ntos interesados llegan, por qu&eacute; canal ni cu&aacute;l es la conversi&oacute;n real. Las decisiones se toman por intuici&oacute;n.</div>
+        </div>
+      </div>
+      <div class="s-highlight">La cercan&iacute;a es el valor de marca de B&uacute;ho. Lo que falta es que <strong>esa cercan&iacute;a deje de depender de qui&eacute;n est&eacute; en turno y se vuelva una capacidad estructural disponible 24/7</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 16: SOLUCION 4 - AGENTE CONVERSACIONAL ==================== -->
+<div class="slide slide-dark" data-slide="16">
+  <div style="position:absolute; top:-160px; right:-100px; width:500px; height:500px; background:radial-gradient(ellipse, rgba(167,139,250,0.2), transparent 60%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:absolute; bottom:-140px; left:-80px; width:400px; height:400px; background:radial-gradient(ellipse, rgba(52,211,153,0.08), transparent 55%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:8px;">
+      <div class="s-label" style="margin-bottom:0;">CAPA 2 &middot; CORE LAYER</div>
+      <div style="font-size:10px; font-family:'Quicksand',sans-serif; font-weight:700; color:var(--morado-claro); background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.3); border-radius:10px; padding:3px 10px; letter-spacing:1.5px; text-transform:uppercase;">Soluci&oacute;n 4</div>
+    </div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:8px;">Agente conversacional &mdash; <span style="color:var(--morado-claro);">cercan&iacute;a 24/7 sin sumar gente</span>.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.65; max-width:1100px; margin-bottom:24px;">Un agente entrenado con toda la informaci&oacute;n de B&uacute;ho que atiende a cualquier hora con tono cercano, captura los datos del interesado y los deja listos en la interfaz para que el equipo cierre la matr&iacute;cula.</div>
+    <div style="display:flex; gap:0; position:relative; padding-left:28px;">
+      <div style="position:absolute; left:12px; top:14px; bottom:14px; width:2px; background:linear-gradient(to bottom, var(--morado), var(--morado-claro), #6366F1, #4F46E5, var(--emerald)); border-radius:2px;"></div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:0;">
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:8px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:var(--morado); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 16px rgba(139,92,246,0.3);">1</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Llega un interesado por WhatsApp o web</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">A cualquier hora, cualquier d&iacute;a. El agente saluda con el tono cercano de B&uacute;ho &mdash; configurable y alineado con la voz de la marca.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:8px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#A78BFA; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">2</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Responde preguntas frecuentes</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Servicios, niveles, sedes, horarios, precios, pol&iacute;tica de descuentos. Todo lo que hoy responden las tres personas a mano, lo cubre el agente al instante.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:8px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#818CF8; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">3</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Captura los datos clave del interesado</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Nombre, edad del estudiante, colegio, nivel de inter&eacute;s y canal de contacto. Sin formularios r&iacute;gidos &mdash; los extrae de la conversaci&oacute;n natural.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:8px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#6366F1; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">4</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Carga el lead a la interfaz visual</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Crea la ficha del interesado con todos los datos estructurados y la conversaci&oacute;n adjunta. Marca el lead como &laquo;listo para cotizar&raquo; cuando est&eacute; completo.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:8px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:#4F46E5; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">5</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;">Alimenta el tablero de embudo en tiempo real</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Por primera vez B&uacute;ho ve el flujo completo: leads, conversaciones, conversi&oacute;n por canal, tiempo de respuesta. Datos para tomar decisiones comerciales.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:18px; padding:8px 0; position:relative;">
+          <div style="width:38px; height:38px; border-radius:50%; background:var(--emerald); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:#0a0812; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 16px rgba(52,211,153,0.3);">6</div>
+          <div style="flex:1;">
+            <div style="font-family:'Quicksand',sans-serif; font-size:17px; font-weight:700; color:white; margin-bottom:4px;"><span style="color:var(--emerald);">El equipo comercial</span> cierra la matr&iacute;cula</div>
+            <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">El agente escala los casos delicados o complejos. El equipo asesora a familias indecisas, resuelve dudas espec&iacute;ficas y cierra la matr&iacute;cula. La cercan&iacute;a sigue siendo humana.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 17: LO QUE NECESITAMOS DE BUHO ==================== -->
+<div class="slide slide-dark" data-slide="17">
+  <div style="position:absolute; top:-180px; right:-120px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.2), transparent 60%); border-radius:50%; filter:blur(90px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div class="s-label">LO QUE NECESITAMOS DE B&Uacute;HO</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:8px;">Para que el sistema funcione bien.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.65; max-width:1100px; margin-bottom:28px;">Estos son los inputs del lado de B&uacute;ho para que la implementaci&oacute;n quepa en los plazos y el sistema funcione bien desde el d&iacute;a uno.</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+      <div style="padding:20px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro));"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:var(--morado-claro); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; margin-top:8px;">Acceso t&eacute;cnico</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white; margin-bottom:6px;">Acceso a la API de Siigo</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6); line-height:1.6;">Credenciales de la cuenta de Siigo de B&uacute;ho con permisos de lectura (estado de pago) y escritura (cotizaci&oacute;n y facturaci&oacute;n).</div>
+      </div>
+      <div style="padding:20px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, #818CF8, #6366F1);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#A5B4FC; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; margin-top:8px;">Mensajer&iacute;a</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white; margin-bottom:6px;">Cuenta WhatsApp Business (Meta)</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6); line-height:1.6;">Si no existe a&uacute;n, B&uacute;ho la crea. Es el canal por el que el agente conversa y por el que se env&iacute;an los recordatorios de pago.</div>
+      </div>
+      <div style="padding:20px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, #6366F1, #4F46E5);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#A5B4FC; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; margin-top:8px;">Reglas de negocio</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white; margin-bottom:6px;">Matriz de tarifas y descuentos formalizada</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6); line-height:1.6;">Las 3 ventanas tarifarias con sus fechas exactas y todos los descuentos cruzados (hermanos, colegios aliados, convenios) en una hoja clara.</div>
+      </div>
+      <div style="padding:20px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, #4F46E5, #4338CA);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#A5B4FC; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; margin-top:8px;">Data del cliente</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white; margin-bottom:6px;">Excel actual de estudiantes</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6); line-height:1.6;">El Excel vigente con sus datos completos. Es el input inicial mientras la interfaz de leads est&aacute; en construcci&oacute;n.</div>
+      </div>
+      <div style="padding:20px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, #4338CA, #3730A3);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:#A5B4FC; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; margin-top:8px;">Voz de marca</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white; margin-bottom:6px;">Informaci&oacute;n para entrenar el agente</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6); line-height:1.6;">Servicios, niveles, sedes, FAQs hist&oacute;ricas, ejemplos de conversaciones reales del equipo. Lo que define el tono cercano de B&uacute;ho.</div>
+      </div>
+      <div style="padding:20px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(139,92,246,0.18); border-radius:12px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--emerald), #6EE7B7);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:var(--emerald); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; margin-top:8px;">Decisiones operativas</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white; margin-bottom:6px;">Persona que aprueba lotes y atiende escaladas</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6); line-height:1.6;">Punto de contacto del lado de B&uacute;ho que aprueba las corridas masivas y atiende los casos que el sistema escala para revisi&oacute;n humana.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 18: INVERSION ==================== -->
+<div class="slide slide-dark" data-slide="18">
+  <div style="position:absolute; top:-160px; right:-100px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.25), rgba(139,92,246,0.12) 35%, transparent 60%); border-radius:50% 40% 60% 45%; filter:blur(90px);"></div>
+  <div style="position:absolute; bottom:-120px; left:-80px; width:400px; height:400px; background:radial-gradient(ellipse, rgba(99,102,241,0.08), transparent 55%); border-radius:50%; filter:blur(80px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div class="s-label">INVERSI&Oacute;N</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:8px;">Dos capas, dos inversiones.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:24px;"></div>
+    <div style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.65; max-width:1100px; margin-bottom:28px;">Cada capa se contrata por separado. Pueden ir en paralelo o secuencialmente seg&uacute;n prioridad. <strong style="color:white;">Pago &uacute;nico, sin mensualidad.</strong></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+      <div style="padding:32px 30px; background:linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.08)); border:1px solid rgba(167,139,250,0.35); border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 40px rgba(139,92,246,0.15);">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--morado-claro), var(--morado), var(--morado-oscuro));"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; margin-top:6px;">Capa 1 &middot; Ops Layer</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; color:white; margin-bottom:6px;">Cotizaci&oacute;n + Recordatorios + Facturaci&oacute;n</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.55); line-height:1.65; margin-bottom:20px;">Setup operativo de las 3 habilidades sobre Siigo. Plazo: 15 d&iacute;as.</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:38px; font-weight:700; color:white; line-height:1.1; margin-bottom:8px;">$10.000.000 <span style="font-size:18px; opacity:0.7;">COP + IVA</span></div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.55); padding-top:14px; margin-top:14px; border-top:1px solid rgba(255,255,255,0.1);">50% anticipo a la firma + 50% contra entrega</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.65); line-height:1.85; margin-top:12px;">
+          <div style="padding-left:16px; position:relative;"><span style="position:absolute; left:0; color:var(--morado-claro); font-weight:700;">&#10003;</span>3 habilidades en Claude (cotizar, recordar, facturar)</div>
+          <div style="padding-left:16px; position:relative;"><span style="position:absolute; left:0; color:var(--morado-claro); font-weight:700;">&#10003;</span>Integraci&oacute;n API Siigo + matriz tarifaria parametrizada</div>
+          <div style="padding-left:16px; position:relative;"><span style="position:absolute; left:0; color:var(--morado-claro); font-weight:700;">&#10003;</span>1 mes de soporte post-lanzamiento</div>
+        </div>
+      </div>
+      <div style="padding:32px 30px; background:linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.08)); border:1px solid rgba(167,139,250,0.35); border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 40px rgba(139,92,246,0.15);">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--morado-claro), var(--morado), #6366F1);"></div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; margin-top:6px;">Capa 2 &middot; Agente conversacional</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:22px; font-weight:700; color:white; margin-bottom:6px;">Agente + Interfaz + Tablero de embudo</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.55); line-height:1.65; margin-bottom:20px;">Implementaci&oacute;n del agente, interfaz de leads y tablero. Plazo: 9 semanas m&iacute;nimo.</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:rgba(255,255,255,0.5); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Implementaci&oacute;n inicial</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:32px; font-weight:700; color:white; line-height:1.1; margin-bottom:6px;">$20.000.000 <span style="font-size:16px; opacity:0.7;">COP + IVA</span></div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.5);">50% anticipo a la firma + 50% contra entrega</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.1); margin-bottom:6px;">Fee mensual recurrente</div>
+        <div style="font-family:'Quicksand',sans-serif; font-size:32px; font-weight:700; color:white; line-height:1.1; margin-bottom:6px;">$4.200.000 <span style="font-size:16px; opacity:0.7;">COP + IVA / mes</span></div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.5);">Operaci&oacute;n, mantenimiento y evoluci&oacute;n del agente</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.65); line-height:1.85; margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.1);">
+          <div style="padding-left:16px; position:relative;"><span style="position:absolute; left:0; color:var(--morado-claro); font-weight:700;">&#10003;</span>Agente conversacional entrenado con la informaci&oacute;n de B&uacute;ho</div>
+          <div style="padding-left:16px; position:relative;"><span style="position:absolute; left:0; color:var(--morado-claro); font-weight:700;">&#10003;</span>Interfaz visual de leads que reemplaza al Excel</div>
+          <div style="padding-left:16px; position:relative;"><span style="position:absolute; left:0; color:var(--morado-claro); font-weight:700;">&#10003;</span>Tablero de embudo en tiempo real</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:18px; font-size:12px; color:rgba(255,255,255,0.4); line-height:1.6;">
+      <strong>No incluye:</strong> licencia y costos de Siigo &middot; API de WhatsApp Business (Meta) por cuenta del cliente &middot; cuenta WhatsApp Business si no existe.
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 19: SIGUIENTES PASOS ==================== -->
+<div class="slide slide-dark" data-slide="19">
+  <div style="position:absolute; top:-160px; right:-100px; width:600px; height:600px; background:radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.2), transparent 60%); border-radius:50%; filter:blur(90px);"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; padding:56px 80px;">
+    <div class="s-label">SIGUIENTES PASOS</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:40px; font-weight:700; color:white; line-height:1.15; margin-bottom:8px;">C&oacute;mo arrancamos.</div>
+    <div style="width:40px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin-bottom:32px;"></div>
+    <div style="display:flex; flex-direction:column; gap:0; position:relative; padding-left:28px;">
+      <div style="position:absolute; left:12px; top:14px; bottom:14px; width:2px; background:linear-gradient(to bottom, var(--morado), var(--morado-claro), var(--emerald)); border-radius:2px;"></div>
+      <div style="display:flex; align-items:flex-start; gap:20px; padding:16px 0;">
+        <div style="width:36px; height:36px; border-radius:50%; background:var(--morado); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 20px rgba(139,92,246,0.3);">1</div>
+        <div style="flex:1;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-bottom:4px;">Decisi&oacute;n del alcance</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.6;">Confirmamos si avanzamos con una capa, las dos en paralelo o secuencialmente. La recomendaci&oacute;n es arrancar Ops por urgencia operativa de la temporada de matr&iacute;culas.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:20px; padding:16px 0;">
+        <div style="width:36px; height:36px; border-radius:50%; background:var(--morado-claro); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:#0a0812; flex-shrink:0; z-index:1; margin-left:-17px;">2</div>
+        <div style="flex:1;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-bottom:4px;">Validaci&oacute;n t&eacute;cnica con Ingenier&iacute;a</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.6;">API de Siigo (estado de pago en tiempo real para los recordatorios) y cuenta WhatsApp Business de B&uacute;ho. Validaciones bloqueantes antes de firmar.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:20px; padding:16px 0;">
+        <div style="width:36px; height:36px; border-radius:50%; background:#6366F1; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:white; flex-shrink:0; z-index:1; margin-left:-17px;">3</div>
+        <div style="flex:1;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-bottom:4px;">Firma de contrato y anticipo</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.6;">50% del valor de cada capa contratada. Inicio inmediato del trabajo.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:20px; padding:16px 0;">
+        <div style="width:36px; height:36px; border-radius:50%; background:var(--emerald); display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-size:16px; font-weight:700; color:#0a0812; flex-shrink:0; z-index:1; margin-left:-17px; box-shadow:0 0 20px rgba(52,211,153,0.3);">4</div>
+        <div style="flex:1;">
+          <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:700; color:white; margin-bottom:4px;">Kickoff y entrega</div>
+          <div style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.6;">Ops: 15 d&iacute;as a producci&oacute;n. Agente: m&iacute;nimo 9 semanas con iteraciones de tono y entrenamiento. Soporte post-lanzamiento incluido.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 20: CIERRE ==================== -->
+<div class="slide slide-dark" data-slide="20">
+  <video autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(2px) brightness(0.25); z-index:0;">
+    <source src="https://storage.googleapis.com/cluvi/Sara/Videos/video%20mr%20irrelevants%20oficina.MOV" type="video/mp4">
+  </video>
+  <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,10,31,0.7), rgba(124,58,237,0.15), rgba(15,10,31,0.8)); z-index:0;"></div>
+  <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px); background-size:60px 60px; z-index:0;"></div>
+  <div style="position:relative; z-index:1; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:56px 80px; text-align:center;">
+    <div class="s-label">SIGUIENTE PASO</div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:44px; font-weight:700; color:white; line-height:1.15; margin-bottom:12px;">Que B&uacute;ho siga creciendo<br>sin perder la <span style="background:linear-gradient(135deg, var(--morado-claro), var(--morado), #6366F1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">cercan&iacute;a</span> que lo distingue.</div>
+    <div style="width:50px; height:2px; background:linear-gradient(90deg, var(--morado), var(--morado-claro)); margin:24px auto;"></div>
+    <div style="font-family:'Quicksand',sans-serif; font-size:18px; font-weight:400; color:rgba(255,255,255,0.5); margin-bottom:8px; max-width:760px; line-height:1.6;">Listos para arrancar la implementaci&oacute;n en cuanto definamos el alcance y firmemos.</div>
+    <a href="mailto:sara@stayirrelevant.com" class="cta-btn" style="font-size:18px; padding:16px 40px;">Empezar &#10132;</a>
+    <div style="display:flex; gap:40px; margin-top:36px; flex-wrap:wrap; justify-content:center;">
+      <div style="text-align:center;">
+        <div style="font-family:'Quicksand',sans-serif; font-size:13px; font-weight:700; color:var(--morado-claro); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Sara Garc&eacute;s Tob&oacute;n</div>
+        <div style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.6;">Directora de Marketing</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.5);">&#9993; sara@stayirrelevant.com</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.5);">&#128172; +57 321 846 4652</div>
+      </div>
+    </div>
+    <div style="margin-top:36px; font-family:'Quicksand',sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,0.2); letter-spacing:3px;">THINK AI OR STAY IRRELEVANT.</div>
+  </div>
+</div>
+
+<!-- SLIDE COUNTER -->
+<div class="slide-counter" id="slideCounter">1 / 20</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slideCounter');
+  let current = 0;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = ((n % slides.length) + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      showSlide(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      showSlide(current - 1);
+    } else if (e.key === 'Home') {
+      showSlide(0);
+    } else if (e.key === 'End') {
+      showSlide(slides.length - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const x = e.clientX;
+    const w = window.innerWidth;
+    if (x > w / 2) showSlide(current + 1);
+    else showSlide(current - 1);
+  });
+</script>
+
+</body>
+</html>

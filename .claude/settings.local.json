@@ -5,7 +5,9 @@
       "WebFetch(domain:propuestafinalgrasshopper.netlify.app)",
       "Skill(prep-call)",
       "Bash(git pull:*)",
-<<<<<<< HEAD
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
       "WebFetch(domain:www.linkedin.com)",
       "WebFetch(domain:phidias.com)",
       "WebFetch(domain:loggro.com)",
@@ -99,12 +101,14 @@
       "Bash(grep -n 'SMS\\\\|100 USD\\\\|$100\\\\|cien d&oacute;lares\\\\|marketing@stayirrelevant\\\\|7\\\\.000\\\\.000\\\\|$ X\\\\|\\\\$X\\\\|\\\\$ X\\\\|costo\\\\|precio\\\\|fee\\\\|cost-value\\\\|inversi\\\\|Inversi' '/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/conaltura/iniciativas/02-sostenibilidad/comercial/slides-propuesta-ops.html')",
       "Bash(grep -n \"precio\\\\|Precio\\\\|cost\\\\|fee\\\\|inversi\\\\|Inversi\\\\|invertir\\\\|valor\\\\|million\\\\|millon\\\\|COP\\\\|USD\\\\|\\\\\\\\\\\\$\\\\|monto\\\\|pago\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/conaltura/iniciativas/02-sostenibilidad/comercial/slides-propuesta-ops.html\")",
       "Skill(procesar-call)",
-      "Bash(grep -n -iE \"\\(precio|cobrar|price|usd|cop|\\\\\\\\\\\\$|fee|costo|equity|partnership|alianza|comisión|comision|margen|split|porcentaje\\)\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/ai-webs/contexto/transcript-2026-04-28-call-1-partnership.md\")"
-=======
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push)"
->>>>>>> 230a17eafd5a44f70d6f8c28912ed6f518ce1711
+      "Bash(grep -n -iE \"\\(precio|cobrar|price|usd|cop|\\\\\\\\\\\\$|fee|costo|equity|partnership|alianza|comisión|comision|margen|split|porcentaje\\)\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Clientes/ai-webs/contexto/transcript-2026-04-28-call-1-partnership.md\")",
+      "WebFetch(domain:www.camaradelpacifico.org)",
+      "WebSearch",
+      "Bash(cupsfilter --list-filters /tmp/test.html)",
+      "Bash(textutil -convert docx briefing-procesos-para-jp.html -output briefing-procesos-para-jp.docx)",
+      "Bash(cupsfilter -i text/html -m application/pdf briefing-procesos-para-jp.html)",
+      "Bash(grep -n \"background\\\\|color\\\\|#[0-9A-Fa-f]\\\\{3,6\\\\}\\\\|rgb\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Assets Fijos/Pitch Deck/pitch-deck-irrelevant-es.html\")",
+      "Bash(grep -n \"background\\\\|color\\\\|#[0-9A-Fa-f]\\\\{3,6\\\\}\\\\|rgb\" \"/Users/saragarcest/Desktop/irrelevant/Sales irrelevant/irrelevant-os-ao/Templates/Comercial/Slides Propuesta Ops/slides-propuesta-ops-es.html\")"
     ],
     "deny": [],
     "ask": []
